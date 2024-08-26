@@ -18,7 +18,8 @@ const worksCollection = defineCollection({
     author: z.string().min(1),
     title: z.string().min(1),
     stack: z.array(z.string()),
-    repo: z.string(),
+    repo: z.string().optional(),
+    preview: z.string().optional(),
     description: z.string().min(1),
   }),
 });

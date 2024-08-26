@@ -7,8 +7,6 @@ import rehypeSlug from "rehype-slug";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 
-import icon from "astro-icon";
-
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -27,6 +25,5 @@ export default defineConfig({
       optimize: true,
     }),
     react(),
-    icon(),
   ],
 });

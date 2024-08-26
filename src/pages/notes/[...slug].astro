@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content } = await item.render();
+const { Content, remarkPluginFrontmatter } = await item.render();
 ---
 
 <Layout title={item.data.title}>
@@ -26,19 +26,16 @@ const { Content } = await item.render();
       <ArrowLeftIcon />
     </button>
     <h1 class="mt-4">{item.data.title}</h1>
-    <p>
-      <span class="font-bold">{item.data.author}.</span>
-      {format(new Date(item.data.created_at) ?? new Date(), "LLLL d, yyyy")}{
-        " "
-      }
-    </p>
+    <div class="flex items-center">
+      <span class="font-bold text-base-0 mr-1.5"
+        >{item.data.author}, {remarkPluginFrontmatter.minutesRead} / {
+          format(item.data.created_at, "LLLL d, yyyy")
+        }
+      </span>
+    </div>
     <p class="text-right text-xl font-bold arabic-font">
       بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
     </p>
     <Content />
   </div>
-
-  <script>
-    const history = new History();
-  </script>
 </Layout>
