@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
 
 const notesList = await getCollection("notes");
@@ -29,13 +30,14 @@ const notesList = await getCollection("notes");
                 "flex-wrap border-2 border-dashed border-base-0",
               ]}
             >
+              <span class="font-semibold">{format(item.data.created_at, "LLLL d, yyyy")}</span>
               <a
                 href={`/notes/${item.slug}`}
                 class:list={[
-                  "cursor-pointer text-lg font-bold",
+                  "cursor-pointer text-lg mt-2 font-bold",
                   "!no-underline",
                 ]}
-              >
+                >
                 <h3 class="mt-0 font-bold line-clamp-2 mb-0 text-2xl">
                   {item.data.title}
                 </h3>
