@@ -14,6 +14,9 @@ dependencies:
   '@astrojs/react':
     specifier: ^3.6.2
     version: 3.6.2(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1)(react@18.3.1)(vite@5.4.2)
+  '@astrojs/sitemap':
+    specifier: ^3.1.6
+    version: 3.1.6
   '@astrojs/tailwind':
     specifier: ^5.1.0
     version: 5.1.0(astro@4.14.5)(tailwindcss@3.4.10)
@@ -35,6 +38,9 @@ dependencies:
   astro:
     specifier: ^4.14.5
     version: 4.14.5(typescript@5.5.4)
+  astro-compressor:
+    specifier: ^0.4.1
+    version: 0.4.1
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
@@ -249,6 +255,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - vite
+    dev: false
+
+  /@astrojs/sitemap@3.1.6:
+    resolution: {integrity: sha512-1Qp2NvAzVImqA6y+LubKi1DVhve/hXXgFvB0szxiipzh7BvtuKe4oJJ9dXSqaubaTkt4nMa6dv6RCCAYeB6xaQ==}
+    dependencies:
+      sitemap: 7.1.2
+      stream-replace-string: 2.0.0
+      zod: 3.23.8
     dev: false
 
   /@astrojs/tailwind@5.1.0(astro@4.14.5)(tailwindcss@3.4.10):
@@ -1358,6 +1372,10 @@ packages:
       '@types/unist': 3.0.3
     dev: false
 
+  /@types/node@17.0.45:
+    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: false
+
   /@types/prop-types@15.7.12:
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
     dev: false
@@ -1373,6 +1391,12 @@ packages:
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
+    dev: false
+
+  /@types/sax@1.2.7:
+    resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
+    dependencies:
+      '@types/node': 17.0.45
     dev: false
 
   /@types/ungap__structured-clone@1.2.0:
@@ -1809,6 +1833,10 @@ packages:
   /astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+    dev: false
+
+  /astro-compressor@0.4.1:
+    resolution: {integrity: sha512-IAgYAlxYRMolaptsFB9quH7RxX4eUeC4UfULCPhT+ILcg7m1kbaxuyUKqGg9Hh+KZ+FNPPDAz7DqUfl+HDWhQg==}
     dev: false
 
   /astro-eslint-parser@1.0.2(typescript@5.5.4):
@@ -5526,6 +5554,10 @@ packages:
       is-regex: 1.1.4
     dev: true
 
+  /sax@1.4.1:
+    resolution: {integrity: sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==}
+    dev: false
+
   /scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
     dependencies:
@@ -5650,6 +5682,17 @@ packages:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
     dev: false
 
+  /sitemap@7.1.2:
+    resolution: {integrity: sha512-ARCqzHJ0p4gWt+j7NlU5eDlIO9+Rkr/JhPFZKKQ1l5GCus7rJH4UdrlVAh0xC/gDS/Qir2UMxqYNHtsKr2rpCw==}
+    engines: {node: '>=12.0.0', npm: '>=5.6.0'}
+    hasBin: true
+    dependencies:
+      '@types/node': 17.0.45
+      '@types/sax': 1.2.7
+      arg: 5.0.2
+      sax: 1.4.1
+    dev: false
+
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
@@ -5688,6 +5731,10 @@ packages:
     dependencies:
       internal-slot: 1.0.7
     dev: true
+
+  /stream-replace-string@2.0.0:
+    resolution: {integrity: sha512-TlnjJ1C0QrmxRNrON00JvaFFlNh5TTG00APw23j74ET7gkQpTASi6/L2fuiav8pzK715HXtUeClpBTw2NPSn6w==}
+    dev: false
 
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
