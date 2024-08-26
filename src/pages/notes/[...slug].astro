@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+import { ArrowLeftIcon } from "lucide-react";
+import Layout from "~layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("notes");
+
+  return blogEntries.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+---
+
+<Layout title={item.data.title}>
+  <div class="w-full">
+    <button onclick="history.back()"><ArrowLeftIcon /></button>
+    <h1 class="mt-4">{item.data.title}</h1>
+    <p>
+      <span class="font-extrabold">{item.data.author}.</span>
+      {format(new Date(item.data.created_at) ?? new Date(), "LLLL d, yyyy")}{
+        " "
+      }
+    </p>
+    <p class="text-right text-xl font-bold">
+      بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+    </p>
+    <Content />
+  </div>
+</Layout>
+
+<script>
+  const history = new History();
+</script>

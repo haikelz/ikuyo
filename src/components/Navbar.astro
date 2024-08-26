@@ -1,0 +1,20 @@
+---
+import { HomeIcon, ListIcon, NotepadTextIcon, ContactIcon } from "lucide-react";
+---
+
+<nav
+  class="fixed flex justify-center items-center px-4 py-2 space-x-8 w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full bg-base-1/70 backdrop-blur-md border-base-3 z-50"
+>
+  <button onclick="window.location.replace('/')">
+    <HomeIcon className="text-white border-white" size={23} />
+  </button>
+  <button onclick="window.location.replace('/notes')">
+    <NotepadTextIcon size={23} className="text-white border-white" />
+  </button>
+  <button onclick="window.location.replace('/works')">
+    <ListIcon size={23} className="text-white border-white" />
+  </button>
+  <button onclick="window.location.replace('/guestbook')">
+    <ContactIcon size={23} className="text-white border-white" />
+  </button>
+</nav>
