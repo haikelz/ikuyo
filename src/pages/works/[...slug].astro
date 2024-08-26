@@ -18,10 +18,10 @@ const { Content, remarkPluginFrontmatter } = await item.render();
 
 <Layout title={item.data.title} description={item.data.description} url={`https://ekel.dev/works/${item.slug}`}>
   <div class="w-full">
-    <a href="/works" class="flex justify-center items-center w-fit">
+    <a href="/works">
       <button
         type="button" aria-label="back to works"
-        class="w-4 flex-col justify-center items-center rounded-full h-4 p-4 bg-base-5"
+        class="w-4 flex justify-center items-center rounded-full h-4 p-4 bg-base-5"
       >
         <ArrowLeftIcon />
       </button>
