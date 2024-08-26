@@ -17,7 +17,7 @@ const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await item.render();
 ---
 
-<Layout title={item.data.title}>
+<Layout title={item.data.title} description={item.data.description} url={`https://ekel.dev/notes/${item.slug}`}>
   <div class="w-full">
     <button
       onclick="window.location.replace('/notes')"

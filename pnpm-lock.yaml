@@ -17,12 +17,12 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.1.0
     version: 5.1.0(astro@4.14.5)(tailwindcss@3.4.10)
+  '@fontsource/bricolage-grotesque':
+    specifier: ^5.0.7
+    version: 5.0.7
   '@fontsource/ibm-plex-mono':
     specifier: ^5.0.14
     version: 5.0.14
-  '@fontsource/inter':
-    specifier: ^5.0.20
-    version: 5.0.20
   '@fontsource/noto-naskh-arabic':
     specifier: ^5.0.21
     version: 5.0.21
@@ -65,18 +65,12 @@ dependencies:
   remark-toc:
     specifier: ^9.0.0
     version: 9.0.0
-  slugify:
-    specifier: ^1.6.6
-    version: 1.6.6
   tailwind-merge:
     specifier: ^2.5.2
     version: 2.5.2
   typescript:
     specifier: ^5.5.4
     version: 5.5.4
-  yet-another-react-lightbox:
-    specifier: ^3.21.4
-    version: 3.21.4(react-dom@18.3.1)(react@18.3.1)
 
 devDependencies:
   '@tailwindcss/typography':
@@ -822,12 +816,12 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     dev: true
 
-  /@fontsource/ibm-plex-mono@5.0.14:
-    resolution: {integrity: sha512-727fOjiog6PbVkfLTRaiba5vus9z00RrGuoxif85FIKljXkoLxrSEKmACz0ldzLJy6KuEwnj5JBq2h4SUC0N8w==}
+  /@fontsource/bricolage-grotesque@5.0.7:
+    resolution: {integrity: sha512-y43YC0BAtRYInnkCWlhhCJcMayt5CJ32GntLhI9zmb4qhd1ujGQgVTexzoI0fkfx8oI4EzR0vxVxC2FhYnS//A==}
     dev: false
 
-  /@fontsource/inter@5.0.20:
-    resolution: {integrity: sha512-rtw2F7xfM7rJmmnncXnR4ADr5wXsp4GyN1O1jmQJ1PMjAK+bm620/ZkQkeOYOkGoa09OksGinOeMA+Mkt6K9PQ==}
+  /@fontsource/ibm-plex-mono@5.0.14:
+    resolution: {integrity: sha512-727fOjiog6PbVkfLTRaiba5vus9z00RrGuoxif85FIKljXkoLxrSEKmACz0ldzLJy6KuEwnj5JBq2h4SUC0N8w==}
     dev: false
 
   /@fontsource/noto-naskh-arabic@5.0.21:
@@ -5661,11 +5655,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /slugify@1.6.6:
-    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
-    engines: {node: '>=8.0.0'}
-    dev: false
-
   /source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
@@ -6552,17 +6541,6 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-    dev: false
-
-  /yet-another-react-lightbox@3.21.4(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-xlYs+F8it8DhCRXcgwXFh58HOuGpNFWmBqaUoo1gkZvHpCaiGAEkAUfAIRz9+sWEcZLSK45zB65+n3gDjjuz1Q==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /yocto-queue@0.1.0:

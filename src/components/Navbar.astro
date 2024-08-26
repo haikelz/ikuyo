@@ -1,37 +1,7 @@
 ---
-import { HomeIcon, ListIcon, NotepadTextIcon } from "lucide-react";
+import NavList from "./NavList";
 
 const currentPath = Astro.url.pathname;
 ---
 
-<nav
-  class="fixed flex justify-center items-center px-4 py-2 space-x-8 w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full bg-base-5/70 backdrop-blur-md border-base-3 z-50"
->
-  <button
-    onclick="window.location.replace('/')"
-    class:list={["p-2", currentPath === "/" ? "bg-gray-200 rounded-full" : ""]}
-  >
-    <HomeIcon className="text-base-0 border-base-0" size={23} />
-  </button>
-  <button
-    onclick="window.location.replace('/notes')"
-    class:list={[
-      "p-2",
-      currentPath.includes("/notes") ? "bg-gray-200 rounded-full" : "",
-    ]}
-  >
-    <NotepadTextIcon
-      size={23}
-      className="text-base-0 font-bold border-base-0"
-    />
-  </button>
-  <button
-    onclick="window.location.replace('/works')"
-    class:list={[
-      "p-2",
-      currentPath.includes("/works") ? "bg-gray-200 rounded-full" : "",
-    ]}
-  >
-    <ListIcon size={23} className="text-base-0 border-base-0" />
-  </button>
-</nav>
+<NavList currentPath={currentPath} client:load />
