@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowLeftIcon } from "lucide-react";
+import Layout from "~layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const worksCollection = await getCollection("works");
+
+  return worksCollection.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await item.render();
+---
+
+<Layout title={item.data.title}>
+  <div class="w-full">
+    <button
+      onclick="window.location.replace('/works')"
+      class="w-4 flex-col justify-center items-center rounded-full h-4 p-4 bg-base-5"
+    >
+      <ArrowLeftIcon />
+    </button>
+    <h1 class="mt-4">{item.data.title}</h1>
+    <span>{remarkPluginFrontmatter.minutesRead}</span>
+    <span class="font-bold">{item.data.author}.</span>
+    <p class="text-right text-xl font-bold arabic-font">
+      بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+    </p>
+    <Content />
+  </div>
+</Layout>
+
+<script>
+  const history = new History();
+</script>

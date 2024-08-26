@@ -16,8 +16,12 @@ h6 {
   @apply font-extrabold w-fit;
 }
 
+.arabic-font {
+  font-family: "Noto Naskh Arabic";
+}
+
 .prose code:not(:has(span)) {
-  @apply bg-base-5 dark:bg-base-2 px-1 py-0.5 rounded-sm;
+  @apply bg-base-5 px-1 py-0.5 rounded-sm;
   font-family: "IBM Plex Mono";
 }
 
@@ -47,7 +51,7 @@ h6 {
 }
 
 .prose video {
-  @apply my-8 rounded-sm shadow-md dark:shadow-gray-900;
+  @apply my-8 rounded-sm shadow-md;
 }
 
 .prose a {
@@ -55,7 +59,7 @@ h6 {
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
-  @apply border-l-[0.25em] border-solid border-base-0 dark:border-base-5;
+  @apply border-l-[0.25em] border-solid border-base-0;
 }
 
 button {
@@ -66,10 +70,6 @@ button {
   box-shadow: 0px 0px 40px -23px rgba(0, 0, 0, 1);
   -webkit-box-shadow: 0px 0px 40px -23px rgba(0, 0, 0, 1);
   -moz-box-shadow: 0px 0px 40px -23px rgba(0, 0, 0, 1);
-}
-
-.bg {
-  @apply bg-[#effffd] dark:bg-base-0;
 }
 
 ::-webkit-scrollbar-track {

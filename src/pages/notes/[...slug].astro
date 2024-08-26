@@ -19,21 +19,26 @@ const { Content } = await item.render();
 
 <Layout title={item.data.title}>
   <div class="w-full">
-    <button onclick="history.back()"><ArrowLeftIcon /></button>
+    <button
+      onclick="window.location.replace('/notes')"
+      class="w-4 flex-col justify-center items-center rounded-full h-4 p-4 bg-base-5"
+    >
+      <ArrowLeftIcon />
+    </button>
     <h1 class="mt-4">{item.data.title}</h1>
     <p>
-      <span class="font-extrabold">{item.data.author}.</span>
+      <span class="font-bold">{item.data.author}.</span>
       {format(new Date(item.data.created_at) ?? new Date(), "LLLL d, yyyy")}{
         " "
       }
     </p>
-    <p class="text-right text-xl font-bold">
+    <p class="text-right text-xl font-bold arabic-font">
       بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
     </p>
     <Content />
   </div>
-</Layout>
 
-<script>
-  const history = new History();
-</script>
+  <script>
+    const history = new History();
+  </script>
+</Layout>

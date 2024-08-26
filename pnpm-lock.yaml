@@ -50,6 +50,9 @@ dependencies:
   lucide-react:
     specifier: ^0.436.0
     version: 0.436.0(react@18.3.1)
+  mdast-util-to-string:
+    specifier: ^4.0.0
+    version: 4.0.0
   react:
     specifier: ^18.3.1
     version: 18.3.1
