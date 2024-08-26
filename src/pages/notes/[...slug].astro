@@ -19,10 +19,10 @@ const { Content, remarkPluginFrontmatter } = await item.render();
 
 <Layout title={item.data.title} description={item.data.description} url={`https://ekel.dev/notes/${item.slug}`}>
   <div class="w-full">
-    <a href="/notes" class="flex justify-center items-center w-fit">
+    <a href="/notes" class="w-fit flex justify-center items-center">
       <button
         type="button" aria-label="back to notes"
-        class="w-4 flex justify-center items-center rounded-full h-4 p-4 bg-base-5"
+        class="w-8 rounded-full h-8 flex justify-center items-center bg-base-5"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
