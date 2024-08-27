@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "~layouts/Layout.astro";
+
+const notes = await getCollection("notes");
+const tags = [
+  ...new Set(
+    notes
+      .map((item) => [...new Set(item.data.tags)].join(" "))
+      .join(" ")
+      .split(" ")
+  )
+].sort((a, b) => {
+  if (a > b) return 1;
+  if (a < b) return -1;
+  return 0;
+});
+---
+
+<Layout title="Tags" description="Tags" url="https://ekel.dev/tags">
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start"
+    ]}
+  >
+    <section class="w-full">
+      <h1 class="mb-0">Tags</h1>
+      <p id="description" class="mb-0 text-justify">
+        Select spesific notes based on the list of tags below.
+      </p>
+    </section>
+    <section class="mt-8 w-full">
+      <div class="flex w-full flex-wrap items-center justify-start gap-4">
+        {
+          tags.map((item) => (
+            <a href={`/tags/${item}`}>
+              <button class="bg-base-5 px-4 py-1">
+                <p class="mb-0 mt-0 text-base-0">{item}</p>
+              </button>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>

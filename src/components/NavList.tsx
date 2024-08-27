@@ -1,4 +1,5 @@
 import {
+  HashIcon,
   HomeIcon,
   ImagesIcon,
   ListIcon,
@@ -21,6 +22,11 @@ export default function NavList({ currentPath }: { currentPath: string }) {
     },
     {
       id: 3,
+      icon: HashIcon,
+      path: "/tags",
+    },
+    {
+      id: 4,
       icon: ImagesIcon,
       path: "/photos",
     },

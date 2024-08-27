@@ -8,11 +8,11 @@ import "../index.css";
 
 interface Props {
   title: string;
-  description: string 
-  url: string 
+  description: string;
+  url: string;
 }
 
-const { title, description,url } = Astro.props;
+const { title, description, url } = Astro.props;
 ---
 
 <!doctype html>
@@ -35,12 +35,12 @@ const { title, description,url } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
   </head>
-  <body class="bg-white w-full">
+  <body class="w-full bg-white">
     <main
-      class="flex min-h-screen w-full leading-[1.75] tracking-wide text-base-0 justify-center items-start"
+      class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide text-base-0"
     >
       <div
-        class="max-w-3xl mx-auto w-full container prose prose-gray prose-base px-4 pt-8 pb-24"
+        class="container prose prose-base prose-gray mx-auto w-full max-w-3xl px-4 pb-24 pt-8"
       >
         <slot />
       </div>

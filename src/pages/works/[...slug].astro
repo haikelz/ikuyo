@@ -4,11 +4,11 @@ import { ArrowLeftIcon } from "lucide-react";
 import Layout from "~layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const worksCollection = await getCollection("works");
+  const worksEntries = await getCollection("works");
 
-  return worksCollection.map((item) => ({
+  return worksEntries.map((item) => ({
     params: { slug: item.slug },
-    props: { item },
+    props: { item }
   }));
 }
 
@@ -16,19 +16,24 @@ const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await item.render();
 ---
 
-<Layout title={item.data.title} description={item.data.description} url={`https://ekel.dev/works/${item.slug}`}>
+<Layout
+  title={item.data.title}
+  description={item.data.description}
+  url={`https://ekel.dev/works/${item.slug}`}
+>
   <div class="w-full">
-    <a href="/works" class="w-fit flex justify-center items-center">
+    <a href="/works" class="flex w-fit items-center justify-center">
       <button
-        type="button" aria-label="back to works"
-        class="w-8 rounded-full h-8 flex justify-center items-center bg-base-5"
+        type="button"
+        aria-label="back to works"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-base-5"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
-    </a> 
+    </a>
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex items-center">
-      <span class="font-bold text-base-0 mr-1.5"
+      <span class="mr-1.5 font-bold text-base-0"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead}.
       </span>{" "}
       <div class="font-bold">
@@ -41,7 +46,7 @@ const { Content, remarkPluginFrontmatter } = await item.render();
         >
       </div>
     </div>
-    <p class="text-right text-xl font-bold arabic-font">
+    <p class="arabic-font text-right text-xl font-bold">
       بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
     </p>
     <Content />

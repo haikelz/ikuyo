@@ -51,9 +51,13 @@
     "@typescript-eslint/parser": "^8.2.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^1.2.3",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "postcss": "^8.4.41",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss": "^3.4.10"
   }
 }

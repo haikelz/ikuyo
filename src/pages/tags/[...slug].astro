@@ -3,14 +3,34 @@ import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
 
-const notesList = await getCollection("notes");
+const notes = await getCollection("notes");
+
+export async function getStaticPaths() {
+  const notesEntries = await getCollection("notes");
+  const tags = [
+    ...new Set(
+      notesEntries
+        .map((item) => [...new Set(item.data.tags)].join(" "))
+        .join(" ")
+        .split(" ")
+    )
+  ].sort((a, b) => {
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+  });
+
+  return tags.map((item) => ({
+    params: { slug: item },
+    props: { item }
+  }));
+}
+
+// get dynamic path
+const currentPath = Astro.url.pathname.split("/")[2];
 ---
 
-<Layout
-  title="Notes"
-  description="Sometimes, I write something. Mostly about technical stuff. So yeah, I call this as Notes."
-  url="https://ekel.dev/notes"
->
+<Layout title="Notes with tag " description="Notes with tag" url="">
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
@@ -18,16 +38,16 @@ const notesList = await getCollection("notes");
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Notes</h1>
+      <h1 class="mb-0">Tags</h1>
       <p id="description" class="mb-0 text-justify">
-        Sometimes, I write something. Mostly about technical stuff. So yeah, I
-        call this as <b>Notes.</b>
+        Select spesific notes based on the list of tags below.
       </p>
     </section>
     <section class="mt-8 w-full">
       <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
         {
-          notesList
+          notes
+            .filter((item) => item.data.tags.includes(currentPath))
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
