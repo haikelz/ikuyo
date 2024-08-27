@@ -22,12 +22,12 @@ const { title, description,url } = Astro.props;
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ekel.dev" />
+    <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="https://ekel.dev/opengraph.png" />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ekel.dev" />
+    <meta property="twitter:url" content={url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
@@ -35,7 +35,7 @@ const { title, description,url } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
   </head>
-  <body class="bg-white w-full" >
+  <body class="bg-white w-full">
     <main
       class="flex min-h-screen w-full leading-[1.75] tracking-wide text-base-0 justify-center items-start"
     >
