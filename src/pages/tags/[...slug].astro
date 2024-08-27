@@ -30,7 +30,11 @@ export async function getStaticPaths() {
 const currentPath = Astro.url.pathname.split("/")[2];
 ---
 
-<Layout title="Notes with tag " description="Notes with tag" url="">
+<Layout
+  title={`Notes with tag ${currentPath}.`}
+  description="Notes with tag"
+  url={`https://ekel.dev/tags/${currentPath}`}
+>
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
@@ -40,7 +44,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
     <section class="w-full">
       <h1 class="mb-0">Tags</h1>
       <p id="description" class="mb-0 text-justify">
-        Select spesific notes based on the list of tags below.
+        Notes with tag {currentPath}.
       </p>
     </section>
     <section class="mt-8 w-full">
