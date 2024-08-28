@@ -36,14 +36,28 @@ const { Content, remarkPluginFrontmatter } = await item.render();
       <span class="mr-1.5 font-bold text-base-0"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead}.
       </span>{" "}
-      <div class="font-bold">
-        <a href={item.data.preview} target="_blank" rel="noopener noreferrer"
-          >Preview</a
-        >
-        {item.data.preview && item.data.repo ? " / " : null}
-        <a href={item.data.repo} target="_blank" rel="noopener noreferrer"
-          >source</a
-        >
+      <div class="flex items-center justify-center space-x-1.5 font-bold">
+        {
+          item.data.preview ? (
+            <>
+              <a
+                href={item.data.preview}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Preview
+              </a>
+              <span> / </span>
+            </>
+          ) : null
+        }
+        {
+          item.data.repo ? (
+            <a href={item.data.repo} target="_blank" rel="noopener noreferrer">
+              Source
+            </a>
+          ) : null
+        }
       </div>
     </div>
     <p class="arabic-font text-right text-xl font-bold">
