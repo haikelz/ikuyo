@@ -36,9 +36,11 @@ const worksList = await getCollection("works");
                 <Image
                   src={item.data.thumbnail}
                   alt={item.data.title}
-                  width={376}
-                  height={190}
-                  class="!my-0 h-[190px] w-full !rounded-none !border-none"
+                  width={500}
+                  height={500}
+                  quality={100}
+                  format="avif"
+                  class="!my-0 aspect-video !rounded-none !border-none"
                 />
                 <div class="p-4">
                   <a

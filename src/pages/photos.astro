@@ -69,8 +69,10 @@ export const photosList = [
       {
         photosList.map((item) => (
           <Image
-            width={1000}
-            height={1000}
+            width={500}
+            height={500}
+            quality={100}
+            format="avif"
             src={`/images/photos/${item.id}.png`}
             alt={item.name}
             class="!my-0"
