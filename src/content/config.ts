@@ -16,6 +16,7 @@ const worksCollection = defineCollection({
   schema: z.object({
     id: z.number(),
     author: z.string().min(1),
+    thumbnail: z.string().min(1).includes("https"),
     title: z.string().min(1),
     stack: z.array(z.string()),
     repo: z.string().optional(),

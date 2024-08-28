@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
@@ -114,22 +115,31 @@ const worksList = await getCollection("works");
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-white p-4 drop-shadow-sm",
+                  "flex w-full flex-col bg-white drop-shadow-sm",
                   "flex-wrap border-2 border-dashed border-base-0"
                 ]}
               >
-                <a
-                  href={`/works/${item.slug}`}
-                  class:list={[
-                    "cursor-pointer text-lg font-bold",
-                    "!no-underline"
-                  ]}
-                >
-                  <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
-                    {item.data.title}
-                  </h3>
-                </a>
-                <p class="mb-0 mt-4">{item.data.description}</p>
+                <Image
+                  src={item.data.thumbnail}
+                  alt={item.data.title}
+                  width={1000}
+                  height={1000}
+                  class="!my-0 h-[190px] w-full !rounded-none !border-none"
+                />
+                <div class="w-full p-4">
+                  <a
+                    href={`/works/${item.slug}`}
+                    class:list={[
+                      "cursor-pointer text-lg font-bold",
+                      "!no-underline"
+                    ]}
+                  >
+                    <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
+                      {item.data.title}
+                    </h3>
+                  </a>
+                  <p class="mb-0 mt-2">{item.data.description}</p>
+                </div>
               </div>
             ))
         }
