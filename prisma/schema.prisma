@@ -1,0 +1,30 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model Guestbook {
+    id Int @id @default(autoincrement()) 
+    created_at DateTime @default(now())
+    email String 
+    username String
+    message String 
+}
+
+model Pageviews {
+    id Int @id @default(autoincrement())
+    slug String
+    title String 
+    count Int
+}
+
+model Reactions {
+    id Int @id @default(autoincrement())
+    slug String
+    love Int
+}

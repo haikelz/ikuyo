@@ -1,0 +1,47 @@
+---
+import { format } from "date-fns";
+import Layout from "~layouts/Layout.astro";
+import { prisma } from "~lib/utils/prisma";
+
+const guestbook = await prisma.guestbook.findMany();
+---
+
+<Layout
+  title="Guestbook"
+  description="Write a message for me and others."
+  url="https://ekel.dev/guestbook"
+>
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start"
+    ]}
+  >
+    <section class="w-full">
+      <h1 class="mb-0">Guestbook</h1>
+      <p id="description" class="mb-0 text-justify">
+        Write a message for me and others. Work In Progress (WIP).
+      </p>
+    </section>
+    <section
+      class="mt-8 flex w-full flex-col items-start justify-start space-y-6"
+    >
+      {
+        guestbook
+          .sort(
+            (a, b) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime()
+          )
+          .map((item) => (
+            <div>
+              <h3 class="my-0">{item.message}</h3>
+              <p class="mb-0 mt-2">
+                {item.username}. {format(item.created_at, "MMMM d, y")}
+              </p>
+            </div>
+          ))
+      }
+    </section>
+  </div>
+</Layout>
