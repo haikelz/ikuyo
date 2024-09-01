@@ -1,9 +1,31 @@
 ---
 import { format } from "date-fns";
+import GuestbookForm from "~components/GuestbookForm";
 import Layout from "~layouts/Layout.astro";
-import { prisma } from "~lib/utils/prisma";
+import {
+  PUBLIC_DEVELOPMENT_URL,
+  PUBLIC_PRODUCTION_URL
+} from "~lib/utils/constants";
+import type { GuestbookProps } from "~types";
 
-const guestbook = await prisma.guestbook.findMany();
+type ResponseGuestbookProps = {
+  statusCode: number;
+  message: string;
+  data: GuestbookProps[];
+};
+
+const response = await fetch(
+  `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
+  {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  }
+);
+
+const guestbook: ResponseGuestbookProps = await response.json();
 ---
 
 <Layout
@@ -20,14 +42,15 @@ const guestbook = await prisma.guestbook.findMany();
     <section class="w-full">
       <h1 class="mb-0">Guestbook</h1>
       <p id="description" class="mb-0 text-justify">
-        Write a message for me and others. Work In Progress (WIP).
+        Write a message for me and others.
       </p>
     </section>
+    <GuestbookForm client:load />
     <section
       class="mt-8 flex w-full flex-col items-start justify-start space-y-6"
     >
       {
-        guestbook
+        guestbook.data
           .sort(
             (a, b) =>
               new Date(b.created_at).getTime() -
