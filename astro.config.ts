@@ -1,3 +1,4 @@
+import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -9,6 +10,7 @@ import rehypeSlug from "rehype-slug";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 
+// https://astro.build/config
 export default defineConfig({
   site: "https://ekel.dev",
   integrations: [
@@ -41,4 +43,5 @@ export default defineConfig({
     host: true,
   },
   output: "server",
+  adapter: cloudflare(),
 });
