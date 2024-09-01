@@ -39,7 +39,13 @@ export default function NavList({ currentPath }: { currentPath: string }) {
   ];
 
   return (
-    <nav className="fixed flex justify-center items-center px-4 py-2 space-x-5 w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full bg-base-5/70 backdrop-blur-md border-base-3 z-50">
+    <nav
+      className={twMerge(
+        "fixed flex justify-center items-center px-4 py-2 space-x-5",
+        "w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full",
+        "bg-base-5/70 backdrop-blur-md border-base-3 z-50"
+      )}
+    >
       <a href="/">
         <button
           type="button"
