@@ -1,14 +1,11 @@
 ---
 import { format } from "date-fns";
-import GuestbookForm from "~components/GuestbookForm";
 import Layout from "~layouts/Layout.astro";
 import {
   PUBLIC_DEVELOPMENT_URL,
   PUBLIC_PRODUCTION_URL
 } from "~lib/utils/constants";
 import type { GuestbookProps } from "~types";
-
-export const prerender = false;
 
 type ResponseGuestbookProps = {
   statusCode: number;
@@ -47,7 +44,6 @@ const guestbook: ResponseGuestbookProps = await response.json();
         Write a message for me and others.
       </p>
     </section>
-    <GuestbookForm client:load />
     {
       guestbook.data ? (
         <section class="mt-8 flex w-full flex-col items-start justify-start space-y-6">

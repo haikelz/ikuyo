@@ -1,4 +1,3 @@
-import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -42,6 +41,4 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
-  output: "hybrid",
-  adapter: cloudflare(),
 });
