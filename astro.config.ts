@@ -9,8 +9,6 @@ import rehypeSlug from "rehype-slug";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://ekel.dev",
@@ -43,6 +41,4 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
-  output: "hybrid",
-  adapter: cloudflare(),
 });
