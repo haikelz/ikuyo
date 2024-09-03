@@ -1,30 +1,6 @@
 ---
-import { format } from "date-fns";
+import GuestbookSection from "~components/GuestbookSection";
 import Layout from "~layouts/Layout.astro";
-import {
-  PUBLIC_DEVELOPMENT_URL,
-  PUBLIC_PRODUCTION_URL
-} from "~lib/utils/constants";
-import type { GuestbookProps } from "~types";
-
-type ResponseGuestbookProps = {
-  statusCode: number;
-  message: string;
-  data: GuestbookProps[];
-};
-
-const response = await fetch(
-  `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
-  {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    }
-  }
-);
-
-const guestbook: ResponseGuestbookProps = await response.json();
 ---
 
 <Layout
@@ -44,27 +20,6 @@ const guestbook: ResponseGuestbookProps = await response.json();
         Write a message for me and others.
       </p>
     </section>
-    {
-      guestbook.data ? (
-        <section class="mt-8 flex w-full flex-col items-start justify-start space-y-6">
-          {guestbook.data
-            .sort(
-              (a, b) =>
-                new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime()
-            )
-            .map((item) => (
-              <div>
-                <h3 class="my-0">{item.message}</h3>
-                <p class="mb-0 mt-2">
-                  {item.username}. {format(item.created_at, "MMMM d, y")}
-                </p>
-              </div>
-            ))}
-        </section>
-      ) : (
-        <p class="font-bold">There is no message right now!</p>
-      )
-    }
+    <GuestbookSection client:only="react" />
   </div>
 </Layout>
