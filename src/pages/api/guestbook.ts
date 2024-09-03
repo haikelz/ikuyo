@@ -1,8 +1,6 @@
 import type { APIRoute } from "astro";
 import { prisma } from "~lib/utils/prisma";
 
-export const prerender = false;
-
 export const GET: APIRoute = async () => {
   try {
     const data = await prisma.guestbook.findMany({
