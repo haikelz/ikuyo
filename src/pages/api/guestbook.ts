@@ -1,8 +1,6 @@
 import type { APIRoute } from "astro";
 import { prisma } from "~lib/utils/prisma";
 
-export const prerender = true;
-
 export const GET: APIRoute = async () => {
   try {
     const data = await prisma.guestbook.findMany({
@@ -17,7 +15,7 @@ export const GET: APIRoute = async () => {
 
     return new Response(
       JSON.stringify({
-        statusCode: 200,
+        status_code: 200,
         message: "Success get guestbook!",
         data: data,
       })
@@ -25,7 +23,7 @@ export const GET: APIRoute = async () => {
   } catch (err: any) {
     return new Response(
       JSON.stringify({
-        statusCode: 500,
+        status_code: 500,
         message: err.message,
       })
     );

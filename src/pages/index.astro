@@ -20,8 +20,8 @@ const worksList = await getCollection("works");
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Haikel Ilham Hakim</h1>
-      <p id="description" class="mb-0 text-justify">
+      <h1 data-cy="name" class="mb-0">Haikel Ilham Hakim</h1>
+      <p data-cy="description" class="mb-0 text-justify">
         Hello! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the <b
           >"E"</b
         > pronounce is <b>"Emas"</b>. Currently doing internship as a Fullstack
@@ -56,7 +56,7 @@ const worksList = await getCollection("works");
         >.
       </p>
     </section>
-    <section class="mt-8 w-full">
+    <section data-cy="experience" class="mt-8 w-full">
       <h2 class="mb-6 mt-0 font-extrabold">Experience</h2>
       <div class="space-y-3">
         <div>
@@ -105,7 +105,7 @@ const worksList = await getCollection("works");
         </div>
       </div>
     </section>
-    <section class="mt-8 w-full">
+    <section data-cy="featured-works" class="mt-8 w-full">
       <h2 class="mb-6 mt-0 font-extrabold">Featured Works</h2>
       <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
         {
@@ -115,8 +115,8 @@ const worksList = await getCollection("works");
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-white drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-0"
+                  "flex w-full flex-col bg-base-0 drop-shadow-sm",
+                  "flex-wrap border-2 border-dashed border-base-5"
                 ]}
               >
                 <Image
@@ -147,7 +147,7 @@ const worksList = await getCollection("works");
         }
       </div>
     </section>
-    <section class="mt-8 w-full">
+    <section data-cy="featured-notes" class="mt-8 w-full">
       <h2 class="mb-6 mt-0 font-extrabold">Latest Notes</h2>
       <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
         {
@@ -161,8 +161,8 @@ const worksList = await getCollection("works");
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-white p-4 drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-0"
+                  "flex w-full flex-col bg-base-0 p-4 drop-shadow-sm",
+                  "flex-wrap border-2 border-dashed border-base-5"
                 ]}
               >
                 <span class="font-semibold">

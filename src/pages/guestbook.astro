@@ -7,12 +7,6 @@ import {
 } from "~lib/utils/constants";
 import type { GuestbookProps } from "~types";
 
-type ResponseGuestbookProps = {
-  statusCode: number;
-  message: string;
-  data: GuestbookProps[];
-};
-
 const response = await fetch(
   `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
   {
@@ -24,7 +18,8 @@ const response = await fetch(
   }
 );
 
-const guestbook: ResponseGuestbookProps = await response.json();
+const data = await response.json();
+const guestbook: GuestbookProps[] = data.data;
 ---
 
 <Layout
@@ -39,15 +34,18 @@ const guestbook: ResponseGuestbookProps = await response.json();
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Guestbook</h1>
-      <p id="description" class="mb-0 text-justify">
+      <h1 data-cy="heading" class="mb-0">Guestbook</h1>
+      <p data-cy="description" class="mb-0 text-justify">
         Write a message for me and others.
       </p>
     </section>
-    {
-      guestbook.data ? (
-        <section class="mt-8 flex w-full flex-col items-start justify-start space-y-6">
-          {guestbook.data
+    <section
+      data-cy="guestbook"
+      class="mt-8 flex w-full flex-col items-start justify-start space-y-6"
+    >
+      {
+        guestbook ? (
+          guestbook
             .sort(
               (a, b) =>
                 new Date(b.created_at).getTime() -
@@ -60,11 +58,11 @@ const guestbook: ResponseGuestbookProps = await response.json();
                   {item.username}. {format(item.created_at, "MMMM d, y")}
                 </p>
               </div>
-            ))}
-        </section>
-      ) : (
-        <p class="font-bold">There is no message right now!</p>
-      )
-    }
+            ))
+        ) : (
+          <p class="font-bold">There is no message right now!</p>
+        )
+      }
+    </section>
   </div>
 </Layout>

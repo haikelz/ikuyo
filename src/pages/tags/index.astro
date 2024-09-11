@@ -29,23 +29,24 @@ const tags = [
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Tags</h1>
-      <p id="description" class="mb-0 text-justify">
+      <h1 data-cy="heading" class="mb-0">Tags</h1>
+      <p data-cy="description" class="mb-0 text-justify">
         Select spesific notes based on the list of tags below.
       </p>
     </section>
-    <section class="mt-8 w-full">
-      <div class="flex w-full flex-wrap items-center justify-start gap-4">
-        {
-          tags.map((item) => (
-            <a href={`/tags/${item}`}>
-              <button class="bg-base-5 px-4 py-1">
-                <p class="mb-0 mt-0 text-base-0">{item}</p>
-              </button>
-            </a>
-          ))
-        }
-      </div>
+    <section
+      data-cy="tags-list"
+      class="mt-8 flex w-full flex-wrap items-center justify-start gap-4"
+    >
+      {
+        tags.map((item) => (
+          <a href={`/tags/${item}`}>
+            <button class="bg-base-5 px-4 py-1">
+              <p class="mb-0 mt-0 text-base-0">{item}</p>
+            </button>
+          </a>
+        ))
+      }
     </section>
   </div>
 </Layout>

@@ -26,14 +26,14 @@ const { Content, remarkPluginFrontmatter } = await item.render();
       <button
         type="button"
         aria-label="back to works"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-base-5"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-base-1"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
     </a>
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex items-center">
-      <span class="mr-1.5 font-bold text-base-0"
+      <span class="mr-1.5 font-bold text-base-5"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead}.
       </span>{" "}
       <div class="flex items-center justify-center space-x-1.5 font-bold">

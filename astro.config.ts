@@ -17,7 +17,7 @@ export default defineConfig({
     mdx({
       syntaxHighlight: "shiki",
       shikiConfig: {
-        theme: "vitesse-dark",
+        theme: "catppuccin-mocha",
       },
       remarkPlugins: [remarkToc, remarkReadingTime],
       rehypePlugins: [rehypePresetMinify, rehypeSlug],

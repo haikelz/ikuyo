@@ -6,11 +6,11 @@ import { ViewTransitions } from "astro:transitions";
 import Navbar from "~components/Navbar.astro";
 import "../index.css";
 
-interface Props {
+type Props = {
   title: string;
   description: string;
   url: string;
-}
+};
 
 const { title, description, url } = Astro.props;
 ---
@@ -36,12 +36,12 @@ const { title, description, url } = Astro.props;
     <link rel="sitemap" href="/sitemap.xml" />
     <ViewTransitions fallback="swap" />
   </head>
-  <body class="w-full bg-white">
+  <body class="w-full bg-base-0">
     <main
-      class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide text-base-0"
+      class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide text-base-5"
     >
       <div
-        class="container prose prose-base prose-gray mx-auto w-full max-w-3xl px-4 pb-24 pt-8"
+        class="container prose prose-base prose-invert mx-auto w-full max-w-3xl px-4 pb-24 pt-8"
       >
         <slot />
       </div>

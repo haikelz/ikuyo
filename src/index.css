@@ -23,7 +23,7 @@ h6 {
 }
 
 .prose code:not(:has(span)) {
-  @apply bg-base-5 px-1 py-0.5 rounded-sm;
+  @apply bg-base-1 px-1 py-0.5 rounded-sm;
   font-family: "IBM Plex Mono";
 }
 
@@ -53,7 +53,7 @@ h6 {
 }
 
 .prose video {
-  @apply w-full drop-shadow-sm border-2 border-dashed border-base-0;
+  @apply w-full drop-shadow-sm border-2 border-dashed border-base-5;
 }
 
 .prose a {
@@ -61,11 +61,11 @@ h6 {
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
-  @apply border-l-[0.25em] border-solid border-base-0;
+  @apply border-l-[0.25em] border-solid border-base-5;
 }
 
 .prose img {
-  @apply w-full drop-shadow-sm border-2 border-dashed border-base-0;
+  @apply w-full drop-shadow-sm border-2 border-dashed border-base-5;
 }
 
 button {
@@ -87,7 +87,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-base-0;
+  @apply bg-base-3;
 }
 
 .list-type-disc {

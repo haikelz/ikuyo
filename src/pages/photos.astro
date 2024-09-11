@@ -58,12 +58,13 @@ export const photosList = [
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Photos</h1>
-      <p id="description" class="mb-0 text-justify">
+      <h1 data-cy="heading" class="mb-0">Photos</h1>
+      <p data-cy="description" class="mb-0 text-justify">
         Some of the photos that I've taken with my camera.
       </p>
     </section>
     <section
+      data-cy="photos-list"
       class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 sm:grid-rows-2"
     >
       {
@@ -74,7 +75,7 @@ export const photosList = [
             quality={100}
             format="avif"
             src={`/images/photos/${item.id}.png`}
-            alt={item.name}
+            alt={item.name.replace("photo ", "")}
             class="!my-0"
           />
         ))
