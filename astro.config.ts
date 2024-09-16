@@ -1,4 +1,3 @@
-import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -12,7 +11,6 @@ import { remarkReadingTime } from "./remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
   site: "https://ekel.dev",
   integrations: [
     tailwind(),
@@ -43,5 +41,4 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
-  adapter: cloudflare(),
 });

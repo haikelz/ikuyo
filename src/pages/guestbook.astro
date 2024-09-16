@@ -1,22 +1,25 @@
 ---
+import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
+import {
+  PUBLIC_DEVELOPMENT_URL,
+  PUBLIC_PRODUCTION_URL
+} from "~lib/utils/constants";
+import type { GuestbookProps } from "~types";
 
-/*const response = await fetch(
-  `${MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/graphql`,
+const response = await fetch(
+  `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
   {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json"
-    },
-    body: JSON.stringify({
-      query: getGuestbookQuery
-    })
+    }
   }
 );
 
 const data = await response.json();
-const guestbook: GuestbookProps[] = data.data.getGuestbook.data;*/
+const guestbook: GuestbookProps[] = data.data;
 ---
 
 <Layout
@@ -41,7 +44,6 @@ const guestbook: GuestbookProps[] = data.data.getGuestbook.data;*/
       class="mt-8 flex w-full flex-col items-start justify-start space-y-6"
     >
       {
-        /*
         guestbook ? (
           guestbook
             .sort(
@@ -60,7 +62,6 @@ const guestbook: GuestbookProps[] = data.data.getGuestbook.data;*/
         ) : (
           <p class="font-bold">There is no message right now!</p>
         )
-            */
       }
     </section>
   </div>

@@ -110,3 +110,8 @@ button {
 .modal-blur {
   backdrop-filter: blur(20px);
 }
+
+.photos {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+}

@@ -11,7 +11,6 @@
 - Tailwind CSS
 - Prisma
 - Turso DB
-- GraphQL
 - Cypress for E2E Testing
 - Cloudflare pages for deployment
 

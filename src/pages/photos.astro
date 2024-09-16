@@ -42,6 +42,14 @@ export const photosList = [
   {
     id: 10,
     name: "photo 10"
+  },
+  {
+    id: 11,
+    name: "photo 11"
+  },
+  {
+    id: 12,
+    name: "photo 12"
   }
 ];
 ---
@@ -60,7 +68,8 @@ export const photosList = [
     <section class="w-full">
       <h1 data-cy="heading" class="mb-0">Photos</h1>
       <p data-cy="description" class="mb-0 text-justify">
-        Some of the photos that I've taken with my camera.
+        Some of the photos that I've taken with my camera. My main focus is in
+        the Human Interest, and Nature.
       </p>
     </section>
     <section
@@ -73,10 +82,11 @@ export const photosList = [
             width={500}
             height={500}
             quality={100}
+            draggable={false}
             format="avif"
             src={`/images/photos/${item.id}.png`}
             alt={item.name.replace("photo ", "")}
-            class="!my-0"
+            class="photos !my-0 !rounded-none !border-none"
           />
         ))
       }
