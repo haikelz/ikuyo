@@ -1,7 +1,6 @@
 import {
   AlbumIcon,
   HashIcon,
-  HomeIcon,
   ImagesIcon,
   ListIcon,
   NotepadTextIcon,
@@ -56,11 +55,11 @@ export default function NavList({ currentPath }: { currentPath: string }) {
             currentPath === "/" ? "bg-base-5 rounded-full" : ""
           )}
         >
-          <HomeIcon
-            className={twMerge(
-              "font-bold border-base-5",
-              currentPath === "/" ? "text-base-0" : "text-base-5"
-            )}
+          <img
+            className="rounded-full w-7"
+            src="https://avatars.githubusercontent.com/u/77146709?v=4"
+            alt="Github Profile"
+            loading="lazy"
           />
         </button>
       </a>

@@ -4,8 +4,10 @@ import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
 
-const notesList = await getCollection("notes");
-const worksList = await getCollection("works");
+const [notesList, worksList]  = await Promise.all([
+  await getCollection("notes"),
+  await getCollection("works")
+])
 ---
 
 <Layout
