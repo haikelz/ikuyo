@@ -4,10 +4,10 @@ import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import Layout from "~layouts/Layout.astro";
 
-const [notesList, worksList]  = await Promise.all([
+const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
   await getCollection("works")
-])
+]);
 ---
 
 <Layout
@@ -171,7 +171,7 @@ const [notesList, worksList]  = await Promise.all([
                     {item.data.title}
                   </h3>
                 </a>
-                <p class="mb-0 mt-2">{item.data.description}</p>
+                <p class="mb-0 mt-2 line-clamp-3">{item.data.description}</p>
               </div>
             ))
         }

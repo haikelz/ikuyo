@@ -1,0 +1,54 @@
+---
+author: Haikel
+title: HTTP Benchmarking Using wrk
+tags:
+  - benchmark
+  - web-framework
+created_at: 2024-09-25
+description: Exploring and do some basic HTTP benchmarking using wrk
+---
+
+Alhamdulillah. After a while, I can write another technical note in English. In this opportunity, we will explore and do some basic HTTP benchmarking using `wrk`.
+
+## So, What is `wrk`?
+
+`wrk` is a modern, highly scalable HTTP benchmarking tool designed to measure the performance of Web Servers and Applications. There are some other tools that can be used for HTTP benchmarking, but I decided to pick `wrk` because it's easy to use.
+
+## How to benchmark?
+
+You can follow this step-by-step to benchmarking your API:
+
+1. First, make sure that you already have the project that you want to test.
+2. Install `wrk` based on your Operating Systems(OS). In this case, I install `the wrk` package in my Fedora 40.
+
+   ```
+   sudo dnf copr enable getpagespeed/wrk && sudo dnf install wrk
+   ```
+
+3. After that, we can directly try `wrk`. We will do some basic usages here:
+
+   ```bash
+   wrk -t6 -c30 -d60s http://localhost:5000/api/all --latency
+   ```
+
+   This command will do HTTP benchmarking using **6 Threads**, **30 Open Connections**, and running for **30 seconds**. Adjust the command with your device specification.
+
+   **Note:**
+
+   t = Total **Threads** that you want to use in this test
+
+   c = **Open Connections**.
+
+   d = **Benchmark Duration** in seconds.
+
+   --latency = **Print the latency report** too.
+
+## Results
+
+Well, I do this benchmark to test Golang(Fiber) and Node JS(Express JS + Typescript) as a part of my research. The case that used for this benchmarking is load 99 Asma'ul Husna data. That's it.
+
+![express ts](https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-31-10.png?updatedAt=1727282175453)
+
+![golang](https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-32-43.png?updatedAt=1727282175503)
+
+As you can see, Golang is win over Node JS in term of performance.
