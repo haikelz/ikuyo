@@ -25,10 +25,10 @@ You can follow this step-by-step to benchmarking your API:
    sudo dnf copr enable getpagespeed/wrk && sudo dnf install wrk
    ```
 
-3. After that, we can directly try `wrk`. We will do some basic usages here:
+3. After that, we can directly try `wrk`. We will do some basic benchmarking here:
 
    ```bash
-   wrk -t6 -c30 -d60s http://localhost:5000/api/all --latency
+   wrk -t6 -c30 -d30s http://localhost:5000/api/all --latency
    ```
 
    This command will do HTTP benchmarking using **6 Threads**, **30 Open Connections**, and running for **30 seconds**. Adjust the command with your device specification.
