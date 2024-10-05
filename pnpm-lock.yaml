@@ -26,10 +26,10 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.0(astro@4.15.6(@types/node@22.5.5)(rollup@4.21.3)(typescript@5.6.2))(tailwindcss@3.4.11)
-      '@fontsource/bricolage-grotesque':
+      '@fontsource/geist-mono':
         specifier: ^5.1.0
         version: 5.1.0
-      '@fontsource/ibm-plex-mono':
+      '@fontsource/geist-sans':
         specifier: ^5.1.0
         version: 5.1.0
       '@fontsource/noto-naskh-arabic':
@@ -520,11 +520,11 @@ packages:
     resolution: {integrity: sha512-autAXT203ixhqei9xt+qkYOvY8l6LAFIdT2UXc/RPNeUVfqRF1BV94GTJyVPFKT8nFM6MyVJhjLj9E8JWvf5zQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource/bricolage-grotesque@5.1.0':
-    resolution: {integrity: sha512-kdZyXbftmi09GjewApG5z7KVbcz5ZXNvFUguKodNtOe34j9F3Hp7dWjcZNqMt/o4BtBKZBBLM4MjAVE+DrQpng==}
+  '@fontsource/geist-mono@5.1.0':
+    resolution: {integrity: sha512-MDFgmKUdDbV357vD2bOZAro597Nd2md01GAdr3GSZteCJQdPT/UhHUBCAxl9KUiH03aMPFM9Rx7x8/EtrJmpKg==}
 
-  '@fontsource/ibm-plex-mono@5.1.0':
-    resolution: {integrity: sha512-XKsZNyRCj6tz8zlatHmniSoLVephMD5GQG2sXgcaEb8DkUO+O61r28uTlIMEZuoZXtP4c4STvL+KUlJM5jZOEg==}
+  '@fontsource/geist-sans@5.1.0':
+    resolution: {integrity: sha512-4AI/UxIcZiYgK6/cTo4R9oM4VHHLcFdHVv7m2+M42VyY16hhKJADrGe4HPjTxvolmce2IZX/jc6sFJ+GkLB64w==}
 
   '@fontsource/noto-naskh-arabic@5.1.0':
     resolution: {integrity: sha512-e68Zyn0fOKLEPhNSzfQL6j0Ox73074MAlyM/rW9pHBHhiShFovX+pdnrwWZtDYertOQ1L5RmT2vhOlIUV2dsUQ==}
@@ -4518,9 +4518,9 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@fontsource/bricolage-grotesque@5.1.0': {}
+  '@fontsource/geist-mono@5.1.0': {}
 
-  '@fontsource/ibm-plex-mono@5.1.0': {}
+  '@fontsource/geist-sans@5.1.0': {}
 
   '@fontsource/noto-naskh-arabic@5.1.0': {}
 

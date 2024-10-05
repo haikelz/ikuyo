@@ -4,9 +4,9 @@
 
 html,
 body {
-  font-family: "Bricolage Grotesque", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-    "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 h1,
@@ -24,7 +24,7 @@ h6 {
 
 .prose code:not(:has(span)) {
   @apply bg-base-1 px-1 py-0.5 rounded-sm;
-  font-family: "IBM Plex Mono";
+  font-family: "Geist Mono", monospace;
 }
 
 .prose code::before {
@@ -37,7 +37,7 @@ h6 {
 
 .prose pre code {
   @apply font-bold text-base;
-  font-family: "IBM Plex Mono";
+  font-family: "Geist Mono", monospace;
 }
 
 .prose hr {
