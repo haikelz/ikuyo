@@ -16,6 +16,6 @@
 
 ## Fonts
 
-- **Main**: Bricolage Grotes
+- **Main**: Geist Sans
 - **Arabic**: Noto Naskh Arabic
-- **Code Block**: IBM Plex Mono
+- **Code Block**: Geist Mono
