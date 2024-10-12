@@ -19,10 +19,16 @@ Alhamdulillah. After a while, I can write another technical note in English. In 
 You can follow this step-by-step to benchmarking your API:
 
 1. First, make sure that you already have the project that you want to test.
-2. Install `wrk` based on your Operating Systems(OS). In this case, I install `the wrk` package in my Fedora 40.
+2. Install `wrk` based on your Operating Systems(OS). In this case, I install the `wrk` package in my Fedora 40:
 
    ```
    sudo dnf copr enable getpagespeed/wrk && sudo dnf install wrk
+   ```
+
+   Or if you are using Ubuntu:
+
+   ```
+   sudo apt install wrk
    ```
 
 3. After that, we can directly try `wrk`. We will do some basic benchmarking here:
