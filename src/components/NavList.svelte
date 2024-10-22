@@ -6,6 +6,7 @@
     ListIcon,
     NotepadTextIcon
   } from "lucide-svelte";
+  import { onDestroy, onMount } from "svelte";
   import { twMerge } from "tailwind-merge";
 
   export let currentPath: string;
@@ -37,6 +38,24 @@
       path: "/guestbook"
     }
   ];
+
+  let prevScrollPosition = 0;
+  let isShow = true;
+
+  onMount(() => {
+    window.onscroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+      isShow =
+        prevScrollPosition > currentScrollPosition ||
+        currentScrollPosition < 60;
+
+      prevScrollPosition = currentScrollPosition;
+    };
+  });
+
+  onDestroy(() => {
+    window.onscroll = () => {};
+  });
 </script>
 
 <nav
@@ -44,7 +63,8 @@
   class={twMerge(
     "fixed flex justify-center items-center px-4 py-2 space-x-5",
     "w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full",
-    "bg-base-0/70 backdrop-blur-md border-base-2 z-50"
+    "bg-base-0/70 transition-all backdrop-blur-md border-base-2 z-50",
+    isShow ? "translate-y-0 opacity-100" : "translate-y-full bottom-0 opacity-0"
   )}
 >
   <a data-cy="home-btn" href="/" aria-label="/">
