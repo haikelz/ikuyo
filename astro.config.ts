@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import compressor from "astro-compressor";
@@ -8,6 +7,8 @@ import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
+
+import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,7 +28,6 @@ export default defineConfig({
       gfm: true,
       optimize: true,
     }),
-    react(),
     sitemap({
       changefreq: "weekly",
       priority: 1,
@@ -36,6 +36,8 @@ export default defineConfig({
       gzip: true,
       brotli: true,
     }),
+    (await import("@playform/compress")).default(),
+    svelte(),
   ],
   server: {
     port: 3000,
