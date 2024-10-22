@@ -44,7 +44,7 @@
 
   onMount(() => {
     window.onscroll = () => {
-      const currentScrollPosition = window.pageYOffset;
+      const currentScrollPosition = window.scrollY;
       isShow =
         prevScrollPosition > currentScrollPosition ||
         currentScrollPosition < 60;
