@@ -14,7 +14,6 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
-  prefetch: { prefetchAll: true },
   integrations: [
     tailwind(),
     mdx({
