@@ -8,9 +8,8 @@
 ## Technologies
 
 - Astro JS
+- Svelte
 - Tailwind CSS
-- Prisma
-- Turso DB
 - Cypress for E2E Testing
 - Cloudflare pages for deployment
 

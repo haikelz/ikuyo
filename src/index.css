@@ -115,3 +115,12 @@ button {
   pointer-events: none;
   -webkit-touch-callout: none;
 }
+
+::view-transition-group(root) {
+  animation: none;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0s;
+}

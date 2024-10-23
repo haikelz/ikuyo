@@ -14,12 +14,13 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
+  prefetch: { prefetchAll: true },
   integrations: [
     tailwind(),
     mdx({
       syntaxHighlight: "shiki",
       shikiConfig: {
-        theme: "catppuccin-mocha",
+        theme: "poimandres",
       },
       remarkPlugins: [remarkToc, remarkReadingTime],
       rehypePlugins: [rehypePresetMinify, rehypeSlug],
@@ -44,4 +45,5 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
+  compressHTML: true,
 });
