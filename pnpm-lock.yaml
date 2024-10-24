@@ -9,22 +9,22 @@ importers:
   .:
     dependencies:
       '@astrojs/check':
-        specifier: ^0.9.4
+        specifier: ^0.9.3
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.3)
       '@astrojs/mdx':
-        specifier: ^3.1.8
+        specifier: ^3.1.6
         version: 3.1.8(astro@4.16.7(@types/node@22.7.9)(lightningcss@1.27.0)(rollup@4.24.0)(terser@5.36.0)(typescript@5.6.3))
       '@astrojs/rss':
-        specifier: ^4.0.9
+        specifier: ^4.0.7
         version: 4.0.9
       '@astrojs/sitemap':
-        specifier: ^3.2.1
+        specifier: ^3.1.6
         version: 3.2.1
       '@astrojs/svelte':
         specifier: ^5.7.2
         version: 5.7.2(astro@4.16.7(@types/node@22.7.9)(lightningcss@1.27.0)(rollup@4.24.0)(terser@5.36.0)(typescript@5.6.3))(svelte@5.1.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.7.9)(lightningcss@1.27.0)(terser@5.36.0))
       '@astrojs/tailwind':
-        specifier: ^5.1.2
+        specifier: ^5.1.0
         version: 5.1.2(astro@4.16.7(@types/node@22.7.9)(lightningcss@1.27.0)(rollup@4.24.0)(terser@5.36.0)(typescript@5.6.3))(tailwindcss@3.4.14)
       '@fontsource/geist-mono':
         specifier: ^5.1.0
@@ -36,26 +36,26 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       '@libsql/client':
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.11.0
+        version: 0.11.0
       '@playform/compress':
-        specifier: ^0.1.5
+        specifier: ^0.1.4
         version: 0.1.5(@types/node@22.7.9)(rollup@4.24.0)(typescript@5.6.3)
       '@prisma/adapter-libsql':
-        specifier: ^5.21.1
-        version: 5.21.1(@libsql/client@0.14.0)
+        specifier: ^5.19.1
+        version: 5.21.1(@libsql/client@0.11.0)
       '@prisma/client':
-        specifier: ^5.21.1
+        specifier: ^5.19.1
         version: 5.21.1(prisma@5.21.1)
       astro:
-        specifier: ^4.16.7
+        specifier: ^4.15.6
         version: 4.16.7(@types/node@22.7.9)(lightningcss@1.27.0)(rollup@4.24.0)(terser@5.36.0)(typescript@5.6.3)
       astro-compressor:
         specifier: ^0.4.1
         version: 0.4.1
       date-fns:
-        specifier: 4.1.0
-        version: 4.1.0
+        specifier: 4.0.0-beta.1
+        version: 4.0.0-beta.1
       lucide-svelte:
         specifier: ^0.453.0
         version: 0.453.0(svelte@5.1.0)
@@ -66,7 +66,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       rehype-preset-minify:
-        specifier: ^7.0.1
+        specifier: ^7.0.0
         version: 7.0.1
       rehype-slug:
         specifier: ^6.0.0
@@ -78,10 +78,10 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       svelte:
-        specifier: ^5.1.0
+        specifier: ^5.0.5
         version: 5.1.0
       tailwind-merge:
-        specifier: ^2.5.4
+        specifier: ^2.5.2
         version: 2.5.4
       typescript:
         specifier: ^5.6.3
@@ -91,28 +91,28 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.14)
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.11.0
+        specifier: ^8.5.0
         version: 8.11.0(@typescript-eslint/parser@8.11.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3))(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3)
       '@typescript-eslint/parser':
-        specifier: ^8.11.0
+        specifier: ^8.5.0
         version: 8.11.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       cypress:
-        specifier: ^13.15.0
+        specifier: ^13.14.2
         version: 13.15.0
       eslint:
-        specifier: ^9.13.0
+        specifier: ^9.10.0
         version: 9.13.0(jiti@2.3.3)
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.13.0(jiti@2.3.3))
       eslint-plugin-astro:
-        specifier: ^1.3.0
+        specifier: ^1.2.4
         version: 1.3.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3)
       eslint-plugin-jsx-a11y:
-        specifier: ^6.10.1
+        specifier: ^6.10.0
         version: 6.10.1(eslint@9.13.0(jiti@2.3.3))
       postcss:
         specifier: ^8.4.47
@@ -124,13 +124,13 @@ importers:
         specifier: ^0.14.1
         version: 0.14.1
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.8
+        specifier: ^0.6.6
         version: 0.6.8(prettier-plugin-astro@0.14.1)(prettier@3.3.3)
       prisma:
-        specifier: ^5.21.1
+        specifier: ^5.19.1
         version: 5.21.1
       tailwindcss:
-        specifier: ^3.4.14
+        specifier: ^3.4.11
         version: 3.4.14
 
 packages:
@@ -660,11 +660,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@libsql/client@0.14.0':
-    resolution: {integrity: sha512-/9HEKfn6fwXB5aTEEoMeFh4CtG0ZzbncBb1e++OCdVpgKZ/xyMsIVYXm0w7Pv4RUel803vE6LwniB3PqD72R0Q==}
+  '@libsql/client@0.11.0':
+    resolution: {integrity: sha512-IkMxBFI43JXBRf4K57m6zeoa8M6u0FFEI11vHh4/ObTCZFk20wJNO9hRa1Zq1BeVDqABxMRf02HPAr02pC06bQ==}
 
-  '@libsql/core@0.14.0':
-    resolution: {integrity: sha512-nhbuXf7GP3PSZgdCY2Ecj8vz187ptHlZQ0VRc751oB2C1W8jQUXKKklvt7t1LJiUTQBVJuadF628eUk+3cRi4Q==}
+  '@libsql/core@0.11.0':
+    resolution: {integrity: sha512-ksMxodOCXoU2tiQtlY7DzOLZ0xq8EWbXlmBk+56/8U7e7QMDrYmdt+XhOcCr4DAO5HSD9kMPqS4iVFBKGcWbBA==}
 
   '@libsql/darwin-arm64@0.4.6':
     resolution: {integrity: sha512-45i604CJ2Lubbg7NqtDodjarF6VgST8rS5R8xB++MoRqixtDns9PZ6tocT9pRJDWuTWEiy2sjthPOFWMKwYAsg==}
@@ -676,11 +676,11 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@libsql/hrana-client@0.7.0':
-    resolution: {integrity: sha512-OF8fFQSkbL7vJY9rfuegK1R7sPgQ6kFMkDamiEccNUvieQ+3urzfDFI616oPl8V7T9zRmnTkSjMOImYCAVRVuw==}
+  '@libsql/hrana-client@0.6.2':
+    resolution: {integrity: sha512-MWxgD7mXLNf9FXXiM0bc90wCjZSpErWKr5mGza7ERy2FJNNMXd7JIOv+DepBA1FQTIfI8TFO4/QDYgaQC0goNw==}
 
-  '@libsql/isomorphic-fetch@0.3.1':
-    resolution: {integrity: sha512-6kK3SUK5Uu56zPq/Las620n5aS9xJq+jMBcNSOmjhNf/MUvdyji4vrMTqD7ptY7/4/CAVEAYDeotUz60LNQHtw==}
+  '@libsql/isomorphic-fetch@0.2.5':
+    resolution: {integrity: sha512-8s/B2TClEHms2yb+JGpsVRTPBfy1ih/Pq6h6gvyaNcYnMVJvgQRY7wAa8U2nD0dppbCuDU5evTNMEhrQ17ZKKg==}
     engines: {node: '>=18.0.0'}
 
   '@libsql/isomorphic-ws@0.1.5':
@@ -1575,8 +1575,8 @@ packages:
     resolution: {integrity: sha512-t/Ygsytq+R995EJ5PZlD4Cu56sWa8InXySaViRzw9apusqsOO2bQP+SbYzAhR0pFKoB+43lYy8rWban9JSuXnA==}
     engines: {node: '>= 0.4'}
 
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+  date-fns@4.0.0-beta.1:
+    resolution: {integrity: sha512-EjMXEgaR2r/Ff8aLwg8OtPnMq3caEANXuYVDz3F7UnL0f/sjeQW+mwQAS2iwziipMSi7kqc9tdfBmGAefhrY+A==}
 
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
@@ -4860,10 +4860,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@libsql/client@0.14.0':
+  '@libsql/client@0.11.0':
     dependencies:
-      '@libsql/core': 0.14.0
-      '@libsql/hrana-client': 0.7.0
+      '@libsql/core': 0.11.0
+      '@libsql/hrana-client': 0.6.2
       js-base64: 3.7.7
       libsql: 0.4.6
       promise-limit: 2.7.0
@@ -4871,7 +4871,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/core@0.14.0':
+  '@libsql/core@0.11.0':
     dependencies:
       js-base64: 3.7.7
 
@@ -4881,9 +4881,9 @@ snapshots:
   '@libsql/darwin-x64@0.4.6':
     optional: true
 
-  '@libsql/hrana-client@0.7.0':
+  '@libsql/hrana-client@0.6.2':
     dependencies:
-      '@libsql/isomorphic-fetch': 0.3.1
+      '@libsql/isomorphic-fetch': 0.2.5
       '@libsql/isomorphic-ws': 0.1.5
       js-base64: 3.7.7
       node-fetch: 3.3.2
@@ -4891,7 +4891,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/isomorphic-fetch@0.3.1': {}
+  '@libsql/isomorphic-fetch@0.2.5': {}
 
   '@libsql/isomorphic-ws@0.1.5':
     dependencies:
@@ -5000,9 +5000,9 @@ snapshots:
       deepmerge-ts: 7.1.0
       fast-glob: 3.3.2
 
-  '@prisma/adapter-libsql@5.21.1(@libsql/client@0.14.0)':
+  '@prisma/adapter-libsql@5.21.1(@libsql/client@0.11.0)':
     dependencies:
-      '@libsql/client': 0.14.0
+      '@libsql/client': 0.11.0
       '@prisma/driver-adapter-utils': 5.21.1
       async-mutex: 0.5.0
 
@@ -5226,7 +5226,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.7.9
 
   '@types/sinonjs__fake-timers@8.1.1': {}
 
@@ -5985,7 +5985,7 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.1
 
-  date-fns@4.1.0: {}
+  date-fns@4.0.0-beta.1: {}
 
   dayjs@1.11.13: {}
 
