@@ -53,7 +53,7 @@ h6 {
 }
 
 .prose video {
-  @apply w-full drop-shadow-sm border-2 border-dashed border-base-5;
+  @apply w-full drop-shadow-sm;
 }
 
 .prose a {
@@ -65,7 +65,7 @@ h6 {
 }
 
 .prose img {
-  @apply w-full drop-shadow-sm border-2 border-dashed border-base-5;
+  @apply w-full drop-shadow-sm;
 }
 
 button {

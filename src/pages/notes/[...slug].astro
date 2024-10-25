@@ -39,8 +39,15 @@ const { Content, remarkPluginFrontmatter } = await item.render();
       </button>
     </a>
     <h1 class="mt-4">{item.data.title}</h1>
-    <div class="flex items-center">
-      <span class="mr-1.5 font-semibold text-base-5"
+    <div class="flex w-full items-center space-x-2">
+      <div class="!rounded-full">
+        <img
+          src="https://avatars.githubusercontent.com/u/77146709?v=4"
+          alt="haikelz"
+          class="!my-0 h-7 w-7 !rounded-full !py-0"
+        />
+      </div>
+      <span class="font-semibold text-base-5"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead} / {
           format(item.data.created_at, "LLLL d, yyyy")
         }

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import { ArrowLeftIcon } from "lucide-svelte";
 import Layout from "~layouts/Layout.astro";
-import ReadingIndicator from "../../components/ReadingIndicator.svelte";
+import ReadingIndicator from "~components/ReadingIndicator.svelte";
 
 export async function getStaticPaths() {
   const worksEntries = await getCollection("works");
@@ -34,8 +34,15 @@ const { Content, remarkPluginFrontmatter } = await item.render();
       </button>
     </a>
     <h1 class="mt-4">{item.data.title}</h1>
-    <div class="flex items-center">
-      <span class="mr-1.5 font-bold text-base-5"
+    <div class="flex w-full items-center space-x-2">
+      <div class="!rounded-full">
+        <img
+          src="https://avatars.githubusercontent.com/u/77146709?v=4"
+          alt="haikelz"
+          class="!my-0 h-7 w-7 !rounded-full !py-0"
+        />
+      </div>
+      <span class="font-bold text-base-5"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead}.
       </span>{" "}
       <div class="flex items-center justify-center space-x-1.5 font-bold">
