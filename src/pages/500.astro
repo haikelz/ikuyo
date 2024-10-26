@@ -1,13 +1,11 @@
 ---
 import Layout from "~layouts/Layout.astro";
 
-const obj = {
-  title: "500 Internal Server Error!",
-  description: "There are some error in the server side!"
-};
+const title = "500 Internal Server Error!";
+const description = "There are some error in the server side!";
 ---
 
-<Layout title={obj.title} description={obj.description} url="">
-  <span class="text-3xl font-bold">{obj.title}</span>
-  <p>{obj.description}</p>
+<Layout title={title} description={description} url="">
+  <span class="text-3xl font-bold">{title}</span>
+  <p>{description}</p>
 </Layout>

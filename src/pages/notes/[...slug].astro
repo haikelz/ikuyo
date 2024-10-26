@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-svelte";
+import ReadingIndicator from "~components/ReadingIndicator.svelte";
 import Layout from "~layouts/Layout.astro";
-import ReadingIndicator from "../../components/ReadingIndicator.svelte";
 
 export async function getStaticPaths() {
   const notesEntries = await getCollection("notes");

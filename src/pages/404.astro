@@ -1,13 +1,11 @@
 ---
 import Layout from "~layouts/Layout.astro";
 
-const obj = {
-  title: "404 Not Found!",
-  description: "The page that you navigate is not found!"
-};
+const title = "404 Not Found!";
+const description = "The page that you navigate is not found!";
 ---
 
-<Layout title={obj.title} description={obj.description} url="">
-  <span data-cy="title" class="text-3xl font-bold">{obj.title}</span>
-  <p data-cy="description">{obj.description}</p>
+<Layout title={title} description={description} url="">
+  <span data-cy="title" class="text-3xl font-bold">{title}</span>
+  <p data-cy="description">{description}</p>
 </Layout>
