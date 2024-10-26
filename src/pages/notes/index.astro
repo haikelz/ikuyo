@@ -1,7 +1,7 @@
 ---
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
-import Layout from "~layouts/Layout.astro";
 
 const notesList = await getCollection("notes");
 ---
@@ -14,7 +14,7 @@ const notesList = await getCollection("notes");
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
-      "md:text-start"
+      "md:text-start",
     ]}
   >
     <section class="w-full">
@@ -38,8 +38,8 @@ const notesList = await getCollection("notes");
           .map((item) => (
             <div
               class:list={[
-                "flex w-full flex-col bg-base-0 p-4 drop-shadow-sm",
-                "flex-wrap border-2 border-dashed border-base-5"
+                "flex w-full flex-col bg-black p-4 drop-shadow-sm",
+                "flex-wrap border-2 border-dashed border-base-5",
               ]}
             >
               <span class="font-semibold">
@@ -49,7 +49,7 @@ const notesList = await getCollection("notes");
                 href={`/notes/${item.slug}`}
                 class:list={[
                   "mt-2 cursor-pointer text-lg font-bold",
-                  "!no-underline"
+                  "!no-underline",
                 ]}
               >
                 <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">

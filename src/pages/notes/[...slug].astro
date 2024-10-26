@@ -1,20 +1,20 @@
 ---
+import ReadingIndicator from "@/components/ReadingIndicator.svelte";
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-svelte";
-import ReadingIndicator from "~components/ReadingIndicator.svelte";
-import Layout from "~layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const notesEntries = await getCollection("notes");
 
   return notesEntries.map((item) => ({
     params: {
-      slug: item.slug
+      slug: item.slug,
     },
     props: {
-      item
-    }
+      item,
+    },
   }));
 }
 

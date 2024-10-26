@@ -1,8 +1,8 @@
 ---
+import Navbar from "@/components/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
-import Navbar from "~components/Navbar.astro";
 import "../index.css";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 };
 
 const { title, description, url } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -34,9 +35,13 @@ const { title, description, url } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
   </head>
-  <body class="w-full bg-base-0">
+  <body class="w-full bg-dot-base-5/20 bg-black relative text-base-5">
+    <div
+      class="absolute pointer-events-none inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_100%,black)] bg-black md:[mask-image:radial-gradient(ellipse_at_center,transparent_85%,black)] lg:[mask-image:radial-gradient(ellipse_at_center,transparent_75%,black)] xl:[mask-image:radial-gradient(ellipse_at_center,transparent_65%,black)]"
+    >
+    </div>
     <main
-      class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide text-base-5"
+      class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide"
     >
       <div
         class="container prose prose-base prose-invert mx-auto w-full max-w-3xl px-4 py-8"
@@ -44,6 +49,6 @@ const { title, description, url } = Astro.props;
         <slot />
       </div>
     </main>
-    <Navbar />
+    <Navbar currentPath={currentPath} client:only="svelte" />
   </body>
 </html>

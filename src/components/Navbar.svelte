@@ -4,7 +4,7 @@
     HashIcon,
     ImagesIcon,
     ListIcon,
-    NotepadTextIcon
+    NotepadTextIcon,
   } from "lucide-svelte";
   import { onDestroy, onMount } from "svelte";
   import { twMerge } from "tailwind-merge";
@@ -15,28 +15,28 @@
     {
       id: 1,
       icon: ListIcon,
-      path: "/works"
+      path: "/works",
     },
     {
       id: 2,
       icon: NotepadTextIcon,
-      path: "/notes"
+      path: "/notes",
     },
     {
       id: 3,
       icon: HashIcon,
-      path: "/tags"
+      path: "/tags",
     },
     {
       id: 4,
       icon: ImagesIcon,
-      path: "/photos"
+      path: "/photos",
     },
     {
       id: 5,
       icon: AlbumIcon,
-      path: "/guestbook"
-    }
+      path: "/guestbook",
+    },
   ];
 
   let prevScrollPosition = 0;
@@ -63,7 +63,7 @@
   class={twMerge(
     "fixed flex justify-center items-center px-4 py-2 space-x-5",
     "w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full",
-    "bg-base-0/70 transition-all backdrop-blur-md border-base-2 z-50",
+    "bg-black/70 transition-all backdrop-blur-md border-base-2 z-50",
     isShow ? "translate-y-0 opacity-100" : "translate-y-full bottom-0 opacity-0"
   )}
 >

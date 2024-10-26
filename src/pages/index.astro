@@ -1,12 +1,12 @@
 ---
+import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
-import Layout from "~layouts/Layout.astro";
 
 const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
-  await getCollection("works")
+  await getCollection("works"),
 ]);
 ---
 
@@ -18,7 +18,7 @@ const [notesList, worksList] = await Promise.all([
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
-      "md:text-start"
+      "md:text-start",
     ]}
   >
     <section class="w-full">
@@ -106,8 +106,8 @@ const [notesList, worksList] = await Promise.all([
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-base-0 drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-5"
+                  "flex w-full flex-col bg-black drop-shadow-sm",
+                  "flex-wrap border-2 border-dashed border-base-5",
                 ]}
               >
                 <Image
@@ -124,7 +124,7 @@ const [notesList, worksList] = await Promise.all([
                     href={`/works/${item.slug}`}
                     class:list={[
                       "cursor-pointer text-lg font-bold",
-                      "!no-underline"
+                      "!no-underline",
                     ]}
                   >
                     <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
@@ -152,8 +152,8 @@ const [notesList, worksList] = await Promise.all([
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-base-0 p-4 drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-5"
+                  "flex w-full flex-col bg-black p-4 drop-shadow-sm",
+                  "flex-wrap border-2 border-dashed border-base-5",
                 ]}
               >
                 <span class="font-semibold">
@@ -163,7 +163,7 @@ const [notesList, worksList] = await Promise.all([
                   href={`/notes/${item.slug}`}
                   class:list={[
                     "mt-2 cursor-pointer text-lg font-bold",
-                    "!no-underline"
+                    "!no-underline",
                   ]}
                 >
                   <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">

@@ -1,7 +1,7 @@
 ---
+import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import Layout from "~layouts/Layout.astro";
 
 const worksList = await getCollection("works");
 ---
@@ -14,7 +14,7 @@ const worksList = await getCollection("works");
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
-      "md:text-start"
+      "md:text-start",
     ]}
   >
     <section class="w-full">
@@ -33,8 +33,8 @@ const worksList = await getCollection("works");
           .map((item) => (
             <div
               class:list={[
-                "flex w-full flex-col bg-base-0 drop-shadow-sm",
-                "flex-wrap border-2 border-dashed border-base-5"
+                "flex w-full flex-col bg-black drop-shadow-sm",
+                "flex-wrap border-2 border-dashed border-base-5",
               ]}
             >
               <Image
@@ -51,7 +51,7 @@ const worksList = await getCollection("works");
                   href={`/works/${item.slug}`}
                   class:list={[
                     "cursor-pointer text-lg font-bold",
-                    "!no-underline"
+                    "!no-underline",
                   ]}
                 >
                   <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">

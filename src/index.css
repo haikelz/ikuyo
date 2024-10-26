@@ -87,7 +87,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-base-3;
+  @apply bg-red-400;
 }
 
 .list-type-disc {

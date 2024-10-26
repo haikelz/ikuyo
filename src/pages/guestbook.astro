@@ -1,11 +1,11 @@
 ---
-import { format } from "date-fns";
-import Layout from "~layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import {
   PUBLIC_DEVELOPMENT_URL,
-  PUBLIC_PRODUCTION_URL
-} from "~lib/utils/constants";
-import type { GuestbookProps } from "~types";
+  PUBLIC_PRODUCTION_URL,
+} from "@/lib/utils/constants";
+import type { GuestbookProps } from "@/types";
+import { format } from "date-fns";
 
 const response = await fetch(
   `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
@@ -13,8 +13,8 @@ const response = await fetch(
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json"
-    }
+      Accept: "application/json",
+    },
   }
 );
 
@@ -30,7 +30,7 @@ const guestbook: GuestbookProps[] = data.data;
   <div
     class:list={[
       "flex w-full flex-col items-start justify-start",
-      "md:text-start"
+      "md:text-start",
     ]}
   >
     <section class="w-full">

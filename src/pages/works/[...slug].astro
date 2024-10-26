@@ -1,15 +1,15 @@
 ---
+import ReadingIndicator from "@/components/ReadingIndicator.svelte";
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { ArrowLeftIcon } from "lucide-svelte";
-import Layout from "~layouts/Layout.astro";
-import ReadingIndicator from "~components/ReadingIndicator.svelte";
 
 export async function getStaticPaths() {
   const worksEntries = await getCollection("works");
 
   return worksEntries.map((item) => ({
     params: { slug: item.slug },
-    props: { item }
+    props: { item },
   }));
 }
 
