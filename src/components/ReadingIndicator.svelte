@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
 
   let width = 0;
 
@@ -16,7 +15,6 @@
     }
 
     window.addEventListener("scroll", calculateScrollProgress);
-
     calculateScrollProgress();
 
     return () => {
@@ -25,4 +23,4 @@
   });
 </script>
 
-<div style="width: {width}%" class={twMerge("fixed h-1 bg-base-5 z-50")}></div>
+<div style="width: {width}%" class="fixed h-1 bg-base-5 z-50"></div>

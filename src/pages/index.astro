@@ -106,8 +106,8 @@ const [notesList, worksList] = await Promise.all([
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-black drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-5",
+                  "flex w-full flex-col bg-black/70 hover:bg-base-0/70 drop-shadow-sm",
+                  "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
                 ]}
               >
                 <Image
@@ -152,8 +152,8 @@ const [notesList, worksList] = await Promise.all([
             .map((item) => (
               <div
                 class:list={[
-                  "flex w-full flex-col bg-black p-4 drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-5",
+                  "flex w-full flex-col bg-black/70 hover:bg-base-0/70 p-4 drop-shadow-sm",
+                  "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
                 ]}
               >
                 <span class="font-semibold">

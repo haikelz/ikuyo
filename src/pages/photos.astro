@@ -56,7 +56,7 @@ export const photosList = [
 
 <Layout
   title="Photos"
-  description="Some of the photos that I've taken with my camera."
+  description="Some of the photos that I've taken. All of the photos are taken by a Sony A5000 Camera and 16-50mm Kit Lens."
   url="https://ekel.dev/photos"
 >
   <div
@@ -68,13 +68,13 @@ export const photosList = [
     <section class="w-full">
       <h1 data-cy="heading" class="mb-0">Photos</h1>
       <p data-cy="description" class="mb-0 text-justify">
-        Some of the photos that I've taken with my camera. My main focus is in
-        the Human Interest, and Nature.
+        Some of the photos that I've taken. All of the photos are taken by a
+        Sony A5000 Camera, and 16-50mm Kit Lens.
       </p>
     </section>
     <section
       data-cy="photos-list"
-      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 sm:grid-rows-2"
+      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3"
     >
       {
         photosList.map((item) => (

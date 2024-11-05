@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
+import { ViewTransitions } from "astro:transitions";
 import "../index.css";
 
 type Props = {
@@ -34,10 +35,14 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
+    <ViewTransitions />
   </head>
-  <body class="w-full lg:bg-dot-base-5/20 bg-black relative text-base-5">
+  <body class="w-full bg-black text-base-5">
     <div
-      class="absolute pointer-events-none inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_100%,black)] bg-black md:[mask-image:radial-gradient(ellipse_at_center,transparent_85%,black)] lg:[mask-image:radial-gradient(ellipse_at_center,transparent_75%,black)] xl:[mask-image:radial-gradient(ellipse_at_center,transparent_65%,black)]"
+      class:list={[
+        "absolute pointer-events-none inset-0 flex items-center justify-center",
+        "[mask-image:radial-gradient(ellipse_at_center,transparent_100%,black)] bg-black md:[mask-image:radial-gradient(ellipse_at_center,transparent_85%,black)] lg:[mask-image:radial-gradient(ellipse_at_center,transparent_75%,black)] xl:[mask-image:radial-gradient(ellipse_at_center,transparent_65%,black)]",
+      ]}
     >
     </div>
     <main
