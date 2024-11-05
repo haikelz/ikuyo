@@ -124,7 +124,3 @@ button {
 ::view-transition-new(*) {
   animation-duration: 0s;
 }
-
-html.dark {
-  @apply bg-black text-base-5;
-}
