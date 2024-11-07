@@ -1,20 +1,5 @@
 <img src="https://github.com/Safouene1/support-palestine-banner/blob/master/banner-support.svg" width="100%" />
 
-<div align="center">
-  <h1>Anomali</h1>
-  <p>Personal Website / ekel.dev</p>
-</div>
+A minimalist Personal Website. Crafted using Astro JS, Svelte, Tailwind CSS, and deployed at Cloudflare.
 
-## Technologies
-
-- Astro JS
-- Svelte
-- Tailwind CSS
-- Cypress for E2E Testing
-- Cloudflare pages for deployment
-
-## Fonts
-
-- **Main**: Geist Sans
-- **Arabic**: Noto Naskh Arabic
-- **Code Block**: Geist Mono
+Visit the Website at [ekel.dev](https://ekel.dev)

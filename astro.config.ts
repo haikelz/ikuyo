@@ -20,7 +20,7 @@ export default defineConfig({
     mdx({
       syntaxHighlight: "shiki",
       shikiConfig: {
-        theme: "poimandres",
+        theme: "github-dark-default",
       },
       remarkPlugins: [remarkToc, remarkReadingTime],
       rehypePlugins: [rehypePresetMinify, rehypeSlug],

@@ -1,7 +1,7 @@
 ---
+import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { format } from "date-fns";
 
 const notes = await getCollection("notes");
 
@@ -43,12 +43,16 @@ const currentPath = Astro.url.pathname.split("/")[2];
   >
     <section class="w-full">
       <h1 class="mb-0">Tags</h1>
-      <p id="description" class="mb-0 text-justify">
-        Notes with tag {currentPath}.
-      </p>
+      <div class="slide-enter-content">
+        <p id="description" class="mb-0 text-justify">
+          Notes with tag {currentPath}.
+        </p>
+      </div>
     </section>
     <section class="mt-8 w-full">
-      <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
+      <div
+        class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 slide-enter-content"
+      >
         {
           notes
             .filter((item) => item.data.tags.includes(currentPath))
@@ -58,28 +62,13 @@ const currentPath = Astro.url.pathname.split("/")[2];
                 new Date(a.data.created_at).getTime()
             )
             .map((item) => (
-              <div
-                class:list={[
-                  "flex w-full flex-col bg-black p-4 drop-shadow-sm",
-                  "flex-wrap border-2 border-dashed border-base-5",
-                ]}
-              >
-                <span class="font-semibold">
-                  {format(item.data.created_at, "LLLL d, yyyy")}
-                </span>
-                <a
-                  href={`/notes/${item.slug}`}
-                  class:list={[
-                    "mt-2 cursor-pointer text-lg font-bold",
-                    "!no-underline",
-                  ]}
-                >
-                  <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
-                    {item.data.title}
-                  </h3>
-                </a>
-                <p class="mb-0 mt-2">{item.data.description}</p>
-              </div>
+              <Card
+                title={item.data.title}
+                description={item.data.description}
+                type="notes"
+                slug={item.slug}
+                createdAt={item.data.created_at}
+              />
             ))
         }
       </div>

@@ -35,13 +35,15 @@ const guestbook: GuestbookProps[] = data.data;
   >
     <section class="w-full">
       <h1 data-cy="heading" class="mb-0">Guestbook</h1>
-      <p data-cy="description" class="mb-0 text-justify">
-        Write a message for me and others.
-      </p>
+      <div class="slide-enter-content">
+        <p data-cy="description" class="mb-0 text-justify">
+          Write a message for me and others.
+        </p>
+      </div>
     </section>
     <section
       data-cy="guestbook"
-      class="mt-8 flex w-full flex-col items-start justify-start space-y-6"
+      class="mt-8 flex w-full flex-col items-start justify-start space-y-6 slide-enter-content"
     >
       {
         guestbook ? (

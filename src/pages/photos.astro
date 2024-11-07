@@ -67,14 +67,16 @@ export const photosList = [
   >
     <section class="w-full">
       <h1 data-cy="heading" class="mb-0">Photos</h1>
-      <p data-cy="description" class="mb-0 text-justify">
-        Some of the photos that I've taken. All of the photos are taken by a
-        Sony A5000 Camera, and 16-50mm Kit Lens.
-      </p>
+      <div class="slide-enter-content">
+        <p data-cy="description" class="mb-0 text-justify">
+          Some of the photos that I've taken. All of the photos are taken by a
+          Sony A5000 Camera, and 16-50mm Kit Lens.
+        </p>
+      </div>
     </section>
     <section
       data-cy="photos-list"
-      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3"
+      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3 slide-enter-content"
     >
       {
         photosList.map((item) => (

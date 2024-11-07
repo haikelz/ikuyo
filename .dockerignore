@@ -1,0 +1,8 @@
+.astro
+.github
+.next
+node_modules
+ignore-folder
+.vscode
+dist
+README.md

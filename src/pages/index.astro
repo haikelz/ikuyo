@@ -1,8 +1,7 @@
 ---
+import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import { format } from "date-fns";
 
 const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
@@ -23,33 +22,35 @@ const [notesList, worksList] = await Promise.all([
   >
     <section class="w-full">
       <h1 data-cy="name" class="mb-0">Haikel Ilham Hakim</h1>
-      <p data-cy="description" class="mb-0 text-justify">
-        Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
-        <b>"E"</b> pronounce is <b>"Emas"</b>. I&#39;m a Developer based in
-        Indonesia, also an amateur photographer in my free time.
-        <b>
-          <i>Keep it simple</i>
-        </b>, is one of my principles while crafting something. Find me on
-        <a
-          href="https://github.com/haikelz"
-          target="blank"
-          rel="noopener noreferrer">Github</a
-        >,
-        <a
-          href="https://www.linkedin.com/in/haikel"
-          target="_blank"
-          rel="noopener noreferrer">Linkedin</a
-        >, and
-        <a
-          href="https://www.instagram.com/ekel.tsx"
-          target="_blank"
-          rel="noopener noreferrer">Instagram</a
-        >.
-      </p>
+      <div class="slide-enter-content">
+        <p data-cy="description" class="mb-0 text-justify">
+          Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
+          <b>"E"</b> pronounce is <b>"Emas"</b>. I&#39;m a Developer based in
+          Indonesia, also an amateur photographer in my free time.
+          <b>
+            <i>Keep it simple</i>
+          </b>, is one of my principles while crafting something. Find me on
+          <a
+            href="https://github.com/haikelz"
+            target="blank"
+            rel="noopener noreferrer">Github</a
+          >,
+          <a
+            href="https://www.linkedin.com/in/haikel"
+            target="_blank"
+            rel="noopener noreferrer">Linkedin</a
+          >, and
+          <a
+            href="https://www.instagram.com/ekel.tsx"
+            target="_blank"
+            rel="noopener noreferrer">Instagram</a
+          >.
+        </p>
+      </div>
     </section>
-    <section data-cy="experience" class="mt-8 w-full">
+    <section data-cy="experience" class="mt-8 w-full slide-enter-content">
       <h2 class="mb-6 mt-0 font-extrabold">Experience</h2>
-      <div class="space-y-3">
+      <div class="space-y-3 slide-enter-content">
         <div>
           <div
             class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between"
@@ -96,44 +97,23 @@ const [notesList, worksList] = await Promise.all([
         </div>
       </div>
     </section>
-    <section data-cy="featured-works" class="mt-8 w-full">
+    <section data-cy="featured-works" class="mt-8 w-full slide-enter-content">
       <h2 class="mb-6 mt-0 font-extrabold">Featured Works</h2>
-      <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
+      <div
+        class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 slide-enter-content"
+      >
         {
           worksList
             .sort((a, b) => a.data.id - b.data.id)
             .slice(0, 4)
             .map((item) => (
-              <div
-                class:list={[
-                  "flex w-full flex-col bg-black/70 hover:bg-base-0/70 drop-shadow-sm",
-                  "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
-                ]}
-              >
-                <Image
-                  src={item.data.thumbnail}
-                  alt={item.data.title}
-                  width={500}
-                  height={500}
-                  quality={100}
-                  format="avif"
-                  class="!my-0 aspect-video !rounded-none !border-none"
-                />
-                <div class="w-full p-4">
-                  <a
-                    href={`/works/${item.slug}`}
-                    class:list={[
-                      "cursor-pointer text-lg font-bold",
-                      "!no-underline",
-                    ]}
-                  >
-                    <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
-                      {item.data.title}
-                    </h3>
-                  </a>
-                  <p class="mb-0 mt-2">{item.data.description}</p>
-                </div>
-              </div>
+              <Card
+                type="works"
+                thumbnail={item.data.thumbnail}
+                title={item.data.title}
+                description={item.data.description}
+                slug={item.slug}
+              />
             ))
         }
       </div>
@@ -150,28 +130,13 @@ const [notesList, worksList] = await Promise.all([
             )
             .slice(0, 4)
             .map((item) => (
-              <div
-                class:list={[
-                  "flex w-full flex-col bg-black/70 hover:bg-base-0/70 p-4 drop-shadow-sm",
-                  "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
-                ]}
-              >
-                <span class="font-semibold">
-                  {format(item.data.created_at, "LLLL d, yyyy")}
-                </span>
-                <a
-                  href={`/notes/${item.slug}`}
-                  class:list={[
-                    "mt-2 cursor-pointer text-lg font-bold",
-                    "!no-underline",
-                  ]}
-                >
-                  <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
-                    {item.data.title}
-                  </h3>
-                </a>
-                <p class="mb-0 mt-2 line-clamp-3">{item.data.description}</p>
-              </div>
+              <Card
+                slug={item.slug}
+                type="notes"
+                createdAt={item.data.created_at}
+                title={item.data.title}
+                description={item.data.description}
+              />
             ))
         }
       </div>

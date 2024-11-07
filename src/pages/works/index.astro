@@ -1,6 +1,6 @@
 ---
+import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 const worksList = await getCollection("works");
@@ -19,48 +19,27 @@ const worksList = await getCollection("works");
   >
     <section class="w-full">
       <h1 data-cy="heading" class="mb-0">Works</h1>
-      <p data-cy="description" class="mb-0 text-justify">
-        List some of my works.
-      </p>
+      <div class="slide-enter-content">
+        <p data-cy="description" class="mb-0 text-justify">
+          List some of my works.
+        </p>
+      </div>
     </section>
     <section
       data-cy="works-list"
-      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2"
+      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 slide-enter-content"
     >
       {
         worksList
           .sort((a, b) => a.data.id - b.data.id)
           .map((item) => (
-            <div
-              class:list={[
-                "flex w-full flex-col bg-black/70 hover:bg-base-0/70 drop-shadow-sm",
-                "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
-              ]}
-            >
-              <Image
-                src={item.data.thumbnail}
-                alt={item.data.title}
-                width={500}
-                height={500}
-                quality={100}
-                format="avif"
-                class="!my-0 aspect-video !rounded-none !border-none"
-              />
-              <div class="p-4">
-                <a
-                  href={`/works/${item.slug}`}
-                  class:list={[
-                    "cursor-pointer text-lg font-bold",
-                    "!no-underline",
-                  ]}
-                >
-                  <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">
-                    {item.data.title}
-                  </h3>
-                </a>
-                <p class="mb-0 mt-2">{item.data.description}</p>
-              </div>
-            </div>
+            <Card
+              slug={item.slug}
+              title={item.data.title}
+              description={item.data.description}
+              type="works"
+              thumbnail={item.data.thumbnail}
+            />
           ))
       }
     </section>
