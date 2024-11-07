@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar.astro";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
-import { ViewTransitions } from "astro:transitions";
 import "../index.css";
 
 type Props = {
@@ -34,7 +33,6 @@ const { title, description, url } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <ViewTransitions />
   </head>
   <body class="w-full bg-black text-base-5">
     <div
