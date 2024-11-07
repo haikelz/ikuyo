@@ -18,7 +18,7 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
   type === "notes" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-black/70 hover:bg-base-0/70 p-4 drop-shadow-sm",
+        "flex w-full flex-col bg-black/70 hover:bg-base-0/70 transition-all p-4 drop-shadow-sm",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
       ]}
     >
@@ -36,7 +36,7 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
   ) : type === "works" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-black/70 hover:bg-base-0/70 drop-shadow-sm",
+        "flex w-full flex-col bg-black/70 hover:bg-base-0/70 drop-shadow-sm transition-all",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-base-2",
       ]}
     >

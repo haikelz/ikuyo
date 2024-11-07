@@ -1,5 +1,5 @@
 ---
-import Navbar from "@/components/Navbar.svelte";
+import Navbar from "@/components/Navbar.astro";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
@@ -13,7 +13,6 @@ type Props = {
 };
 
 const { title, description, url } = Astro.props;
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -54,6 +53,6 @@ const currentPath = Astro.url.pathname;
         <slot />
       </div>
     </main>
-    <Navbar currentPath={currentPath} client:only="svelte" />
+    <Navbar />
   </body>
 </html>
