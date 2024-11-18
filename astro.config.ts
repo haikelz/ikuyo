@@ -1,6 +1,7 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
+import swup from "@swup/astro";
 import compressor from "astro-compressor";
 import { defineConfig } from "astro/config";
 import rehypePresetMinify from "rehype-preset-minify";
@@ -14,9 +15,24 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
-  prefetch: { prefetchAll: true },
+  prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
   integrations: [
     tailwind(),
+    swup({
+      theme: false,
+      animationClass: false,
+      containers: ["body"],
+      smoothScrolling: true,
+      cache: true,
+      preload: { hover: true, visible: true },
+      accessibility: true,
+      updateHead: true,
+      updateBodyClass: true,
+      reloadScripts: false,
+      loadOnIdle: true,
+      morph: [".reading-progress"],
+      globalInstance: true,
+    }),
     mdx({
       syntaxHighlight: "shiki",
       shikiConfig: {

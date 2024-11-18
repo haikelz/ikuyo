@@ -224,3 +224,7 @@ button {
 .dark::view-transition-new(root) {
   z-index: 1;
 }
+
+body {
+  --swup-fade-theme-duration: 0.1s;
+}

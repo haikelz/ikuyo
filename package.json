@@ -1,5 +1,5 @@
 {
-  "name": "anomali",
+  "name": "ikuyo",
   "author": "Haikel Ilham Hakim",
   "private": true,
   "description": "Personal Website / ekel.dev",
@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/haikelz/anomali"
+    "url": "https://github.com/haikelz/ikuyo"
   },
   "scripts": {
     "dev": "astro dev",
@@ -34,6 +34,7 @@
     "@playform/compress": "^0.1.4",
     "@prisma/adapter-libsql": "^5.19.1",
     "@prisma/client": "^5.19.1",
+    "@swup/astro": "^1.5.0",
     "astro": "^4.15.6",
     "astro-compressor": "^0.4.1",
     "date-fns": "4.0.0-beta.1",

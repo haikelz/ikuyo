@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: anomali
+    container_name: ikuyo
     build:
       context: .
       dockerfile: Dockerfile

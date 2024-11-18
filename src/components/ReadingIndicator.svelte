@@ -23,4 +23,7 @@
   });
 </script>
 
-<div style="width: {width}%" class="fixed h-1 bg-base-5 z-50"></div>
+<div
+  style="width: {width}%"
+  class="fixed h-1 bg-base-5 z-50 reading-progress"
+></div>
