@@ -30,7 +30,6 @@ export default defineConfig({
       updateBodyClass: true,
       reloadScripts: false,
       loadOnIdle: true,
-      morph: [".reading-progress"],
       globalInstance: true,
     }),
     mdx({
