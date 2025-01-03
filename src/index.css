@@ -15,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-extrabold w-fit;
+  @apply font-extrabold w-fit text-base-0;
 }
 
 .arabic-font {
@@ -23,7 +23,7 @@ h6 {
 }
 
 .prose code:not(:has(span)) {
-  @apply bg-base-1 px-1 py-0.5 rounded-sm;
+  @apply bg-vitesse-white-2 px-1 py-0.5 rounded-sm;
   font-family: "Geist Mono", monospace;
 }
 
@@ -41,7 +41,7 @@ h6 {
 }
 
 .prose hr {
-  @apply border-base-4;
+  @apply border-vitesse-white-3;
 }
 
 .prose ul {
@@ -99,14 +99,6 @@ button {
   padding-left: 1rem;
 }
 
-.list-position-outside > li::marker {
-  color: #9ca3af;
-}
-
-.dark .list-position-outside > li::marker {
-  color: #6b7280;
-}
-
 .modal-blur {
   backdrop-filter: blur(20px);
 }
@@ -128,6 +120,7 @@ button {
 
   to {
     transform: translateY(0);
+    --enter-stage: 9 !important;
     opacity: 1;
   }
 }

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
+import { ViewTransitions } from "astro:transitions";
 import "../index.css";
 
 type Props = {
@@ -34,11 +35,12 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
+    <ViewTransitions />
   </head>
-  <body class="w-full bg-black text-base-5">
+  <body class="w-full bg-vitesse-white-1 text-base-0">
     <div
       class:list={[
-        "absolute pointer-events-none inset-0 flex items-center justify-center",
+        "absolute pointer-events-none inset-0 flex items-center justify-center view-transition-fade-old view-transition-fade-new",
       ]}
     >
     </div>
@@ -46,7 +48,7 @@ const currentPath = Astro.url.pathname;
       class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide"
     >
       <div
-        class="container prose prose-base prose-invert mx-auto w-full max-w-3xl px-4 py-8"
+        class="container prose prose-base prose-gray mx-auto w-full max-w-3xl px-4 py-8"
       >
         <slot />
       </div>

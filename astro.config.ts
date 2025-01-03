@@ -1,7 +1,6 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import swup from "@swup/astro";
 import compressor from "astro-compressor";
 import { defineConfig } from "astro/config";
 import rehypePresetMinify from "rehype-preset-minify";
@@ -18,20 +17,7 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
   integrations: [
     tailwind(),
-    swup({
-      theme: false,
-      animationClass: false,
-      containers: ["body"],
-      smoothScrolling: true,
-      cache: true,
-      preload: { hover: true, visible: true },
-      accessibility: true,
-      updateHead: true,
-      updateBodyClass: true,
-      reloadScripts: false,
-      loadOnIdle: true,
-      globalInstance: true,
-    }),
+
     mdx({
       syntaxHighlight: "shiki",
       shikiConfig: {

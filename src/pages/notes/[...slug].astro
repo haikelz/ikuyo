@@ -33,7 +33,7 @@ const { Content, remarkPluginFrontmatter } = await item.render();
       <button
         type="button"
         aria-label="back to notes"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-base-1"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-vitesse-white-2"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
@@ -47,7 +47,7 @@ const { Content, remarkPluginFrontmatter } = await item.render();
           class="!my-0 h-7 w-7 !rounded-full !py-0"
         />
       </div>
-      <span class="font-semibold text-base-5"
+      <span class="font-semibold"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead} / {
           format(item.data.created_at, "LLLL d, yyyy")
         }
