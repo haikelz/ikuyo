@@ -1,13 +1,25 @@
-name: Lighthouse
-on: [push]
+name: CI
+on:
+  pull_request:
+    branches: = master
 jobs:
-  lighthouseci:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm install && npm install -g @lhci/cli@0.14.x
-      - run: npm run build
-      - run: lhci autorun
+  lighthouse:
+  name: Lighthouse CI
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: lighthouse mobile audit
+      run: npm run lhci:mobile
+      env: LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+    - name: lighthouse desktop audit 
+      run: npm run lhci:desktop
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
