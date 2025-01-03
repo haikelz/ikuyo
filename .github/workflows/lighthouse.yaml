@@ -1,7 +1,8 @@
 name: CI
 on:
   pull_request:
-    branches: = master
+    branches:
+      - master
 jobs:
   lighthouse:
     name: Lighthouse CI
