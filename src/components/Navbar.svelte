@@ -63,7 +63,7 @@
   class={twMerge(
     "fixed flex justify-center items-center px-4 py-2 space-x-5",
     "w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full",
-    "bg-vitesse-white-1/70 transition-all backdrop-blur-md border-vitesse-white-2 z-50",
+    "bg-monochrome-1/70 transition-all backdrop-blur-md border-monochrome-3 z-50",
     isShow ? "translate-y-0 opacity-100" : "translate-y-full bottom-0 opacity-0"
   )}
 >
@@ -73,7 +73,7 @@
       aria-label="/"
       class={twMerge(
         "p-2",
-        currentPath === "/" ? "bg-vitesse-white-2 rounded-full" : ""
+        currentPath === "/" ? "bg-monochrome-2 rounded-full" : ""
       )}
     >
       <img
@@ -96,9 +96,7 @@
         aria-label={item.path}
         class={twMerge(
           "p-2",
-          currentPath.includes(item.path)
-            ? "bg-vitesse-white-2 rounded-full"
-            : ""
+          currentPath.includes(item.path) ? "bg-monochrome-2 rounded-full" : ""
         )}
       >
         <Icon

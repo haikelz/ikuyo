@@ -28,12 +28,12 @@ const { Content, remarkPluginFrontmatter } = await item.render();
   description={item.data.description}
   url={`https://ekel.dev/notes/${item.slug}`}
 >
-  <div class="w-full slide-enter-content">
+  <div class="w-full slide-enter-content text-justify">
     <a href="/notes" class="flex w-fit items-center justify-center">
       <button
         type="button"
         aria-label="back to notes"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-vitesse-white-2"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-monochrome-2"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
