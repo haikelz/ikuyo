@@ -1,7 +1,7 @@
 ---
 import Navbar from "@/components/Navbar.svelte";
 import "@fontsource/geist-mono";
-import "@fontsource/geist-sans";
+import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
 import { ViewTransitions } from "astro:transitions";
 import "../index.css";
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
     <link rel="sitemap" href="/sitemap.xml" />
     <ViewTransitions />
   </head>
-  <body class="w-full bg-vitesse-white-1 text-base-0">
+  <body class="w-full bg-monochrome-1 text-base-0">
     <div
       class:list={[
         "absolute pointer-events-none inset-0 flex items-center justify-center view-transition-fade-old view-transition-fade-new",

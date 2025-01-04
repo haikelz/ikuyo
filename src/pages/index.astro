@@ -1,6 +1,7 @@
 ---
 import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 const [notesList, worksList] = await Promise.all([
@@ -21,40 +22,29 @@ const [notesList, worksList] = await Promise.all([
     ]}
   >
     <section class="w-full">
-      <h1 data-cy="name" class="mb-0 text-base-0">
-        Haikel Ilham Hakim <span class="text-xl hidden min-[500px]:inline-block"
-          >(raw/jpeg)</span
-        >
-      </h1>
-      <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify text-base-0">
-          Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
-          <b>"E"</b> pronounce is <b>"Emas"</b>. I&#39;m a Developer based in
-          Indonesia, also an amateur photographer in my free time.
-          <b>
-            <i>Keep it simple</i>
-          </b>, is one of my principles while crafting something. Find me on
-          <a
-            href="https://github.com/haikelz"
-            target="_blank"
-            rel="noopener noreferrer">Github</a
-          >,
-          <a
-            href="https://facebook.com/kelgfx"
-            target="_blank"
-            rel="noopener noreferrer">Facebook</a
-          >
-          <a
-            href="https://www.linkedin.com/in/haikel"
-            target="_blank"
-            rel="noopener noreferrer">Linkedin</a
-          >, and
-          <a
-            href="https://www.instagram.com/ekel.tsx"
-            target="_blank"
-            rel="noopener noreferrer">Instagram</a
-          >.
-        </p>
+      <div
+        class="slide-enter-content flex w-fit space-x-0 md:space-x-4 relative justify-start items-start"
+      >
+        <Image
+          src="https://avatars.githubusercontent.com/u/77146709?v=4"
+          alt="Github Profile"
+          width={500}
+          height={500}
+          quality={100}
+          draggable={false}
+          format="avif"
+          class="photos !w-36 !my-0 hidden md:block !border-none object-cover"
+        />
+        <div>
+          <h2 data-cy="name" class="!mb-0 !mt-0">Haikel Ilham Hakim</h2>
+          <p data-cy="description" class="!mb-0 mt-2 text-justify text-base-0">
+            Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
+            <b>"E"</b> pronounce is <b>"Emas"</b>. I'm a Developer based in
+            Indonesia, also an amateur photographer in my free time.
+            <b><i> Keep it simple,</i></b> is one of my principles while crafting
+            something.
+          </p>
+        </div>
       </div>
     </section>
     <section data-cy="experience" class="mt-8 w-full slide-enter-content">
