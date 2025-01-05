@@ -3,6 +3,7 @@ import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import { ArrowRight } from "lucide-svelte";
 
 const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
@@ -97,7 +98,14 @@ const [notesList, worksList] = await Promise.all([
       </div>
     </section>
     <section data-cy="featured-works" class="mt-8 w-full slide-enter-content">
-      <h2 class="mb-6 mt-0 font-extrabold">Featured Works</h2>
+      <div class="w-full flex mb-6 justify-between items-center">
+        <h2 class="mt-0 mb-0 font-extrabold">Featured Works</h2>
+        <a href="/works" class="mb-0 mt-0">
+          <button class="bg-monochrome-2 rounded-full p-1">
+            <ArrowRight />
+          </button>
+        </a>
+      </div>
       <div
         class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 slide-enter-content"
       >
@@ -118,7 +126,14 @@ const [notesList, worksList] = await Promise.all([
       </div>
     </section>
     <section data-cy="featured-notes" class="mt-8 w-full">
-      <h2 class="mb-6 mt-0 font-extrabold">Latest Notes</h2>
+      <div class="w-full flex mb-6 justify-between items-center">
+        <h2 class="mt-0 mb-0 font-extrabold">Latest Notes</h2>
+        <a href="/notes" class="mb-0 mt-0">
+          <button class="bg-monochrome-2 mb-0 mt-0 rounded-full p-1">
+            <ArrowRight />
+          </button>
+        </a>
+      </div>
       <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
         {
           notesList
