@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "startServerCommand": "npm run build && npm run start",
-      "url": ["htts://ekel.dev/"],
+      "url": ["https://ekel.dev/"],
       "numberOfRuns": 3
     },
     "upload": {
