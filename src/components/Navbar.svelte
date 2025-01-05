@@ -77,7 +77,8 @@
       )}
     >
       <img
-        class="rounded-full w-7"
+        class="rounded-full h-7 w-7 object-cover photos"
+        draggable={false}
         src="https://avatars.githubusercontent.com/u/77146709?v=4"
         alt="Github Profile"
         loading="lazy"

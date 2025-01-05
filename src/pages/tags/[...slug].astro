@@ -7,6 +7,7 @@ const notes = await getCollection("notes");
 
 export async function getStaticPaths() {
   const notesEntries = await getCollection("notes");
+
   const tags = [
     ...new Set(
       notesEntries
@@ -42,7 +43,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
     ]}
   >
     <section class="w-full">
-      <h1 class="mb-0">Tags</h1>
+      <h1 class="mb-0">./tags/{currentPath}</h1>
       <div class="slide-enter-content">
         <p id="description" class="mb-0 text-justify">
           Notes with tag {currentPath}.

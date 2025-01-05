@@ -3,7 +3,6 @@ import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import { ArrowRight } from "lucide-svelte";
 
 const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
@@ -41,9 +40,9 @@ const [notesList, worksList] = await Promise.all([
           <p data-cy="description" class="!mb-0 mt-2 text-justify text-base-0">
             Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
             <b>"E"</b> pronounce is <b>"Emas"</b>. I'm a Developer based in
-            Indonesia, also an amateur photographer in my free time.
-            <b><i> Keep it simple,</i></b> is one of my principles while crafting
-            something.
+            Indonesia, also an amateur photographer in my free time. Day-to-day,
+            I mostly working on Frontend stuff and currently learning Go,
+            Svelte, also DevOps.
           </p>
         </div>
       </div>
@@ -98,14 +97,7 @@ const [notesList, worksList] = await Promise.all([
       </div>
     </section>
     <section data-cy="featured-works" class="mt-8 w-full slide-enter-content">
-      <div class="w-full flex mb-6 justify-between items-center">
-        <h2 class="mt-0 mb-0 font-extrabold">Featured Works</h2>
-        <a href="/works" class="mb-0 mt-0">
-          <button class="bg-monochrome-2 rounded-full p-1">
-            <ArrowRight />
-          </button>
-        </a>
-      </div>
+      <h2 class="mt-0 mb-6 font-extrabold">Featured Works</h2>
       <div
         class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 slide-enter-content"
       >
@@ -126,14 +118,7 @@ const [notesList, worksList] = await Promise.all([
       </div>
     </section>
     <section data-cy="featured-notes" class="mt-8 w-full">
-      <div class="w-full flex mb-6 justify-between items-center">
-        <h2 class="mt-0 mb-0 font-extrabold">Latest Notes</h2>
-        <a href="/notes" class="mb-0 mt-0">
-          <button class="bg-monochrome-2 mb-0 mt-0 rounded-full p-1">
-            <ArrowRight />
-          </button>
-        </a>
-      </div>
+      <h2 class="mt-0 mb-6 font-extrabold">Latest Notes</h2>
       <div class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2">
         {
           notesList
