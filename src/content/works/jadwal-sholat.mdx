@@ -8,7 +8,7 @@ stack:
   - typescript
   - react-query
 description: A Website to get prayer schedule, read Al-Qur'an, and Asma'ul Husna
-preview: https://info-jadwal-sholat.vercel.app/
+preview: https://jdwshlt.ekel.dev/
 repo: https://github.com/haikelz/jadwal-sholat
 ---
 
@@ -22,41 +22,59 @@ repo: https://github.com/haikelz/jadwal-sholat
 
 Jadwal Sholat adalah sebuah Aplikasi web untuk menampilkan Jadwal sholat, baca Al-Qur'an, juga daftar Asma'ul Husna. Website ini saya buat awalnya untuk membantu saya sendiri untuk melihat jadwal sholat yang akurat, tapi kemudian saya kembangkan lagi sehingga fungsinya tidak hanya untuk melihat jadwal sholat saja.
 
-Awalnya, ada jadwal puasa sunnah yang saya tambahkan di Website ini, namun pada tahun 2023, jadwal puasa sunnahnya tidak valid lagi(dikarenakan datanya dikhususkan untuk tahun 2022 saja). Jadi saya pun menonaktifkan fitur ini. Terima kasih banyak buat mas [Bagas](https://github.com/granitebps) yang udah buat API puasa sunnah untuk tahun lalu :D
-
 Cukup banyak perubahan stack yang dipakai di Website ini, tapi core utama yang tetep dipakai adalah Next JS + Typescript.
 
 Website ini sudah PWA, jadi bisa diinstall di hp tanpa perlu bolak balik masuk browser.
 
-Pengerjaan website ini sebenarnya ga lama-lama banget, tapi yang bikin lama itu karena saya nyicil buat nambahin fitur-fitur baru. Saya belajar banyak dari project ini, terutama dalam meningkatkan kemampuan Next JS dan Typescript saya. Sampai sekarang, saya masih me-maintain website ini.
+## Fitur
+
+- Tampilkan Jadwal sholat berdasarkan lokasi pengguna. By default jika lokasi tidak diset/diizinkan pengguna, maka jadwal sholat akan mengacu ke daerah Bandung.
+- Memutar suara Adzan berdasarkan lokasi pengguna.
+- Baca Al-Qur'an(dengan audio yang bisa dipilih berdasarkan qori', terjemahan, juga bahasa latin).
+- Asma'ul Husna.
+- Do'a Harian.
 
 ## Screenshots
 
 <img
-  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/home.png?updatedAt=1691490447432"
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-17.png?updatedAt=1736305156411"
   alt="Screenshot 1"
 />
 
 <img
-  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/quran.png?updatedAt=1691490447517"
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-26.png?updatedAt=1736305157610"
   alt="Screenshot 2"
 />
 
 <img
-  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/puasa-sunnah.png?updatedAt=1691490447480"
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-28-49.png?updatedAt=1736305156326"
   alt="Screenshot 3"
 />
 
 <img
-  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/asmaul-husna.png?updatedAt=1691490447465"
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-15.png?updatedAt=1736305156600"
   alt="Screenshot 4"
+/>
+
+<img
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-20.png?updatedAt=1736305156457"
+  alt="Screenshot 5"
+/>
+
+<img
+  src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-35.png?updatedAt=1736305156567"
+  alt="Screenshot 6"
 />
 
 ## Tech Stack
 
 - Next JS
 - Typescript
-- UnoCSS
+- Tailwind CSS + Shadcn/UI
 - React Query
 - Zustand
+- Turborepo
+- Cypress
+- Leaflet
+- Framer Motion
 - GraphQL(only for `/asmaul-husna` page)
