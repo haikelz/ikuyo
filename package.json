@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "generate": "npx prisma generate",
+    "build": "npm run generate && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "open": "cypress open",
