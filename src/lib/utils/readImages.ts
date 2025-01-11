@@ -1,5 +1,7 @@
-export async function readImages() {
-  const imageFiles = await import.meta.glob(
+export function readImages() {
+  const pattern = /png|jpg|jpeg|gif|webp/gi
+
+  const imageFiles = import.meta.glob(
     "/public/images/photos/**/*.(png|jpg|jpeg|gif|webp)"
   );
 
@@ -13,7 +15,7 @@ export async function readImages() {
       url: urlPath,
       import: importFunc,
     };
-  });
+  }).sort((a, b) => Number(a.fileName.replace(pattern, '')) - Number(b.fileName.replace(pattern, '')));
 
   return images;
 }
