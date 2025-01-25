@@ -25,16 +25,20 @@ const [notesList, worksList] = await Promise.all([
       <div
         class="slide-enter-content flex w-fit space-x-0 md:space-x-4 relative justify-start items-start"
       >
-        <Image
-          src="https://avatars.githubusercontent.com/u/77146709?v=4"
-          alt="Github Profile"
-          width={500}
-          height={500}
-          quality={100}
-          draggable={false}
-          format="avif"
-          class="photos !w-36 !my-0 hidden md:block !border-none object-cover"
-        />
+        <div
+          class="bg-monochrome-3 hidden md:block !-rotate-3 p-1.5 rounded-md w-[500px] h-fit"
+        >
+          <Image
+            src="https://avatars.githubusercontent.com/u/77146709?v=4"
+            alt="Github Profile"
+            width={500}
+            height={500}
+            quality={100}
+            draggable={false}
+            format="avif"
+            class="photos !w-36 !my-0 !border-none object-cover"
+          />
+        </div>
         <div>
           <h2 data-cy="name" class="!mb-0 !mt-0">Haikel Ilham Hakim</h2>
           <p data-cy="description" class="!mb-0 mt-2 text-justify text-base-0">

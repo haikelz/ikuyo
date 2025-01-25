@@ -73,7 +73,7 @@
       aria-label="/"
       class={twMerge(
         "p-2",
-        currentPath === "/" ? "bg-monochrome-2 rounded-full" : ""
+        currentPath === "/" ? "bg-monochrome-3 rounded-full" : ""
       )}
     >
       <img
@@ -97,7 +97,7 @@
         aria-label={item.path}
         class={twMerge(
           "p-1.5",
-          currentPath.includes(item.path) ? "bg-monochrome-2 rounded-full" : ""
+          currentPath.includes(item.path) ? "bg-monochrome-3 rounded-full" : ""
         )}
       >
         <Icon
