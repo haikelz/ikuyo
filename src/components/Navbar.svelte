@@ -61,7 +61,7 @@
 <nav
   data-cy="bottom-nav"
   class={twMerge(
-    "fixed flex justify-center items-center px-4 py-2 space-x-5",
+    "fixed flex justify-center items-center px-3 py-1.5 space-x-5",
     "w-fit border-[0.5px] mx-auto right-0 left-0 bottom-4 rounded-full",
     "bg-monochrome-1/70 transition-all backdrop-blur-md border-monochrome-3 z-50",
     isShow ? "translate-y-0 opacity-100" : "translate-y-full bottom-0 opacity-0"
@@ -77,7 +77,7 @@
       )}
     >
       <img
-        class="rounded-full h-7 w-7 object-cover photos"
+        class="rounded-full h-6 w-6 object-cover photos"
         draggable={false}
         src="https://avatars.githubusercontent.com/u/77146709?v=4"
         alt="Github Profile"
@@ -96,12 +96,12 @@
         type="button"
         aria-label={item.path}
         class={twMerge(
-          "p-2",
+          "p-1.5",
           currentPath.includes(item.path) ? "bg-monochrome-2 rounded-full" : ""
         )}
       >
         <Icon
-          size={23}
+          size={21}
           class={twMerge(
             "font-bold",
             currentPath.includes(item.path) ? "text-base-0" : "text-base-0"
