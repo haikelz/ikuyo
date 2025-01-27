@@ -34,8 +34,6 @@
     "@fontsource/noto-naskh-arabic": "^5.1.1",
     "@libsql/client": "^0.14.0",
     "@playform/compress": "^0.1.7",
-    "@prisma/adapter-libsql": "^6.2.1",
-    "@prisma/client": "6.2.1",
     "@sentry/astro": "^8.51.0",
     "@swup/astro": "^1.5.0",
     "@tailwindcss/postcss": "^4.0.0",
@@ -61,7 +59,6 @@
     "@biomejs/biome": "1.9.4",
     "@lhci/cli": "^0.14.0",
     "dotenv": "^16.4.7",
-    "postcss": "^8.5.1",
-    "prisma": "6.2.1"
+    "postcss": "^8.5.1"
   }
 }

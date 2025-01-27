@@ -41,16 +41,18 @@
   let prevScrollPosition = $state(0);
   let isShow = $state(true);
 
-  function handleScroll() {
-    const currentScrollPosition = window.scrollY;
-    isShow =
-      prevScrollPosition > currentScrollPosition || currentScrollPosition < 60;
-
-    prevScrollPosition = currentScrollPosition;
-  }
-
   $effect(() => {
+    function handleScroll() {
+      const currentScrollPosition = window.scrollY;
+      isShow =
+        prevScrollPosition > currentScrollPosition ||
+        currentScrollPosition < 60;
+
+      prevScrollPosition = currentScrollPosition;
+    }
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
