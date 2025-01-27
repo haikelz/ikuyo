@@ -1,12 +1,19 @@
 FROM node:alpine AS build
 
+RUN npm install -g pnpm
+WORKDIR /app
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+COPY package.json pnpm-lock.yaml ./
+
 WORKDIR /app
 
-COPY package.json package-lock.json .npmrc ./
-RUN npm install
+COPY package.json pnpm-lock.yaml .npmrc ./
+RUN pnpm install
 
 COPY . ./
-RUN npm run build 
+RUN pnpm run build 
 
 FROM nginx:alpine AS runtime
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf

@@ -1,6 +1,6 @@
 ---
 import Footer from "@/components/Footer.astro";
-import Navbar from "@/components/Navbar.svelte";
+import Navbar from "@/components/Navbar.astro";
 import "@fontsource/geist-mono";
 import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
@@ -41,7 +41,7 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="w-full bg-monochrome-1 text-base-0">
     <div
-      class="w-full prose prose-base container mx-auto max-w-3xl px-4 pt-8 prose-gray"
+      class="w-full prose prose-base container mx-auto max-w-3xl px-4 pt-24 prose-gray"
     >
       <main
         class="flex min-h-screen w-full items-start justify-center leading-[1.75] tracking-wide"
@@ -50,6 +50,6 @@ const currentPath = Astro.url.pathname;
       </main>
       <Footer />
     </div>
-    <Navbar currentPath={currentPath} client:only="svelte" />
+    <Navbar currentPath={currentPath} />
   </body>
 </html>
