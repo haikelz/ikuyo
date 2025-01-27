@@ -1,22 +1,16 @@
-import { prisma } from "@/lib/utils/prisma";
+import { libsql } from "@/lib/utils/libsql";
 
 export async function GET() {
   try {
-    const data = await prisma.guestbook.findMany({
-      select: {
-        id: true,
-        created_at: true,
-        email: false,
-        username: true,
-        message: true,
-      },
-    });
+    const { rows } = await libsql.execute(
+      "SELECT id, created_at, username, message FROM guestbook"
+    );
 
     return new Response(
       JSON.stringify({
         status_code: 200,
         message: "Success get guestbook!",
-        data: data,
+        data: rows,
       })
     );
   } catch (err: any) {

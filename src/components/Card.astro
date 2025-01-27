@@ -18,7 +18,7 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
   type === "notes" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 transition-all p-4 drop-shadow-sm card",
+        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 transition-all p-4 drop-shadow-xs card",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3",
       ]}
     >
@@ -27,7 +27,7 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
       ) : null}
       <a
         href={`/notes/${slug}`}
-        class:list={["mt-2 cursor-pointer text-lg font-bold", "!no-underline"]}
+        class:list={["mt-2 cursor-pointer text-lg font-bold", "no-underline!"]}
       >
         <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
       </a>
@@ -36,7 +36,7 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
   ) : type === "works" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 drop-shadow-sm transition-all card",
+        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 drop-shadow-xs transition-all card",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3",
       ]}
     >
@@ -47,12 +47,12 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
         height={500}
         quality={100}
         format="avif"
-        class="!my-0 object-cover !h-48 w-full !rounded-none !border-none"
+        class="my-0! object-cover h-48! w-full rounded-none! border-none!"
       />
       <div class="w-full p-4">
         <a
           href={`/works/${slug}`}
-          class:list={["cursor-pointer text-lg font-bold", "!no-underline"]}
+          class:list={["cursor-pointer text-lg font-bold", "no-underline!"]}
         >
           <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
         </a>
