@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  let width = $state(0);
 
-  let width = 0;
-
-  onMount(() => {
+  $effect(() => {
     function calculateScrollProgress() {
       const el = document.documentElement;
 
