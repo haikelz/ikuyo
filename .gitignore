@@ -24,5 +24,8 @@ pnpm-debug.log*
 .idea/
 
 ignore-folder
+k8s
 
 .lighthouseci/*
+
+.vercel

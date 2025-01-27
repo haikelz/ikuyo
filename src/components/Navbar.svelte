@@ -6,10 +6,9 @@
     ListIcon,
     NotepadTextIcon,
   } from "lucide-svelte";
-  import { onDestroy, onMount } from "svelte";
   import { twMerge } from "tailwind-merge";
 
-  export let currentPath: string;
+  let { currentPath = "" } = $props();
 
   const navList = [
     {
@@ -39,22 +38,22 @@
     },
   ];
 
-  let prevScrollPosition = 0;
-  let isShow = true;
+  let prevScrollPosition = $state(0);
+  let isShow = $state(true);
 
-  onMount(() => {
-    window.onscroll = () => {
-      const currentScrollPosition = window.scrollY;
-      isShow =
-        prevScrollPosition > currentScrollPosition ||
-        currentScrollPosition < 60;
+  function handleScroll() {
+    const currentScrollPosition = window.scrollY;
+    isShow =
+      prevScrollPosition > currentScrollPosition || currentScrollPosition < 60;
 
-      prevScrollPosition = currentScrollPosition;
+    prevScrollPosition = currentScrollPosition;
+  }
+
+  $effect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
-  });
-
-  onDestroy(() => {
-    window.onscroll = () => {};
   });
 </script>
 

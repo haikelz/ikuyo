@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import "../index.css";
 
 type Props = {
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="w-full bg-monochrome-1 text-base-0">
     <div

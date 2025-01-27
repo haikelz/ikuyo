@@ -1,6 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-base-0: #0d1117;
+  --color-base-1: #161b22;
+  --color-base-2: #21262d;
+  --color-base-3: #89929b;
+  --color-base-4: #c6cdd5;
+  --color-base-5: #ecf2f8;
+  --color-monochrome-1: #e9ecef;
+  --color-monochrome-2: #dee2e6;
+  --color-monochrome-3: #ced4da;
+  --color-monochrome-4: #adb5bd;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 html,
 body {
@@ -23,7 +54,7 @@ h6 {
 }
 
 .prose code:not(:has(span)) {
-  @apply bg-monochrome-2 px-1 py-0.5 rounded-sm;
+  @apply bg-monochrome-2 px-1 py-0.5 rounded-xs;
   font-family: "Geist Mono", monospace;
 }
 
@@ -45,7 +76,7 @@ h6 {
 }
 
 .prose ul {
-  @apply mb-0 mt-0 !important;
+  @apply mb-0! mt-0!;
 }
 
 .prose img {
@@ -53,7 +84,7 @@ h6 {
 }
 
 .prose video {
-  @apply w-full drop-shadow-sm;
+  @apply w-full drop-shadow-xs;
 }
 
 .prose a {
@@ -65,11 +96,7 @@ h6 {
 }
 
 .prose img {
-  @apply w-full drop-shadow-sm;
-}
-
-button {
-  @apply outline-none;
+  @apply w-full drop-shadow-xs;
 }
 
 .shadow-smooth {

@@ -48,7 +48,7 @@ const guestbook: GuestbookProps[] = data.data;
     </section>
     <section
       data-cy="guestbook"
-      class="mt-8 flex w-full flex-col items-start justify-start space-y-6 slide-enter-content"
+      class="flex w-full flex-col space-y-6 mt-8 items-start justify-start slide-enter-content"
     >
       {
         guestbook ? (
@@ -60,8 +60,8 @@ const guestbook: GuestbookProps[] = data.data;
             )
             .map((item) => (
               <div>
-                <h3 class="my-0">{item.message}</h3>
-                <p class="mb-0 mt-2">
+                <h3 class="!my-0">{item.message}</h3>
+                <p class="!mb-0 mt-2">
                   {item.username}. {format(item.created_at, "MMMM d, y")}
                 </p>
               </div>

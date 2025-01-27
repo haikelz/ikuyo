@@ -6,3 +6,5 @@ ignore-folder
 .vscode
 dist
 README.md
+.vercel
+.lighthouseci/*

@@ -1,7 +1,15 @@
-export const PUBLIC_DEVELOPMENT_URL = import.meta.env
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const PUBLIC_DEVELOPMENT_URL = process.env
   .PUBLIC_DEVELOPMENT_URL as string;
-export const PUBLIC_PRODUCTION_URL = import.meta.env
+export const PUBLIC_PRODUCTION_URL = process.env
   .PUBLIC_PRODUCTION_URL as string;
-export const TURSO_DATABASE_URL = import.meta.env.TURSO_DATABASE_URL as string;
-export const TURSO_AUTH_TOKEN = import.meta.env.TURSO_AUTH_TOKEN as string;
-export const MODE = import.meta.env.MODE;
+export const TURSO_DATABASE_URL = process.env.TURSO_DATABASE_URL as string;
+export const TURSO_AUTH_TOKEN = process.env.TURSO_AUTH_TOKEN as string;
+export const MODE = process.env.MODE;
+
+export const SENTRY_DSN = process.env.SENTRY_DSN as string;
+export const SENTRY_PROJECT = process.env.SENTRY_PROJECT as string;
+export const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN as string;
