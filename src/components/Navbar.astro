@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import {
   AlbumIcon,
   HashIcon,
@@ -60,12 +61,15 @@ const navList = [
         currentPath === "/" ? "bg-monochrome-3 rounded-full" : ""
       )}
     >
-      <img
+      <Image
         class="rounded-full h-6 w-6 object-cover photos"
-        draggable={false}
-        src="https://avatars.githubusercontent.com/u/77146709?v=4"
         alt="Github Profile"
-        loading="lazy"
+        width={500}
+        height={500}
+        quality={100}
+        draggable={false}
+        format="avif"
+        src="https://avatars.githubusercontent.com/u/77146709?v=4"
       />
     </button>
   </a>

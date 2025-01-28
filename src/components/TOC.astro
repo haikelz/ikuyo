@@ -1,22 +1,65 @@
 ---
-import { type HeadingNodeTocProps } from "@/types";
+import type { HeadingNodeTocProps, HeadingTocProps } from "@/types";
+import type { MarkdownHeading } from "astro";
+import TOCHeading from "./TOCHeading.astro";
 
 type Props = {
-  toc: HeadingNodeTocProps[];
+  headings: MarkdownHeading[];
 };
 
-const { toc } = Astro.props;
+const { headings } = Astro.props;
+
+/**
+ * Builds a hierarchical structure from a flat array of headings
+ * @param headings - Array of heading objects containing depth, text, and id
+ * @param rootDepth - The depth level that should be considered as root (default: 2)
+ * @returns Array of heading nodes with their nested subheadings
+ */
+function buildHierarchy(
+  headings: HeadingTocProps[],
+  rootDepth: number = 2
+): HeadingNodeTocProps[] {
+  if (!headings?.length) {
+    return [];
+  }
+
+  // Use a more specific type for the map
+  const parentHeadings = new Map<number, HeadingNodeTocProps>();
+  const tableOfContents: HeadingNodeTocProps[] = [];
+
+  // Pre-allocate the array size for better performance
+  tableOfContents.length = headings.filter((h) => h.depth === rootDepth).length;
+  let tocIndex = 0;
+
+  for (const heading of headings) {
+    const headingNode: HeadingNodeTocProps = {
+      ...heading,
+      subheadings: [],
+    };
+
+    parentHeadings.set(heading.depth, headingNode);
+
+    if (heading.depth === rootDepth) {
+      tableOfContents[tocIndex++] = headingNode;
+    } else {
+      const parent = parentHeadings.get(heading.depth - 1);
+      if (parent) {
+        parent.subheadings.push(headingNode);
+      }
+    }
+  }
+
+  return tableOfContents;
+}
+
+const toc = buildHierarchy(headings);
 ---
 
-<div class="left-8 rounded-md hidden xl:block z-50 fixed top-8 bg-monochrome-1">
-  <span class="font-bold text-xl">Table of Content</span>
-  <div class="mt-2">
-    {
-      toc.map((item) => (
-        <li>
-          <a href={`#${item.slug}`}>{item.text}</a>
-        </li>
-      ))
-    }
+<div
+  class="left-4 rounded-md toc hidden xl:block z-50 fixed top-4 bg-monochrome-1"
+>
+  <span class="font-black text-base-0 text-xl">Table of Contents</span>
+  <div class="!mt-3 !space-y-3">
+    {toc.map((heading) => <TOCHeading heading={heading} />)}
   </div>
 </div>

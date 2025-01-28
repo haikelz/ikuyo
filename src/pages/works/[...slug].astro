@@ -1,4 +1,5 @@
 ---
+import TOC from "@/components/TOC.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { ArrowLeftIcon } from "lucide-svelte";
@@ -13,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await item.render();
+const { Content, headings, remarkPluginFrontmatter } = await item.render();
 ---
 
 {/* <ReadingIndicator client:only="svelte" /> */}
@@ -73,4 +74,5 @@ const { Content, remarkPluginFrontmatter } = await item.render();
     </p>
     <Content />
   </div>
+  {headings && headings.length > 0 ? <TOC headings={headings} /> : null}
 </Layout>
