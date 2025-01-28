@@ -1,6 +1,7 @@
 ---
-import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
+import TOC from "@/components/TOC.astro";
 import Layout from "@/layouts/Layout.astro";
+import { buildHierarchy } from "@/lib/utils/astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-svelte";
@@ -19,10 +20,12 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await item.render();
+const { Content, remarkPluginFrontmatter, headings } = await item.render();
+
+const toc = buildHierarchy(headings);
 ---
 
-<ReadingIndicator client:only="svelte" />
+{/* <ReadingIndicator client:only="svelte" /> */}
 <Layout
   title={item.data.title}
   description={item.data.description}
@@ -58,4 +61,5 @@ const { Content, remarkPluginFrontmatter } = await item.render();
     </p>
     <Content />
   </div>
+  {toc && toc.length ? <TOC toc={toc} /> : null}
 </Layout>

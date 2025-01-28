@@ -1,0 +1,22 @@
+---
+import { type HeadingNodeTocProps } from "@/types";
+
+type Props = {
+  toc: HeadingNodeTocProps[];
+};
+
+const { toc } = Astro.props;
+---
+
+<div class="left-8 rounded-md hidden xl:block z-50 fixed top-8 bg-monochrome-1">
+  <span class="font-bold text-xl">Table of Content</span>
+  <div class="mt-2">
+    {
+      toc.map((item) => (
+        <li>
+          <a href={`#${item.slug}`}>{item.text}</a>
+        </li>
+      ))
+    }
+  </div>
+</div>
