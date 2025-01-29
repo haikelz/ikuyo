@@ -1,0 +1,63 @@
+---
+import type { HeadingNodeTocProps, HeadingTocProps } from "@/types";
+import type { MarkdownHeading } from "astro";
+import TOCHeading from "./TOCHeading.astro";
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+
+/**
+ * Builds a hierarchical structure from a flat array of headings
+ * @param headings - Array of heading objects containing depth, text, and id
+ * @param rootDepth - The depth level that should be considered as root (default: 2)
+ * @returns Array of heading nodes with their nested subheadings
+ */
+function buildHierarchy(
+  headings: HeadingTocProps[],
+  rootDepth: number = 2
+): HeadingNodeTocProps[] {
+  if (!headings?.length) {
+    return [];
+  }
+
+  const parentHeadings = new Map<number, HeadingNodeTocProps>();
+  const tableOfContents: HeadingNodeTocProps[] = [];
+
+  tableOfContents.length = headings.filter((h) => h.depth === rootDepth).length;
+  let tocIndex = 0;
+
+  for (const heading of headings) {
+    const headingNode: HeadingNodeTocProps = {
+      ...heading,
+      subheadings: [],
+    };
+
+    parentHeadings.set(heading.depth, headingNode);
+
+    if (heading.depth === rootDepth) {
+      tableOfContents[tocIndex++] = headingNode;
+    } else {
+      const parent = parentHeadings.get(heading.depth - 1);
+      if (parent) {
+        parent.subheadings.push(headingNode);
+      }
+    }
+  }
+
+  return tableOfContents;
+}
+
+const toc = buildHierarchy(headings);
+---
+
+<div
+  class="left-4 rounded-md toc hidden xl:block z-50 fixed top-4 bg-monochrome-1 slide-enter-content"
+>
+  <span class="font-black text-base-0 text-xl">Table of Contents</span>
+  <div class="!mt-3 !space-y-3">
+    {toc.map((heading) => <TOCHeading heading={heading} />)}
+  </div>
+</div>

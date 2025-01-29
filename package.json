@@ -35,7 +35,6 @@
     "@libsql/client": "^0.14.0",
     "@playform/compress": "^0.1.7",
     "@sentry/astro": "^8.51.0",
-    "@swup/astro": "^1.5.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.0",
@@ -48,6 +47,7 @@
     "rehype-preset-minify": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
+    "remark-sectionize": "^2.1.0",
     "remark-toc": "^9.0.0",
     "sharp": "^0.33.5",
     "svelte": "^5.19.3",
@@ -58,7 +58,6 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@lhci/cli": "^0.14.0",
-    "dotenv": "^16.4.7",
-    "postcss": "^8.5.1"
+    "dotenv": "^16.4.7"
   }
 }
