@@ -6,7 +6,7 @@ import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
 import remarkToc from "remark-toc";
-import { remarkReadingTime } from "../../../remark-reading-time.mjs";
+import { remarkReadingTime } from "../../remark-reading-time.mjs";
 
 import svelte from "@astrojs/svelte";
 
