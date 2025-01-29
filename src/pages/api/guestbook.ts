@@ -1,4 +1,4 @@
-import { libsql } from "@/lib/utils/libsql";
+import { libsql } from "@/utils/libsql";
 
 export async function GET() {
   try {

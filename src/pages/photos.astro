@@ -1,9 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { readImages } from "@/lib/utils/readImages";
+import { readImages } from "@/utils/read-images";
 import { Image } from "astro:assets";
 
-const images = readImages();
+const filesDir = "/public/images/photos/**/*.(png|jpg|jpeg|gif|webp)";
+const pattern = /png|jpg|jpeg|gif|webp/gi;
+
+const images = readImages(filesDir, pattern);
 ---
 
 <Layout

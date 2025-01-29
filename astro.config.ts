@@ -1,7 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
-import { env, integrations } from "./src/lib/utils/astro";
+import { env, integrations } from "./src/utils/astro";
 
 export default defineConfig({
   output: "static",
