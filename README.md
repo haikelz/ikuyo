@@ -7,7 +7,6 @@ Just a minimalist Personal Website crafted by me.
 - Astro
 - Tailwind CSS
 - Svelte
-- Swup JS
 - Sentry
 - Lighthouse CI
 

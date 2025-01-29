@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { readImages } from "@/lib/utils/readImages";
 import { Image } from "astro:assets";
 
-const images = await readImages();
+const images = readImages();
 ---
 
 <Layout
