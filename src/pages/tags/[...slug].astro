@@ -1,6 +1,5 @@
 ---
 import Card from "@/components/Card.astro";
-import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -32,7 +31,6 @@ export async function getStaticPaths() {
 const currentPath = Astro.url.pathname.split("/")[2];
 ---
 
-<ReadingIndicator client:only="svelte" />
 <Layout
   title={`Notes with tag ${currentPath}.`}
   description="Notes with tag"

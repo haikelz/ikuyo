@@ -7,4 +7,6 @@ ignore-folder
 dist
 README.md
 .vercel
-.lighthouseci/*
+.lighthouseci/\*
+prisma
+k8s
