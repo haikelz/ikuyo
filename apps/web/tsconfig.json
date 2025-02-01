@@ -1,5 +1,8 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": [
+    "astro/tsconfigs/strict",
+    "@ikuyo/typescript/base.json",
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
