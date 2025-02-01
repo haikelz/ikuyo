@@ -1,0 +1,3 @@
+## @ikuyo/typescript
+
+Typescript configurations

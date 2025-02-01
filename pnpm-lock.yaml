@@ -7,6 +7,15 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
+      '@lhci/cli':
+        specifier: ^0.14.0
+        version: 0.14.0
+
+  apps/web:
     dependencies:
       '@astrojs/check':
         specifier: ^0.9.4
@@ -102,15 +111,14 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
     devDependencies:
-      '@biomejs/biome':
-        specifier: 1.9.4
-        version: 1.9.4
-      '@lhci/cli':
-        specifier: ^0.14.0
-        version: 0.14.0
+      '@ikuyo/typescript':
+        specifier: workspace:*
+        version: link:../../packages/typescript
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
+
+  packages/typescript: {}
 
 packages:
 
