@@ -9,3 +9,5 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      - /app/apps/web/node_modules
+      - /app/packages/typescript/node_modules

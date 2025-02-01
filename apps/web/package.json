@@ -35,7 +35,6 @@
     "date-fns": "4.1.0",
     "lucide-svelte": "^0.474.0",
     "mdast-util-to-string": "^4.0.0",
-    "purgecss": "^7.0.2",
     "reading-time": "^1.5.0",
     "rehype-preset-minify": "^7.0.1",
     "rehype-slug": "^6.0.0",
@@ -45,8 +44,7 @@
     "sharp": "^0.33.5",
     "svelte": "^5.19.3",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.3"
+    "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",

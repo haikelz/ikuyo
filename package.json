@@ -11,7 +11,9 @@
     "url": "https://github.com/haikelz/ikuyo"
   },
   "scripts": {
-    "app": "pnpm run --filter web"
+    "web": "pnpm run --filter web",
+    "lhci:mobile": "lhci autorun",
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",
