@@ -2,14 +2,17 @@
   import { onMount } from "svelte";
 
   let width = 0;
+  let mounted = false;
 
   onMount(() => {
+    mounted = true;
+
+    if (typeof window === "undefined") return;
+
     function calculateScrollProgress() {
       const el = document.documentElement;
-
       const scrollTop = el.scrollTop || document.body.scrollTop;
       const scrollHeight = el.scrollHeight || document.body.scrollHeight;
-
       const percent = (scrollTop / (scrollHeight - el.clientHeight)) * 100;
       width = percent;
     }
@@ -23,7 +26,9 @@
   });
 </script>
 
-<div
-  style="width: {width}%"
-  class="fixed h-0.5 bg-monochrome-4 z-50 reading-progress"
-></div>
+{#if mounted}
+  <div
+    style="width: {width}%"
+    class="fixed h-0.5 bg-monochrome-4 z-50 reading-progress"
+  ></div>
+{/if}
