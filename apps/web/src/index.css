@@ -229,6 +229,9 @@ h6 {
   .slide-enter-content > *:nth-child(20) {
     --enter-stage: 20 !important;
   }
+  .slide-enter-content > *:nth-child(21) {
+    --enter-stage: 21 !important;
+  }
 }
 
 ::view-transition-old(root),
@@ -247,8 +250,4 @@ h6 {
 }
 .dark::view-transition-new(root) {
   z-index: 1;
-}
-
-body {
-  --swup-fade-theme-duration: 0.1s;
 }

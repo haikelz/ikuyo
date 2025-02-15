@@ -14,6 +14,7 @@ COPY packages/typescript/package.json ./packages/typescript/package.json
 COPY package.json pnpm-lock.yaml .npmrc ./
 
 RUN pnpm install
+RUN pnpm install --filter web
 
 COPY . ./
 RUN pnpm web build 

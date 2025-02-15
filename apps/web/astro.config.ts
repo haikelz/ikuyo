@@ -8,6 +8,9 @@ export default defineConfig({
   site: "https://ekel.dev",
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      conditions: ["browser"],
+    },
   },
   integrations,
   server: {

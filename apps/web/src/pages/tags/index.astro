@@ -36,23 +36,22 @@ const tags = [
         </p>
       </div>
     </section>
-    <section
-      data-cy="tags-list"
-      class="mt-8 flex w-full flex-wrap items-center justify-start gap-4 slide-enter-content"
-    >
-      {
-        tags.map((item) => (
-          <a href={`/tags/${item}`} class="cursor-pointer">
-            <button
-              type="button"
-              aria-label={item}
-              class="bg-monochrome-2 px-4 py-1"
-            >
-              <p class="mb-0 mt-0 text-base-0">{item}</p>
-            </button>
-          </a>
-        ))
-      }
+    <section data-cy="tags-list" class="w-full mt-8 slide-enter-content">
+      <div class="gap-4 flex w-full flex-wrap items-center justify-start">
+        {
+          tags.map((item) => (
+            <a href={`/tags/${item}`}>
+              <button
+                type="button"
+                aria-label={item}
+                class="bg-monochrome-2 px-4 py-1 cursor-pointer"
+              >
+                <p class="mb-0 mt-0 text-base-0">{item}</p>
+              </button>
+            </a>
+          ))
+        }
+      </div>
     </section>
   </div>
 </Layout>
