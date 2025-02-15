@@ -57,7 +57,7 @@ const navList = [
       type="button"
       aria-label="/"
       class={twMerge(
-        "p-1.5",
+        "p-1.5 cursor-pointer",
         currentPath === "/" ? "bg-monochrome-3 rounded-full" : ""
       )}
     >
@@ -81,12 +81,13 @@ const navList = [
           data-cy={`${item.path.slice(1)}-btn`}
           href={item.path}
           aria-label={item.path}
+          class="cursor-pointer"
         >
           <button
             type="button"
             aria-label={item.path}
             class={twMerge(
-              "p-1.5",
+              "p-1.5 cursor-pointer",
               currentPath.includes(item.path)
                 ? "bg-monochrome-3 rounded-full"
                 : ""

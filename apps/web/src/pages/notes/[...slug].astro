@@ -1,4 +1,5 @@
 ---
+import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/TOC.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
@@ -22,7 +23,7 @@ const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter, headings } = await item.render();
 ---
 
-{/* <ReadingIndicator client:only="svelte" /> */}
+<ReadingIndicator client:only="svelte" />
 <Layout
   title={item.data.title}
   description={item.data.description}
@@ -33,7 +34,7 @@ const { Content, remarkPluginFrontmatter, headings } = await item.render();
       <button
         type="button"
         aria-label="back to notes"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-monochrome-2"
+        class="flex h-8 w-8 items-center justify-center cursor-pointer rounded-full bg-monochrome-2"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
