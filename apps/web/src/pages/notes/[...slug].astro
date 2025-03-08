@@ -1,5 +1,5 @@
 ---
-import TOC from "@/components/TOC.astro";
+import TOC from "@/components/svelte/TOC.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
@@ -57,5 +57,9 @@ const { Content, remarkPluginFrontmatter, headings } = await item.render();
     </p>
     <Content />
   </div>
-  {headings && headings.length > 0 ? <TOC headings={headings} /> : null}
+  {
+    headings && headings.length > 0 ? (
+      <TOC headings={headings} client:only="svelte" />
+    ) : null
+  }
 </Layout>
