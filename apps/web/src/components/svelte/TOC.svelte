@@ -25,7 +25,9 @@
   class:fixed={isOpen}
   class:hidden={!isOpen}
 >
-  <div class="font-black text-base-0 text-xl flex justify-between items-center">
+  <div
+    class="font-black text-base-0 space-x-4 text-xl flex justify-between items-center"
+  >
     <span>Table of Contents</span><button
       class="rounded-full cursor-pointer"
       onclick={() => toggleTOC()}
