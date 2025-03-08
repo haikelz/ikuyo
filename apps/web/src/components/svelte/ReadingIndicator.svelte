@@ -29,6 +29,6 @@
 {#if mounted}
   <div
     style="width: {width}%"
-    class="fixed h-0.5 bg-monochrome-4 z-50 reading-progress"
+    class="fixed h-1 bg-monochrome-4 z-50 reading-progress"
   ></div>
 {/if}
