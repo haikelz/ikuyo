@@ -2,6 +2,7 @@
 import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar.astro";
 import "@fontsource/geist-mono";
+import "@fontsource/geist-sans";
 import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
 import { ClientRouter } from "astro:transitions";
@@ -39,9 +40,7 @@ const currentPath = Astro.url.pathname;
     <link rel="sitemap" href="/sitemap.xml" />
     <ClientRouter />
   </head>
-  <body
-    class="w-full bg-monochrome-1 flex justify-start items-start text-base-0"
-  >
+  <body class="w-full bg-monochrome-1 flex justify-start items-start">
     <Navbar currentPath={currentPath} />
     <div
       class="w-full prose prose-base container mx-auto max-w-3xl px-4 md:pt-8 pt-24 prose-gray"

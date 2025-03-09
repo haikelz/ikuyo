@@ -38,6 +38,9 @@ importers:
       '@fontsource/geist-mono':
         specifier: ^5.2.5
         version: 5.2.5
+      '@fontsource/geist-sans':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@fontsource/ibm-plex-serif':
         specifier: ^5.2.5
         version: 5.2.5
@@ -477,6 +480,9 @@ packages:
 
   '@fontsource/geist-mono@5.2.5':
     resolution: {integrity: sha512-7/r9opukyQ3jkAqfhIRnhodWlAc8yVkHogDUAFqBeBSYNpvlpouLJysYO5cIpqyB/lHrazxChiC73Oj8K3+sZg==}
+
+  '@fontsource/geist-sans@5.2.5':
+    resolution: {integrity: sha512-anllOHyJbElRs9fV15TeDRqAeb1IKm4bSknPl6ZMoyPTx1BBy7logudcUwpNjmQLkzn4Q0JGQLRCUKJYoyST6A==}
 
   '@fontsource/ibm-plex-serif@5.2.5':
     resolution: {integrity: sha512-0YyDEmqIqlMnPF/k1974zAJWjM9FNCg0TIYa9z6+W4koPmYf5llcOv6pqZK19zE/MnNxAJW0K18i5TEJE841YQ==}
@@ -4804,6 +4810,8 @@ snapshots:
     optional: true
 
   '@fontsource/geist-mono@5.2.5': {}
+
+  '@fontsource/geist-sans@5.2.5': {}
 
   '@fontsource/ibm-plex-serif@5.2.5': {}
 

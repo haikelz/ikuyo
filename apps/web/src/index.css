@@ -39,7 +39,7 @@
 
 html,
 body {
-  font-family: "IBM Plex Serif", system-ui, -apple-system, BlinkMacSystemFont,
+  font-family: "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
 }
@@ -50,7 +50,8 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-extrabold w-fit text-base-0 text-start;
+  @apply font-extrabold w-fit text-start;
+  font-family: "IBM Plex Serif";
 }
 
 .arabic-font {
