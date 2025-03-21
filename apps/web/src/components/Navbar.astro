@@ -8,6 +8,7 @@ import {
   NotepadTextIcon,
 } from "lucide-svelte";
 import { twMerge } from "tailwind-merge";
+import ToggleTheme from "./svelte/ToggleTheme.svelte";
 
 type Props = {
   currentPath: string;
@@ -47,15 +48,17 @@ const navList = [
 <nav
   class={twMerge(
     "md:sticky fixed md:top-0 top-4 left-0 right-0 justify-center items-center space-x-5 md:space-x-0 md:min-h-svh md:bottom-0 flex-row flex md:justify-start md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-8 md:space-y-5",
-    "w-fit border-[0.5px] border-monochrome-3 rounded-md md:rounded-none md:border-y-0 md:border-l-0 md:border-r-[0.5px] mx-auto md:mx-0",
-    "bg-monochrome-1/70 transition-all backdrop-blur-md md:border-r-monochrome-3 z-50"
+    "w-fit border-[0.5px] border-monochrome-3 dark:border-neutral-800 dark:md:border-r-neutral-800 rounded-md md:rounded-none md:border-y-0 md:border-l-0 md:border-r-[0.5px] mx-auto md:mx-0",
+    "bg-monochrome-1/70 dark:bg-neutral-950/70 transition-all backdrop-blur-md md:border-r-monochrome-3 z-50"
   )}
 >
   <a data-cy="home-btn" href="/" aria-label="/">
     <button
       type="button"
       aria-label="/"
-      class={twMerge("p-1.5 cursor-pointer bg-monochrome-3 rounded-full")}
+      class={twMerge(
+        "p-1.5 cursor-pointer bg-monochrome-3 dark:bg-neutral-900 rounded-full"
+      )}
     >
       <Image
         class="rounded-full h-6 w-6 object-cover photos"
@@ -85,14 +88,18 @@ const navList = [
             class={twMerge(
               "p-1.5 cursor-pointer",
               currentPath.includes(item.path)
-                ? "bg-monochrome-3 rounded-full"
+                ? "bg-monochrome-3 dark:bg-neutral-900 rounded-full"
                 : ""
             )}
           >
-            <Icon size={21} class={twMerge("font-bold")} />
+            <Icon
+              size={21}
+              class={twMerge("font-bold dark:text-monochrome-1")}
+            />
           </button>
         </a>
       );
     })
   }
+  <ToggleTheme client:load />
 </nav>

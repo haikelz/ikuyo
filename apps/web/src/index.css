@@ -15,6 +15,8 @@
   --color-monochrome-4: #adb5bd;
 }
 
+@variant dark (&:where(.dark, .dark *));
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -59,7 +61,7 @@ h6 {
 }
 
 .prose code:not(:has(span)) {
-  @apply bg-monochrome-2 px-1 py-0.5 rounded-xs;
+  @apply bg-monochrome-2 dark:bg-neutral-900 px-1 py-0.5 rounded-xs;
   font-family: "Geist Mono", monospace;
 }
 

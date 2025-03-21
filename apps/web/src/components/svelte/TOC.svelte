@@ -14,14 +14,14 @@
 </script>
 
 <button
-  class="bottom-4 right-4 p-2 rounded-full bg-monochrome-3 cursor-pointer"
+  class="bottom-4 right-4 p-2 rounded-full bg-monochrome-3 dark:bg-neutral-900 cursor-pointer"
   class:fixed={!isOpen}
   class:hidden={isOpen}
-  onclick={() => toggleTOC()}
+  onclick={toggleTOC}
   ><Menu size={21} />
 </button>
 <div
-  class="right-4 rounded-md backdrop-blur-md p-4 toc bottom-4 z-50 bg-monochrome-1/70 slide-enter-content border border-monochrome-3"
+  class="right-4 rounded-md backdrop-blur-md p-4 toc bottom-4 z-50 bg-monochrome-1/70 dark:bg-neutral-900 slide-enter-content border border-monochrome-3 dark:border-neutral-900"
   class:fixed={isOpen}
   class:hidden={!isOpen}
 >
