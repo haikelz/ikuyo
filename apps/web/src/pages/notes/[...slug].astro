@@ -1,5 +1,4 @@
 ---
-import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
@@ -23,7 +22,6 @@ const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter, headings } = await item.render();
 ---
 
-<ReadingIndicator client:only="svelte" />
 <Layout
   title={item.data.title}
   description={item.data.description}
