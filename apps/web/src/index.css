@@ -15,7 +15,7 @@
   --color-monochrome-4: #adb5bd;
 }
 
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,

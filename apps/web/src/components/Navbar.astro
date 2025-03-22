@@ -8,7 +8,6 @@ import {
   NotepadTextIcon,
 } from "lucide-svelte";
 import { twMerge } from "tailwind-merge";
-import ToggleTheme from "./svelte/ToggleTheme.svelte";
 
 type Props = {
   currentPath: string;
@@ -101,5 +100,4 @@ const navList = [
       );
     })
   }
-  <ToggleTheme client:only="svelte" />
 </nav>

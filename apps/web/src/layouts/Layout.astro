@@ -19,7 +19,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <title>{title}</title>
     <meta charset="UTF-8" />
@@ -60,7 +60,7 @@ const currentPath = Astro.url.pathname;
     </script>
   </head>
   <body
-    class="w-full bg-monochrome-1 dark:bg-neutral-950 flex justify-start items-start"
+    class="w-full flex justify-start items-start bg-monochrome-1 dark:bg-neutral-950"
   >
     <Navbar currentPath={currentPath} />
     <div
