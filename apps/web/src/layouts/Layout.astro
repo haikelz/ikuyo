@@ -39,10 +39,27 @@ const currentPath = Astro.url.pathname;
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
     <ClientRouter />
+    <script is:inline>
+      const getInitialTheme = () => {
+        const savedTheme = localStorage.getItem("theme");
+
+        if (
+          savedTheme === "dark" ||
+          (savedTheme === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+          (!savedTheme &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
+
+      getInitialTheme();
+    </script>
   </head>
-  <body
-    class="w-full flex justify-start items-start bg-monochrome-1 dark:bg-neutral-950"
-  >
+  <body class="w-full flex justify-start items-start">
     <Navbar currentPath={currentPath} />
     <div
       class="w-full prose prose-base container mx-auto max-w-3xl px-4 md:pt-8 pt-24 prose-neutral dark:prose-invert"
