@@ -2,8 +2,8 @@
   import { buildHierarchy } from "@/utils/hierarchy";
   import { Menu, X } from "lucide-svelte";
   import TOCHeading from "./TOCHeading.svelte";
-  let { headings } = $props();
 
+  let { headings } = $props();
   let isOpen = $state(false);
 
   const toc = buildHierarchy(headings);
