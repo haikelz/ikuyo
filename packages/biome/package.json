@@ -1,0 +1,12 @@
+{
+  "name": "@ikuyo/biome",
+  "version": "1.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "exports": {
+    "./astro": "./astro.json"
+  }
+}

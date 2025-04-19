@@ -1,30 +1,42 @@
-# build output
-dist/
+# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# compiled output
+dist
+tmp
+out-tsc
 
 # dependencies
-node_modules/
+node_modules
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# environment variables
-.env
-.env.production
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# macOS-specific files
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
+Thumbs.db
 
-# jetbrains setting folder
-.idea/
-
-ignore-folder
-k8s
-
-.lighthouseci/*
-
-.vercel
-
-prisma
+.nx/cache
+.nx/workspace-data

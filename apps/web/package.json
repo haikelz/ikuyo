@@ -12,7 +12,9 @@
     "open": "cypress open",
     "test": "cypress run",
     "lhci:mobile": "lhci autorun",
-    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
+    "lint:biome": "biome check .",
+    "format:biome": "biome format --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

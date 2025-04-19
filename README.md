@@ -7,5 +7,13 @@ A monorepo for [ekel.dev](https://ekel.dev). Project structure:
 ├── apps
 │   └── web              # Main Web Application
 ├── packages
+│   └── biome            # Shared Biome Configs
 │   └── typescript       # Shared Typescript Configs
 ```
+
+Technologies Used
+
+- Astro
+- Svelte
+- Nx Monorepo
+- Sentry

@@ -1,3 +1,3 @@
 ## @ikuyo/typescript
 
-Typescript configurations
+Shared Typescript config

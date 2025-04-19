@@ -1,14 +1,9 @@
 {
-  "extends": [
-    "astro/tsconfigs/strict",
-    "@ikuyo/typescript/base.json",
-  ],
+  "extends": ["astro/tsconfigs/strict", "@ikuyo/typescript/base.json"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

@@ -11,13 +11,19 @@
     "url": "https://github.com/haikelz/ikuyo"
   },
   "scripts": {
-    "web": "pnpm run --filter web",
+    "build:web": "nx build web",
+    "dev:web": "nx dev web",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@ikuyo/typescript": "workspace:*",
-    "@biomejs/biome": "1.9.4",
-    "@lhci/cli": "^0.14.0"
+    "@nx/js": "20.8.0",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "nx": "20.8.0",
+    "tslib": "^2.3.0",
+    "typescript": "~5.7.2"
   }
 }
