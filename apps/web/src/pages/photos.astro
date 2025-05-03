@@ -25,29 +25,62 @@ const images = readImages(filesDir, pattern);
       <div class="slide-enter-content">
         <p data-cy="description" class="mb-0 text-justify">
           Some of the photos that I've taken. All of the photos are taken using
-          a 56mm f/1.8 lens from TTArtisan.
+          a 56mm f/1.8 lens from TTArtisan. For more photos, you can check my <a
+            href="https://www.instagram.com/ekel.tsx/"
+            rel="noopener noreferrer"
+            target="_blank">Instagram</a
+          >
         </p>
       </div>
     </section>
     <section
       data-cy="photos-list"
-      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 md:grid-cols-3 slide-enter-content"
+      class="mt-8 grid w-full gap-1 grid-cols-1 grid-rows-1 sm:grid-cols-3 md:grid-cols-5 slide-enter-content"
     >
-      {
-        images.map((item) => (
-          <Image
-            width={500}
-            height={500}
-            quality={100}
-            layout="responsive"
-            draggable={false}
-            format="avif"
-            src={item.url}
-            alt={item.fileName}
-            class="photos my-0! rounded-none! border-none! object-cover"
-          />
-        ))
-      }
+      <Image
+        width={1080}
+        height={1440}
+        quality={100}
+        draggable={false}
+        layout="responsive"
+        format="avif"
+        src="/images/photos/DSC03501.jpg"
+        alt="MRT Jakarta"
+        class="photos my-0! w-full! h-full! rounded-none! border-none! object-cover"
+      />
+      <Image
+        width={1440}
+        height={930}
+        quality={100}
+        draggable={false}
+        layout="responsive"
+        format="avif"
+        src="/images/photos/DSC03493.jpg"
+        alt="Dukuh Atas"
+        class="photos my-0! col-span-1 w-full! h-full! sm:col-span-2 rounded-none! border-none! object-cover"
+      />
+      <Image
+        width={1440}
+        height={1080}
+        quality={100}
+        draggable={false}
+        layout="responsive"
+        format="avif"
+        src="/images/photos/DSC03597.jpg"
+        alt="Stasiun MRT"
+        class="photos my-0! rounded-none! w-full! row-span-1 sm:row-span-2 md:col-span-2 col-span-1 h-full! border-none! object-cover"
+      />
+      <Image
+        width={1440}
+        height={700}
+        quality={100}
+        draggable={false}
+        layout="responsive"
+        format="avif"
+        src="/images/photos/DSC03059.jpg"
+        alt="Stasiun MRT"
+        class="photos my-0! rounded-none! w-full! h-full! border-none! object-cover col-span-1 sm:col-span-2 md:col-span-3"
+      />
     </section>
   </div>
 </Layout>
