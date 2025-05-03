@@ -1,12 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { readImages } from "@/utils/read-images";
 import { Image } from "astro:assets";
-
-const filesDir = "/public/images/photos/**/*.(png|jpg|jpeg|gif|webp)";
-const pattern = /png|jpg|jpeg|gif|webp/gi;
-
-const images = readImages(filesDir, pattern);
 ---
 
 <Layout
@@ -29,7 +23,7 @@ const images = readImages(filesDir, pattern);
             href="https://www.instagram.com/ekel.tsx/"
             rel="noopener noreferrer"
             target="_blank">Instagram</a
-          >
+          >.
         </p>
       </div>
     </section>
@@ -42,7 +36,7 @@ const images = readImages(filesDir, pattern);
         height={1440}
         quality={100}
         draggable={false}
-        layout="responsive"
+        layout="constrained"
         format="avif"
         src="/images/photos/DSC03501.jpg"
         alt="MRT Jakarta"
@@ -50,10 +44,10 @@ const images = readImages(filesDir, pattern);
       />
       <Image
         width={1440}
-        height={930}
+        height={1080}
         quality={100}
         draggable={false}
-        layout="responsive"
+        layout="constrained"
         format="avif"
         src="/images/photos/DSC03493.jpg"
         alt="Dukuh Atas"
@@ -64,22 +58,33 @@ const images = readImages(filesDir, pattern);
         height={1080}
         quality={100}
         draggable={false}
-        layout="responsive"
+        layout="constrained"
         format="avif"
         src="/images/photos/DSC03597.jpg"
-        alt="Stasiun MRT"
+        alt="Devfest Bandung"
         class="photos my-0! rounded-none! w-full! row-span-1 sm:row-span-2 md:col-span-2 col-span-1 h-full! border-none! object-cover"
       />
       <Image
         width={1440}
-        height={700}
+        height={1080}
         quality={100}
         draggable={false}
-        layout="responsive"
+        layout="constrained"
         format="avif"
         src="/images/photos/DSC03059.jpg"
-        alt="Stasiun MRT"
+        alt="Bangunan"
         class="photos my-0! rounded-none! w-full! h-full! border-none! object-cover col-span-1 sm:col-span-2 md:col-span-3"
+      />
+      <Image
+        width={1440}
+        height={1080}
+        quality={100}
+        draggable={false}
+        layout="constrained"
+        format="avif"
+        src="/images/photos/DSC03339.jpg"
+        alt="Bangunan"
+        class="photos my-0! rounded-none! w-full! h-[280px]! border-none! object-cover col-span-1 md:col-span-5 sm:col-span-2"
       />
     </section>
   </div>
