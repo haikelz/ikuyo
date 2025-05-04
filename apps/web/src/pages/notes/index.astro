@@ -44,6 +44,7 @@ const notesList = await getCollection("notes");
               description={item.data.description}
               slug={item.slug}
               createdAt={item.data.created_at}
+              tags={item.data.tags}
             />
           ))
       }

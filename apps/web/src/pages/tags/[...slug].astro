@@ -69,6 +69,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
                 type="notes"
                 slug={item.slug}
                 createdAt={item.data.created_at}
+                tags={item.data.tags}
               />
             ))
         }

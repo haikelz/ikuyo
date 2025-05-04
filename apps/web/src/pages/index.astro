@@ -215,6 +215,7 @@ const [notesList, worksList] = await Promise.all([
                 thumbnail={item.data.thumbnail}
                 type="works"
                 slug={item.slug}
+                tags={item.data.stack}
               />
             ))
         }
@@ -237,6 +238,7 @@ const [notesList, worksList] = await Promise.all([
                 description={item.data.description}
                 slug={item.slug}
                 createdAt={item.data.created_at}
+                tags={item.data.tags}
                 type="notes"
               />
             ))

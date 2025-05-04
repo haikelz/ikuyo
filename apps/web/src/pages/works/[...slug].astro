@@ -68,6 +68,15 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
         }
       </div>
     </div>
+    <div class="flex justify-start items-center gap-2 w-fit flex-wrap mt-4">
+      {
+        item.data.stack.map((tag) => (
+          <div class="dark:bg-neutral-800 bg-neutral-300 font-bold px-2">
+            <span class="text-sm">{tag}</span>
+          </div>
+        ))
+      }
+    </div>
     <p class="arabic-font text-right text-xl font-bold">
       بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
     </p>

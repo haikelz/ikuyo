@@ -9,9 +9,11 @@ type Props = {
   slug: string;
   createdAt?: Date;
   type: "works" | "notes";
+  tags: string[];
 };
 
-const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
+const { thumbnail, title, description, slug, createdAt, type, tags } =
+  Astro.props;
 ---
 
 {
@@ -32,6 +34,13 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
         <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
       </a>
       <p class="mb-0 mt-2 line-clamp-3">{description}</p>
+      <div class="flex justify-start items-center gap-2 w-fit flex-wrap">
+        {tags.map((item) => (
+          <a class="text-sm my-2!" href={`/tags/${item}`}>
+            <span>#{item}</span>
+          </a>
+        ))}
+      </div>
     </div>
   ) : type === "works" ? (
     <div
@@ -57,6 +66,13 @@ const { thumbnail, title, description, slug, createdAt, type } = Astro.props;
           <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
         </a>
         <p class="mb-0 mt-2">{description}</p>
+        <div class="flex justify-start mt-2 items-center gap-2 w-fit flex-wrap">
+          {tags.map((tag) => (
+            <div class="dark:bg-neutral-800 bg-neutral-300 font-bold px-2">
+              <span class="text-sm">{tag}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   ) : null

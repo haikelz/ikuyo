@@ -39,6 +39,7 @@ const worksList = await getCollection("works");
               description={item.data.description}
               type="works"
               thumbnail={item.data.thumbnail}
+              tags={item.data.stack}
             />
           ))
       }
