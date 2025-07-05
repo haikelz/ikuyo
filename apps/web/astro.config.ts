@@ -22,7 +22,4 @@ export default defineConfig({
   },
   compressHTML: true,
   env,
-  experimental: {
-    responsiveImages: true,
-  },
 });

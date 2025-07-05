@@ -14,8 +14,13 @@
     "build:web": "nx build web",
     "dev:web": "nx dev web",
     "lhci:mobile": "lhci autorun",
-    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
+    "test:web": "nx test web"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "devDependencies": {
     "@nx/js": "21.2.0",
     "@swc-node/register": "~1.10.10",

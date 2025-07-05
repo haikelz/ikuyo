@@ -2,6 +2,8 @@
   "extends": ["astro/tsconfigs/strict", "@ikuyo/typescript/base.json"],
   "compilerOptions": {
     "baseUrl": ".",
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
     "paths": {
       "@/*": ["./src/*"]
     },
