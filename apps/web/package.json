@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/mdx": "^4.3.1",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/svelte": "^7.1.0",
@@ -26,16 +26,16 @@
     "@fontsource/geist-sans": "^5.2.5",
     "@fontsource/ibm-plex-serif": "^5.2.6",
     "@fontsource/noto-naskh-arabic": "^5.2.6",
-    "@libsql/client": "^0.15.9",
+    "@libsql/client": "^0.15.10",
     "@playform/compress": "^0.2.0",
-    "@sentry/astro": "^9.29.0",
-    "@tailwindcss/postcss": "^4.1.10",
+    "@sentry/astro": "^9.40.0",
+    "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.10",
-    "astro": "^5.9.3",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.1",
     "astro-compressor": "^1.0.0",
     "date-fns": "4.1.0",
-    "lucide-svelte": "^0.515.0",
+    "lucide-svelte": "^0.525.0",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
     "rehype-preset-minify": "^7.0.1",
@@ -43,13 +43,13 @@
     "remark-gfm": "^4.0.1",
     "remark-sectionize": "^2.1.0",
     "remark-toc": "^9.0.0",
-    "sharp": "^0.34.2",
-    "svelte": "^5.34.3",
+    "sharp": "^0.34.3",
+    "svelte": "^5.36.13",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.10"
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",
-    "dotenv": "^16.5.0"
+    "dotenv": "^17.2.0"
   }
 }
