@@ -28,11 +28,11 @@
     "@fontsource/noto-naskh-arabic": "^5.2.6",
     "@libsql/client": "^0.15.10",
     "@playform/compress": "^0.2.0",
-    "@sentry/astro": "^9.40.0",
+    "@sentry/astro": "^9.42.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.12.1",
+    "astro": "^5.12.3",
     "astro-compressor": "^1.0.0",
     "date-fns": "4.1.0",
     "lucide-svelte": "^0.525.0",
@@ -44,12 +44,12 @@
     "remark-sectionize": "^2.1.0",
     "remark-toc": "^9.0.0",
     "sharp": "^0.34.3",
-    "svelte": "^5.36.13",
+    "svelte": "^5.36.16",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.1"
   }
 }
