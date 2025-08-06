@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",
+    "@vite-pwa/astro": "^1.1.0",
     "dotenv": "^17.2.1"
   }
 }
