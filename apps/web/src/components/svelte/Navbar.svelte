@@ -50,8 +50,8 @@
 
 <nav
   class={twMerge(
-    "md:sticky fixed md:top-0 md:left-0 top-4 left-4 bg-monochrome-1/70 dark:bg-neutral-950/70 right-4 border-dashed justify-between md:justify-start items-center space-x-5 md:space-x-0 md:min-h-svh md:bottom-0 flex-col flex md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-8 md:space-y-5",
-    "border-[0.5px] rounded-md md:rounded-none md:border-y-0 md:border-l-0 md:border-r-[0.5px] mx-auto md:mx-0",
+    "md:relative fixed md:top-0 md:left-0 top-4 left-4 bg-monochrome-1/70 dark:bg-neutral-950/70 right-4 border-dashed justify-between md:justify-start items-center space-x-5 md:space-x-0 md:bottom-0 flex-col flex md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-8 md:space-y-5",
+    "border-[0.5px] rounded-md md:rounded-none md:border-[0.5px] mx-auto md:mx-0",
     "backdrop-blur-md z-50"
   )}
 >
