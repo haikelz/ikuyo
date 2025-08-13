@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 
 <Layout
   title="Uses"
-  description="My current usage of Software and Hardware."
+  description="My current usage of stuffs."
   url="https://ekel.dev/uses"
 >
   <div
@@ -18,7 +18,7 @@ import { Image } from "astro:assets";
       <h1 data-cy="heading" class="mb-0">./uses</h1>
       <div class="slide-enter-content">
         <p data-cy="description" class="mb-0 text-justify">
-          My current usage of Software and Hardware.
+          My current usage of stuffs.
         </p>
       </div>
     </section>
@@ -90,6 +90,73 @@ import { Image } from "astro:assets";
           </p>
         </li>
       </ul>
+    </section>
+    <section class="w-full slide-enter-content">
+      <h2>Mobility</h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 md:grid-rows-1 gap-4"
+      >
+        <Image
+          width={500}
+          height={500}
+          quality={100}
+          draggable={false}
+          format="avif"
+          src="/images/mobility.jpg"
+          alt="uses"
+          class="photos my-0! rounded-none! border-none! object-cover"
+        />
+        <div class="text-justify p-0! my-0!">
+          <p>
+            Other than photography, I have a hobby of riding, modifying, and do
+            some improvement to my motorcycle. More spesific for underbone bike.
+            I have a
+            <b>
+              <a
+                href="https://id.wikipedia.org/wiki/Yamaha_Jupiter_MX"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Jupiter MX 135/LC 135</a
+              >
+            </b> as my daily motorcycle. Here are some improvement that I've done
+            :
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <b> Velg </b> BRT Chemco.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b> Mirror </b> Y125Z Hong Leong Malaysia.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b> Basket </b> LC 135 Hong Leong Malaysia.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b> Gearset </b> SSS 15 - 38.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b> Handgrip </b> Kawasaki Kaze + <b> Bar-end </b> Honda PCX.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b> Oil filter + carburetor filter </b> from Daytona.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
   </div>
 </Layout>
