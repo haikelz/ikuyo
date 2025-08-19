@@ -22,11 +22,11 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.2",
     "@astrojs/svelte": "^7.1.0",
+    "@dotenvx/dotenvx": "^1.49.0",
     "@fontsource/geist-mono": "^5.2.6",
     "@fontsource/geist-sans": "^5.2.5",
     "@fontsource/ibm-plex-serif": "^5.2.6",
     "@fontsource/noto-naskh-arabic": "^5.2.6",
-    "@libsql/client": "^0.15.10",
     "@playform/compress": "^0.2.0",
     "@sentry/astro": "^9.43.0",
     "@tailwindcss/postcss": "^4.1.11",
@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@ikuyo/typescript": "workspace:*",
-    "@vite-pwa/astro": "^1.1.0",
-    "dotenv": "^17.2.1"
+    "@vite-pwa/astro": "^1.1.0"
   }
 }

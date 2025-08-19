@@ -31,3 +31,5 @@ k8s
 .vercel
 
 prisma
+
+dev-dist/

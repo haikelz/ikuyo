@@ -10,7 +10,7 @@ import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
 import remarkToc from "remark-toc";
 import { remarkReadingTime } from "../../remark-reading-time.mjs";
-import { SENTRY_AUTH_TOKEN, SENTRY_DSN, SENTRY_PROJECT } from "./constants";
+import { SENTRY_AUTH_TOKEN, SENTRY_DSN, SENTRY_PROJECT } from "./env";
 
 export const integrations = [
   mdx({

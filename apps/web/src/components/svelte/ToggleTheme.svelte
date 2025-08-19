@@ -64,13 +64,13 @@
 <div class="flex items-center space-x-2">
   <button
     on:click={toggleTheme}
-    class="p-1.5 rounded-full bg-monochrome-3 dark:bg-neutral-900"
+    class="p-1.5 rounded-full bg-neutral-200 dark:bg-neutral-900"
     aria-label="Toggle theme"
   >
     {#if isDark}
-      <Sun class={twMerge("font-bold dark:text-monochrome-1")} size={21} />
+      <Sun class={twMerge("font-bold dark:text-neutral-50")} size={21} />
     {:else}
-      <Moon class={twMerge("font-bold dark:text-monochrome-1")} size={21} />
+      <Moon class={twMerge("font-bold dark:text-neutral-50")} size={21} />
     {/if}
   </button>
 </div>

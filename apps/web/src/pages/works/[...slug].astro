@@ -29,7 +29,7 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
       <button
         type="button"
         aria-label="back to works"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-monochrome-2 dark:bg-neutral-900 cursor-pointer"
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-900 cursor-pointer"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
@@ -73,7 +73,7 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
     <div class="flex justify-start items-center gap-2 w-fit flex-wrap mt-4">
       {
         item.data.stack.map((tag) => (
-          <div class="dark:bg-neutral-800 bg-neutral-300 font-bold px-2">
+          <div class="dark:bg-neutral-800 bg-neutral-200 font-bold px-2">
             <span class="text-sm">{tag}</span>
           </div>
         ))

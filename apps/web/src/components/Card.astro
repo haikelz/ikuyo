@@ -20,7 +20,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
   type === "notes" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 dark:bg-neutral-900/70 dark:hover:bg-neutral-800/70 transition-all p-4 card",
+        "flex w-full flex-col bg-neutral-50/70 hover:bg-neutral-100/70 dark:bg-neutral-900/70 dark:hover:bg-neutral-800/70 transition-all p-4 card",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3 border-dashed dark:border-neutral-800",
       ]}
     >
@@ -45,7 +45,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
   ) : type === "works" ? (
     <div
       class:list={[
-        "flex w-full flex-col bg-monochrome-1/70 hover:bg-monochrome-2/70 dark:bg-neutral-900/70 hover:dark:bg-neutral-800/70 transition-all card",
+        "flex w-full flex-col bg-neutral-50/70 hover:bg-neutral-100/70 dark:bg-neutral-900/70 hover:dark:bg-neutral-800/70 transition-all card",
         "flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3 dark:border-neutral-800 border-dashed",
       ]}
     >
@@ -68,7 +68,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
         <p class="mb-0 mt-2">{description}</p>
         <div class="flex justify-start mt-2 items-center gap-2 w-fit flex-wrap">
           {tags.map((tag) => (
-            <div class="dark:bg-neutral-800 bg-neutral-300 font-bold px-2">
+            <div class="dark:bg-neutral-800 bg-neutral-200 font-bold px-2">
               <span class="text-sm">{tag}</span>
             </div>
           ))}

@@ -1,25 +1,13 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import type { GuestbookProps } from "@/types";
-import {
-  PUBLIC_DEVELOPMENT_URL,
-  PUBLIC_PRODUCTION_URL,
-} from "@/utils/constants";
+import { GUESTBOOK_API_URL } from "@/utils/env";
 import { format } from "date-fns";
 
-const response = await fetch(
-  `${import.meta.env.MODE === "development" ? PUBLIC_DEVELOPMENT_URL : PUBLIC_PRODUCTION_URL}/api/guestbook`,
-  {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }
-);
+const response = await fetch(GUESTBOOK_API_URL);
 
 const data = await response.json();
-const guestbook: GuestbookProps[] = data.data;
+const guestbook: GuestbookProps[] = data[0].result.data;
 ---
 
 <Layout
