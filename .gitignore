@@ -2,6 +2,7 @@
 
 # compiled output
 dist
+dev-dist
 tmp
 out-tsc
 
