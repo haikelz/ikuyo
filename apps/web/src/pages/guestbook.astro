@@ -1,7 +1,17 @@
 ---
+import { api } from "@/configs/axios";
 import Layout from "@/layouts/Layout.astro";
-import { getGuestbook } from "@/services/guestbook";
+import type { GuestbookProps } from "@/types";
 import { format } from "date-fns";
+
+export async function getGuestbook(): Promise<GuestbookProps[]> {
+  try {
+    const response = await api.get(process.env.GUESTBOOK_API_URL as string);
+    return response.data[0].result.data as GuestbookProps[];
+  } catch (err) {
+    throw new Error((err as Error).message);
+  }
+}
 
 const guestbook = await getGuestbook();
 ---
