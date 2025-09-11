@@ -1,68 +1,130 @@
 ---
 import { readImages } from "@/helpers/read-images";
-import Layout from "@/layouts/Layout.astro";
 import { Masonry } from "astro-masonry";
 import { Image } from "astro:assets";
+import Navbar from "@/components/svelte/Navbar.svelte";
+import "@fontsource/geist-mono";
+import "@fontsource/geist-sans";
+import "@fontsource/ibm-plex-serif";
+import "@fontsource/noto-naskh-arabic";
+import { ClientRouter } from "astro:transitions";
+import "../index.css";
 
+type Props = {
+  title: string;
+  description: string;
+  url: string;
+};
+
+const currentPath = Astro.url.pathname;
 const images = readImages("public/images/photos", /\.jpg$/);
+
+const yearNow = new Date().getFullYear();
 ---
 
-<Layout
-  title="Photos"
-  description="Some of the photos that I've taken. All of the photos are taken using a 56mm f/1.8 lens from TTArtisan."
-  url="https://ekel.dev/photos"
->
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start",
-      "md:text-start",
-    ]}
-  >
-    <Masonry
-      breakpointCols={{
-        default: 4,
-        1200: 3,
-        700: 2,
-        500: 1,
-      }}
-      class="flex gap-4 px-4"
-      columnClass=""
+<html lang="en">
+  <head>
+    <title>Photos</title>
+    <meta charset="UTF-8" />
+    <meta name="title" content="Photos" />
+    <meta
+      name="description"
+      content="Some of the photos that I've taken. All of the photos are taken using a 56mm f/1.8 lens from TTArtisan."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ekel.dev/photos" />
+    <meta property="og:title" content="Photos" />
+    <meta
+      property="og:description"
+      content="Some of the photos that I've taken. All of the photos are taken using a 56mm f/1.8 lens from TTArtisan."
+    />
+    <meta property="og:image" content="https://ekel.dev/opengraph.png" />
+    <meta property="og:image:alt" content="ekel.dev opengraph image" />
+    <meta property="og:image:type" content="image/png" />
+    <meta
+      property="og:image:secure_url"
+      content="https://ekel.dev/opengraph.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ekel.dev/photos" />
+    <meta property="twitter:title" content="Photos" />
+    <meta
+      property="twitter:description"
+      content="Some of the photos that I've taken. All of the photos are taken using a 56mm f/1.8 lens from TTArtisan."
+    />
+    <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <ClientRouter />
+    <script is:inline>
+      const getInitialTheme = () => {
+        const savedTheme = localStorage.getItem("theme");
+
+        if (
+          savedTheme === "dark" ||
+          (savedTheme === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+          (!savedTheme &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
+
+      getInitialTheme();
+    </script>
+  </head>
+  <body class="w-full flex justify-start items-start">
+    <div
+      class="h-full min-h-svh relative md:sticky md:top-0 md:left-0 flex justify-center items-center"
     >
-      {
-        images.map((image) => (
-          <Image
-            width={1440}
-            height={1080}
-            quality={100}
-            draggable={false}
-            layout="constrained"
-            format="avif"
-            src={image.path}
-            alt={image.fileName}
-            class="photos mt-0! mb-4! rounded-md h-full! border-none! w-full! object-cover"
-          />
-        ))
-      }
-    </Masonry>
-  </div>
-</Layout>
-
-<style>
-  .dynamic-masonry {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: max-content;
-    gap: 20px;
-  }
-
-  .masonry-item {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .masonry-item:hover {
-    transform: translateY(-2px);
-  }
-</style>
+      <Navbar currentPath={currentPath} client:only="svelte" />
+    </div>
+    <div
+      class="prose prose-base container mx-auto w-full! max-w-full! px-4 md:pt-8 pt-24 prose-neutral dark:prose-invert"
+    >
+      <main
+        class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"
+      >
+        <div
+          class:list={[
+            "flex w-full flex-col items-start justify-start",
+            "md:text-start",
+          ]}
+        >
+          <Masonry
+            breakpointCols={{
+              default: 4,
+              1200: 3,
+              700: 2,
+              500: 1,
+            }}
+            class="flex gap-4 px-4"
+            columnClass=""
+          >
+            {
+              images.map((image) => (
+                <Image
+                  width={1440}
+                  height={1080}
+                  quality={100}
+                  draggable={false}
+                  layout="constrained"
+                  format="avif"
+                  src={image.path}
+                  alt={image.fileName}
+                  class="photos mt-0! mb-4! rounded-md h-full! border-none! w-full! object-cover"
+                />
+              ))
+            }
+          </Masonry>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
