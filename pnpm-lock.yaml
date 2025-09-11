@@ -83,6 +83,9 @@ importers:
       astro-compressor:
         specifier: ^1.1.1
         version: 1.1.1
+      astro-masonry:
+        specifier: ^1.2.2
+        version: 1.2.2
       axios:
         specifier: ^1.11.0
         version: 1.11.0
@@ -2437,6 +2440,9 @@ packages:
   astro-compressor@1.1.1:
     resolution: {integrity: sha512-yvwVmaTb6SMCd6MTufz0pYBsYXPTZu66QjNgAPrDqLqrHfKAsIIQ/4JTci76eS+rX6rdbuDeBb0SVlgrRCCtuw==}
     engines: {node: '>=22.15.0 <23.0.0 || >=23.8.0'}
+
+  astro-masonry@1.2.2:
+    resolution: {integrity: sha512-416VOoR+6dVjOyM2pxlQFj4AiFIV6NdA6WFUFqkVTitaG61o+5Sz0YTA20FAW7xnbIVWru9h6XIWNeEy3hiPmA==}
 
   astro@5.12.6:
     resolution: {integrity: sha512-vDtuDYj/XlxyI2Ex63BM4/Awde8Pl3U3wS5I1NhogFIBPohBaJ1g9puu42XEm7GMZxRn9N3xFEpSP9uEO0W9/w==}
@@ -8058,6 +8064,8 @@ snapshots:
   astring@1.9.0: {}
 
   astro-compressor@1.1.1: {}
+
+  astro-masonry@1.2.2: {}
 
   astro@5.12.6(@types/node@24.1.0)(jiti@2.5.1)(lightningcss@1.30.1)(rollup@2.79.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:

@@ -34,6 +34,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.6",
     "astro-compressor": "^1.1.1",
+    "astro-masonry": "^1.2.2",
     "axios": "^1.11.0",
     "date-fns": "4.1.0",
     "lucide-svelte": "^0.535.0",
