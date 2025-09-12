@@ -9,14 +9,8 @@ import "../index.css";
 import { Image } from "astro:assets";
 import { Masonry } from "astro-masonry";
 import { readImages } from "@/helpers/read-images";
+import PhotosInfo from "@/components/svelte/PhotosInfo.svelte";
 
-type Props = {
-  title: string;
-  description: string;
-  url: string;
-};
-
-const { title, description, url } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const images = readImages("/public/images/photos", /\.jpg$/);
@@ -25,14 +19,14 @@ const images = readImages("/public/images/photos", /\.jpg$/);
 <!doctype html>
 <html lang="en">
   <head>
-    <title>{title}</title>
+    <title>Photos</title>
     <meta charset="UTF-8" />
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
+    <meta name="title" content="Photos" />
+    <meta name="description" content="Photos" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://ekel.dev/photos" />
+    <meta property="og:title" content="Photos" />
+    <meta property="og:description" content="Photos" />
     <meta property="og:image" content="https://ekel.dev/opengraph.png" />
     <meta property="og:image:alt" content="ekel.dev opengraph image" />
     <meta property="og:image:type" content="image/png" />
@@ -43,9 +37,9 @@ const images = readImages("/public/images/photos", /\.jpg$/);
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
+    <meta property="twitter:url" content="https://ekel.dev/photos" />
+    <meta property="twitter:title" content="Photos" />
+    <meta property="twitter:description" content="Photos" />
     <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
@@ -117,5 +111,6 @@ const images = readImages("/public/images/photos", /\.jpg$/);
         </div>
       </main>
     </div>
+    <PhotosInfo client:only="svelte" />
   </body>
 </html>
