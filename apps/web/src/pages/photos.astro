@@ -1,52 +1,121 @@
 ---
-import { readImages } from "@/helpers/read-images";
-import Layout from "@/layouts/Layout.astro";
+import Navbar from "@/components/svelte/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
-import { Masonry } from "astro-masonry";
-import { Image } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import "../index.css";
+import { Image } from "astro:assets";
+import { Masonry } from "astro-masonry";
+import { readImages } from "@/helpers/read-images";
 
-const images = readImages("public/images/photos-compressed", /\.webp$/);
+type Props = {
+  title: string;
+  description: string;
+  url: string;
+};
+
+const { title, description, url } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const images = readImages("/public/images/photos", /\.jpg$/);
 ---
 
-<Layout
-  title="Photos"
-  description="Some of my shots."
-  url="https://ekel.dev/photos"
->
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start",
-      "md:text-start",
-    ]}
-  >
-    <Masonry
-      breakpointCols={{
-        default: 4,
-        1023: 3,
-        767: 2,
-      }}
-      class="flex gap-4 px-0 md:px-4"
-      columnClass=""
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta charset="UTF-8" />
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://ekel.dev/opengraph.png" />
+    <meta property="og:image:alt" content="ekel.dev opengraph image" />
+    <meta property="og:image:type" content="image/png" />
+    <meta
+      property="og:image:secure_url"
+      content="https://ekel.dev/opengraph.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <ClientRouter />
+    <script is:inline>
+      const getInitialTheme = () => {
+        const savedTheme = localStorage.getItem("theme");
+
+        if (
+          savedTheme === "dark" ||
+          (savedTheme === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+          (!savedTheme &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      };
+
+      getInitialTheme();
+    </script>
+  </head>
+  <body class="w-full flex justify-start items-start">
+    <div
+      class="h-full min-h-svh relative md:sticky md:top-0 md:left-0 flex justify-center items-center"
     >
-      {
-        images.map((image) => (
-          <Image
-            width={1440}
-            height={1080}
-            quality={100}
-            draggable={false}
-            layout="constrained"
-            format="avif"
-            src={image.path}
-            alt={image.fileName}
-            class="photos mt-0! mb-4! rounded-md h-full! border-none! w-full! object-cover"
-          />
-        ))
-      }
-    </Masonry>
-  </div>
-</Layout>
+      <Navbar currentPath={currentPath} client:only="svelte" />
+    </div>
+    <div
+      class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-24 prose-neutral dark:prose-invert max-w-full!"
+    >
+      <main
+        class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"
+      >
+        <div
+          class:list={[
+            "flex w-full flex-col items-start justify-start",
+            "md:text-start",
+          ]}
+        >
+          <Masonry
+            breakpointCols={{
+              default: 4,
+              1023: 3,
+              767: 2,
+            }}
+            class="flex gap-4 px-0 md:px-4"
+            columnClass=""
+          >
+            {
+              images.map((image: { path: string; fileName: string }) => (
+                <Image
+                  width={1440}
+                  height={1080}
+                  quality={100}
+                  draggable={false}
+                  layout="constrained"
+                  format="avif"
+                  src={image.path}
+                  alt={image.fileName}
+                  class="photos mt-0! mb-4! rounded-md h-full! border-none! w-full! object-cover"
+                />
+              ))
+            }
+          </Masonry>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
