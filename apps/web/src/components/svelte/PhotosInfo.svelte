@@ -10,7 +10,7 @@
 
 {#if isOpen}
   <div
-    class="flex fixed top-4 left-4 backdrop-blur-md backdrop-sepia-50 min-h-svh justify-center items-center w-full max-w-full h-full"
+    class="flex fixed top-0 left-0 backdrop-blur-md backdrop-sepia-50 min-h-svh justify-center items-center w-full max-w-full h-full"
   >
     <div class="fixed">
       <div class="rounded-md bg-neutral-200 dark:bg-neutral-900 p-4">
