@@ -11,7 +11,7 @@ import { readImages } from "@/helpers/read-images";
 import PhotosInfo from "@/components/svelte/PhotosInfo.svelte";
 
 const currentPath = Astro.url.pathname;
-const images = readImages("/public/images/photos", /\.jpg$/);
+const images = readImages("/public/images/photos", /\.webp$/);
 ---
 
 <!doctype html>
