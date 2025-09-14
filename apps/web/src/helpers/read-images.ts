@@ -7,7 +7,7 @@
  */
 export function readImages(filesDir: string, pattern: RegExp) {
   const imageFiles = import.meta.glob(
-    "/public/images/photos/**/*.(png|jpg|jpeg|gif|webp)"
+    "/public/images/photos/**/*.(png|jpg|jpeg|gif|webp|avif)"
   );
 
   const images = Object.entries(imageFiles)
