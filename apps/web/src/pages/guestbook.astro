@@ -7,8 +7,8 @@ import { format } from "date-fns";
 
 export async function getGuestbook(): Promise<GuestbookProps[]> {
   try {
-    const response = await api.get(GUESTBOOK_API_URL);
-    return response.data[0].result.data as GuestbookProps[];
+    const response = await api.get(`${GUESTBOOK_API_URL}/api/v1/guestbook`);
+    return response.data.data as GuestbookProps[];
   } catch (err) {
     throw new Error((err as Error).message);
   }

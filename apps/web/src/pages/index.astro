@@ -1,7 +1,6 @@
 ---
 import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 const [notesList, worksList] = await Promise.all([
@@ -25,28 +24,18 @@ const [notesList, worksList] = await Promise.all([
       <div
         class="slide-enter-content flex w-fit space-x-0 md:space-x-4 relative justify-start items-start"
       >
-        <div
-          class="bg-monochrome-3 -rotate-3 hover:rotate-0 cursor-pointer transition-all dark:bg-neutral-900 hidden md:block p-1.5 rounded-md w-[500px] h-fit"
-        >
-          <Image
-            src="https://avatars.githubusercontent.com/u/77146709?v=4"
-            alt="Github Profile"
-            width={500}
-            height={500}
-            quality={100}
-            draggable={false}
-            format="avif"
-            class="photos w-36! my-0! border-none! object-cover"
-          />
-        </div>
         <div>
-          <h2 data-cy="name" class="mb-0! mt-0!">Haikel Ilham Hakim</h2>
+          <h2 data-cy="name" class="mb-0! mt-0!">Innamal a'malu binniyat</h2>
           <p data-cy="description" class="mb-0! mt-2 text-justify">
-            Konnichiwa! I'm Haikel. You can call me <b>Haikel/Kel/Ekel</b> with the
+            Konnichiwa! I'm Haikel Ilham Hakim. You can call me <b
+              >Haikel/Kel/Ekel</b
+            > with the
             <b>"E"</b> pronounce is <b>"Emas"</b>. I'm a Software Developer
-            based in Indonesia, also an amateur photographer/mechanic in my free
-            time. Day-to-day, I mostly working on Frontend stuff and currently
-            learning Go, Svelte, and DevOps.
+            based in Indonesia and familiar <b>with javascript/typescript/go</b
+            >. Outside of programming, I enjoy doing photography, DIY (Do It
+            Yourself) works, and learn something new. Day-to-day, I mostly
+            working on Frontend stuff and currently learning Go, Svelte, also
+            DevOps.
           </p>
         </div>
       </div>
@@ -86,10 +75,7 @@ const [notesList, worksList] = await Promise.all([
             class="!mt-3 !space-y-0 text-justify list-disc list-outside !pl-[1.1rem]"
           >
             <li>
-              <p class="!my-0">
-                Bantu - bantu ngurusin Frontend. Managing HRM, Internal Email,
-                and other internal tools.
-              </p>
+              <p class="!my-0">Bantu - bantu ngurusin Frontend.</p>
             </li>
           </ul>
         </div>
@@ -108,9 +94,9 @@ const [notesList, worksList] = await Promise.all([
           >
             <li>
               <p class="!my-0">
-                Built a lung patient management system named SOBAT HEBAT (Sistem
-                Informasi Pengobatan Agar Tubuh Sehat Bebas TBC) using Next JS
-                an Nest JS.
+                Working on a lung patient management system named SOBAT HEBAT
+                (Sistem Informasi Pengobatan Agar Tubuh Sehat Bebas TBC) using
+                Next JS an Nest JS.
               </p>
             </li>
             <li>
@@ -131,7 +117,7 @@ const [notesList, worksList] = await Promise.all([
             </li>
             <li>
               <p class="!my-0">
-                Wrote unit testing both for the Frontend and Backend side.
+                Wrote unit testing for the Frontend side using Vitest.
               </p>
             </li>
             <li>
@@ -171,7 +157,8 @@ const [notesList, worksList] = await Promise.all([
               <p class="!my-0">
                 Conducted research with colleagues and advised Dibimbing Tech
                 Team on the selection of the backend stack between Node.js and
-                Go for the Cakrawala University project based on some use cases.
+                Golang for the Cakrawala University project based on some use
+                cases.
               </p>
             </li>
             <li>
