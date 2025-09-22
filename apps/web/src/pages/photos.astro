@@ -9,6 +9,7 @@ import { Image } from "astro:assets";
 import { Masonry } from "astro-masonry";
 import { readImages } from "@/helpers/read-images";
 import PhotosInfo from "@/components/svelte/PhotosInfo.svelte";
+import SplashCursor from "@/components/SplashCursor.astro";
 
 const currentPath = Astro.url.pathname;
 const images = readImages("/public/images/photos", /\.webp$/);
@@ -63,6 +64,7 @@ const images = readImages("/public/images/photos", /\.webp$/);
     </script>
   </head>
   <body class="w-full flex justify-start items-start">
+    <SplashCursor />
     <div
       class="h-full min-h-svh relative md:sticky md:top-0 md:left-0 flex justify-center items-center"
     >
