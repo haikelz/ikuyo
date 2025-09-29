@@ -27,8 +27,8 @@ const wakatimeStats = await getWakatimeStats();
         </p>
       </div>
     </section>
-    <div class="w-full mt-8">
+    <section class="w-full mt-8 slide-enter-content">
       <WakatimeChart client:only="svelte" data={wakatimeStats.data} />
-    </div>
+    </section>
   </div>
 </Layout>
