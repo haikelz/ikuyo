@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import { BACKEND_API_URL } from "@/utils/env";
 
 async function getWakatimeStats() {
-  const response = await api.get(BACKEND_API_URL);
+  const response = await api.get(`${BACKEND_API_URL}/api/v1/wakatime/stats`);
   return response.data;
 }
 
