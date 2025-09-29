@@ -36,6 +36,7 @@
     "astro-compressor": "^1.1.2",
     "astro-masonry": "^1.2.2",
     "axios": "^1.12.2",
+    "chart.js": "^4.5.0",
     "date-fns": "4.1.0",
     "lucide-svelte": "^0.544.0",
     "mdast-util-to-string": "^4.0.0",
@@ -51,6 +52,7 @@
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
-    "@ikuyo/typescript": "workspace:*"
+    "@ikuyo/typescript": "workspace:*",
+    "@types/chart.js": "^4.0.1"
   }
 }

@@ -2,12 +2,12 @@
 import { api } from "@/configs/axios";
 import Layout from "@/layouts/Layout.astro";
 import type { GuestbookProps } from "@/types";
-import { GUESTBOOK_API_URL } from "@/utils/env";
+import { BACKEND_API_URL } from "@/utils/env";
 import { format } from "date-fns";
 
 export async function getGuestbook(): Promise<GuestbookProps[]> {
   try {
-    const response = await api.get(`${GUESTBOOK_API_URL}/api/v1/guestbook`);
+    const response = await api.get(`${BACKEND_API_URL}/api/v1/guestbook`);
     return response.data.data as GuestbookProps[];
   } catch (err) {
     throw new Error((err as Error).message);

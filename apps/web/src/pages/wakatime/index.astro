@@ -1,0 +1,34 @@
+---
+import WakatimeChart from "@/components/svelte/WakatimeChart.svelte";
+import { api } from "@/configs/axios";
+import Layout from "@/layouts/Layout.astro";
+import { BACKEND_API_URL } from "@/utils/env";
+
+async function getWakatimeStats() {
+  const response = await api.get(BACKEND_API_URL);
+  return response.data;
+}
+
+const wakatimeStats = await getWakatimeStats();
+---
+
+<Layout title="Wakatime" description="Wakatime" url="https://ekel.dev/wakatime">
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start",
+    ]}
+  >
+    <section class="w-full">
+      <h1 data-cy="heading" class="mb-0">./wakatime</h1>
+      <div class="slide-enter-content">
+        <p data-cy="description" class="mb-0 text-justify">
+          My Wakatime stats.
+        </p>
+      </div>
+    </section>
+    <div class="w-full mt-8">
+      <WakatimeChart client:only="svelte" data={wakatimeStats.data} />
+    </div>
+  </div>
+</Layout>

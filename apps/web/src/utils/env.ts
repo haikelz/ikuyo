@@ -13,4 +13,4 @@ export const MODE = process.env.MODE;
 export const SENTRY_DSN = process.env.SENTRY_DSN as string;
 export const SENTRY_PROJECT = process.env.SENTRY_PROJECT as string;
 export const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN as string;
-export const GUESTBOOK_API_URL = process.env.GUESTBOOK_API_URL as string;
+export const BACKEND_API_URL = process.env.BACKEND_API_URL as string;
