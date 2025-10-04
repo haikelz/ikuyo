@@ -4,7 +4,7 @@ import svelte from "@astrojs/svelte";
 import sentry from "@sentry/astro";
 import tailwindcss from "@tailwindcss/vite";
 import compressor from "astro-compressor";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig } from "astro/config";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
@@ -66,36 +66,4 @@ export default defineConfig({
     enabled: false,
   },
   compressHTML: true,
-  env: {
-    schema: {
-      PUBLIC_PRODUCTION_URL: envField.string({
-        context: "client",
-        access: "public",
-      }),
-      PUBLIC_DEVELOPMENT_URL: envField.string({
-        context: "client",
-        access: "public",
-      }),
-      TURSO_DATABASE_URL: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-      TURSO_AUTH_TOKEN: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-      SENTRY_DSN: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-      SENTRY_AUTH_TOKEN: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-      SENTRY_PROJECT: envField.string({
-        context: "server",
-        access: "secret",
-      }),
-    },
-  },
 });
