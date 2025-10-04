@@ -1,11 +1,9 @@
 name: Ikuyo CI
 
 on:
-  push:
-    branches:
-      - master
   schedule:
     - cron: "0 0 1,15 * *"
+  workflow_dispatch:
 
 jobs:
   deploy:
