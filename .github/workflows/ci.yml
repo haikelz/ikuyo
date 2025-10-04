@@ -52,7 +52,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: anomali
-          directory: ./apps/web/dist
+          directory: apps/web/dist
           githubToken: ${{ secrets.TOKEN }}
           branch: master
         env:
