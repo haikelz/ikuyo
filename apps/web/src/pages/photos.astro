@@ -8,7 +8,6 @@ import "../index.css";
 import { Image } from "astro:assets";
 import { Masonry } from "astro-masonry";
 import { readImages } from "@/helpers/read-images";
-import PhotosInfo from "@/components/svelte/PhotosInfo.svelte";
 
 const currentPath = Astro.url.pathname;
 const images = readImages("/public/images/photos", /\.webp$/);
@@ -108,6 +107,5 @@ const images = readImages("/public/images/photos", /\.webp$/);
         </div>
       </main>
     </div>
-    <PhotosInfo client:only="svelte" />
   </body>
 </html>
