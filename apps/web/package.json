@@ -19,8 +19,8 @@
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/mdx": "^4.3.13",
-    "@astrojs/rss": "^4.0.14",
-    "@astrojs/sitemap": "^3.6.1",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
     "@astrojs/svelte": "^7.2.5",
     "@dotenvx/dotenvx": "^1.51.4",
     "@fontsource/geist-mono": "^5.2.7",
@@ -32,7 +32,7 @@
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.9",
+    "astro": "^5.16.11",
     "astro-compressor": "^1.2.0",
     "astro-masonry": "^1.2.2",
     "axios": "^1.13.2",
@@ -47,7 +47,7 @@
     "remark-sectionize": "^2.1.0",
     "remark-toc": "^9.0.0",
     "sharp": "^0.34.5",
-    "svelte": "^5.46.3",
+    "svelte": "^5.46.4",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
   },
