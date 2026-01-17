@@ -17,7 +17,3 @@ Technologies Used
 - Svelte
 - Nx Monorepo
 - Sentry
-
-Integration with
-
-- Uptime Kuma
