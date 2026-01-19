@@ -57,7 +57,7 @@ const { Content, remarkPluginFrontmatter, headings } = await item.render();
     <div class="flex justify-start items-center gap-2 mt-4 w-fit flex-wrap">
       {
         item.data.tags.map((tag) => (
-          <a href={`/tags/${tag}`} class="text-sm">
+          <a href={`/tags/${tag}`} class="text-base">
             <span>#{tag}</span>
           </a>
         ))

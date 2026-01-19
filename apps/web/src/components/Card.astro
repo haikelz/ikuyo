@@ -36,7 +36,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
       <p class="mb-0 mt-2 line-clamp-3">{description}</p>
       <div class="flex justify-start items-center gap-2 w-fit flex-wrap">
         {tags.map((item) => (
-          <a class="text-sm my-2!" href={`/tags/${item}`}>
+          <a class="text-base my-2!" href={`/tags/${item}`}>
             <span>#{item}</span>
           </a>
         ))}
@@ -69,7 +69,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
         <div class="flex justify-start mt-2 items-center gap-2 w-fit flex-wrap">
           {tags.map((tag) => (
             <div class="dark:bg-neutral-800 bg-neutral-200 font-bold px-2">
-              <span class="text-sm">{tag}</span>
+              <span class="text-base">{tag}</span>
             </div>
           ))}
         </div>

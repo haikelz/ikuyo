@@ -123,7 +123,7 @@
               <span>{lang.name}</span>
             </div>
             <div class="text-right">
-              <div class="text-sm font-semibold">
+              <div class="text-base font-semibold">
                 {formatDuration(lang.total_seconds)} ({lang.percent ?? 0}%)
               </div>
             </div>

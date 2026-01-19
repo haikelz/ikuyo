@@ -7,7 +7,7 @@
 <li class="!list-none">
   <a
     href={`#${heading.slug}`}
-    class="!no-underline hover:!underline hover:!text-neutral-400 text-sm !font-medium line-clamp-1"
+    class="!no-underline hover:!underline hover:!text-neutral-400 text-base !font-medium line-clamp-1"
   >
     {heading.text}
   </a>

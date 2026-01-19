@@ -19,7 +19,7 @@
         >
           Thank you for visiting my Gallery!
         </p>
-        <p class="text-sm text-neutral-900 dark:text-neutral-50 mt-2">
+        <p class="text-base text-neutral-900 dark:text-neutral-50 mt-2">
           All of the photos are taken with my Sony camera.
         </p>
       </div>
