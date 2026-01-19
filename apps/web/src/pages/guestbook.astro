@@ -55,8 +55,8 @@ const guestbook = await getGuestbook();
             )
             .map((item) => (
               <div>
-                <h3 class="!my-0">{item.message}</h3>
-                <p class="!mb-0 mt-2">
+                <h3 class="my-0!">{item.message}</h3>
+                <p class="mb-0! mt-2">
                   {item.username}. {format(item.created_at, "MMMM d, y")}
                 </p>
               </div>

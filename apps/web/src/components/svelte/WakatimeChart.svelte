@@ -77,7 +77,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
   <div
-    class="w-full max-w-full bg-neutral-50/70 dark:bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3 border-dashed dark:border-neutral-800"
+    class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800"
   >
     <div class="flex items-center">
       <Clock class="w-8 h-8 mr-3" />
@@ -91,7 +91,7 @@
   </div>
 
   <div
-    class="w-full max-w-full bg-neutral-50/70 dark:bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3 border-dashed dark:border-neutral-800"
+    class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800"
   >
     <div class="flex items-center">
       <Calendar class="w-8 h-8  mr-3" />
@@ -105,7 +105,7 @@
   </div>
 </div>
 <div
-  class="w-full max-w-full bg-neutral-50/70 dark:bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-monochrome-3 border-dashed dark:border-neutral-800 card"
+  class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800 card"
 >
   <div class="w-full">
     <div class="h-48 flex justify-center">
@@ -129,9 +129,7 @@
             </div>
           </div>
           <div class="relative w-full mt-2">
-            <div
-              class="relative w-full bg-neutral-100 dark:bg-neutral-800 rounded-full h-2"
-            ></div>
+            <div class="relative w-full bg-neutral-800 rounded-full h-2"></div>
 
             <div
               style="width: {lang.percent ?? 0}%; background-color: {colors[

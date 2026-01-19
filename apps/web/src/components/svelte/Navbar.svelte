@@ -4,12 +4,9 @@
     HashIcon,
     ImagesIcon,
     ListIcon,
-    MenuIcon,
     NotepadTextIcon,
-    XIcon,
   } from "lucide-svelte";
   import { twMerge } from "tailwind-merge";
-  import ToggleTheme from "./ToggleTheme.svelte";
 
   let { currentPath } = $props();
 
@@ -50,7 +47,7 @@
 
 <nav
   class={twMerge(
-    "md:relative fixed md:top-0 md:left-0 top-4 left-4 bg-neutral-50/70 dark:bg-neutral-950/70 right-4 border-dashed justify-between md:justify-start items-center space-x-5 md:space-x-0 md:bottom-0 flex-col flex md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-4 md:space-y-5",
+    "md:relative fixed md:top-0 md:left-0 top-4 left-4 bg-neutral-50/70 bg-neutral-950/70 right-4 border-dashed justify-between md:justify-start items-center space-x-5 md:space-x-0 md:bottom-0 flex-col flex md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-4 md:space-y-5",
     "border-[0.5px] rounded-md md:rounded-none md:border-[0.5px] mx-auto md:mx-0",
     "backdrop-blur-md z-50"
   )}
@@ -66,7 +63,7 @@
           type="button"
           aria-label="/"
           class={twMerge(
-            "p-1.5 cursor-pointer bg-neutral-200 dark:bg-neutral-900 rounded-full"
+            "p-1.5 cursor-pointer bg-neutral-200 bg-neutral-900 rounded-full"
           )}
         >
           <img
@@ -80,7 +77,7 @@
         </button>
       </a>
       <div
-        class="md:flex flex-col space-y-5 dark:text-neutral-50 text-neutral-950 hidden"
+        class="md:flex flex-col space-y-5 text-neutral-50 text-neutral-950 hidden"
       >
         {#each navList as item}
           <a
@@ -95,30 +92,17 @@
               class={twMerge(
                 "p-1.5 cursor-pointer",
                 currentPath.includes(item.path)
-                  ? "bg-neutral-200 dark:bg-neutral-900 rounded-full"
+                  ? "bg-neutral-200 bg-neutral-900 rounded-full"
                   : ""
               )}
             >
               <item.icon
                 size={21}
-                class={twMerge("font-bold text-gray-950 dark:text-neutral-50")}
+                class={twMerge("font-bold text-gray-950 text-neutral-50")}
               />
             </button>
           </a>
         {/each}
-      </div>
-      <div class="flex justify-center items-center space-x-5 md:space-x-0">
-        <ToggleTheme />
-        <button
-          onclick={toggleNavbar}
-          class="block md:hidden text-neutral-950 dark:text-neutral-50 bg-neutral-200 dark:bg-neutral-900 rounded-full p-1.5"
-        >
-          {#if isOpen}
-            <XIcon size={21} />
-          {:else}
-            <MenuIcon size={21} />
-          {/if}
-        </button>
       </div>
     </div>
     {#if isOpen}
@@ -130,7 +114,7 @@
             data-cy={`${item.path.slice(1)}-btn`}
             href={item.path}
             aria-label={item.path}
-            class="cursor-pointer text-neutral-950 font-bold dark:text-neutral-50 no-underline hover:underline"
+            class="cursor-pointer text-neutral-950 font-bold text-neutral-50 no-underline hover:underline"
           >
             {item.path.slice(1)[0][0].toUpperCase() + item.path.slice(2)}
           </a>

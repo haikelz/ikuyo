@@ -46,7 +46,8 @@ const currentPath = Astro.url.pathname;
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
     {/* <ClientRouter /> */}
-    <script is:inline>
+    {
+      /*<script is:inline>
       const getInitialTheme = () => {
         const savedTheme = localStorage.getItem("theme");
 
@@ -64,7 +65,8 @@ const currentPath = Astro.url.pathname;
       };
 
       getInitialTheme();
-    </script>
+    </script>*/
+    }
   </head>
   <body class="w-full flex justify-start items-start">
     <div
@@ -73,7 +75,7 @@ const currentPath = Astro.url.pathname;
       <Navbar currentPath={currentPath} client:only="svelte" />
     </div>
     <div
-      class="prose prose-lg container mx-auto w-full! px-4 md:pt-8 pt-24 prose-neutral dark:prose-invert max-w-6xl!"
+      class="prose prose-lg container mx-auto w-full! px-4 md:pt-8 pt-24 prose-invert max-w-6xl!"
     >
       <main
         class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"
