@@ -10,7 +10,7 @@ const [notesList, worksList] = await Promise.all([
 
 const experienceList = [
   {
-    company: "Undisclosed",
+    company: "[Undisclosed]",
     position: "Backend Developer",
     startDate: "Sep 2025",
     endDate: "Present",
@@ -68,7 +68,7 @@ const experienceList = [
     ],
   },
   {
-    company: "Undisclosed",
+    company: "[Undisclosed]",
     position: "Frontend Web Developer",
     startDate: "Nov 2023",
     endDate: "Dec 2023",
@@ -117,13 +117,11 @@ const experienceList = [
           <div
             class="relative -mt-12 sm:-mt-16 md:-mt-20 p-0! lg:-mt-24 mb-4 flex flex-row items-end justify-between"
           >
-            <div class="flex items-center p-0! m-0!">
-              <img
-                src="https://avatars.githubusercontent.com/u/77146709?v=4"
-                alt="Haikel Ilham Hakim"
-                class="w-20 p-0! m-0! h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full! mb-0! border-4 border-gray-900 object-cover bg-white shadow-lg"
-              />
-            </div>
+            <img
+              src="https://avatars.githubusercontent.com/u/77146709?v=4"
+              alt="Haikel Ilham Hakim"
+              class="w-20! p-0! m-0! h-20! sm:w-28! sm:h-28! md:w-36! md:h-36! lg:w-40! lg:h-40! rounded-full! mb-0! border-4 border-gray-900 object-cover bg-white shadow-lg"
+            />
             <div class="sm:flex items-end justify-end hidden">
               <h2
                 class="text-sm sm:text-lg md:text-xl font-semibold mb-0 mt-0 text-right"
@@ -236,7 +234,7 @@ const experienceList = [
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime()
+                new Date(a.data.created_at).getTime(),
             )
             .slice(0, 6)
             .map((item) => (

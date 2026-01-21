@@ -6,6 +6,7 @@ import "@fontsource/geist-sans";
 import "@fontsource/ibm-plex-serif";
 import "@fontsource/noto-naskh-arabic";
 import "../index.css";
+import { ClientRouter } from "astro:transitions";
 
 type Props = {
   title: string;
@@ -45,7 +46,7 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
-    {/* <ClientRouter /> */}
+    <ClientRouter />
     {
       /*<script is:inline>
       const getInitialTheme = () => {

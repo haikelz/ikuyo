@@ -8,6 +8,7 @@ import "../index.css";
 import { Image } from "astro:assets";
 import { Masonry } from "astro-masonry";
 import { readImages } from "@/helpers/read-images";
+import { ClientRouter } from "astro:transitions";
 
 const currentPath = Astro.url.pathname;
 const images = readImages("/public/images/photos", /\.webp$/);
@@ -41,7 +42,9 @@ const images = readImages("/public/images/photos", /\.webp$/);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <script is:inline>
+    <ClientRouter />
+    {
+      /* <script is:inline>
       const getInitialTheme = () => {
         const savedTheme = localStorage.getItem("theme");
 
@@ -59,7 +62,8 @@ const images = readImages("/public/images/photos", /\.webp$/);
       };
 
       getInitialTheme();
-    </script>
+    </script>*/
+    }
   </head>
   <body class="w-full flex justify-start items-start">
     <div
