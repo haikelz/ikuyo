@@ -45,11 +45,7 @@ const images = readImages("/public/images/photos", /\.webp$/);
     <ClientRouter />
   </head>
   <body class="w-full flex justify-start items-start">
-    <div
-      class="h-full min-h-svh relative md:sticky md:top-0 md:left-0 flex justify-center items-center"
-    >
-      <Navbar currentPath={currentPath} client:only="svelte" />
-    </div>
+    <Navbar currentPath={currentPath} client:only="svelte" />
     <div
       class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-24 prose-neutral prose-invert max-w-full!"
     >
@@ -68,7 +64,7 @@ const images = readImages("/public/images/photos", /\.webp$/);
               1023: 3,
               767: 2,
             }}
-            class="flex gap-4 px-0 md:px-4"
+            class="flex gap-4 z-10 px-0 md:px-4"
             columnClass=""
           >
             {

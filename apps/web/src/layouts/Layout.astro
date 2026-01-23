@@ -49,7 +49,7 @@ const currentPath = Astro.url.pathname;
     <ClientRouter />
   </head>
   <body class="w-full flex justify-start items-start relative">
-      <Navbar currentPath={currentPath} client:only="svelte" />
+    <Navbar currentPath={currentPath} client:only="svelte" />
     <div
       class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-20 prose-invert max-w-6xl! relative z-10"
     >
