@@ -47,36 +47,11 @@ const currentPath = Astro.url.pathname;
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
     <ClientRouter />
-    {
-      /*<script is:inline>
-      const getInitialTheme = () => {
-        const savedTheme = localStorage.getItem("theme");
-
-        if (
-          savedTheme === "dark" ||
-          (savedTheme === "system" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-          (!savedTheme &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      };
-
-      getInitialTheme();
-    </script>*/
-    }
   </head>
-  <body class="w-full flex justify-start items-start">
-    <div
-      class="h-full min-h-svh relative md:sticky md:top-0 md:left-0 flex justify-center items-center"
-    >
+  <body class="w-full flex justify-start items-start relative">
       <Navbar currentPath={currentPath} client:only="svelte" />
-    </div>
     <div
-      class="prose prose-lg container mx-auto w-full! px-4 md:pt-8 pt-24 prose-invert max-w-6xl!"
+      class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-20 prose-invert max-w-6xl! relative z-10"
     >
       <main
         class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"

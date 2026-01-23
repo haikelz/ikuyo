@@ -45,7 +45,10 @@ body {
   font-family: "Geist Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
+
 
 nav {
   @apply border-neutral-800 md:border-r-neutral-800;
@@ -116,6 +119,18 @@ h6 {
   -webkit-box-shadow: 0px 0px 40px -23px rgba(0, 0, 0, 1);
   -moz-box-shadow: 0px 0px 40px -23px rgba(0, 0, 0, 1);
 }
+
+/* Glass morphism effect */
+.glass-card {
+  background: rgba(23, 23, 23, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
 
 ::-webkit-scrollbar-track {
   @apply bg-base-5;
@@ -258,4 +273,46 @@ h6 {
 }
 .dark::view-transition-new(root) {
   z-index: 1;
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 1000px 100%;
+}
+
+
+/* Backdrop blur utility */
+.backdrop-blur-elegant {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* Subtle pulse animation */
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.subtle-pulse {
+  animation: subtle-pulse 3s ease-in-out infinite;
 }

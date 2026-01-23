@@ -97,31 +97,34 @@ const experienceList = [
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start relative",
       "md:text-start",
     ]}
   >
     <section class="w-full slide-enter-content m-0! p-0!">
       <div class="relative w-full m-0! p-0!">
         <div
-          class="relative w-full rounded-md rounded-b-none h-32 sm:h-40 md:h-52 lg:h-64 p-0! m-0!"
+          class="relative w-full rounded-xl rounded-b-none h-32 sm:h-40 md:h-52 lg:h-64 p-0! m-0! overflow-hidden group"
         >
           <img
             src="/images/banner-linkedin.png"
             alt="Profile Banner"
-            class="w-full h-full object-bottom object-fill sm:object-cover p-0! m-0! rounded-b-none!"
+            class="w-full h-full object-bottom object-fill sm:object-cover p-0! m-0! rounded-b-none! transition-transform duration-500 group-hover:scale-105"
           />
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-950/60" />
         </div>
 
         <div class="w-full px-4 md:pl-8 md:pr-8">
           <div
             class="relative -mt-12 sm:-mt-16 md:-mt-20 p-0! lg:-mt-24 mb-4 flex flex-row items-end justify-between"
           >
-            <img
-              src="https://avatars.githubusercontent.com/u/77146709?v=4"
-              alt="Haikel Ilham Hakim"
-              class="w-20! p-0! m-0! h-20! sm:w-28! sm:h-28! md:w-36! md:h-36! lg:w-40! lg:h-40! rounded-full! mb-0! border-4 border-gray-900 object-cover bg-white shadow-lg"
-            />
+            <div class="relative group/avatar">
+              <img
+                src="https://avatars.githubusercontent.com/u/77146709?v=4"
+                alt="Haikel Ilham Hakim"
+                class="relative w-20! p-0! m-0! h-20! sm:w-28! sm:h-28! md:w-36! md:h-36! lg:w-40! lg:h-40! rounded-full! mb-0! border-4 border-gray-900 object-cover bg-white shadow-lg transition-transform duration-300 group-hover/avatar:scale-105"
+              />
+            </div>
             <div class="sm:flex items-end justify-end hidden">
               <h2
                 class="text-sm sm:text-lg md:text-xl font-semibold mb-0 mt-0 text-right"
@@ -181,22 +184,24 @@ const experienceList = [
       <h2 class="mb-6 mt-0 font-extrabold">Experience</h2>
       <div class="space-y-5 slide-enter-content">
         {
-          experienceList.map((experience) => (
-            <div>
-              <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between">
-                <h3 class="mb-0 mt-0">{experience.company}</h3>
-                <span class="mt-1.5 rounded-xs text-base font-semibold sm:mt-0">
-                  {experience.startDate} - {experience.endDate}
-                </span>
+          experienceList.map((experience, index) => (
+            <div class="group relative p-6 rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
+              <div class="relative z-10">
+                <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between">
+                  <h3 class="mb-0 mt-0">{experience.company}</h3>
+                  <span class="mt-1.5 rounded-xs text-base font-semibold sm:mt-0">
+                    {experience.startDate} - {experience.endDate}
+                  </span>
+                </div>
+                <p class="mb-0 mt-3 sm:mt-1">{experience.position}</p>
+                <ul class="mt-3! space-y-0! text-justify list-disc list-outside pl-[1.1rem]!">
+                  {experience.tasks.map((task) => (
+                    <li>
+                      <p class="my-0!">{task}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <p class="mb-0 mt-3 sm:mt-1">{experience.position}</p>
-              <ul class="mt-3! space-y-0! text-justify list-disc list-outside pl-[1.1rem]!">
-                {experience.tasks.map((task) => (
-                  <li>
-                    <p class="my-0!">{task}</p>
-                  </li>
-                ))}
-              </ul>
             </div>
           ))
         }

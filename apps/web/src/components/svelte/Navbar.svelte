@@ -49,16 +49,16 @@
 
 <nav
   class={twMerge(
-    "md:relative fixed md:top-0 md:left-0 top-4 left-4 bg-neutral-950/70 right-4 border-dashed justify-between md:justify-start items-center space-x-5 md:space-x-0 md:bottom-0 flex-col flex md:items-start md:flex-col px-3 py-1.5 md:px-4 md:py-4 md:space-y-5",
-    "border-[0.5px] rounded-md md:rounded-none md:border-[0.5px] mx-auto md:mx-0",
-    "backdrop-blur-md z-50"
+    "fixed bg-neutral-950/70 w-full md:w-fit items-center space-x-5 md:space-x-0 justify-center right-0 left-0 md:bottom-4 flex px-3 py-2.5 md:px-3 md:py-2.5 md:space-y-5",
+    "border-b-[0.5px] md:border-[0.5px] mx-auto",
+    "backdrop-blur-md z-50",
   )}
 >
   <div
-    class="flex flex-col justify-between items-center w-full md:flex-col md:space-y-5"
+    class="flex justify-between w-full md:w-fit flex-col items-center md:space-x-5!"
   >
-    <div class="flex justify-between items-center flex-row md:flex-col w-full">
-      <a data-cy="home-btn" href="/" aria-label="/" class="md:mb-5!">
+    <div class="flex justify-between w-full items-center">
+      <a data-cy="home-btn" href="/" aria-label="/" class="mr-5!">
         <button
           type="button"
           aria-label="/"
@@ -74,7 +74,7 @@
           />
         </button>
       </a>
-      <div class="md:flex flex-col space-y-5 text-neutral-50 hidden">
+      <div class="md:flex space-x-5 text-neutral-50 hidden">
         {#each navList as item}
           <a
             data-cy={`${item.path.slice(1)}-btn`}
