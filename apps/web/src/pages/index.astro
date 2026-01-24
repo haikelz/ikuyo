@@ -111,7 +111,10 @@ const experienceList = [
             alt="Profile Banner"
             class="w-full h-full object-bottom object-fill sm:object-cover p-0! m-0! rounded-b-none! transition-transform duration-500 group-hover:scale-105"
           />
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-950/60" />
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-950/60"
+          >
+          </div>
         </div>
 
         <div class="w-full px-4 md:pl-8 md:pr-8">
@@ -166,14 +169,12 @@ const experienceList = [
               into Go, DevOps, Finance, also how to deal and manage people. <a
                 href="https://www.linkedin.com/in/haikel/"
                 target="_blank"
-                rel="noopener noreferrer"
-                class="text-blue-400 hover:underline">Linkedin</a
+                rel="noopener noreferrer">Linkedin</a
               >,
               <a
                 href="https://github.com/haikelz"
                 target="_blank"
-                rel="noopener noreferrer"
-                class="text-blue-400 hover:underline">Github</a
+                rel="noopener noreferrer">Github</a
               >
             </p>
           </div>
@@ -239,7 +240,7 @@ const experienceList = [
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
+                new Date(a.data.created_at).getTime()
             )
             .slice(0, 6)
             .map((item) => (
