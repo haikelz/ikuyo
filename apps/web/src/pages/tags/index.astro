@@ -40,14 +40,8 @@ const tags = [
       <div class="gap-4 flex w-full flex-wrap items-center justify-start">
         {
           tags.map((item) => (
-            <a href={`/tags/${item}`}>
-              <button
-                type="button"
-                aria-label={item}
-                class="bg-neutral-900 px-4 py-1 cursor-pointer"
-              >
-                <p class="mb-0 mt-0">{item}</p>
-              </button>
+            <a href={`/tags/${item}`} class="text-base">
+              <span>#{item}</span>
             </a>
           ))
         }

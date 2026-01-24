@@ -70,12 +70,12 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
         }
       </div>
     </div>
-    <div class="flex justify-start items-center gap-2 w-fit flex-wrap mt-4">
+    <div class="flex justify-start items-center gap-2 mt-4 w-fit flex-wrap">
       {
-        item.data.stack.map((tag: any) => (
-          <div class="bg-neutral-800 font-bold px-2">
-            <span class="text-base">{tag}</span>
-          </div>
+        item.data.stack.map((tag) => (
+          <a href={`/tags/${tag}`} class="text-base">
+            <span>#{tag}</span>
+          </a>
         ))
       }
     </div>

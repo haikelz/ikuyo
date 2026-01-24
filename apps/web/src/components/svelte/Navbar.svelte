@@ -49,7 +49,7 @@
 
 <nav
   class={twMerge(
-    "fixed bg-neutral-950/70 w-full md:w-fit items-center space-x-5 md:space-x-0 justify-center right-0 left-0 md:bottom-4 flex px-3 py-2.5 md:px-3 md:py-2.5 md:space-y-5 border-b-[0.5px] md:border-[0.5px] mx-auto backdrop-blur-md z-50!",
+    "fixed bg-neutral-950/70 w-full rounded-none md:rounded-full! md:w-fit items-center space-x-5 md:space-x-0 justify-center right-0 left-0 md:bottom-4 flex px-3 py-2.5 md:px-3 md:py-2.5 md:space-y-5 border-b-[0.5px] md:border-[0.5px] mx-auto backdrop-blur-md z-50!"
   )}
 >
   <div
