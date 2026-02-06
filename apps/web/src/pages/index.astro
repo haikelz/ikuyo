@@ -152,7 +152,7 @@ const experienceList = [
             <p
               class="text-sm sm:text-base md:text-base lg:text-base text-gray-500 mb-0 mt-0"
             >
-              Bogor, Indonesia
+              Indonesia
             </p>
           </div>
 
@@ -240,7 +240,7 @@ const experienceList = [
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime()
+                new Date(a.data.created_at).getTime(),
             )
             .slice(0, 6)
             .map((item) => (

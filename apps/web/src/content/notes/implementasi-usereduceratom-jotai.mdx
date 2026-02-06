@@ -45,7 +45,7 @@ import { useReducerAtom } from "jotai/utils";
 
 function reducer(
   state: { value: number },
-  action: { operation: "TAMBAH" | "KURANG" }
+  action: { operation: "TAMBAH" | "KURANG" },
 ) {
   switch (action.operation) {
     case "TAMBAH":
