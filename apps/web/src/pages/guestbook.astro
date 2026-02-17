@@ -43,7 +43,7 @@ const guestbook = await getGuestbook();
     </section>
     <section
       data-cy="guestbook"
-      class="flex w-full flex-col space-y-6 mt-8 items-start justify-start slide-enter-content"
+      class="flex w-full flex-col space-y-5 mt-8 items-start justify-start slide-enter-content"
     >
       {
         guestbook ? (
@@ -54,12 +54,12 @@ const guestbook = await getGuestbook();
                 new Date(a.created_at).getTime()
             )
             .map((item) => (
+            <div class="group relative p-6 w-full rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
               <div>
-                <h3 class="my-0!">{item.message}</h3>
-                <p class="mb-0! mt-2">
-                  {item.username}. {format(item.created_at, "MMMM d, y")}
-                </p>
+                <h3 class="mb-0 mt-0">{item.message}</h3>
+                <p class="mb-0 mt-3">{item.username} - {format(item.created_at, "MMMM d, y")}</p>
               </div>
+            </div>
             ))
         ) : (
           <p class="font-bold">There is no message right now!</p>
