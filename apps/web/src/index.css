@@ -39,6 +39,10 @@
   scroll-behavior: smooth;
 }
 
+:root {
+  overscroll-behavior: none;
+}
+
 html,
 body {
   @apply bg-neutral-950;

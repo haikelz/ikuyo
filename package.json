@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build:web": "nx build web",
+    "build:web:prod": "nx build web --prod",
     "dev:web": "nx dev web",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",

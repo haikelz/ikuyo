@@ -11,9 +11,4 @@ A monorepo for [ekel.dev](https://ekel.dev). Project structure:
 │   └── typescript       # Shared Typescript Configs
 ```
 
-Technologies Used
-
-- Astro
-- Svelte
-- Nx Monorepo
-- Sentry
+Proudly Powered by Astro + Svelte

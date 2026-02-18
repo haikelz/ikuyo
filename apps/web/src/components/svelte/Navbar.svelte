@@ -10,6 +10,7 @@
   } from "lucide-svelte";
   import { twMerge } from "tailwind-merge";
   import { onMount } from "svelte";
+  import Tooltip from "./Tooltip.svelte";
 
   let { currentPath } = $props();
 
@@ -18,26 +19,31 @@
       id: 1,
       icon: ListIcon,
       path: "/works",
+      label: "Works",
     },
     {
       id: 2,
       icon: NotepadTextIcon,
       path: "/notes",
+      label: "Notes",
     },
     {
       id: 3,
       icon: HashIcon,
       path: "/tags",
+      label: "Tags",
     },
     {
       id: 4,
       icon: ImagesIcon,
       path: "/photos",
+      label: "Photos",
     },
     {
       id: 5,
       icon: AlbumIcon,
       path: "/guestbook",
+      label: "Guestbook",
     },
   ];
 
@@ -96,46 +102,54 @@
     class="flex justify-between w-full md:w-fit flex-col items-center md:space-x-5!"
   >
     <div class="flex justify-between w-full items-center">
-      <a data-cy="home-btn" href="/" aria-label="/" class="mr-5!">
-        <button
-          type="button"
-          aria-label="/"
-          class={twMerge("p-1.5 cursor-pointer bg-neutral-900 rounded-full")}
-        >
-          <img
-            class="rounded-full h-6 w-6 object-cover photos"
-            alt="Github Profile"
-            width={500}
-            height={500}
-            draggable={false}
-            src="https://avatars.githubusercontent.com/u/77146709?v=4"
-          />
-        </button>
-      </a>
-      <div class="md:flex space-x-5 text-neutral-50 hidden">
-        {#each navList as item}
-          <a
-            data-cy={`${item.path.slice(1)}-btn`}
-            href={item.path}
-            aria-label={item.path}
-            class="cursor-pointer"
-          >
+      <Tooltip content="My Istri">
+        {#snippet children()}
+          <a data-cy="home-btn" href="/" aria-label="/" class="mr-5!">
             <button
               type="button"
-              aria-label={item.path}
-              class={twMerge(
-                "p-1.5 cursor-pointer",
-                currentPath.includes(item.path)
-                  ? "bg-neutral-900 rounded-full"
-                  : ""
-              )}
+              aria-label="/"
+              class={twMerge("p-1.5 cursor-pointer bg-neutral-900 rounded-full")}
             >
-              <item.icon
-                size={21}
-                class={twMerge("font-bold text-neutral-50")}
+              <img
+                class="rounded-full h-6 w-6 object-cover photos"
+                alt="Github Profile"
+                width={500}
+                height={500}
+                draggable={false}
+                src="https://avatars.githubusercontent.com/u/77146709?v=4"
               />
             </button>
           </a>
+        {/snippet}
+      </Tooltip>
+      <div class="md:flex space-x-5 text-neutral-50 hidden">
+        {#each navList as item}
+          <Tooltip content={item.label}>
+            {#snippet children()}
+              <a
+                data-cy={`${item.path.slice(1)}-btn`}
+                href={item.path}
+                aria-label={item.path}
+                class="cursor-pointer"
+              >
+                <button
+                  type="button"
+                  aria-label={item.path}
+                  class={twMerge(
+                    "p-1.5 cursor-pointer",
+                    currentPath.includes(item.path)
+                      ? "bg-neutral-900 rounded-full"
+                      : ""
+                  )}
+                >
+                  <item.icon
+                    size={21}
+                    class={twMerge("font-bold text-neutral-50")}
+                  />
+                </button>
+              </a>
+            {/snippet}
+          </Tooltip>
         {/each}
       </div>
       <button
