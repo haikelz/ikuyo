@@ -9,6 +9,9 @@ created_at: 2021-12-08
 description: Pindah Text Editor!!
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 **Update 2022-12-05:** Saya udah balik lagi ke VSCode wkwk(tetep pake keybinding Vim).
 
 [Visual Studio Code](https://code.visualstudio.com/) adalah sebuah text editor yang menawarkan banyak fitur, tapi sayangnya tidak terlalu ramah kepada low devices. Karena laptop saya juga termasuk kelas low, jadi saya pun memutuskan untuk pindah ke [Neovim](https://neovim.io/). Tulisan ini adalah tentang pengalaman saya beralih dari VScode ke Neovim, jadi tidak ada tutorial untuk setup Neovim disini.
@@ -21,10 +24,7 @@ Kalau mau install, sesuaikan saja dengan distronya. Disini saya pakai Artix, jad
 
 Setelah pindah ke neovim, saya pun memutuskan untuk menggunakan konfigurasi yang ready atau siap pakai seperti <b><s>NvChad</s></b> [CosmicNvim](https://github.com/CosmicNvim/CosmicNvim). Mengapa ga setup sendiri? Waktunya eui, kurang. Jadi mending ngambil yang udah siap aja.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/vscode-neovim/neovim.png?updatedAt=1720370498003"
-  alt="NvChad"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/vscode-neovim/neovim.png?updatedAt=1720370498003" alt="NvChad" />
 
 Saat memakai vim/neovim, dianjurkan untuk menggunakan **hjkl** ketimbang arrow keys, katanya karena biar jangkauan jari dengan huruf lain tidak terlalu jauh, misal kalo mau ke mode **insert**, kan deket tuh. Atau mode **visual** juga deket, sehingga hal ini membuatnya terasa lebih efisien ketimbang menggunakan tanda panah biasa.
 

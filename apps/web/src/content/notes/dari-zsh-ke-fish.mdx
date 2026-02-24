@@ -9,6 +9,9 @@ created_at: 2022-06-28
 description: Catatan saya mengenai migrasi dari zsh ke fish dan bagaimana rasanya
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 ## Pendahuluan
 
 Seperti yang kita tahu, zsh(**z**-**sh**ell) adalah sebuah shell yang commandnya mirip-mirip dengan sh. Bisa dibilang ini sh versi improvement dengan berbagai macam kustomisasi. Belakangan ini, saya tertarik untuk pindah ke fish(**f**riendly **i**nteractive **sh**ell), yang katanya udah banyak fitur out of the box. Di zsh, kita tidak akan mendapatkan itu dan yeps, mesti konfigurasi sendiri buat dapetin fitur kayak autocomplete, dan lainnya.
@@ -83,10 +86,7 @@ Untuk lebih detailnya, bisa lihat ke repositori [dotfiles saya](https://github.c
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 ```
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/oh-my-fish.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162175073"
-  alt="oh-my-fish"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/oh-my-fish.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162175073" alt="oh-my-fish" />
 
 Jika temen-temen mau ganti tema, bisa lihat daftarnya [disini](https://github.com/oh-my-fish/oh-my-fish/blob/master/docs/Themes.md). Disini, saya akan mengganti tema defaultnya ke pure(yep pas di zsh, saya juga pake pure).
 
@@ -109,10 +109,7 @@ Sebenarnya ini opsional, tapi karena default shellnya udah di fish, maka saya un
 sudo apt --purge remove zsh
 ```
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/uninstall-zsh.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162135308"
-  alt="Uninstall zsh"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/uninstall-zsh.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162135308" alt="Uninstall zsh" />
 
 Untuk uninstall oh-my-zsh, lakukan cara berikut:
 
@@ -121,10 +118,7 @@ Untuk uninstall oh-my-zsh, lakukan cara berikut:
 - Ubah filenya jadi executable dengan perintah `sudo chmod 777 uninstall.sh`
 - Kemudian uninstall oh-my-zsh dengan `./uninstall.sh`
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/uninstall-oh-my-zsh.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162160120"
-  alt="Uninstall oh-my-zsh"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/dari-fish-ke-zsh/uninstall-oh-my-zsh.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669162160120" alt="Uninstall oh-my-zsh" />
 
 Dia bakal ngembaliin default shellnya ke sh. Dalam hal ini, kita rubah lagi ke fish dengan `chsh -s /usr/bin/fish`
 

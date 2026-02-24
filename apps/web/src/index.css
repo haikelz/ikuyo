@@ -53,6 +53,11 @@ body {
   overflow-x: hidden;
 }
 
+body:has(.lightbox-active) {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
 
 nav {
   @apply border-neutral-800 md:border-r-neutral-800;

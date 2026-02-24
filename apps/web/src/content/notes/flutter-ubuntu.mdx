@@ -9,6 +9,9 @@ created_at: 2022-04-04
 description: Setup Flutter serta Android SDK
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 Flutter adalah Framework Dart yang sering digunakan untuk Mobile App Development. Flutter juga bisa dipakai untuk Web, tapi ya performanya jelas belum terlalu bagus ketimbang Web konvensional yang memakai HTML CSS JS.
 
 Ada 2 cara menginstall Flutter di Ubuntu, yakni dengan Snapd dan manual. Tapi dalam hal ini, saya memilih untuk menginstallnya secara manual.
@@ -29,10 +32,7 @@ export PATH=$PATH:~/flutter/bin
 flutter doctor
 ```
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/flutter-ubuntu/2022-04-04-04-33.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669161855184"
-  alt="flutter doctor"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/flutter-ubuntu/2022-04-04-04-33.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669161855184" alt="flutter doctor" />
 
 Biasanya kalo temen-temen install IDE Android Studio, dia udah include sama Android SDK. Nah bagaimana kalau kita mau develop Flutter pake VSCode dan bukannya Android Studio?
 
@@ -42,10 +42,7 @@ Untuk install Android SDK:
 
 1. Pergi ke situsnya [developer android](https://developer.android.com/studio/releases/platform-tools), pilih "Download SDK Platform-Tools for Linux", kemudian Accept Terms and Conditions nya untuk mendownload.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/flutter-ubuntu/Screenshot-20220403-144926.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669161855238"
-  alt="Accept Terms and Conditions"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/flutter-ubuntu/Screenshot-20220403-144926.png?ik-sdk-version=javascript-1.4.3&updatedAt=1669161855238" alt="Accept Terms and Conditions" />
 
 2. Kemudian, tambahin path nya ke `.bashrc` atau `.zshrc`. Karena saya letakin si Android SDK ini di tempat
    yang sama dengan Flutter tadi, yakni `home/user/`, jadi:

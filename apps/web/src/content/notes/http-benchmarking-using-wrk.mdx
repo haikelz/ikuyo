@@ -8,6 +8,9 @@ created_at: 2024-09-25
 description: Exploring and do some basic HTTP benchmarking using wrk
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 Alhamdulillah. After a while, I can write another technical note in English. In this opportunity, we will explore and do some basic HTTP benchmarking using `wrk`.
 
 ## So, What is `wrk`?
@@ -53,8 +56,8 @@ You can follow this step-by-step to benchmarking your API:
 
 Well, I do this benchmark to test Golang(Fiber) and Node JS(Express JS + Typescript) as a part of my research. The case that used for this benchmarking is load 99 Asma'ul Husna data. That's it.
 
-![express ts](https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-31-10.png?updatedAt=1727282175453)
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-31-10.png?updatedAt=1727282175453" alt="express ts" />
 
-![golang](https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-32-43.png?updatedAt=1727282175503)
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/HTTP%20benchmarking%20using%20wrk/Screenshot%20from%202024-09-25%2023-32-43.png?updatedAt=1727282175503" alt="golang" />
 
 As you can see, Golang is win over Node JS in term of performance.

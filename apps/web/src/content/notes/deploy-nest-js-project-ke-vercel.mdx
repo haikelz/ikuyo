@@ -8,6 +8,9 @@ created_at: 2023-07-25
 description: Catatan saya mengenai proses deploy Nest JS project ke Vercel
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 ## Pendahuluan
 
 NestJS adalah sebuah NodeJS Framework untuk membangun server side applications. NestJS dirancang dengan menggabungkan konsep-konsep dari beberapa teknologi dan paradigma, termasuk Express.js, TypeScript, dan Object-Oriented Programming (OOP). Tujuannya adalah untuk memberikan fondasi yang kuat dan struktur yang terorganisir untuk membangun aplikasi berbasis Node.js yang scalable dan mudah dikelola.
@@ -43,46 +46,28 @@ Saya asumsikan temen-temen sudah punya project NestJS yang ingin dideploy. Jika 
 
 - Biarkan semua settingan ada di default.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-52-01.png?updatedAt=1690296752764"
-  alt="default settings project"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-52-01.png?updatedAt=1690296752764" alt="default settings project" />
 
 Apabila sudah yakin, maka klik **Deploy**.
 
 Jika ternyata deploy berhasil, tetapi saat diakses, muncul `Error 500` seperti ini
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-10-27.png?updatedAt=1690296128699"
-  alt="src import"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-10-27.png?updatedAt=1690296128699" alt="src import" />
 
 maka coba cek lognya terlebih dahulu. Dalam case saya, ada kesalahan saat import file Typescriptnya.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-11-42.png?updatedAt=1690296079985"
-  alt="vercel logs"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-11-42.png?updatedAt=1690296079985" alt="vercel logs" />
 
 Kemudian saya mengecek cara pengimportan file Typescript dan juga mengecek file `tsconfig.json`. Rupanya secara default, `baseUrl` NestJS diset ke `./`.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-30-47.png?updatedAt=1690296079999"
-  alt="base url tsconfig"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-30-47.png?updatedAt=1690296079999" alt="base url tsconfig" />
 
 Hal ini menyebabkan beberapa file yang diimport dengan awalan `src/` tidak terbaca oleh Vercel. Tetapi di development, malah terbaca.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-33-40.png?updatedAt=1690296080021"
-  alt="src import"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-33-40.png?updatedAt=1690296080021" alt="src import" />
 
 Solusinya: saya ubah dulu `baseUrl` di file `tsconfig.json` dari `./` ke `./src`. Secara otomatis, Typescript akan memberikan peringatan Error pada file yang diimport dengan awalan `src/`.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-35-24.png?updatedAt=1690296079980"
-  alt="src import error"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/deploy-nestjs-to-vercel/Screenshot%20from%202023-07-25%2021-35-24.png?updatedAt=1690296079980" alt="src import error" />
 
 Jadi tinggal saya fix lagi hingga tidak ada error yang muncul. Setelah itu, coba push perubahan dan deploy kembali.

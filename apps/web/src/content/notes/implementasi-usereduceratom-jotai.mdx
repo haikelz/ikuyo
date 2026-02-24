@@ -8,6 +8,9 @@ created_at: 2023-05-29
 description: Mencoba mengimplementasikan useReducerAtom hook Jotai
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 ## Pendahuluan
 
 `useReducer` adalah sebuah React Hook yang fungsinya serupa dengan `useState`, tapi biasa digunakan untuk kasus yang lebih kompleks, juga cara penggunaannya yang berbeda.
@@ -22,17 +25,11 @@ const [state, dispatch] = useReducerAtom(initialAtom, reducer);
 
 Nah jadi si **initialState** nya(dalam hal ini **initialAtom**) berada di depan, kemudian diikuti dengan fungsi **reducer** nya. **initialState** mesti bernilai atom yang disediakan jotai. Kalau temen-temen pake typescript, pasti bakal ngedetect Error jika tidak pakai atom. Contoh:
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/error-usereduceratom.png?updatedAt=1720370891940"
-  alt="Error initialState"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/error-usereduceratom.png?updatedAt=1720370891940" alt="Error initialState" />
 
 Padahal jika saya pakai `useReducer` biasa, dia ga bakal error
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/usereducer.png?updatedAt=1720370891898"
-  alt="useReducer"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/usereducer.png?updatedAt=1720370891898" alt="useReducer" />
 
 ## Implementasi
 

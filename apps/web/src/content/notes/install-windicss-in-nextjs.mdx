@@ -9,6 +9,9 @@ created_at: 2023-04-08
 description: Tahapan instalasi dan setup Windi CSS di Next JS
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 **Update 24 September 2023:** Untuk new project, instead of using Windicss yang udah [discontinued](https://windicss.org/posts/sunsetting.html), temen-temen bisa coba Uno CSS. Baca petunjuk installnya [disini](https://github.com/unocss/unocss/blob/main/examples/next/README.md).
 
 ## Pendahuluan
@@ -120,10 +123,7 @@ export default function HomePage() {
 
 Hasil:
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/install-windicss-in-nextjs/Screenshot_from_2023-04-07_23-44-02.png?updatedAt=1680885943050"
-  alt="Hello from Windi CSS"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/install-windicss-in-nextjs/Screenshot_from_2023-04-07_23-44-02.png?updatedAt=1680885943050" alt="Hello from Windi CSS" />
 
 Btw, berikut [link reponya](https://github.com/kelz-labs/next-windicss). Udah dicoba di `appDir` nya Next JS dan Alhamdulillah work juga.
 

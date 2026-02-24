@@ -8,7 +8,14 @@ created_at: 2025-05-31
 description: Well, why I do this?
 ---
 
-![thumbnail](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC03713%201.jpg?updatedAt=1748631293527)
+import Photo from "@/components/svelte/Photo.svelte";
+import PhotoGrid from "@/components/svelte/PhotoGrid.svelte";
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC03713%201.jpg?updatedAt=1748631293527"
+  alt="thumbnail"
+/>
 
 Recently, I've switched to using a Sony Xperia X Compact (SO-02J) from 2016 as my primary daily driver phone. Originally, this phone served as my backup device. The Sony Xperia X Compact has always impressed me with its entertainment capabilities, whether I'm listening to music or watching movies, the experience is surprisingly excellent for such a compact device. You can check out the complete specifications on [GSMArena](https://www.gsmarena.com/sony_xperia_x_compact-8292.php) if you're curious about the technical details.
 
@@ -24,16 +31,16 @@ I'm not glued to my phone. The majority of my day is spent working on my laptop.
 
 By the way, here are some photos that I've taken with Xperia X Compact:
 
-![image 1](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0068.JPG?updatedAt=1750271578651)
-
-![image 2](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0107.JPG?updatedAt=1750271577670)
-
-![image 3](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0071.JPG?updatedAt=1750271580778)
-
-![image 4](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0132.JPG?updatedAt=1750271578837)
-
-![image 5](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0038.JPG?updatedAt=1750271577123)
-
-![image 6](https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0025.JPG?updatedAt=1750271575454)
+<PhotoGrid
+  client:only="svelte"
+  images={[
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0068.JPG?updatedAt=1750271578651",
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0107.JPG?updatedAt=1750271577670",
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0071.JPG?updatedAt=1750271580778",
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0132.JPG?updatedAt=1750271578837",
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0038.JPG?updatedAt=1750271577123",
+    "https://ik.imagekit.io/haikelz/blog/im-back-using-a-2016-sony-phone/DSC_0025.JPG?updatedAt=1750271575454",
+  ]}
+/>
 
 As you can see, the result pictures are still good enough for 2025, though its not as good as the newest midrange smartphone nowadays.

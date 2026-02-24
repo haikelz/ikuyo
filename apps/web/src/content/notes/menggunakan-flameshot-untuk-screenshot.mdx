@@ -7,6 +7,9 @@ created_at: 2021-12-31
 description: Jika bosan memakai Scrot, maka bisa mencoba Flameshot
 ---
 
+import Photo from "@/components/svelte/Photo.svelte";
+
+
 ## Pendahuluan
 
 Jadi selama ini saya menggunakan scrot untuk screenshot. Memang simple, tapi jika ingin menghiasnya, saya mesti bolak balik ke [Screely](https://screely.com). Nah kebetulan saya ketemu tulisannya Om [Bandithijo](https://bandithijo.github.io) tentang bagaimana mengambil screenshot dan menghiasnya langsung tanpa bolak-balik ke Screely.
@@ -39,10 +42,7 @@ chmod +x awesome-flameshot
 
 Untuk mengganti icon, font, dan letak directory penyimpanan screenshot, tinggal kalian edit aja scriptnya.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/flameshot/flameshot.png?updatedAt=1720371000502"
-  alt="Flameshot"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/flameshot/flameshot.png?updatedAt=1720371000502" alt="Flameshot" />
 
 Ada 4 hal penting yang saya ubah:
 
@@ -57,10 +57,7 @@ Untuk bagian yang lain, saya belum ngulik lagi hehe. Soalnya mengubah 4 hal tadi
 
 Daripada ribet mesti buka terminal buat jalaninnya, saya menambahkan shortcut keyboard ke `sxhkdrc`. Disini saya pake bspwm.
 
-<img
-  src="https://ik.imagekit.io/haikelz/blog/flameshot/sxhkdrc.png?updatedAt=1720371168108"
-  alt="sxhkdrc"
-/>
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/flameshot/sxhkdrc.png?updatedAt=1720371168108" alt="sxhkdrc" />
 
 ## Referensi
 

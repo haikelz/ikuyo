@@ -15,11 +15,10 @@ preview: https://studio-ghibli-resources.netlify.app/
 repo: https://github.com/haikelz/studio-ghibli-resources/
 ---
 
-<img
-  src="https://ik.imagekit.io/haikelz/works/studio-ghibli-resources.png?updatedAt=1686411886181"
-  alt="preview"
-  fetchPriority="high"
-/>
+import Photo from "@/components/svelte/Photo.svelte";
+
+
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/studio-ghibli-resources.png?updatedAt=1686411886181" alt="preview" />
 
 ## Deskripsi
 

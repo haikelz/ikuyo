@@ -13,11 +13,10 @@ preview: https://the-sugiharto.vercel.app/
 repo: https://github.com/haikelz/the-sugiharto
 ---
 
-<img
-  src="https://ik.imagekit.io/haikelz/works/the-sugiharto.png?ik-sdk-version=javascript-1.4.3&updatedAt=1673863931565"
-  alt="The Sugiharto"
-  fetchPriority="high"
-/>
+import Photo from "@/components/svelte/Photo.svelte";
+
+
+<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/the-sugiharto.png?ik-sdk-version=javascript-1.4.3&updatedAt=1673863931565" alt="The Sugiharto" />
 
 ## Description
 
