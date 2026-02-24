@@ -41,14 +41,14 @@
 
 <div class="video-container my-8 w-full group">
   <button
-    class="video-wrapper overflow-hidden rounded-xl bg-neutral-900 cursor-zoom-in relative block w-full p-0 border-0 outline-none"
+    class="overflow-hidden rounded-xl bg-neutral-900 cursor-zoom-in relative block w-full p-0 border border-white/10 shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all duration-300 outline-none"
     onclick={openLightbox}
     aria-label="View large video"
   >
-    <div class="video-aspect-box">
+    <div class="relative w-full overflow-hidden">
       <video
         {src}
-        class="video-el block transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90"
+        class="block w-full h-auto transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90 m-0! p-0! border-0!"
         playsinline
       >
         <track kind="captions" />
@@ -114,46 +114,8 @@
 {/if}
 
 <style>
-  .video-container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .video-wrapper {
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 10px 15px -3px rgba(0, 0, 0, 0.2),
-      0 4px 6px -2px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #0a0a0a;
-    display: block;
-    outline: none;
-    transition:
-      transform 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  .video-wrapper:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .video-aspect-box {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .video-el {
-    width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
+  /* Keeps the lightbox transition smooth and clean */
+  :global(.lightbox-active) {
+    cursor: zoom-out;
   }
 </style>

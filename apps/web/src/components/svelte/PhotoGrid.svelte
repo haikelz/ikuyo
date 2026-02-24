@@ -56,10 +56,10 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="photo-grid mt-8 mb-8 w-full">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
   {#each images as image, i}
     <div
-      class="photo-item overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in relative"
+      class="photo-item aspect-[4/3] relative overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in border border-white/10 shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all duration-300"
       onclick={() => openLightbox(image)}
       onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
       role="button"
@@ -69,11 +69,11 @@
       <img
         src={optimizeUrl(image)}
         alt="Blog post image {i + 1}"
-        class="photo-img transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90"
+        class="absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 block m-0! p-0!"
         loading="lazy"
       />
       <div
-        class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
       ></div>
     </div>
   {/each}
@@ -117,57 +117,8 @@
 {/if}
 
 <style>
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 1rem;
-    width: 100% !important;
-  }
-
-  @media (min-width: 640px) {
-    .photo-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .photo-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  .photo-item {
-    aspect-ratio: 4 / 3;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 10px 15px -3px rgba(0, 0, 0, 0.2),
-      0 4px 6px -2px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #0a0a0a;
-    display: block;
-    outline: none;
-    transition: transform 0.3s ease;
-  }
-
-  .photo-item:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .photo-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    object-fit: cover !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    filter: grayscale(100%);
+  /* Keeps the lightbox transition smooth and clean */
+  :global(.lightbox-active) {
+    cursor: zoom-out;
   }
 </style>
