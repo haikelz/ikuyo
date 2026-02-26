@@ -1,7 +1,9 @@
 ---
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
+import Tooltip from "@/components/svelte/Tooltip.svelte";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { ArrowLeftIcon } from "lucide-svelte";
 
@@ -37,14 +39,21 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
     </a>
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex w-full items-center space-x-2">
-      <div class="rounded-full!">
-        <img
-          src="https://avatars.githubusercontent.com/u/77146709?v=4"
-          alt="haikelz"
-          class="my-0! h-7! w-7! rounded-full! py-0!"
-        />
-      </div>
-      <span class="font-bold"
+      <Tooltip content="My Istri" client:only="svelte">
+        <div class="rounded-full!">
+          <Image
+            src="https://avatars.githubusercontent.com/u/77146709?v=4"
+            alt="haikelz"
+            class="my-0! h-7! w-7! rounded-full! py-0!"
+            width={28}
+            height={28}
+            quality={100}
+            format="avif"
+            draggable={false}
+          />
+        </div>
+      </Tooltip>
+      <span class="font-bold ml-2"
         >{item.data.author}, {remarkPluginFrontmatter.minutesRead}.
       </span>{" "}
       <div class="flex items-center justify-center space-x-1.5 font-bold">

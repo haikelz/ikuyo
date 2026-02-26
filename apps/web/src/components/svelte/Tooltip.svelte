@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   let { children, content } = $props();
 
   let isVisible = $state(false);
-  let tooltipRef: HTMLDivElement;
-  let triggerRef: HTMLDivElement;
+  let tooltipRef = $state<HTMLDivElement | null>(null);
+  let triggerRef = $state<HTMLDivElement | null>(null);
 
   function showTooltip() {
     isVisible = true;
@@ -17,6 +15,7 @@
 </script>
 
 <div
+  role="tooltip"
   bind:this={triggerRef}
   class="relative inline-block"
   onmouseenter={showTooltip}
@@ -25,7 +24,7 @@
   onblur={hideTooltip}
 >
   {@render children()}
-  
+
   {#if isVisible}
     <div
       bind:this={tooltipRef}
@@ -33,7 +32,9 @@
       role="tooltip"
     >
       {content}
-      <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-neutral-900"></div>
+      <div
+        class="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-4 border-transparent border-t-neutral-900"
+      ></div>
     </div>
   {/if}
 </div>

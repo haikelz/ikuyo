@@ -114,7 +114,7 @@ const experienceList = [
             class="w-full h-full object-bottom object-fill sm:object-cover p-0! m-0! rounded-b-none! transition-transform duration-500 group-hover:scale-105"
           />
           <div
-            class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-950/60"
+            class="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-neutral-950/60"
           >
           </div>
         </div>
@@ -188,8 +188,8 @@ const experienceList = [
       <h2 class="mb-6 mt-0 font-extrabold">Experience</h2>
       <div class="space-y-5 slide-enter-content">
         {
-          experienceList.map((experience, index) => (
-            <div class="group relative p-6 rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
+          experienceList.map((experience) => (
+            <div class="group relative p-6 rounded-xl bg-linear-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
               <div class="relative z-10">
                 <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between">
                   <h3 class="mb-0 mt-0">{experience.company}</h3>
@@ -243,7 +243,7 @@ const experienceList = [
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
+                new Date(a.data.created_at).getTime()
             )
             .slice(0, 6)
             .map((item) => (
