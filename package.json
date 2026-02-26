@@ -26,5 +26,9 @@
     "nx": "22.5.2",
     "tslib": "^2.8.1",
     "typescript": "~5.9.3"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
