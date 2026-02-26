@@ -1,6 +1,6 @@
 ---
+import Photo from "@/components/svelte/Photo.svelte";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
 ---
 
 <Layout
@@ -25,17 +25,7 @@ import { Image } from "astro:assets";
     </section>
     <section class="w-full slide-enter-content">
       <h2>Productivity</h2>
-      <Image
-        width={500}
-        height={500}
-        position="center"
-        quality={100}
-        draggable={false}
-        format="avif"
-        src="/images/uses.png"
-        alt="uses"
-        class="photos my-0! rounded-none! border-none! object-cover"
-      />
+      <Photo client:only="svelte" src="/images/uses.png" alt="uses" />
       <ul>
         <li>
           <p class="py-0!">
@@ -78,16 +68,7 @@ import { Image } from "astro:assets";
     </section>
     <section class="w-full slide-enter-content">
       <h2>Hobby-Related</h2>
-      <Image
-        width={500}
-        height={500}
-        quality={100}
-        draggable={false}
-        format="avif"
-        src="/images/hobby-related.jpeg"
-        alt="uses"
-        class="photos my-0! rounded-none! w-full! border-none! object-cover"
-      />
+      <Photo client:only="svelte" src="/images/hobby-related.jpeg" alt="uses" />
       <ul>
         <li>
           <p class="py-0!">

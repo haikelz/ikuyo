@@ -1,3 +1,10 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@sentry/cli'
+  - '@swc/core'
+  - esbuild
+  - nx
+  - sharp

@@ -10,7 +10,6 @@
 
   let selectedImage = $state<string | null>(null);
 
-  // ── ImageKit URL optimizer ─────────────────────────────────────
   function optimizeUrl(url: string, width = 2000) {
     if (url.includes("imagekit.io")) {
       const baseUrl = url.split("?")[0];
@@ -19,7 +18,6 @@
     return url;
   }
 
-  // ── Lightbox ───────────────────────────────────────────────────
   async function openLightbox(image: string) {
     selectedImage = image;
     await tick();
@@ -107,7 +105,6 @@
   </div>
 {/if}
 
-<!-- ── Lightbox ───────────────────────────────────────────────────── -->
 {#if selectedImage}
   <div
     use:teleport
@@ -146,7 +143,6 @@
 {/if}
 
 <style>
-  /* ── Masonry via CSS Columns ─────────────────────────────────── */
   .masonry-grid {
     columns: 4;
     column-gap: 1rem;
@@ -169,7 +165,6 @@
     margin-bottom: 1rem;
   }
 
-  /* ── Lightbox ────────────────────────────────────────────────── */
   :global(.lightbox-active) {
     cursor: zoom-out;
   }
