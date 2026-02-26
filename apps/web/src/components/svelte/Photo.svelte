@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { fade, scale } from "svelte/transition";
   import { XIcon } from "lucide-svelte";
   import { onMount, tick } from "svelte";
+  import { fade, scale } from "svelte/transition";
 
   let { src, alt, title } = $props<{
     src: string;
@@ -63,7 +63,7 @@
 
 <div class="photo-container my-8 w-full group">
   <button
-    class="overflow-hidden rounded-xl bg-neutral-900 cursor-zoom-in relative block w-full p-0 border border-white/10 shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all duration-300 outline-none"
+    class="overflow-hidden rounded-xl bg-neutral-900 cursor-zoom-in relative block w-full p-0 shadow-lg hover:-translate-y-1 transition-all duration-300 outline-none"
     onclick={openLightbox}
     aria-label="View large image"
   >

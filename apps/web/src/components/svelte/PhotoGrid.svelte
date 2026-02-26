@@ -1,13 +1,16 @@
 <script lang="ts">
-  import { fade, scale } from "svelte/transition";
   import { XIcon } from "lucide-svelte";
   import { onMount, tick } from "svelte";
+  import { fade, scale } from "svelte/transition";
 
-  let { images = [] } = $props<{ images: string[] }>();
+  let { images = [], masonry = false } = $props<{
+    images: string[];
+    masonry?: boolean;
+  }>();
 
   let selectedImage = $state<string | null>(null);
 
-  // Function to optimize ImageKit URLs
+  // ── ImageKit URL optimizer ─────────────────────────────────────
   function optimizeUrl(url: string, width = 2000) {
     if (url.includes("imagekit.io")) {
       const baseUrl = url.split("?")[0];
@@ -16,6 +19,7 @@
     return url;
   }
 
+  // ── Lightbox ───────────────────────────────────────────────────
   async function openLightbox(image: string) {
     selectedImage = image;
     await tick();
@@ -26,24 +30,19 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
+    if (event.key === "Escape") closeLightbox();
   }
 
-  // Teleport action to move modal to body
+  // Teleport action
   function teleport(node: HTMLElement) {
     document.body.appendChild(node);
     return {
       destroy() {
-        if (node.parentNode) {
-          node.parentNode.removeChild(node);
-        }
+        if (node.parentNode) node.parentNode.removeChild(node);
       },
     };
   }
 
-  // Scrollbar width measurement for smooth lock
   onMount(() => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
@@ -56,29 +55,59 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
-  {#each images as image, i}
-    <div
-      class="photo-item aspect-[4/3] relative overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in border border-white/10 shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all duration-300"
-      onclick={() => openLightbox(image)}
-      onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
-      role="button"
-      tabindex="0"
-      aria-label="View large image {i + 1}"
-    >
-      <img
-        src={optimizeUrl(image)}
-        alt="Blog post image {i + 1}"
-        class="absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 block m-0! p-0!"
-        loading="lazy"
-      />
+{#if masonry}
+  <div class="masonry-grid my-8 w-full">
+    {#each images as image, i}
       <div
-        class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      ></div>
-    </div>
-  {/each}
-</div>
+        class="masonry-item"
+        onclick={() => openLightbox(image)}
+        onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
+        role="button"
+        tabindex="0"
+        aria-label="View large image {i + 1}"
+      >
+        <div
+          class="relative overflow-hidden rounded-xl! bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
+        >
+          <img
+            src={optimizeUrl(image)}
+            alt="Photo {i + 1}"
+            class="block w-full h-auto transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90 m-0! p-0! border-0!"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          ></div>
+        </div>
+      </div>
+    {/each}
+  </div>
+{:else}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
+    {#each images as image, i}
+      <div
+        class="photo-item aspect-[4/3] relative overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
+        onclick={() => openLightbox(image)}
+        onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
+        role="button"
+        tabindex="0"
+        aria-label="View large image {i + 1}"
+      >
+        <img
+          src={optimizeUrl(image)}
+          alt="Blog post image {i + 1}"
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 block m-0! p-0!"
+          loading="lazy"
+        />
+        <div
+          class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        ></div>
+      </div>
+    {/each}
+  </div>
+{/if}
 
+<!-- ── Lightbox ───────────────────────────────────────────────────── -->
 {#if selectedImage}
   <div
     use:teleport
@@ -117,7 +146,30 @@
 {/if}
 
 <style>
-  /* Keeps the lightbox transition smooth and clean */
+  /* ── Masonry via CSS Columns ─────────────────────────────────── */
+  .masonry-grid {
+    columns: 4;
+    column-gap: 1rem;
+  }
+
+  @media (max-width: 1023px) {
+    .masonry-grid {
+      columns: 3;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .masonry-grid {
+      columns: 2;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Lightbox ────────────────────────────────────────────────── */
   :global(.lightbox-active) {
     cursor: zoom-out;
   }

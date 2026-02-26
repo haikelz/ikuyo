@@ -6,7 +6,7 @@
   let { headings } = $props();
   let isOpen = $state(false);
 
-  const toc = buildHierarchy(headings);
+  const toc = $derived(buildHierarchy(headings));
 
   function toggleTOC() {
     isOpen = !isOpen;

@@ -8,7 +8,7 @@ const tags = [
     notes
       .map((item) => [...new Set(item.data.tags)].join(" "))
       .join(" ")
-      .split(" ")
+      .split(" "),
   ),
 ].sort((a, b) => {
   if (a > b) return 1;
@@ -21,6 +21,7 @@ const tags = [
   title="Tags"
   description="Select spesific notes based on the list of tags below."
   url="https://ekel.dev/tags"
+  ogImage="https://ekel.dev/og/tags.png"
 >
   <div
     class:list={[

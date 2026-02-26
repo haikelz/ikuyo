@@ -1,8 +1,8 @@
 ---
 import Card from "@/components/Card.astro";
+import Tooltip from "@/components/svelte/Tooltip.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import Tooltip from "@/components/svelte/Tooltip.svelte";
 
 const [notesList, worksList] = await Promise.all([
   await getCollection("notes"),
@@ -95,6 +95,7 @@ const experienceList = [
   title="Haikel Ilham Hakim"
   description="Software Developer"
   url="https://ekel.dev"
+  ogImage="https://ekel.dev/og/home.png"
 >
   <div
     class:list={[

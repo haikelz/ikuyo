@@ -21,6 +21,7 @@ const guestbook = await getGuestbook();
   title="Guestbook"
   description="Write a message for me and others."
   url="https://ekel.dev/guestbook"
+  ogImage="https://ekel.dev/og/guestbook.png"
 >
   <div
     class:list={[
@@ -51,15 +52,17 @@ const guestbook = await getGuestbook();
             .sort(
               (a, b) =>
                 new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime()
+                new Date(a.created_at).getTime(),
             )
             .map((item) => (
-            <div class="group relative p-6 w-full rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
-              <div>
-                <h3 class="mb-0 mt-0">{item.message}</h3>
-                <p class="mb-0 mt-3">{item.username} - {format(item.created_at, "MMMM d, y")}</p>
+              <div class="group relative p-6 w-full rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
+                <div>
+                  <h3 class="mb-0 mt-0">{item.message}</h3>
+                  <p class="mb-0 mt-3">
+                    {item.username} - {format(item.created_at, "MMMM d, y")}
+                  </p>
+                </div>
               </div>
-            </div>
             ))
         ) : (
           <p class="font-bold">There is no message right now!</p>

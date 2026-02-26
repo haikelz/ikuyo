@@ -1,84 +1,30 @@
 ---
-import Navbar from "@/components/svelte/Navbar.svelte";
+import PhotosPage from "@/components/svelte/PhotosPage.svelte";
 import { readImages } from "@/helpers/read-images";
-import { Masonry } from "astro-masonry";
-import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
 import "../index.css";
 
 const currentPath = Astro.url.pathname;
 const images = readImages("/public/images/photos", /\.webp$/);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Photos</title>
-    <meta charset="UTF-8" />
-    <meta name="title" content="Photos" />
-    <meta name="description" content="Photos" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ekel.dev/photos" />
-    <meta property="og:title" content="Photos" />
-    <meta property="og:description" content="Photos" />
-    <meta property="og:image" content="https://ekel.dev/opengraph.png" />
-    <meta property="og:image:alt" content="ekel.dev opengraph image" />
-    <meta property="og:image:type" content="image/png" />
-    <meta
-      property="og:image:secure_url"
-      content="https://ekel.dev/opengraph.png"
+<Layout
+  title="Photos"
+  description="Photos"
+  url="https://ekel.dev/photos"
+  ogImage="https://ekel.dev/og/photos.png"
+>
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start",
+    ]}
+  >
+    <PhotosPage
+      images={images.map(
+        (image: { path: string; fileName: string }) => image.path,
+      )}
+      client:only="svelte"
     />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ekel.dev/photos" />
-    <meta property="twitter:title" content="Photos" />
-    <meta property="twitter:description" content="Photos" />
-    <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="sitemap" href="/sitemap.xml" />
-  </head>
-  <body class="w-full flex justify-start items-start">
-    <Navbar currentPath={currentPath} client:only="svelte" />
-    <div
-      class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-24 prose-neutral prose-invert max-w-full!"
-    >
-      <main
-        class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"
-      >
-        <div
-          class:list={[
-            "flex w-full flex-col items-start justify-start",
-            "md:text-start",
-          ]}
-        >
-          <Masonry
-            breakpointCols={{
-              default: 4,
-              1023: 3,
-              767: 2,
-            }}
-            class="flex gap-4 z-10 px-0 md:px-4"
-            columnClass=""
-          >
-            {
-              images.map((image: { path: string; fileName: string }) => (
-                <Image
-                  width={1440}
-                  height={1080}
-                  quality={100}
-                  draggable={false}
-                  layout="constrained"
-                  format="avif"
-                  src={image.path}
-                  alt={image.fileName}
-                  class="photos mt-0! mb-4! rounded-md h-full! border-none! w-full! object-cover"
-                />
-              ))
-            }
-          </Masonry>
-        </div>
-      </main>
-    </div>
-  </body>
-</html>
+  </div>
+</Layout>

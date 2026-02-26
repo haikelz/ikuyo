@@ -32,14 +32,16 @@
     return `${minutes}m`;
   }
 
-  const wakatimeStats = data.languages.filter(
-    (stat) =>
-      stat.name === "TypeScript" ||
-      stat.name === "JavaScript" ||
-      stat.name === "Go" ||
-      stat.name === "Svelte" ||
-      stat.name === "Astro" ||
-      stat.name === "Docker"
+  const wakatimeStats = $derived(
+    data.languages.filter(
+      (stat) =>
+        stat.name === "TypeScript" ||
+        stat.name === "JavaScript" ||
+        stat.name === "Go" ||
+        stat.name === "Svelte" ||
+        stat.name === "Astro" ||
+        stat.name === "Docker",
+    ),
   );
 
   function createCharts() {

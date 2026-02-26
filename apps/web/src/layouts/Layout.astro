@@ -12,10 +12,12 @@ type Props = {
   title: string;
   description: string;
   url: string;
+  ogImage?: string;
 };
 
-const { title, description, url } = Astro.props;
+const { title, description, url, ogImage } = Astro.props;
 const currentPath = Astro.url.pathname;
+const resolvedOgImage = ogImage ?? "https://ekel.dev/og";
 ---
 
 <!doctype html>
@@ -29,20 +31,17 @@ const currentPath = Astro.url.pathname;
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://ekel.dev/opengraph.png" />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:image:alt" content="ekel.dev opengraph image" />
     <meta property="og:image:type" content="image/png" />
-    <meta
-      property="og:image:secure_url"
-      content="https://ekel.dev/opengraph.png"
-    />
+    <meta property="og:image:secure_url" content={resolvedOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://ekel.dev/opengraph.png" />
+    <meta property="twitter:image" content={resolvedOgImage} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />

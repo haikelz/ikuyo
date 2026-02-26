@@ -35,6 +35,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
   title={`Notes with tag ${currentPath}.`}
   description="Notes with tag"
   url={`https://ekel.dev/tags/${currentPath}`}
+  ogImage={`https://ekel.dev/og/tags/${currentPath}.png`}
 >
   <div
     class:list={[

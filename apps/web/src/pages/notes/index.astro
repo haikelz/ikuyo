@@ -10,6 +10,7 @@ const notesList = await getCollection("notes");
   title="Notes"
   description="Sometimes, I write something. Mostly about technical stuff. So yeah, I call this as Notes."
   url="https://ekel.dev/notes"
+  ogImage="https://ekel.dev/og/notes.png"
 >
   <div
     class:list={[
@@ -35,7 +36,7 @@ const notesList = await getCollection("notes");
           .sort(
             (a, b) =>
               new Date(b.data.created_at).getTime() -
-              new Date(a.data.created_at).getTime()
+              new Date(a.data.created_at).getTime(),
           )
           .map((item) => (
             <Card

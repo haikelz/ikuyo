@@ -21,6 +21,10 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter, headings } = await item.render();
+
+function back() {
+  history.back();
+}
 ---
 
 <ReadingIndicator client:only="svelte" />
@@ -28,6 +32,7 @@ const { Content, remarkPluginFrontmatter, headings } = await item.render();
   title={item.data.title}
   description={item.data.description}
   url={`https://ekel.dev/notes/${item.slug}`}
+  ogImage={`https://ekel.dev/og/notes/${item.slug}.png`}
 >
   <div class="w-full slide-enter-content text-justify">
     <a href="/notes" class="flex w-fit items-center justify-center">
@@ -35,6 +40,7 @@ const { Content, remarkPluginFrontmatter, headings } = await item.render();
         type="button"
         aria-label="back to notes"
         class="flex h-8 w-8 items-center justify-center cursor-pointer rounded-full bg-neutral-900"
+        onclick="back()"
       >
         <ArrowLeftIcon className="text-center" />
       </button>
