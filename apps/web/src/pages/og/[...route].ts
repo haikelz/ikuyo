@@ -25,9 +25,9 @@ const worksPages = Object.fromEntries(
 const pages = { ...staticPages, ...notesPages, ...worksPages };
 
 const fontRegular =
-  "./node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
 const fontBold =
-  "./node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: "route",

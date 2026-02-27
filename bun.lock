@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "ikuyo",
@@ -53,7 +54,7 @@
         "tailwindcss": "^4.2.1",
       },
       "devDependencies": {
-        "@ikuyo/typescript": "workspace:*",
+        "@ikuyo/typescript": "*",
         "@types/chart.js": "^4.0.1",
       },
     },
