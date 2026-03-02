@@ -16,7 +16,11 @@
     "dev:web": "nx dev web",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
-    "test:web": "nx test web"
+    "test:web": "nx test web",
+    "serve:api": "nx serve api",
+    "serve:api:prod": "nx serve:prod api",
+    "build:api": "nx build api",
+    "test:api": "nx test api"
   },
   "devDependencies": {
     "@nx/js": "22.5.2",
