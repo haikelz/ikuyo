@@ -22,7 +22,7 @@ const images = readImages("/public/images/photos", /\.webp$/);
   >
     <PhotosPage
       images={images.map(
-        (image: { path: string; fileName: string }) => image.path,
+        (image: { path: string; fileName: string }) => image.path
       )}
       client:only="svelte"
     />

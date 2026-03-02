@@ -37,15 +37,12 @@ export const { getStaticPaths, GET } = await OGImageRoute({
   getImageOptions: (_path, page: (typeof pages)[string]) => ({
     title: page.title.toUpperCase(),
     description: "ekel.dev - Product Engineer",
-
     bgGradient: [[13, 17, 23]], // #0d1117 — matches the existing OG
-
     logo: {
       path: "./public/images/avatar.png",
       size: [180, 180],
       borderRadius: 100,
     },
-
     font: {
       title: {
         color: [255, 255, 255],
@@ -61,14 +58,11 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         families: ["Geist Sans"],
       },
     },
-
     fonts: [fontRegular, fontBold],
-
     border: {
       color: [255, 255, 255],
       width: 0,
     },
-
     padding: 60,
   }),
 });
