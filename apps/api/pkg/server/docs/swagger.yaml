@@ -1,0 +1,385 @@
+definitions:
+  entities.Guestbook:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      message:
+        type: string
+      username:
+        type: string
+    type: object
+  entities.User:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  models.APIErrorResponse:
+    properties:
+      message:
+        type: string
+      stack:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.APIHomeResponse:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.APISuccessGetGuestbookResponse:
+    properties:
+      data:
+        items:
+          $ref: "#/definitions/entities.Guestbook"
+        type: array
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.APISuccessGetUserByEmailResponse:
+    properties:
+      data:
+        items:
+          $ref: "#/definitions/entities.User"
+        type: array
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.APISuccessResponse:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.AuthAPISuccessResponse:
+    properties:
+      auth_token:
+        type: string
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.AuthRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.DeleteUserByEmailRequest:
+    properties:
+      email:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Ekel Backend
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+        - application/json
+      description: Get Home
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Get Home Success
+          schema:
+            $ref: "#/definitions/models.APIHomeResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      summary: Get Home
+      tags:
+        - Home
+  /api/v1/admin/delete-user-by-email:
+    delete:
+      consumes:
+        - application/json
+      description: Delete User By Email
+      parameters:
+        - description: Email
+          in: body
+          name: email
+          required: true
+          schema:
+            $ref: "#/definitions/models.DeleteUserByEmailRequest"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Delete User By Email
+          schema:
+            $ref: "#/definitions/models.APISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Delete User By Email
+      tags:
+        - Admin
+  /api/v1/admin/get-all-user-by-email:
+    get:
+      consumes:
+        - application/json
+      description: Get All User By Email
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Get All User By Email
+          schema:
+            $ref: "#/definitions/models.APISuccessGetUserByEmailResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Get All User By Email
+      tags:
+        - Admin
+  /api/v1/admin/login:
+    post:
+      consumes:
+        - application/json
+      description: Login Admin
+      parameters:
+        - description: Auth Request
+          in: body
+          name: authRequest
+          required: true
+          schema:
+            $ref: "#/definitions/models.AuthRequest"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Login Admin
+          schema:
+            $ref: "#/definitions/models.AuthAPISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      summary: Login Admin
+      tags:
+        - Admin
+  /api/v1/admin/validate-cookie:
+    post:
+      consumes:
+        - application/json
+      description: Validate Cookie
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Validate Cookie
+          schema:
+            $ref: "#/definitions/models.APISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Validate Cookie
+      tags:
+        - Admin
+  /api/v1/guestbook:
+    get:
+      consumes:
+        - application/json
+      description: Get Guestbook
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Get Guestbook
+          schema:
+            $ref: "#/definitions/models.APISuccessGetGuestbookResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      summary: Get Guestbook
+      tags:
+        - Guestbook
+    post:
+      consumes:
+        - application/json
+      description: Create Guestbook
+      parameters:
+        - description: Guestbook
+          in: body
+          name: guestbook
+          required: true
+          schema:
+            $ref: "#/definitions/entities.Guestbook"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Create Guestbook
+          schema:
+            $ref: "#/definitions/models.APISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Create Guestbook
+      tags:
+        - Guestbook
+  /api/v1/guestbook/{id}:
+    delete:
+      consumes:
+        - application/json
+      description: |-
+        Delete Guestbook
+        Enter the token with the BearerAuth prefix.
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Delete Guestbook
+          schema:
+            $ref: "#/definitions/models.APISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Delete Guestbook
+      tags:
+        - Guestbook
+    put:
+      consumes:
+        - application/json
+      description: |-
+        Update Guestbook
+        Enter the token with the BearerAuth prefix.
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          type: integer
+        - description: Guestbook
+          in: body
+          name: guestbook
+          required: true
+          schema:
+            $ref: "#/definitions/entities.Guestbook"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success Update Guestbook
+          schema:
+            $ref: "#/definitions/models.APISuccessResponse"
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Update Guestbook
+      tags:
+        - Guestbook
+  /metrics:
+    get:
+      consumes:
+        - application/json
+      description: Get Metrics
+      produces:
+        - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/models.APIErrorResponse"
+      security:
+        - BearerAuth: []
+      summary: Get Metrics
+      tags:
+        - Metrics
+securityDefinitions:
+  BearerAuth:
+    description: Enter the token with the `BearerAuth` prefix."
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

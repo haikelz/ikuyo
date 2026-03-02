@@ -1,0 +1,54 @@
+syntax = "proto3";
+package models;
+
+option go_package = "ekel-backend/pkg/models";
+
+import "pkg/entities/guestbook.proto";
+import "pkg/entities/user.proto";
+import "pkg/entities/wakatime.proto";
+
+message APIHomeResponse {
+    int32 status_code = 1;
+	string message = 2;
+}
+
+message APISuccessResponse {
+    int32 status_code = 1;
+	string message = 2;        
+}
+
+message APISuccessGetGuestbookResponse {
+    int32 status_code = 1;
+	string message = 2;    
+    repeated entities.Guestbook data = 3;
+}
+
+message APIErrorResponse {
+    int32 status_code = 1;
+	string message = 2;
+	string stack = 3;
+}
+
+message AuthAPISuccessResponse {
+    int32 status_code = 1;
+    string message = 2;
+    string auth_token = 3;
+}
+
+message AdminInfoResponse { 
+    int32 status_code = 1;
+    string message = 2;
+    string email = 3;
+}
+
+message APISuccessGetUserByEmailResponse {
+    int32 status_code = 1;
+	string message = 2;        
+    repeated entities.User data = 3;
+}
+
+message APISuccessGetWakatimeStatsResponse {
+    int32 status_code = 1;
+	string message = 2;            
+    entities.WakaTimeData data = 3;
+}

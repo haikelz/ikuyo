@@ -1,0 +1,23 @@
+syntax = "proto3";
+package models;
+
+option go_package = "ekel-backend/pkg/models";
+
+message GuestbookRequest {
+	string username = 1;
+	string email = 2;
+	string message = 3;
+}
+
+message GuestbookNonGetRequest {
+    int32 id = 1;
+}
+
+message AuthRequest { 
+	string email = 1;
+	string password = 3;
+}
+
+message DeleteUserByEmailRequest {
+	string email = 1;
+} 

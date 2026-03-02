@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package entities;
+
+option go_package = "ekel-backend/pkg/entities";
+
+message WakaTimeResponse {
+  WakaTimeData data = 1;
+}
+
+message WakaTimeData {
+  string id = 1;
+  string user_id = 2;
+  string range = 3;
+  int32 timeout = 4;
+  bool writes_only = 5;
+  int32 holidays = 6;
+  string status = 7;
+  int32 days_including_holidays = 8;
+  repeated Language languages = 9;
+  string human_readable_total_including_other_language = 10;
+  double total_seconds_including_other_language = 11;
+  double total_seconds = 12;
+  bool is_already_updating = 13;
+  int32 days_minus_holidays = 14;
+  double daily_average_including_other_language = 15;
+  bool is_up_to_date = 16;
+  repeated OperatingSystem operating_systems = 17;
+  bool is_stuck = 18;
+  bool is_up_to_date_pending_future = 19;
+  string human_readable_total = 20;
+  string human_readable_daily_average_including_other_language = 21;
+  string human_readable_daily_average = 22;
+  double daily_average = 23;
+  repeated Category categories = 24;
+  int32 percent_calculated = 25;
+  repeated Editor editors = 26;
+  bool is_cached = 27;
+  string username = 28;
+  bool is_including_today = 29;
+  string human_readable_range = 30;
+  bool is_coding_activity_visible = 31;
+  bool is_language_usage_visible = 32;
+  bool is_editor_usage_visible = 33;
+  bool is_category_usage_visible = 34;
+  bool is_os_usage_visible = 35;
+}
+
+message Language {
+  string name = 1;
+  double total_seconds = 2;
+  double percent = 3;
+  string digital = 4;
+  string decimal = 5;
+  string text = 6;
+  int32 hours = 7;
+  int32 minutes = 8;
+}
+
+message OperatingSystem {
+  string name = 1;
+  double total_seconds = 2;
+  double percent = 3;
+  string digital = 4;
+  string decimal = 5;
+  string text = 6;
+  int32 hours = 7;
+  int32 minutes = 8;
+}
+
+message Category {
+  string name = 1;
+  double total_seconds = 2;
+  double percent = 3;
+  string digital = 4;
+  string decimal = 5;
+  string text = 6;
+  int32 hours = 7;
+  int32 minutes = 8;
+}
+
+message Editor {
+  string name = 1;
+  double total_seconds = 2;
+  double percent = 3;
+  string digital = 4;
+  string decimal = 5;
+  string text = 6;
+  int32 hours = 7;
+  int32 minutes = 8;
+}

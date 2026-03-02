@@ -1,0 +1,9 @@
+syntax = "proto3";
+package entities;
+
+option go_package = "ekel-backend/pkg/entities";
+
+message User {
+    string email = 1;
+    string username = 2;
+}
