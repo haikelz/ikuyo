@@ -16,13 +16,9 @@
     "dev:web": "nx dev web",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
-    "test:web": "nx test web",
-    "serve:api": "nx serve api",
-    "build:api": "nx build api",
-    "test:api": "nx test api"
+    "test:web": "nx test web"
   },
   "devDependencies": {
-    "@nx-go/nx-go": "4.0.0-beta.0",
     "@nx/js": "22.5.2",
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.17",
@@ -30,5 +26,9 @@
     "nx": "22.5.2",
     "tslib": "^2.8.1",
     "typescript": "~5.9.3"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
