@@ -6,10 +6,9 @@ A NX Monorepo for [ekel.dev](https://ekel.dev). Project structure:
 .
 ├── apps
 │   └── web              # Main Web Application
-│   └── api              # Backend
 ├── packages
 │   └── biome            # Shared Biome Configs
 │   └── typescript       # Shared Typescript Configs
 ```
 
-Proudly Powered by Astro + Svelte + Go.
+Proudly Powered by Astro + Svelte

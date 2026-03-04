@@ -1,5 +1,5 @@
 ---
-import { api } from "@/configs/axios";
+import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
 import type { GuestbookProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
@@ -7,8 +7,10 @@ import { format } from "date-fns";
 
 export async function getGuestbook(): Promise<GuestbookProps[]> {
   try {
-    const response = await api.get(`${BACKEND_API_URL}/api/v1/guestbook`);
-    return response.data.data as GuestbookProps[];
+    const response = await api
+      .get(`${BACKEND_API_URL}/api/v1/guestbook`)
+      .json<{ data: GuestbookProps[] }>();
+    return response.data;
   } catch (err) {
     throw new Error((err as Error).message);
   }
@@ -52,7 +54,7 @@ const guestbook = await getGuestbook();
             .sort(
               (a, b) =>
                 new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime(),
+                new Date(a.created_at).getTime()
             )
             .map((item) => (
               <div class="group relative p-6 w-full rounded-xl bg-gradient-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">

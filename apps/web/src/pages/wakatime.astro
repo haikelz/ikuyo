@@ -1,11 +1,15 @@
 ---
 import WakatimeChart from "@/components/svelte/WakatimeChart.svelte";
-import { api } from "@/configs/axios";
+import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
+import type { WakatimeStatsProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
 
 async function getWakatimeStats() {
-  const response = await api.get(`${BACKEND_API_URL}/api/v1/wakatime/stats`);
+  const response = await api
+    .get(`${BACKEND_API_URL}/api/v1/wakatime/stats`)
+    .json<{ data: WakatimeStatsProps }>();
+
   return response.data;
 }
 
@@ -33,7 +37,7 @@ const wakatimeStats = await getWakatimeStats();
       </div>
     </section>
     <section class="w-full mt-8 slide-enter-content">
-      <WakatimeChart client:only="svelte" data={wakatimeStats.data} />
+      <WakatimeChart client:only="svelte" data={wakatimeStats} />
     </section>
   </div>
 </Layout>
