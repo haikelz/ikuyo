@@ -11,19 +11,18 @@
     "url": "https://github.com/haikelz/ikuyo"
   },
   "scripts": {
-    "build:web": "nx build web",
-    "build:web:prod": "nx build web --prod",
-    "dev:web": "nx dev web",
+    "build:web": "moon run web:build",
+    "build:web:prod": "moon run web:build",
+    "dev:web": "moon run web:dev",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
-    "test:web": "nx test web"
+    "test:web": "moon run web:test"
   },
   "devDependencies": {
-    "@nx/js": "22.5.2",
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.18",
     "@swc/helpers": "~0.5.19",
-    "nx": "22.5.2",
+    "@moonrepo/cli": "^1.28.3",
     "tslib": "^2.8.1",
     "typescript": "~5.9.3"
   },

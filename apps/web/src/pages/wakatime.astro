@@ -5,12 +5,16 @@ import Layout from "@/layouts/Layout.astro";
 import type { WakatimeStatsProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
 
-async function getWakatimeStats() {
-  const response = await api
-    .get(`${BACKEND_API_URL}/api/v1/wakatime/stats`)
-    .json<{ data: WakatimeStatsProps }>();
+async function getWakatimeStats(): Promise<WakatimeStatsProps> {
+  try {
+    const response = await api
+      .get(`${BACKEND_API_URL}/api/v1/wakatime/stats`)
+      .json<{ data: WakatimeStatsProps }>();
 
-  return response.data;
+    return response.data;
+  } catch (err) {
+    throw new Error((err as Error).message);
+  }
 }
 
 const wakatimeStats = await getWakatimeStats();

@@ -1,6 +1,6 @@
 <img src="https://github.com/Safouene1/support-palestine-banner/blob/master/banner-support.svg" width="100%" />
 
-A NX Monorepo for [ekel.dev](https://ekel.dev). Project structure:
+A Moonrepo for [ekel.dev](https://ekel.dev). Project structure:
 
 ```
 .
