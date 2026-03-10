@@ -8,8 +8,8 @@
     NotepadTextIcon,
     XIcon,
   } from "lucide-svelte";
-  import { twMerge } from "tailwind-merge";
   import { onMount } from "svelte";
+  import { twMerge } from "tailwind-merge";
   import Tooltip from "./Tooltip.svelte";
 
   let { currentPath } = $props();
@@ -60,7 +60,7 @@
     if (!ticking) {
       window.requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
-        
+
         // Show navbar when at top
         if (currentScrollY < 10) {
           isVisible = true;
@@ -74,20 +74,20 @@
         else if (currentScrollY < lastScrollY) {
           isVisible = true;
         }
-        
+
         lastScrollY = currentScrollY;
         ticking = false;
       });
-      
+
       ticking = true;
     }
   }
 
   onMount(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   });
 </script>
@@ -95,7 +95,9 @@
 <nav
   class={twMerge(
     "fixed bg-neutral-950/70 w-full rounded-none md:rounded-full! md:w-fit items-center space-x-5 md:space-x-0 justify-center right-0 left-0 flex px-3 py-2.5 md:px-3 md:py-2.5 md:space-y-5 border-b-[0.5px] md:border-[0.5px] mx-auto backdrop-blur-md z-50! transition-transform duration-300 ease-in-out",
-    isVisible ? "translate-y-0 md:bottom-4" : "-translate-y-full md:translate-y-full md:bottom-0"
+    isVisible
+      ? "translate-y-0 md:bottom-4"
+      : "-translate-y-full md:translate-y-full md:bottom-0"
   )}
 >
   <div
@@ -108,7 +110,9 @@
             <button
               type="button"
               aria-label="/"
-              class={twMerge("p-1.5 cursor-pointer bg-neutral-900 rounded-full")}
+              class={twMerge(
+                "p-1.5 cursor-pointer bg-neutral-900 rounded-full"
+              )}
             >
               <img
                 class="rounded-full h-6 w-6 object-cover photos"

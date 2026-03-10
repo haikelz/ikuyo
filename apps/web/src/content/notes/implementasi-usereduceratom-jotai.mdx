@@ -10,7 +10,6 @@ description: Mencoba mengimplementasikan useReducerAtom hook Jotai
 
 import Photo from "@/components/svelte/Photo.svelte";
 
-
 ## Pendahuluan
 
 `useReducer` adalah sebuah React Hook yang fungsinya serupa dengan `useState`, tapi biasa digunakan untuk kasus yang lebih kompleks, juga cara penggunaannya yang berbeda.
@@ -25,24 +24,32 @@ const [state, dispatch] = useReducerAtom(initialAtom, reducer);
 
 Nah jadi si **initialState** nya(dalam hal ini **initialAtom**) berada di depan, kemudian diikuti dengan fungsi **reducer** nya. **initialState** mesti bernilai atom yang disediakan jotai. Kalau temen-temen pake typescript, pasti bakal ngedetect Error jika tidak pakai atom. Contoh:
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/error-usereduceratom.png?updatedAt=1720370891940" alt="Error initialState" />
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/error-usereduceratom.png?updatedAt=1720370891940"
+  alt="Error initialState"
+/>
 
 Padahal jika saya pakai `useReducer` biasa, dia ga bakal error
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/usereducer.png?updatedAt=1720370891898" alt="useReducer" />
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/implementasi-use-reducer-atom-jotai/usereducer.png?updatedAt=1720370891898"
+  alt="useReducer"
+/>
 
 ## Implementasi
 
 Disini saya coba implementasi ke operasi matematika sederhana(tambah, kurang). **Sebagai catatan,** di project saya sudah terinstall `chakra-ui` untuk styling. Emang Overkill sih hehe, tapi kalo buat keperluan ngetest doang mah gapapa.
 
-```tsx title="App.tsx"
+```tsx
 import { Button, Container, Flex, Text } from "@chakra-ui/react";
 import { atom } from "jotai";
 import { useReducerAtom } from "jotai/utils";
 
 function reducer(
   state: { value: number },
-  action: { operation: "TAMBAH" | "KURANG" },
+  action: { operation: "TAMBAH" | "KURANG" }
 ) {
   switch (action.operation) {
     case "TAMBAH":
@@ -92,7 +99,7 @@ Seperti yang sudah saya singgung di awal, `useReducerAtom` agak berbeda dengan `
 
 Keseluruhan code:
 
-```ts title="App.tsx"
+```tsx title="App.tsx"
 import { Button, Container, Flex, Text } from "@chakra-ui/react";
 import { atom } from "jotai";
 import { useReducerAtom } from "jotai/utils";

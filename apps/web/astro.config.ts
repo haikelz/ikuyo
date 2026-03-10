@@ -9,7 +9,9 @@ import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
 import remarkToc from "remark-toc";
+import { remarkCodeFilename } from "./remark-code-filename.mjs";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
+import { rehypeCodeBlockWrapper } from "./rehype-code-block-wrapper.mjs";
 import { SENTRY_AUTH_TOKEN, SENTRY_DSN, SENTRY_PROJECT } from "./src/utils/env";
 
 export default defineConfig({
@@ -26,13 +28,15 @@ export default defineConfig({
       syntaxHighlight: "shiki",
       shikiConfig: {
         theme: "github-dark-default",
+        transformers: [(await import("./shiki-transformer-meta.mjs")).transformerMetaFilename()],
       },
       remarkPlugins: [
         [remarkToc, { heading: "toc" }],
         remarkReadingTime,
         remarkSectionize,
+        remarkCodeFilename,
       ],
-      rehypePlugins: [rehypePresetMinify, rehypeSlug],
+      rehypePlugins: [rehypeCodeBlockWrapper, rehypePresetMinify, rehypeSlug],
       remarkRehype: {
         footnoteLabel: "Footnotes",
       },

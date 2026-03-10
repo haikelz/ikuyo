@@ -1,5 +1,7 @@
 ---
 import Footer from "@/components/Footer.astro";
+import Banner from "@/components/svelte/Banner.svelte";
+import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
@@ -47,7 +49,9 @@ const resolvedOgImage = ogImage ?? "https://ekel.dev/og";
     <link rel="sitemap" href="/sitemap.xml" />
     <ClientRouter />
   </head>
-  <body class="w-full flex justify-start items-start relative">
+  <body class="w-full flex flex-col justify-start items-start relative">
+    <CodeBlockCopy client:only="svelte" />
+    <Banner client:only="svelte" />
     <Navbar currentPath={currentPath} client:only="svelte" />
     <div
       class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-20 prose-invert max-w-6xl! relative z-10"

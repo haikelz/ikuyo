@@ -22,7 +22,7 @@
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.18",
     "@swc/helpers": "~0.5.19",
-    "@moonrepo/cli": "^1.28.3",
+    "@moonrepo/cli": "^1.41.7",
     "tslib": "^2.8.1",
     "typescript": "~5.9.3"
   },
