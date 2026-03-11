@@ -1,0 +1,76 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { format } from "date-fns";
+
+const lastUpdated = new Date("2026-03-11");
+---
+
+<Layout
+  title="Now"
+  description="What I'm doing now — a snapshot of my current focus and activities."
+  url="https://ekel.dev/now"
+>
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start",
+    ]}
+  >
+    <section class="w-full m-0! p-0!">
+      <h1 class="mb-0">/now</h1>
+      <p class="text-neutral-400 text-sm mb-0">
+        Last updated: {format(lastUpdated, "MMMM d, yyyy")}
+      </p>
+    </section>
+
+    <div class="flex w-full flex-col items-start justify-start">
+      <section class="w-full m-0! p-0! slide-enter-content">
+        <h2 class="mb-4 mt-8! p-0!">Work</h2>
+        <p class="mb-0! text-justify">
+          I just finished my probation as Backend Developer and now working as a
+          Web Programmer (Basically Fullstack Web Developer that also do DevOps
+          stuff). Main stack: Typescript, Go, Docker.
+        </p>
+      </section>
+
+      <section class="w-full m-0! p-0! slide-enter-content">
+        <h2 class="mb-4 mt-8! p-0!">Learning</h2>
+        <p class="mb-0! text-justify">
+          Deep dive into Go, DevOps, also how to deal and manage people.
+          Occasionally reading about personal finance and (only) investing on
+          sharia stock. For stock market, I'm interested in fundamental
+          analysis, corporate action, big money movement, and market sentiment.
+          There are some quotes that I like:
+        </p>
+        <blockquote>
+          "Be fearful when others are greedy, and greedy when others are
+          fearful" - Warren Buffett
+        </blockquote>
+        <blockquote>
+          "Risk is what you pay for opportunity" - Andry Hakim
+        </blockquote>
+      </section>
+
+      <section class="w-full slide-enter-content">
+        <h2 class="mb-4 mt-8! p-0!">Reading</h2>
+        <p class="mb-0! text-justify">
+          Currently reading <b>The Psychology of Money</b> by Morgan Housel and
+          <b>Make Time</b> by Jake Knapp & John Zeratsky.
+        </p>
+      </section>
+
+      <section class="w-full m-0! p-0! slide-enter-content">
+        <h2 class="mb-4 mt-8! p-0!">Playlist</h2>
+        <p class="mb-0! text-justify">
+          I don't have any music playlist because my music taste is random. Also
+          I rarely listen to music. But I have a <a
+            href="https://music.youtube.com/playlist?list=PLcauesmgnpZ9BBTEFyotPzX9MotTEVdKx&si=DCSEaL1jMkeidZ79"
+            target="_blank"
+            rel="noopener noreferrer">Murottal Playlist</a
+          > that updated regularly and always listen to it when I'm working or do
+          something that require focus.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>
