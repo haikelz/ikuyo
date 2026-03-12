@@ -1,0 +1,218 @@
+---
+author: Haikel
+title: Migrating Astro.js Monorepo From Nx to Moonrepo
+tags:
+  - astro
+  - monorepo
+  - moonrepo
+  - nx
+  - tooling
+created_at: 2026-03-12
+description: My experience migrating my Astro.js monorepo from Nx to Moonrepo.
+---
+
+Several days ago, I decided to migrate from Nx to Moonrepo for managing my Astro.js monorepo. Maybe the first question that comes to your mind is:
+
+## Why Migrate to Moonrepo?
+
+Several factors drove this decision:
+
+1. **Simpler Configuration** — Moonrepo uses declarative YAML that's easy to read. No need for separate `nx.json`, `project.json`, and `workspace.json` files.
+
+2. **Faster Task Runner** — Moonrepo is built with Rust and offers faster task execution and efficient caching.
+
+3. **Native Astro Support** — Moonrepo provides official [moon-configs](https://github.com/moonrepo/moon-configs) for Astro.js, so you can extend the setup without writing configuration from scratch.
+
+4. **Clear Dependency Graph** — Dependencies between tasks and projects are explicit via the `deps` declaration in YAML.
+
+5. **Less Overhead** — Compared to Nx with its many plugins and concepts like "affected", Moonrepo focuses on task running and caching without extra complexity for simple monorepo use cases like mine.
+
+## My Monorepo Structure, Before and After Migration
+
+Well, the monorepo structure keeps the `apps/*` and `packages/*` pattern:
+
+```
+ikuyo/
+├── apps/
+│   └── web/          # Astro.js app
+├── packages/
+│   ├── biome/        # Shared Biome config
+│   └── typescript/   # Shared TypeScript config
+├── .moon/
+│   ├── workspace.yml
+│   └── tasks/
+│       └── tag-astro.yml
+└── package.json
+```
+
+## Migration Steps
+
+### 1. Remove Nx Dependencies and Configuration
+
+First, remove all Nx-related dependencies from the project. Also, delete Nx configuration files:
+
+- `nx.json`
+- `workspace.json` or `nx.json` (depending on version)
+- All `project.json` files in each app/package
+
+### 2. Install Moonrepo
+
+```bash
+bun add -D @moonrepo/cli
+```
+
+### 3. Create Workspace Configuration
+
+Create `.moon/workspace.yml`:
+
+```yaml
+projects:
+  - "apps/*"
+  - "packages/*"
+
+vcs:
+  defaultBranch: "master" # or "main", "develop", etc.
+  provider: "github" # or "gitlab", "bitbucket", etc.
+```
+
+Moonrepo automatically detects projects based on folder structure. Project names are derived from folder names (e.g. `apps/web` → project `web`).
+
+### 4. Setup Astro Tasks
+
+Create `.moon/tasks/tag-astro.yml` that extends the official Astro config:
+
+```yaml
+$schema: "https://moonrepo.dev/schemas/tasks.json"
+
+extends: "https://raw.githubusercontent.com/moonrepo/moon-configs/master/javascript/astro/tasks.yml"
+```
+
+This file is applied to projects with the `astro` tag. The extended config provides tasks: `build`, `dev`, `check`, `preview`, and `astro`.
+
+### 5. Configure the Astro Project
+
+In `apps/web/moon.yml`:
+
+```yaml
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+tags: ["astro"]
+
+tasks:
+  build:
+    deps: ["check"]
+```
+
+With `tags: ['astro']`, this project inherits all tasks from `tag-astro.yml`. I added `deps: ['check']` to the build task so type-checking runs before build (matching the `astro check && astro build` script in package.json).
+
+### 6. Configure Shared Packages
+
+For packages like Biome and TypeScript config, set the `language`:
+
+**packages/biome/moon.yml:**
+
+```yaml
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+language: "javascript"
+```
+
+**packages/typescript/moon.yml:**
+
+```yaml
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+language: "typescript"
+```
+
+### 7. Update Scripts in Root package.json
+
+Replace Nx scripts with Moonrepo. In my case:
+
+```json
+// Nx scripts
+{
+  "scripts": {
+    "build:web": "nx build web",
+    "build:web:prod": "nx build web --prod",
+    "dev:web": "nx dev web",
+    "test:web": "nx test web"
+  }
+}
+```
+
+```json
+// Moonrepo scripts
+{
+  "scripts": {
+    "build:web": "moon run web:build",
+    "build:web:prod": "moon run web:build",
+    "dev:web": "moon run web:dev",
+    "test:web": "moon run web:test"
+  }
+}
+```
+
+Moonrepo command format: `moon run <project>:<task>`.
+
+## Configuration Comparison
+
+### Nx (Before)
+
+Nx typically requires multiple files:
+
+- `nx.json` — workspace config, cache, etc.
+- `workspace.json` or `project.json` — project and target definitions
+- `@nrwl/workspace` or `@nx/workspace` plugin for integration
+
+````
+
+### Moonrepo (After)
+
+One YAML file per project, extending the official config:
+
+```yaml
+tags: ["astro"]
+
+tasks:
+  build:
+    deps: ["check"]
+````
+
+Tasks `build`, `dev`, and `check` are defined in moon-configs; we only override what we need.
+
+## Available Tasks
+
+After migration, these tasks are available for the `web` project:
+
+| Task      | Command         | Description                    |
+| --------- | --------------- | ------------------------------ |
+| `build`   | `astro build`   | Production build (after check) |
+| `dev`     | `astro dev`     | Development server             |
+| `check`   | `astro check`   | Type-check `.astro` files      |
+| `preview` | `astro preview` | Preview build (deps: build)    |
+| `astro`   | `astro`         | Catch-all for astro commands   |
+
+Running tasks:
+
+```bash
+moon run web:build
+moon run web:dev
+moon run web:check
+```
+
+## Lessons Learned
+
+1. **Tag-based Inheritance** — Moonrepo's tag system is very practical. One task file can be shared across many projects with the same tag, reducing duplication.
+
+2. **File Groups for Caching** — Moonrepo defines `fileGroups` (astro, sources, tests) for input hashing. Changes outside those groups won't invalidate the cache.
+
+3. **Keep Using npm/pnpm/bun Workspaces** — Moonrepo doesn't replace the package manager. The `workspaces` field in `package.json` is still used for dependency resolution.
+
+4. **Schema Validation** — The `$schema` in YAML enables IDE autocomplete and validation, reducing typos.
+
+## References
+
+- [Moonrepo Documentation](https://moonrepo.dev/docs)
+- [moon-configs - Astro](https://github.com/moonrepo/moon-configs/tree/master/javascript/astro)
+- [Moonrepo vs Nx](https://moonrepo.dev/docs/compare/nx)

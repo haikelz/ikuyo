@@ -13,7 +13,7 @@ export async function getStaticPaths() {
       notesEntries
         .map((item) => [...new Set(item.data.tags)].join(" "))
         .join(" ")
-        .split(" "),
+        .split(" ")
     ),
   ].sort((a, b) => {
     if (a > b) return 1;
@@ -35,7 +35,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
   title={`Notes with tag ${currentPath}.`}
   description="Notes with tag"
   url={`https://ekel.dev/tags/${currentPath}`}
-  ogImage={`https://ekel.dev/og/tags/${currentPath}.png`}
+  ogImage={`tags/${currentPath}.png`}
 >
   <div
     class:list={[
@@ -61,7 +61,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
+                new Date(a.data.created_at).getTime()
             )
             .map((item) => (
               <Card

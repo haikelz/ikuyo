@@ -19,7 +19,7 @@ type Props = {
 
 const { title, description, url, ogImage } = Astro.props;
 const currentPath = Astro.url.pathname;
-const resolvedOgImage = ogImage ?? "https://ekel.dev/og";
+const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
 ---
 
 <!doctype html>
