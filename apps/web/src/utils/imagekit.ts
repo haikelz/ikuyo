@@ -5,7 +5,7 @@ export interface ImageKitFile {
   name: string;
   filePath: string;
   url: string;
-  thumbnailUrl: string;
+  thumbnail: string;
   width: number;
   height: number;
   size: number;

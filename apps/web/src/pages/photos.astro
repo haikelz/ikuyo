@@ -4,7 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getAllPhotos } from "@/utils/imagekit";
 
 const images = await getAllPhotos();
-const photos = images.map(({ url, thumbnailUrl }) => ({ url, thumbnailUrl }));
+const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
 ---
 
 <Layout
@@ -15,6 +15,6 @@ const photos = images.map(({ url, thumbnailUrl }) => ({ url, thumbnailUrl }));
   className="max-w-full!"
 >
   <div class="flex w-full flex-col items-start justify-start md:text-start">
-    <PhotosPage {photos} client:only="svelte" />
+    <PhotosPage client:only="svelte" photos={photos} />
   </div>
 </Layout>

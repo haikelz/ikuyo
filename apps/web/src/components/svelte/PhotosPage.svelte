@@ -6,7 +6,7 @@
 
   interface Photo {
     url: string;
-    thumbnailUrl: string;
+    thumbnail: string;
   }
 
   let { photos = [] } = $props<{ photos: Photo[] }>();
@@ -102,6 +102,9 @@
 
 {#if confirmed}
   <div transition:fade={{ duration: 300 }}>
-    <PhotoGrid {photos} masonry={true} />
+    <PhotoGrid
+      images={photos.map((photo: Photo) => photo.url)}
+      masonry={true}
+    />
   </div>
 {/if}
