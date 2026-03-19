@@ -1,11 +1,11 @@
 ---
+import BackButton from "@/components/svelte/BackButton.svelte";
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
 import Tooltip from "@/components/svelte/Tooltip.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import { ArrowLeftIcon } from "lucide-svelte";
 
 export async function getStaticPaths() {
   const worksEntries = await getCollection("works");
@@ -28,15 +28,7 @@ const { Content, headings, remarkPluginFrontmatter } = await item.render();
   ogImage={`works/${item.slug}.png`}
 >
   <div class="w-full text-justify slide-enter-content">
-    <a href="/works" class="flex w-fit items-center justify-center">
-      <button
-        type="button"
-        aria-label="back to works"
-        class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 cursor-pointer"
-      >
-        <ArrowLeftIcon className="text-center" />
-      </button>
-    </a>
+    <BackButton label="back to works" client:only="svelte" />
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex w-full items-center space-x-2">
       <Tooltip content="My Istri" client:only="svelte">

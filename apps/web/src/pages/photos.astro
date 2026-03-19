@@ -1,11 +1,10 @@
 ---
 import PhotosPage from "@/components/svelte/PhotosPage.svelte";
-import { readImages } from "@/helpers/read-images";
 import Layout from "@/layouts/Layout.astro";
-import "../index.css";
+import { getAllPhotos } from "@/utils/imagekit";
 
-const currentPath = Astro.url.pathname;
-const images = readImages("/public/images/photos", /\.webp$/);
+const images = await getAllPhotos();
+const photos = images.map(({ url, thumbnailUrl }) => ({ url, thumbnailUrl }));
 ---
 
 <Layout
@@ -13,18 +12,9 @@ const images = readImages("/public/images/photos", /\.webp$/);
   description="Photos"
   url="https://ekel.dev/photos"
   ogImage="photos.png"
+  className="max-w-full!"
 >
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start",
-      "md:text-start",
-    ]}
-  >
-    <PhotosPage
-      images={images.map(
-        (image: { path: string; fileName: string }) => image.path
-      )}
-      client:only="svelte"
-    />
+  <div class="flex w-full flex-col items-start justify-start md:text-start">
+    <PhotosPage {photos} client:only="svelte" />
   </div>
 </Layout>

@@ -4,7 +4,12 @@
   import { fade, scale } from "svelte/transition";
   import PhotoGrid from "./PhotoGrid.svelte";
 
-  let { images = [] } = $props<{ images: string[] }>();
+  interface Photo {
+    url: string;
+    thumbnailUrl: string;
+  }
+
+  let { photos = [] } = $props<{ photos: Photo[] }>();
 
   let confirmed = $state(false);
   let showWarning = $state(false);
@@ -48,7 +53,7 @@
     aria-modal="true"
     aria-labelledby="warning-title"
   >
-    <div class="absolute inset-0 bg-black/70 backdrop-blur-[16px]"></div>
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-[16px]" />
     <div
       class="relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-neutral-900/90 p-6 shadow-2xl"
       transition:scale={{ duration: 280, start: 0.92, opacity: 0 }}
@@ -68,11 +73,14 @@
         The <span class="text-neutral-200 font-medium">/photos</span> page
         contains many high-resolution images. Some of them are larger than
         <span class="text-amber-400 font-medium">&gt; 1 MB</span>. Make sure
-        you're on Wi-Fi or comfortable with your mobile data usage. <br />
-        All of the photos are taken by myself using
-        <span class="text-neutral-200 font-medium"
-          >Sony A5000 + TTArtisan 56mm f/1.8</span
-        > lens.
+        you're on Wi-Fi or comfortable with your mobile data usage. This page is
+        heavily inspired from
+        <a
+          href="https://antfu.me/photos"
+          class="text-amber-400 font-medium"
+          target="_blank"
+          rel="noopener noreferrer">Antfu's photos page</a
+        >.
       </p>
       <div class="flex flex-col gap-2">
         <button
@@ -94,6 +102,6 @@
 
 {#if confirmed}
   <div transition:fade={{ duration: 300 }}>
-    <PhotoGrid {images} masonry={true} />
+    <PhotoGrid {photos} masonry={true} />
   </div>
 {/if}

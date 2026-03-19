@@ -15,3 +15,7 @@ export const SENTRY_PROJECT = process.env.SENTRY_PROJECT as string;
 export const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN as string;
 
 export const BACKEND_API_URL = process.env.BACKEND_API_URL as string;
+
+export const IMAGEKIT_PRIVATE_KEY = process.env.IMAGEKIT_PRIVATE_KEY as string;
+export const IMAGEKIT_API_BASE_URL = process.env
+  .IMAGEKIT_API_BASE_URL as string;

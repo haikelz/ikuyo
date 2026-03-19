@@ -15,9 +15,16 @@ type Props = {
   description: string;
   url: string;
   ogImage?: string;
+  className?: string;
 };
 
-const { title, description, url, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  url,
+  ogImage,
+  className = "max-w-6xl!",
+} = Astro.props;
 const currentPath = Astro.url.pathname;
 const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
 ---
@@ -54,7 +61,10 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
     <Banner client:only="svelte" />
     <Navbar currentPath={currentPath} client:only="svelte" />
     <div
-      class="prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-20 prose-invert max-w-6xl! relative z-10"
+      class:list={[
+        "prose prose-base container mx-auto w-full! px-4 md:pt-8 pt-20 prose-invert relative z-10",
+        className,
+      ]}
     >
       <main
         class="flex min-h-screen w-full relative items-start justify-center leading-[1.75] tracking-wide"

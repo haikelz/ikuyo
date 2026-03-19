@@ -3,23 +3,28 @@
   import { onMount, tick } from "svelte";
   import { fade, scale } from "svelte/transition";
 
-  let { images = [], masonry = false } = $props<{
-    images: string[];
+  interface Photo {
+    url: string;
+    thumbnailUrl: string;
+  }
+
+  let { photos = [], masonry = false } = $props<{
+    photos: Photo[];
     masonry?: boolean;
   }>();
 
-  let selectedImage = $state<string | null>(null);
+  let selectedImage = $state<Photo | null>(null);
 
-  function optimizeUrl(url: string, width = 2000) {
+  function optimizeUrl(url: string, width: number) {
     if (url.includes("imagekit.io")) {
       const baseUrl = url.split("?")[0];
-      return `${baseUrl}?tr=f-auto,q-100${width ? `,w-${width}` : ""}`;
+      return `${baseUrl}?tr=f-auto,q-85,w-${width}`;
     }
     return url;
   }
 
-  async function openLightbox(image: string) {
-    selectedImage = image;
+  async function openLightbox(photo: Photo) {
+    selectedImage = photo;
     await tick();
   }
 
@@ -55,11 +60,11 @@
 
 {#if masonry}
   <div class="masonry-grid my-8 w-full">
-    {#each images as image, i}
+    {#each photos as photo, i}
       <div
         class="masonry-item"
-        onclick={() => openLightbox(image)}
-        onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
+        onclick={() => openLightbox(photo)}
+        onkeydown={(e) => e.key === "Enter" && openLightbox(photo)}
         role="button"
         tabindex="0"
         aria-label="View large image {i + 1}"
@@ -68,9 +73,9 @@
           class="relative overflow-hidden rounded-xl! bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
         >
           <img
-            src={optimizeUrl(image)}
+            src={optimizeUrl(photo.url, 800)}
             alt="Photo {i + 1}"
-            class="block w-full h-auto transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90 m-0! p-0! border-0!"
+            class="block w-full h-auto transition-all duration-500 group-hover:scale-105 m-0! p-0! border-0!"
             loading="lazy"
           />
           <div
@@ -82,18 +87,18 @@
   </div>
 {:else}
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
-    {#each images as image, i}
+    {#each photos as photo, i}
       <div
         class="photo-item aspect-[4/3] relative overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
-        onclick={() => openLightbox(image)}
-        onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
+        onclick={() => openLightbox(photo)}
+        onkeydown={(e) => e.key === "Enter" && openLightbox(photo)}
         role="button"
         tabindex="0"
         aria-label="View large image {i + 1}"
       >
         <img
-          src={optimizeUrl(image)}
-          alt="Blog post image {i + 1}"
+          src={optimizeUrl(photo.url, 800)}
+          alt="Photo {i + 1}"
           class="absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 block m-0! p-0!"
           loading="lazy"
         />
@@ -132,7 +137,7 @@
       role="presentation"
     >
       <img
-        src={optimizeUrl(selectedImage, 1600)}
+        src={optimizeUrl(selectedImage.url, 1600)}
         alt="Large view"
         class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
         style="user-select: none;"

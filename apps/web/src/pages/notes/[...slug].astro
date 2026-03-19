@@ -1,4 +1,5 @@
 ---
+import BackButton from "@/components/svelte/BackButton.svelte";
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
 import Tooltip from "@/components/svelte/Tooltip.svelte";
@@ -6,7 +7,6 @@ import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
-import { ArrowLeftIcon } from "lucide-svelte";
 
 export async function getStaticPaths() {
   const notesEntries = await getCollection("notes");
@@ -37,16 +37,7 @@ function back() {
   ogImage={`notes/${item.slug}.png`}
 >
   <div class="w-full slide-enter-content text-justify">
-    <a href="/notes" class="flex w-fit items-center justify-center">
-      <button
-        type="button"
-        aria-label="back to notes"
-        class="flex h-8 w-8 items-center justify-center cursor-pointer rounded-full bg-neutral-900"
-        onclick="back()"
-      >
-        <ArrowLeftIcon className="text-center" />
-      </button>
-    </a>
+    <BackButton label="back to notes" client:only="svelte" />
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex w-full items-center space-x-2">
       <div class="rounded-full!">
