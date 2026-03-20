@@ -16,26 +16,26 @@ export interface ImageKitFile {
 }
 
 export async function getAllPhotos(): Promise<ImageKitFile[]> {
-  const params = new URLSearchParams({
-    path: "/photos",
-    type: "file",
-  });
+  try {
+    const params = new URLSearchParams({
+      path: "/photos",
+      type: "file",
+    });
 
-  const response = await fetch(
-    `${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`,
-    {
-      headers: {
-        Authorization: `Basic ${btoa(`${IMAGEKIT_PRIVATE_KEY}:`)}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+    const base64Key = btoa(`${IMAGEKIT_PRIVATE_KEY}:`);
 
-  if (!response.ok) {
-    throw new Error(
-      `ImageKit API error: ${response.status} ${response.statusText}`
+    const response = await fetch(
+      `${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`,
+      {
+        headers: {
+          Authorization: `Basic ${base64Key}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
-  }
 
-  return response.json();
+    return response.json();
+  } catch (error) {
+    throw new Error(`ImageKit API error: ${error}`);
+  }
 }

@@ -3,26 +3,36 @@ import { getCollection } from "astro:content";
 
 const notes = await getCollection("notes");
 const works = await getCollection("works");
+const uniqueTags = [
+  ...new Set(notes.flatMap((note) => note.data.tags)),
+];
 
 const staticPages: Record<string, { title: string }> = {
   home: { title: "Home" },
+  lebaran: { title: "Lebaran" },
   notes: { title: "Notes" },
   works: { title: "Works" },
   photos: { title: "Photos" },
   uses: { title: "Uses" },
   wakatime: { title: "Wakatime" },
   guestbook: { title: "Guestbook" },
+  now: { title: "Now" },
+  tags: { title: "Tags" },
 };
 
 const notesPages = Object.fromEntries(
-  notes.map(({ slug, data }) => [`notes/${slug}`, { title: data.title }]),
+  notes.map(({ slug, data }) => [`notes/${slug}`, { title: data.title }])
 );
 
 const worksPages = Object.fromEntries(
-  works.map(({ slug, data }) => [`works/${slug}`, { title: data.title }]),
+  works.map(({ slug, data }) => [`works/${slug}`, { title: data.title }])
 );
 
-const pages = { ...staticPages, ...notesPages, ...worksPages };
+const tagsPages = Object.fromEntries(
+  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }])
+);
+
+const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };
 
 const fontRegular =
   "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";

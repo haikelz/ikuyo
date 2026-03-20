@@ -1,0 +1,13 @@
+---
+import EidGreeting from "@/components/svelte/EidGreeting.svelte";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout
+  title="Eid Al-Fitr"
+  description="Taqabbalallahu minna wa minkum — Selamat Hari Raya Idul Fitri 1446 H."
+  url="https://ekel.dev/eid-al-fitr"
+  ogImage="lebaran.png"
+>
+  <EidGreeting client:load />
+</Layout>
