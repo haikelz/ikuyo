@@ -42,3 +42,7 @@ Thumbs.db
 # moon
 .moon/cache
 .moon/docker
+
+references/
+
+SKILL.md
