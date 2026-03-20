@@ -3,13 +3,11 @@ import { getCollection } from "astro:content";
 
 const notes = await getCollection("notes");
 const works = await getCollection("works");
-const uniqueTags = [
-  ...new Set(notes.flatMap((note) => note.data.tags)),
-];
+const uniqueTags = [...new Set(notes.flatMap((note) => note.data.tags))];
 
 const staticPages: Record<string, { title: string }> = {
   home: { title: "Home" },
-  lebaran: { title: "Lebaran" },
+  "eid-al-fitr": { title: "Eid Al-Fitr" },
   notes: { title: "Notes" },
   works: { title: "Works" },
   photos: { title: "Photos" },
