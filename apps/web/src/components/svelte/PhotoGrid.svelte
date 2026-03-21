@@ -9,13 +9,18 @@
   }>();
 
   let selectedImage = $state<string | null>(null);
+  let loaded = $state<Record<number, boolean>>({});
 
-  function optimizeUrl(url: string, width: number) {
+  function optimizeUrl(url: string, width: number, quality = 85) {
     if (url.includes("imagekit.io")) {
       const baseUrl = url.split("?")[0];
-      return `${baseUrl}?tr=f-auto,q-85,w-${width}`;
+      return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
     }
     return url;
+  }
+
+  function getPlaceholderUrl(url: string, size = 40) {
+    return optimizeUrl(url, size, 20);
   }
 
   async function openLightbox(photo: string) {
@@ -65,13 +70,23 @@
         aria-label="View large image {i + 1}"
       >
         <div
-          class="relative overflow-hidden rounded-xl! bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
+          class="photo-stack relative overflow-hidden rounded-xl! bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
         >
+          <img
+            src={getPlaceholderUrl(image, 200)}
+            alt=""
+            class="photo-stack-img block w-full h-auto blur-xl m-0! p-0! border-0!"
+          />
           <img
             src={optimizeUrl(image, 800)}
             alt="Photo {i + 1}"
-            class="block w-full h-auto transition-all duration-500 group-hover:scale-105 m-0! p-0! border-0!"
+            class="photo-stack-img block w-full h-auto transition-opacity duration-300 m-0! p-0! border-0! {loaded[
+              i
+            ]
+              ? 'opacity-100'
+              : 'opacity-0'}"
             loading="lazy"
+            onload={() => (loaded = { ...loaded, [i]: true })}
           />
           <div
             class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -91,12 +106,24 @@
         tabindex="0"
         aria-label="View large image {i + 1}"
       >
-        <img
-          src={optimizeUrl(image, 800)}
-          alt="Photo {i + 1}"
-          class="absolute inset-0 w-full h-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 block m-0! p-0!"
-          loading="lazy"
-        />
+        <div class="photo-stack absolute inset-0">
+          <img
+            src={getPlaceholderUrl(image)}
+            alt=""
+            class="photo-stack-img w-full h-full object-cover scale-110 blur-xl m-0! p-0! border-0!"
+          />
+          <img
+            src={optimizeUrl(image, 800)}
+            alt="Photo {i + 1}"
+            class="photo-stack-img w-full h-full object-cover transition-all duration-300 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 m-0! p-0! border-0! {loaded[
+              i
+            ]
+              ? 'opacity-100'
+              : 'opacity-0'}"
+            loading="lazy"
+            onload={() => (loaded = { ...loaded, [i]: true })}
+          />
+        </div>
         <div
           class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         ></div>
@@ -163,6 +190,14 @@
   .masonry-item {
     break-inside: avoid;
     margin-bottom: 1rem;
+  }
+
+  .photo-stack {
+    display: grid;
+  }
+
+  .photo-stack-img {
+    grid-area: 1 / 1;
   }
 
   :global(.lightbox-active) {
