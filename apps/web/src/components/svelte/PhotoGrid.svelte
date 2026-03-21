@@ -158,13 +158,18 @@
       transition:scale={{ duration: 300, start: 0.95, opacity: 0 }}
       role="presentation"
     >
-      <img
-        src={optimizeUrl(selectedImage, 1600)}
-        alt="Large view"
-        class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
-        style="user-select: none;"
+      <button
+        type="button"
+        class="border-0 bg-transparent p-0 cursor-default outline-none max-w-full max-h-full flex items-center justify-center"
         onclick={(e) => e.stopPropagation()}
-      />
+      >
+        <img
+          src={optimizeUrl(selectedImage, 1600)}
+          alt="Large view"
+          class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
+          style="user-select: none;"
+        />
+      </button>
     </div>
   </div>
 {/if}
