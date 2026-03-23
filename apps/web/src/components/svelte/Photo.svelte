@@ -90,7 +90,7 @@
 {#if selectedImage}
   <div
     use:teleport
-    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-[24px] lightbox-active"
+    class="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-xl lightbox-active"
     transition:fade={{ duration: 200 }}
     onclick={closeLightbox}
     onkeydown={handleKeydown}
@@ -98,7 +98,7 @@
     tabindex="0"
   >
     <button
-      class="fixed top-6 right-6 z-[10000] p-3 rounded-full bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
+      class="fixed top-6 right-6 z-10000 p-3 rounded-full bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
