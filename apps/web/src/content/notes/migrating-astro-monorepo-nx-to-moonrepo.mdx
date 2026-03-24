@@ -89,6 +89,8 @@ extends: "https://raw.githubusercontent.com/moonrepo/moon-configs/master/javascr
 
 This file is applied to projects with the `astro` tag. The extended config provides tasks: `build`, `dev`, `check`, `preview`, and `astro`.
 
+See all available tasks in the [moon-configs repository](https://github.com/moonrepo/moon-configs/tree/master/javascript/astro).
+
 ### 5. Configure the Astro Project
 
 In `apps/web/moon.yml`:
@@ -165,8 +167,6 @@ Nx typically requires multiple files:
 - `workspace.json` or `project.json` — project and target definitions
 - `@nrwl/workspace` or `@nx/workspace` plugin for integration
 
-````
-
 ### Moonrepo (After)
 
 One YAML file per project, extending the official config:
@@ -177,9 +177,9 @@ tags: ["astro"]
 tasks:
   build:
     deps: ["check"]
-````
+```
 
-Tasks `build`, `dev`, and `check` are defined in moon-configs; we only override what we need.
+Tasks `build`, `dev`, and `check` are defined in moon-configs. We only override what we need.
 
 ## Available Tasks
 
