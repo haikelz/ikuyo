@@ -10,14 +10,18 @@
   }>();
 
   let selectedImage = $state<string | null>(null);
+  let imageLoaded = $state(false);
 
-  // Function to optimize ImageKit URLs
-  function optimizeUrl(url: string, width = 2000) {
+  function optimizeUrl(url: string, width: number, quality = 85) {
     if (url.includes("imagekit.io")) {
       const baseUrl = url.split("?")[0];
-      return `${baseUrl}?tr=f-auto,q-100${width ? `,w-${width}` : ""}`;
+      return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
     }
     return url;
+  }
+
+  function getPlaceholderUrl(url: string, size = 40) {
+    return optimizeUrl(url, size, 20);
   }
 
   async function openLightbox() {
@@ -30,24 +34,19 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
+    if (event.key === "Escape") closeLightbox();
   }
 
   function teleport(node: HTMLElement) {
     document.body.appendChild(node);
     return {
       destroy() {
-        if (node.parentNode) {
-          node.parentNode.removeChild(node);
-        }
+        if (node.parentNode) node.parentNode.removeChild(node);
       },
     };
   }
 
   onMount(() => {
-    // Measure scrollbar width to prevent layout shift
     if (!document.documentElement.style.getPropertyValue("--scrollbar-width")) {
       const scrollbarWidth =
         window.innerWidth - document.documentElement.clientWidth;
@@ -67,13 +66,23 @@
     onclick={openLightbox}
     aria-label="View large image"
   >
-    <div class="relative w-full overflow-hidden">
+    <div
+      class="photo-stack relative w-full overflow-hidden rounded-xl bg-neutral-900 transition-transform duration-500 group-hover:scale-105"
+    >
       <img
-        src={optimizeUrl(src)}
-        {alt}
+        src={getPlaceholderUrl(src, 200)}
+        alt=""
+        class="photo-stack-img block w-full h-auto blur-xl m-0! p-0! border-0!"
+      />
+      <img
+        src={optimizeUrl(src, 800)}
+        alt={alt ?? ""}
         {title}
-        class="block w-full h-auto transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90 m-0! p-0! border-0!"
+        class="photo-stack-img block w-full h-auto transition-opacity duration-300 m-0! p-0! border-0! grayscale group-hover:grayscale-0 group-hover:opacity-90 {imageLoaded
+          ? 'opacity-100'
+          : 'opacity-0'}"
         loading="lazy"
+        onload={() => (imageLoaded = true)}
       />
       <div
         class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -113,19 +122,31 @@
       transition:scale={{ duration: 300, start: 0.95, opacity: 0 }}
       role="presentation"
     >
-      <img
-        src={optimizeUrl(selectedImage, 1600)}
-        alt="Large view"
-        class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
-        style="user-select: none;"
+      <button
+        type="button"
+        class="border-0 bg-transparent p-0 cursor-default outline-none max-w-full max-h-full flex items-center justify-center"
         onclick={(e) => e.stopPropagation()}
-      />
+      >
+        <img
+          src={optimizeUrl(selectedImage, 1600)}
+          alt="Large view"
+          class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
+          style="user-select: none;"
+        />
+      </button>
     </div>
   </div>
 {/if}
 
 <style>
-  /* Keeps the lightbox transition smooth and clean */
+  .photo-stack {
+    display: grid;
+  }
+
+  .photo-stack-img {
+    grid-area: 1 / 1;
+  }
+
   :global(.lightbox-active) {
     cursor: zoom-out;
   }
