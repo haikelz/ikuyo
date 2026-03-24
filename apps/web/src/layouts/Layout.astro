@@ -57,6 +57,7 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
     <ClientRouter />
   </head>
   <body class="w-full flex flex-col justify-start items-start relative">
+    <div class="page-bg-grid" aria-hidden="true"></div>
     <CodeBlockCopy client:only="svelte" />
     <Banner client:only="svelte" />
     <Navbar currentPath={currentPath} client:only="svelte" />
