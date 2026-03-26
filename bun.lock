@@ -20,6 +20,7 @@
         "@astrojs/sitemap": "^3.7.0",
         "@astrojs/svelte": "^7.2.5",
         "@dotenvx/dotenvx": "^1.54.1",
+        "@fontsource/figtree": "^5.2.10",
         "@fontsource/geist-mono": "^5.2.7",
         "@fontsource/noto-naskh-arabic": "^5.2.11",
         "@playform/compress": "^0.2.1",
@@ -52,7 +53,6 @@
         "unist-util-visit": "^5.0.0",
       },
       "devDependencies": {
-        "@fontsource-variable/figtree": "^5.2.10",
         "@hugeicons/core-free-icons": "^4.0.0",
         "@hugeicons/svelte": "^1.1.2",
         "@ikuyo/typescript": "*",
@@ -213,7 +213,7 @@
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
 
-    "@fontsource-variable/figtree": ["@fontsource-variable/figtree@5.2.10", "", {}, "sha512-a5Gumbpy3mdd+Yg31g6Qb7CmjYbrfyutJa3bWfP5q8A4GclIOwX7mI+ZuSHsJnw/mHvW6r9oh1AHJcJTIxK4JA=="],
+    "@fontsource/figtree": ["@fontsource/figtree@5.2.10", "", {}, "sha512-nlO06N1qad88ySqzi/a2xwDBkamfZ4MFilP8la5dDyRY36ED0UYTs2hhtwJf8fM52+Nn7dQO2r27reKaXOyOIg=="],
 
     "@fontsource/geist-mono": ["@fontsource/geist-mono@5.2.7", "", {}, "sha512-xVPVFISJg/K0VVd+aQN0Y7X/sw9hUcJPyDWFJ5GpyU3bHELhoRsJkPSRSHXW32mOi0xZCUQDOaPj1sqIFJ1FGg=="],
 

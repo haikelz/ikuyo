@@ -23,6 +23,7 @@
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/svelte": "^7.2.5",
     "@dotenvx/dotenvx": "^1.54.1",
+    "@fontsource/figtree": "^5.2.10",
     "@fontsource/geist-mono": "^5.2.7",
     "@fontsource/noto-naskh-arabic": "^5.2.11",
     "@playform/compress": "^0.2.1",
@@ -55,7 +56,6 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@fontsource-variable/figtree": "^5.2.10",
     "@hugeicons/core-free-icons": "^4.0.0",
     "@hugeicons/svelte": "^1.1.2",
     "@ikuyo/typescript": "*",

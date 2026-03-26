@@ -3,8 +3,8 @@
 </script>
 
 <script lang="ts">
-  import { Button } from "@/components/svelte/ui/button/index.js";
-  import { cn, type WithoutChildrenOrChild } from "@/lib/utils.js";
+  import { Button } from "@/components/svelte/ui/button";
+  import { cn, type WithoutChildrenOrChild } from "@/lib/utils";
   import { Cancel01Icon } from "@hugeicons/core-free-icons";
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import { Dialog as SheetPrimitive } from "bits-ui";

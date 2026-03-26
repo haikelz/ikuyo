@@ -2,8 +2,8 @@
   import {
     type ToggleVariants,
     toggleVariants,
-  } from "@/components/svelte/ui/toggle/index.js";
-  import { cn } from "@/lib/utils.js";
+  } from "@/components/svelte/ui/toggle";
+  import { cn } from "@/lib/utils";
   import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
   import { getToggleGroupCtx } from "./toggle-group.svelte";
 
