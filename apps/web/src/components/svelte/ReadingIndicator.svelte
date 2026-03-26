@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { Progress } from "@/components/svelte/ui/progress";
   import { onMount } from "svelte";
 
-  let width = 0;
-  let mounted = false;
+  let width = $state(0);
+  let mounted = $state(false);
 
   onMount(() => {
     mounted = true;
@@ -14,7 +15,7 @@
       const scrollTop = el.scrollTop || document.body.scrollTop;
       const scrollHeight = el.scrollHeight || document.body.scrollHeight;
       const percent = (scrollTop / (scrollHeight - el.clientHeight)) * 100;
-      width = percent;
+      width = Number.isFinite(percent) ? percent : 0;
     }
 
     window.addEventListener("scroll", calculateScrollProgress);
@@ -27,8 +28,5 @@
 </script>
 
 {#if mounted}
-  <div
-    style="width: {width}%"
-    class="fixed h-1 top-0 bg-neutral-50 z-50 reading-progress"
-  ></div>
+  <Progress value={width} max={100} class="fixed top-0 left-0 z-50 h-1 w-full rounded-none bg-transparent" />
 {/if}

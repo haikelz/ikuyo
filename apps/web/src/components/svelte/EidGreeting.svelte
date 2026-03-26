@@ -1,4 +1,9 @@
 <script lang="ts">
+  import {
+    ToggleGroup,
+    ToggleGroupItem,
+  } from "@/components/svelte/ui/toggle-group";
+
   type Lang = "id" | "en";
 
   let lang = $state<Lang>("id");
@@ -32,28 +37,18 @@
         <p class="text-neutral-400 text-sm mb-0">{c.subtitle}</p>
         <h1 class="mb-0">{c.title}</h1>
       </div>
-      <div
-        class="flex items-center gap-1 rounded-lg border border-white/10 p-1 self-end mb-1"
+      <ToggleGroup
+        type="single"
+        bind:value={lang}
+        variant="outline"
+        spacing={0}
+        class="self-end mb-1 rounded-lg border border-white/10 p-1"
       >
-        <button
-          onclick={() => (lang = "id")}
-          class="rounded-md px-3 py-1 text-xs font-medium transition-all cursor-pointer outline-none {lang ===
-          'id'
-            ? 'bg-white/10 text-white'
-            : 'text-neutral-500 hover:text-neutral-300'}"
+        <ToggleGroupItem value="id" aria-label="Bahasa Indonesia"
+          >ID</ToggleGroupItem
         >
-          ID
-        </button>
-        <button
-          onclick={() => (lang = "en")}
-          class="rounded-md px-3 py-1 text-xs font-medium transition-all cursor-pointer outline-none {lang ===
-          'en'
-            ? 'bg-white/10 text-white'
-            : 'text-neutral-500 hover:text-neutral-300'}"
-        >
-          EN
-        </button>
-      </div>
+        <ToggleGroupItem value="en" aria-label="English">EN</ToggleGroupItem>
+      </ToggleGroup>
     </div>
   </section>
 

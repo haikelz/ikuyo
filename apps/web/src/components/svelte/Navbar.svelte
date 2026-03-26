@@ -9,7 +9,14 @@
     XIcon,
   } from "lucide-svelte";
   import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
+  import { cn } from "@/lib/utils";
+  import { Button } from "@/components/svelte/ui/button";
+  import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+  } from "@/components/svelte/ui/sheet";
   import Tooltip from "./Tooltip.svelte";
 
   let { currentPath } = $props();
@@ -61,17 +68,12 @@
       window.requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
 
-        // Show navbar when at top
         if (currentScrollY < 10) {
           isVisible = true;
-        }
-        // Hide navbar when scrolling down
-        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           isVisible = false;
-          isOpen = false; // Close mobile menu when hiding
-        }
-        // Show navbar when scrolling up
-        else if (currentScrollY < lastScrollY) {
+          isOpen = false;
+        } else if (currentScrollY < lastScrollY) {
           isVisible = true;
         }
 
@@ -93,11 +95,11 @@
 </script>
 
 <nav
-  class={twMerge(
+  class={cn(
     "fixed bg-neutral-950/70 w-full rounded-none md:rounded-full! md:w-fit items-center space-x-5 md:space-x-0 justify-center right-0 left-0 flex px-3 py-2.5 md:px-3 md:py-2.5 md:space-y-5 border-b-[0.5px] md:border-[0.5px] mx-auto backdrop-blur-md z-50! transition-transform duration-300 ease-in-out",
     isVisible
       ? "translate-y-0 md:bottom-4"
-      : "-translate-y-full md:translate-y-full md:bottom-0"
+      : "-translate-y-full md:translate-y-full md:bottom-0",
   )}
 >
   <div
@@ -107,12 +109,12 @@
       <Tooltip content="My Istri">
         {#snippet children()}
           <a data-cy="home-btn" href="/" aria-label="/" class="mr-5!">
-            <button
+            <Button
               type="button"
+              variant="secondary"
+              size="icon-sm"
+              class="rounded-full p-0 overflow-hidden"
               aria-label="/"
-              class={twMerge(
-                "p-1.5 cursor-pointer bg-neutral-900 rounded-full"
-              )}
             >
               <img
                 class="rounded-full h-6 w-6 object-cover photos"
@@ -122,7 +124,7 @@
                 draggable={false}
                 src="https://avatars.githubusercontent.com/u/77146709?v=4"
               />
-            </button>
+            </Button>
           </a>
         {/snippet}
       </Tooltip>
@@ -136,52 +138,67 @@
                 aria-label={item.path}
                 class="cursor-pointer"
               >
-                <button
+                <Button
                   type="button"
-                  aria-label={item.path}
-                  class={twMerge(
-                    "p-1.5 cursor-pointer",
-                    currentPath.includes(item.path)
-                      ? "bg-neutral-900 rounded-full"
-                      : ""
+                  variant="ghost"
+                  size="icon-sm"
+                  class={cn(
+                    "rounded-full",
+                    currentPath.includes(item.path) ? "bg-neutral-900" : "",
                   )}
+                  aria-label={item.path}
                 >
                   <item.icon
                     size={21}
-                    class={twMerge("font-bold text-neutral-50")}
+                    class={cn("font-bold text-neutral-50")}
                   />
-                </button>
+                </Button>
               </a>
             {/snippet}
           </Tooltip>
         {/each}
       </div>
-      <button
-        onclick={toggleNavbar}
-        class="block md:hidden m-0! text-neutral-50 bg-neutral-900 rounded-full p-1.5"
-      >
-        {#if isOpen}
-          <XIcon size={21} />
-        {:else}
-          <MenuIcon size={21} />
-        {/if}
-      </button>
+      <Sheet bind:open={isOpen}>
+        <Button
+          variant="secondary"
+          size="icon-sm"
+          onclick={toggleNavbar}
+          class="m-0! block rounded-full md:hidden"
+          aria-expanded={isOpen}
+          aria-label="Toggle navigation menu"
+        >
+          {#if isOpen}
+            <XIcon size={21} />
+          {:else}
+            <MenuIcon size={21} />
+          {/if}
+        </Button>
+        <SheetContent
+          side="bottom"
+          class="border-neutral-800 bg-neutral-950/95 pb-8"
+          showCloseButton={false}
+        >
+          <SheetHeader>
+            <SheetTitle class="text-left">Menu</SheetTitle>
+          </SheetHeader>
+          <nav class="flex flex-col gap-3 pt-2">
+            {#each navList as item}
+              <a
+                data-cy={`${item.path.slice(1)}-btn`}
+                href={item.path}
+                aria-label={item.path}
+                class="cursor-pointer font-bold text-neutral-50 no-underline hover:underline text-lg"
+                onclick={() => {
+                  isOpen = false;
+                }}
+              >
+                {item.path.slice(1)[0].toUpperCase() +
+                  item.path.slice(2)}
+              </a>
+            {/each}
+          </nav>
+        </SheetContent>
+      </Sheet>
     </div>
-    {#if isOpen}
-      <div
-        class="flex md:hidden slide-enter-content justify-start w-full py-5 items-start space-y-5 flex-col"
-      >
-        {#each navList as item}
-          <a
-            data-cy={`${item.path.slice(1)}-btn`}
-            href={item.path}
-            aria-label={item.path}
-            class="cursor-pointer font-bold text-neutral-50 no-underline hover:underline"
-          >
-            {item.path.slice(1)[0][0].toUpperCase() + item.path.slice(2)}
-          </a>
-        {/each}
-      </div>
-    {/if}
   </div>
 </nav>

@@ -4,7 +4,6 @@ import Banner from "@/components/svelte/Banner.svelte";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
 import "@fontsource/geist-mono";
-import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
 import { ClientRouter } from "astro:transitions";
 import "../index.css";
@@ -29,7 +28,7 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <title>{title}</title>
     <meta charset="UTF-8" />

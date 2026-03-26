@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { fade, scale } from "svelte/transition";
-  import { XIcon, PlayIcon } from "lucide-svelte";
+  import { PlayIcon, XIcon } from "lucide-svelte";
   import { tick } from "svelte";
+  import { fade, scale } from "svelte/transition";
 
   let { src, title } = $props<{
     src: string;

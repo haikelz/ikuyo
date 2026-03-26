@@ -1,5 +1,11 @@
+import { cn } from "../lib/utils.ts";
 import { h } from "hastscript";
 import { visit } from "unist-util-visit";
+
+const codeBlockCopyClass = cn(
+  "inline-flex size-8 shrink-0 items-center justify-center rounded-4xl border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+  "code-block-copy absolute bottom-3 right-3",
+);
 
 /**
  * Parse meta string to extract filename from title="..." or title=...
@@ -133,21 +139,7 @@ export function rehypeCodeBlockWrapper() {
               "button",
               {
                 type: "button",
-                className: [
-                  "code-block-copy",
-                  "absolute",
-                  "bottom-3",
-                  "right-3",
-                  "p-2",
-                  "rounded-md",
-                  "bg-neutral-800",
-                  "text-neutral-400",
-                  "hover:bg-neutral-700",
-                  "hover:text-neutral-200",
-                  "transition-colors",
-                  "border",
-                  "border-neutral-700",
-                ],
+                className: codeBlockCopyClass.split(/\s+/).filter(Boolean),
                 "aria-label": "Copy code",
                 "data-copy-button": "true",
               },

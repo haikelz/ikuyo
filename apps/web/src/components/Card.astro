@@ -20,13 +20,13 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
   type === "notes" ? (
     <div
       class:list={[
-        "group flex w-full flex-col relative p-4 card",
-        "flex-wrap rounded-xl overflow-hidden",
-        "bg-linear-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80",
-        "border border-neutral-800/50",
-        "backdrop-blur-sm",
+        "group/card card flex w-full flex-col relative p-4",
+        "flex-wrap overflow-hidden rounded-2xl",
+        "bg-linear-to-br from-card/90 via-card/70 to-card/90",
+        "border border-border/50",
+        "text-card-foreground ring-1 ring-border/10 backdrop-blur-sm",
         "transition-all duration-300 ease-out",
-        "hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50",
+        "hover:border-border hover:shadow-lg hover:shadow-neutral-900/50",
         "hover:-translate-y-1",
       ]}
     >
@@ -56,13 +56,13 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
   ) : type === "works" ? (
     <div
       class:list={[
-        "group flex w-full flex-col relative card",
-        "flex-wrap rounded-xl overflow-hidden",
-        "bg-linear-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80",
-        "border border-neutral-800/50",
-        "backdrop-blur-sm",
+        "group/card card flex w-full flex-col relative",
+        "flex-wrap overflow-hidden rounded-2xl",
+        "bg-linear-to-br from-card/90 via-card/70 to-card/90",
+        "border border-border/50",
+        "text-card-foreground ring-1 ring-border/10 backdrop-blur-sm",
         "transition-all duration-300 ease-out",
-        "hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50",
+        "hover:border-border hover:shadow-lg hover:shadow-neutral-900/50",
         "hover:-translate-y-1",
       ]}
     >

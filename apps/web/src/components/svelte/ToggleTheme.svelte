@@ -1,12 +1,11 @@
 <script>
+  import { Button } from "@/components/svelte/ui/button";
   import { Moon, Sun } from "lucide-svelte";
   import { onMount } from "svelte";
-  import { twMerge } from "tailwind-merge";
 
   let theme = "system";
   let isDark = false;
 
-  // Function to update theme based on selection
   function setTheme(newTheme) {
     theme = newTheme;
 
@@ -22,29 +21,23 @@
       isDark = false;
     }
 
-    // Save theme preference to localStorage
     localStorage.setItem("theme", theme);
   }
 
-  // Function to toggle between light and dark
   function toggleTheme() {
     const newTheme = isDark ? "light" : "dark";
     setTheme(newTheme);
   }
 
-  // Initialize theme on component mount
   onMount(() => {
-    // Check if user has a saved preference
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme) {
       theme = savedTheme;
     }
 
-    // Set initial theme
     setTheme(theme);
 
-    // Add event listener for system theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const handleChange = () => {
@@ -62,15 +55,17 @@
 </script>
 
 <div class="flex items-center space-x-2">
-  <button
-    on:click={toggleTheme}
-    class="p-1.5 rounded-full bg-neutral-200 bg-neutral-900"
+  <Button
+    onclick={toggleTheme}
+    variant="secondary"
+    size="icon-sm"
+    class="rounded-full"
     aria-label="Toggle theme"
   >
     {#if isDark}
-      <Sun class={twMerge("font-bold text-neutral-50")} size={21} />
+      <Sun class="font-bold text-neutral-50" size={21} />
     {:else}
-      <Moon class={twMerge("font-bold text-neutral-50")} size={21} />
+      <Moon class="font-bold text-neutral-50" size={21} />
     {/if}
-  </button>
+  </Button>
 </div>

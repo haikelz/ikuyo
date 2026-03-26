@@ -1,13 +1,15 @@
 <script>
-  import { Chart, registerables } from "chart.js";
+  import {
+    Card,
+    CardContent,
+    CardHeader,
+  } from "@/components/svelte/ui/card";
   import { Calendar, Clock } from "lucide-svelte";
   import { onMount } from "svelte";
 
   let { data } = $props();
 
-  Chart.register(...registerables);
-
-  let languageChartCanvas;
+  let languageChartCanvas = $state(undefined);
   let languageChart;
 
   const colors = [
@@ -44,10 +46,13 @@
     ),
   );
 
-  function createCharts() {
-    if (!data) return;
+  onMount(() => {
+    let cancelled = false;
 
-    if (languageChartCanvas) {
+    async function init() {
+      const { Chart, registerables } = await import("chart.js");
+      if (cancelled || !languageChartCanvas || !data) return;
+      Chart.register(...registerables);
       languageChart = new Chart(languageChartCanvas, {
         type: "bar",
         data: {
@@ -70,78 +75,82 @@
         },
       });
     }
-  }
 
-  onMount(() => {
-    createCharts();
+    init();
+
+    return () => {
+      cancelled = true;
+      languageChart?.destroy();
+      languageChart = undefined;
+    };
   });
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-  <div
-    class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800"
-  >
-    <div class="flex items-center">
-      <Clock class="w-8 h-8 mr-3" />
-      <div>
-        <p>Total Coding Time</p>
-        <p class="text-2xl font-bold">
-          {data.human_readable_total}
-        </p>
+  <Card class="border-dashed border-neutral-800 bg-neutral-900/70">
+    <CardHeader class="p-4">
+      <div class="flex items-center">
+        <Clock class="w-8 h-8 mr-3" />
+        <div>
+          <p>Total Coding Time</p>
+          <p class="text-2xl font-bold">
+            {data.human_readable_total}
+          </p>
+        </div>
       </div>
-    </div>
-  </div>
+    </CardHeader>
+  </Card>
 
-  <div
-    class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800"
-  >
-    <div class="flex items-center">
-      <Calendar class="w-8 h-8  mr-3" />
-      <div>
-        <p>Daily Average</p>
-        <p class="text-2xl font-bold">
-          {formatDuration(data.daily_average)}
-        </p>
+  <Card class="border-dashed border-neutral-800 bg-neutral-900/70">
+    <CardHeader class="p-4">
+      <div class="flex items-center">
+        <Calendar class="w-8 h-8 mr-3" />
+        <div>
+          <p>Daily Average</p>
+          <p class="text-2xl font-bold">
+            {formatDuration(data.daily_average)}
+          </p>
+        </div>
       </div>
-    </div>
-  </div>
+    </CardHeader>
+  </Card>
 </div>
-<div
-  class="w-full max-w-full bg-neutral-900/70 p-4 flex-wrap border-[0.5px] rounded-md overflow-hidden border-dashed border-neutral-800 card"
->
-  <div class="w-full">
-    <div class="h-48 flex justify-center">
-      <canvas bind:this={languageChartCanvas} class="max-h-full"></canvas>
-    </div>
-    <div class="space-y-5 mb-4">
-      {#each wakatimeStats as lang, index}
-        <div class="flex items-start justify flex-col w-full">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex items-center">
-              <div
-                class="w-4 h-4 rounded-sm mr-2"
-                style="background-color: {colors[index % colors.length]}"
-              ></div>
-              <span>{lang.name}</span>
-            </div>
-            <div class="text-right">
-              <div class="text-base font-semibold">
-                {formatDuration(lang.total_seconds)} ({lang.percent ?? 0}%)
+<Card class="border-dashed border-neutral-800 bg-neutral-900/70 card">
+  <CardContent class="p-4">
+    <div class="w-full">
+      <div class="h-48 flex justify-center">
+        <canvas bind:this={languageChartCanvas} class="max-h-full"></canvas>
+      </div>
+      <div class="space-y-5 mb-4">
+        {#each wakatimeStats as lang, index}
+          <div class="flex items-start justify flex-col w-full">
+            <div class="flex items-center justify-between w-full">
+              <div class="flex items-center">
+                <div
+                  class="w-4 h-4 rounded-sm mr-2"
+                  style="background-color: {colors[index % colors.length]}"
+                ></div>
+                <span>{lang.name}</span>
+              </div>
+              <div class="text-right">
+                <div class="text-base font-semibold">
+                  {formatDuration(lang.total_seconds)} ({lang.percent ?? 0}%)
+                </div>
               </div>
             </div>
-          </div>
-          <div class="relative w-full mt-2">
-            <div class="relative w-full bg-neutral-800 rounded-full h-2"></div>
+            <div class="relative w-full mt-2">
+              <div class="relative w-full bg-neutral-800 rounded-full h-2"></div>
 
-            <div
-              style="width: {lang.percent ?? 0}%; background-color: {colors[
-                index % colors.length
-              ]}"
-              class="h-2 rounded-full absolute inset-0"
-            ></div>
+              <div
+                style="width: {lang.percent ?? 0}%; background-color: {colors[
+                  index % colors.length
+                ]}"
+                class="h-2 rounded-full absolute inset-0"
+              ></div>
+            </div>
           </div>
-        </div>
-      {/each}
+        {/each}
+      </div>
     </div>
-  </div>
-</div>
+  </CardContent>
+</Card>

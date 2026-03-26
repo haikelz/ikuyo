@@ -21,6 +21,9 @@ export default defineConfig({
     resolve: {
       conditions: ["browser"],
     },
+    optimizeDeps: {
+      include: ["chart.js"],
+    },
   },
   integrations: [
     mdx({
