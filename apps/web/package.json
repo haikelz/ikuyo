@@ -25,7 +25,6 @@
     "@dotenvx/dotenvx": "^1.54.1",
     "@fontsource/geist-mono": "^5.2.7",
     "@fontsource/geist-sans": "^5.2.5",
-    "@fontsource/ibm-plex-serif": "^5.2.7",
     "@fontsource/noto-naskh-arabic": "^5.2.11",
     "@playform/compress": "^0.2.1",
     "@sentry/astro": "^10.45.0",

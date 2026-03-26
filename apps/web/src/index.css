@@ -59,17 +59,12 @@ body {
   z-index: 0;
   pointer-events: none;
   background-color: transparent;
-  background-image:
-    linear-gradient(
+  background-image: linear-gradient(
       to right,
       rgb(255 255 255 / 0.065) 1px,
       transparent 1px
     ),
-    linear-gradient(
-      to bottom,
-      rgb(255 255 255 / 0.065) 1px,
-      transparent 1px
-    );
+    linear-gradient(to bottom, rgb(255 255 255 / 0.065) 1px, transparent 1px);
   background-size: 56px 56px;
   background-position: -1px -1px;
   -webkit-mask-image: radial-gradient(
@@ -124,16 +119,6 @@ body:has(.lightbox-active) {
 
 nav {
   @apply border-neutral-800 md:border-r-neutral-800;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-extrabold w-fit text-start;
-  font-family: "IBM Plex Serif";
 }
 
 .arabic-font {
