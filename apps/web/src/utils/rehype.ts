@@ -1,10 +1,10 @@
-import { cn } from "../lib/utils.ts";
 import { h } from "hastscript";
 import { visit } from "unist-util-visit";
+import { cn } from "../../../../packages/ui/src/lib/utils.ts";
 
 const codeBlockCopyClass = cn(
   "inline-flex size-8 shrink-0 items-center justify-center rounded-4xl border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
-  "code-block-copy absolute bottom-3 right-3",
+  "code-block-copy absolute bottom-3 right-3"
 );
 
 /**

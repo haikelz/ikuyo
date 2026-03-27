@@ -1,5 +1,5 @@
 <script>
-  import { Button } from "@/components/svelte/ui/button";
+  import { Button } from "@ikuyo/ui";
   import { Moon, Sun } from "lucide-svelte";
   import { onMount } from "svelte";
 

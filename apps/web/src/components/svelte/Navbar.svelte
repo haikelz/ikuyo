@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { Button } from "@/components/svelte/ui/button";
+  import { Button, cn } from "@ikuyo/ui";
   import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
-  } from "@/components/svelte/ui/sheet";
-  import { cn } from "@/lib/utils";
+  } from "@ikuyo/ui";
   import {
     AlbumIcon,
     HashIcon,

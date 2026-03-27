@@ -1,12 +1,12 @@
 <script lang="ts">
   import { buildHierarchy } from "@/helpers/hierarchy";
-  import { Button } from "@/components/svelte/ui/button";
+  import { Button } from "@ikuyo/ui";
   import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
-  } from "@/components/svelte/ui/sheet";
+  } from "@ikuyo/ui";
   import { Menu, X } from "lucide-svelte";
   import TOCHeading from "./TOCHeading.svelte";
 

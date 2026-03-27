@@ -3,7 +3,7 @@
     Tooltip as TooltipRoot,
     TooltipContent,
     TooltipTrigger,
-  } from "@/components/svelte/ui/tooltip";
+  } from "@ikuyo/ui";
 
   let { children, content } = $props();
 </script>

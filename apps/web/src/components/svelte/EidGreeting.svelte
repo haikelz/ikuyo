@@ -2,7 +2,7 @@
   import {
     ToggleGroup,
     ToggleGroupItem,
-  } from "@/components/svelte/ui/toggle-group";
+  } from "@ikuyo/ui";
 
   type Lang = "id" | "en";
 

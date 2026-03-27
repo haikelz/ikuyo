@@ -14,11 +14,14 @@
     "build:web": "moon run web:build",
     "build:web:prod": "moon run web:build",
     "dev:web": "moon run web:dev",
+    "lint:biome": "bun run --cwd apps/web lint:biome && bun run --cwd packages/ui lint:biome",
+    "format:biome": "bun run --cwd apps/web format:biome && bun run --cwd packages/ui format:biome",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
     "test:web": "moon run web:test"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
     "@moonrepo/cli": "^2.1.1",
     "tslib": "^2.8.1",
     "typescript": "~6.0.2"

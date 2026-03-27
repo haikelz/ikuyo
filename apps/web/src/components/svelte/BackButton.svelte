@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button } from "@/components/svelte/ui/button";
+  import { Button } from "@ikuyo/ui";
   import { ArrowLeftIcon } from "lucide-svelte";
 
   let { label } = $props<{ label: string }>();

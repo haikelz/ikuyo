@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Progress } from "@/components/svelte/ui/progress";
+  import { Progress } from "@ikuyo/ui";
   import { onMount } from "svelte";
 
   let width = $state(0);

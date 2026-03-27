@@ -6,11 +6,10 @@
     "noUnusedLocals": false,
     "paths": {
       "@/*": ["./src/*"],
-      "@ikuyo/ui": ["../../packages/ui/index.ts"],
-      "@ikuyo/ui/*": ["../../packages/ui/src/components/ui/*"]
+      "@ikuyo/ui": ["./index.ts"],
+      "@ikuyo/ui/*": ["./src/components/ui/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
-  },
-  "exclude": ["dist"]
+  }
 }

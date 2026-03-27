@@ -3,7 +3,7 @@
     Card,
     CardContent,
     CardHeader,
-  } from "@/components/svelte/ui/card";
+  } from "@ikuyo/ui";
   import { Calendar, Clock } from "lucide-svelte";
   import { onMount } from "svelte";
 
