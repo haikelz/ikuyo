@@ -33,9 +33,9 @@ const tagsPages = Object.fromEntries(
 const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };
 
 const fontRegular =
-  "../../node_modules/@fontsource/figtree/files/figtree-latin-400-normal.woff";
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
 const fontBold =
-  "../../node_modules/@fontsource/figtree/files/figtree-latin-700-normal.woff";
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: "route",
@@ -57,13 +57,13 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         size: 60,
         weight: "Bold",
         lineHeight: 1.1,
-        families: ["Figtree"],
+        families: ["Geist Sans"],
       },
       description: {
         color: [160, 160, 160],
         size: 32,
         weight: "Normal",
-        families: ["Figtree"],
+        families: ["Geist Sans"],
       },
     },
     fonts: [fontRegular, fontBold],
