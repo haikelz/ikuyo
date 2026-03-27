@@ -17,8 +17,8 @@
     "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {
-    "@ikuyo/biome": "workspace:*",
-    "@ikuyo/typescript": "workspace:*",
+    "@ikuyo/biome": "*",
+    "@ikuyo/typescript": "*",
     "@internationalized/date": "^3.12.0",
     "@tailwindcss/postcss": "^4.2.2",
     "tailwindcss": "^4.2.2",
