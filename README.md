@@ -21,6 +21,7 @@ Personal monorepo for [ekel.dev](https://ekel.dev) — a static personal site bu
 │           └── utils/       # Utilities, env, ImageKit, rehype/remark plugins
 ├── packages
 │   ├── biome                # Shared Biome (linter/formatter) config
+│   ├── ui                   # Shared Svelte UI components package (@ikuyo/ui)
 │   └── typescript           # Shared TypeScript config
 ├── references/              # Optional writing/reference snippets (not part of the app build)
 └── SKILL.md                 # Cursor skill / project notes (local workflow)
@@ -37,7 +38,7 @@ Personal monorepo for [ekel.dev](https://ekel.dev) — a static personal site bu
 | Build / monorepo | [Bun](https://bun.sh), [Moonrepo](https://moonrepo.dev) (Astro task preset from [moon-configs](https://github.com/moonrepo/moon-configs)) |
 | OG images | [astro-og-canvas](https://github.com/delucis/astro-og-canvas) + CanvasKit |
 | Compression | `astro-compressor` (gzip/brotli), `@playform/compress` |
-| Observability | [Sentry](https://sentry.io) (`@sentry/astro`, `@sentry/cloudflare`) |
+| Observability | [Sentry](https://sentry.io) (`@sentry/astro`) |
 | Media | [ImageKit](https://imagekit.io) (API + CDN for `/photos`) |
 | Data | [Turso](https://turso.tech) (libSQL) for guestbook |
 | HTTP client | [ky](https://github.com/sindresorhus/ky) |
@@ -49,7 +50,7 @@ Personal monorepo for [ekel.dev](https://ekel.dev) — a static personal site bu
 ## Prerequisites
 
 - [Bun](https://bun.sh) >= 1.0
-- [Moon](https://moonrepo.dev/moon) — e.g. `bun install -g @moonrepo/cli`
+- [Moon](https://moonrepo.dev/moon) (already included in dev dependencies; optional global install)
 
 ## Getting Started
 
@@ -68,6 +69,8 @@ bun build:web    # runs Moon task chain for @ikuyo/web
 | `bun dev:web` | `moon run web:dev` |
 | `bun build:web` / `bun build:web:prod` | `moon run web:build` |
 | `bun test:web` | `moon run web:test` (Cypress) |
+| `bun lint:biome` | Biome check for `apps/web` and `packages/ui` |
+| `bun format:biome` | Biome format (write) for `apps/web` and `packages/ui` |
 | `bun lhci:mobile` | Lighthouse CI (mobile preset) |
 | `bun lhci:desktop` | Lighthouse CI (desktop preset) |
 
@@ -84,6 +87,13 @@ Moon delegates `dev`, `build`, `check`, and `test` to this package using the sha
 | `bun run format:biome` | Biome format (write) |
 | `bun run test` | Cypress run |
 | `bun run lhci:mobile` / `lhci:desktop` | Lighthouse from app context |
+
+### `packages/ui`
+
+| Script | Description |
+| ------ | ----------- |
+| `bun run lint:biome` | Biome check for UI package |
+| `bun run format:biome` | Biome format (write) for UI package |
 
 ## Pages & Endpoints
 
@@ -148,6 +158,10 @@ Base TS config: `packages/typescript/base.json`, extended by `apps/web/tsconfig.
 ### `@ikuyo/biome`
 
 Shared [Biome](https://biomejs.dev) preset (`packages/biome/astro.json`), extended by `apps/web/biome.json`.
+
+### `@ikuyo/ui`
+
+Shared Svelte UI components used by the web app. Component generator configuration is located at `packages/ui/components.json`.
 
 ## License
 
