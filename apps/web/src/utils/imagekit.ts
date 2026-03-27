@@ -24,15 +24,12 @@ export async function getAllPhotos(): Promise<ImageKitFile[]> {
 
     const base64Key = btoa(`${IMAGEKIT_PRIVATE_KEY}:`);
 
-    const response = await fetch(
-      `${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`,
-      {
-        headers: {
-          Authorization: `Basic ${base64Key}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`, {
+      headers: {
+        Authorization: `Basic ${base64Key}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     return response.json();
   } catch (error) {

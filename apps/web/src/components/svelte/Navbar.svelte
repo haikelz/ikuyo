@@ -1,96 +1,91 @@
 <script lang="ts">
-  import { Button, cn } from "@ikuyo/ui";
-  import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-  } from "@ikuyo/ui";
-  import {
-    AlbumIcon,
-    HashIcon,
-    ImagesIcon,
-    ListIcon,
-    MenuIcon,
-    NotepadTextIcon,
-    XIcon,
-  } from "lucide-svelte";
-  import { onMount } from "svelte";
-  import Tooltip from "./Tooltip.svelte";
+import { Button, cn } from "@ikuyo/ui";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
+import {
+  AlbumIcon,
+  HashIcon,
+  ImagesIcon,
+  ListIcon,
+  MenuIcon,
+  NotepadTextIcon,
+  XIcon,
+} from "lucide-svelte";
+import { onMount } from "svelte";
+import Tooltip from "./Tooltip.svelte";
 
-  let { currentPath } = $props();
+let { currentPath } = $props();
 
-  const navList = [
-    {
-      id: 1,
-      icon: ListIcon,
-      path: "/works",
-      label: "Works",
-    },
-    {
-      id: 2,
-      icon: NotepadTextIcon,
-      path: "/notes",
-      label: "Notes",
-    },
-    {
-      id: 3,
-      icon: HashIcon,
-      path: "/tags",
-      label: "Tags",
-    },
-    {
-      id: 4,
-      icon: ImagesIcon,
-      path: "/photos",
-      label: "Photos",
-    },
-    {
-      id: 5,
-      icon: AlbumIcon,
-      path: "/guestbook",
-      label: "Guestbook",
-    },
-  ];
+const navList = [
+  {
+    id: 1,
+    icon: ListIcon,
+    path: "/works",
+    label: "Works",
+  },
+  {
+    id: 2,
+    icon: NotepadTextIcon,
+    path: "/notes",
+    label: "Notes",
+  },
+  {
+    id: 3,
+    icon: HashIcon,
+    path: "/tags",
+    label: "Tags",
+  },
+  {
+    id: 4,
+    icon: ImagesIcon,
+    path: "/photos",
+    label: "Photos",
+  },
+  {
+    id: 5,
+    icon: AlbumIcon,
+    path: "/guestbook",
+    label: "Guestbook",
+  },
+];
 
-  let isOpen = $state(false);
-  let isVisible = $state(true);
-  let lastScrollY = $state(0);
-  let ticking = $state(false);
+let isOpen = $state(false);
+let isVisible = $state(true);
+let lastScrollY = $state(0);
+let ticking = $state(false);
 
-  function toggleNavbar() {
-    isOpen = !isOpen;
+function toggleNavbar() {
+  isOpen = !isOpen;
+}
+
+function handleScroll() {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 10) {
+        isVisible = true;
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        isVisible = false;
+        isOpen = false;
+      } else if (currentScrollY < lastScrollY) {
+        isVisible = true;
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    });
+
+    ticking = true;
   }
+}
 
-  function handleScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
+onMount(() => {
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
-        if (currentScrollY < 10) {
-          isVisible = true;
-        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          isVisible = false;
-          isOpen = false;
-        } else if (currentScrollY < lastScrollY) {
-          isVisible = true;
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
-
-      ticking = true;
-    }
-  }
-
-  onMount(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+});
 </script>
 
 <nav

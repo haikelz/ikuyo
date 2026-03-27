@@ -1,13 +1,19 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/node_modules/**",
+      "!**/dist/**",
+      "!**/.astro/**",
+      "!**/coverage/**"
+    ]
+  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": false
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!**/node_modules/**", "!**/dist/**"]
   },
   "formatter": {
     "enabled": true,
@@ -16,12 +22,36 @@
     "lineWidth": 100
   },
   "linter": {
-    "enabled": true
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "useGenericFontNames": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off",
+        "useArrowFunction": "off"
+      },
+      "correctness": {
+        "noUnusedImports": "off",
+        "noUnusedVariables": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noImportantInKeyframe": "off",
+        "noShadowRestrictedNames": "off"
+      }
+    }
+  },
+  "assist": {
+    "enabled": false
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "double",
-      "semicolons": "asNeeded",
+      "semicolons": "always",
       "trailingCommas": "all"
     }
   },

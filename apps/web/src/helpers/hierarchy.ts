@@ -8,7 +8,7 @@ import type { HeadingNodeTocProps, HeadingTocProps } from "@/types";
  */
 export function buildHierarchy(
   headings: HeadingTocProps[],
-  rootDepth: number = 2
+  rootDepth: number = 2,
 ): HeadingNodeTocProps[] {
   if (!headings?.length) {
     return [];

@@ -1,33 +1,30 @@
 <script lang="ts">
-  import {
-    ToggleGroup,
-    ToggleGroupItem,
-  } from "@ikuyo/ui";
+import { ToggleGroup, ToggleGroupItem } from "@ikuyo/ui";
 
-  type Lang = "id" | "en";
+type Lang = "id" | "en";
 
-  let lang = $state<Lang>("id");
+let lang = $state<Lang>("id");
 
-  const content = {
-    id: {
-      subtitle: "Selamat Hari Raya",
-      title: "Idul Fitri 1446 H",
-      body1:
-        "Minal aidin wal faizin. Mohon maaf lahir dan batin atas segala khilaf dan salah, baik yang disengaja maupun tidak, baik dalam perkataan maupun perbuatan.",
-      body2:
-        "Semoga amal ibadah kita di bulan Ramadan diterima oleh Allah SWT, dan kita semua senantiasa diberikan kesehatan, keberkahan, serta kemudahan dalam setiap langkah. Selamat merayakan kemenangan bersama keluarga dan orang-orang tercinta.",
-    },
-    en: {
-      subtitle: "Happy",
-      title: "Eid Al-Fitr 1446 H",
-      body1:
-        "May we be among those who return to purity and attain victory. I sincerely ask for your forgiveness for any words or actions — whether intentional or not — that may have caused hurt or offense.",
-      body2:
-        "May Allah SWT accept our deeds and worship throughout Ramadan, and may He bless us all with health, ease, and abundance in every step of our journey. Wishing you a joyful celebration with your loved ones.",
-    },
-  };
+const content = {
+  id: {
+    subtitle: "Selamat Hari Raya",
+    title: "Idul Fitri 1446 H",
+    body1:
+      "Minal aidin wal faizin. Mohon maaf lahir dan batin atas segala khilaf dan salah, baik yang disengaja maupun tidak, baik dalam perkataan maupun perbuatan.",
+    body2:
+      "Semoga amal ibadah kita di bulan Ramadan diterima oleh Allah SWT, dan kita semua senantiasa diberikan kesehatan, keberkahan, serta kemudahan dalam setiap langkah. Selamat merayakan kemenangan bersama keluarga dan orang-orang tercinta.",
+  },
+  en: {
+    subtitle: "Happy",
+    title: "Eid Al-Fitr 1446 H",
+    body1:
+      "May we be among those who return to purity and attain victory. I sincerely ask for your forgiveness for any words or actions — whether intentional or not — that may have caused hurt or offense.",
+    body2:
+      "May Allah SWT accept our deeds and worship throughout Ramadan, and may He bless us all with health, ease, and abundance in every step of our journey. Wishing you a joyful celebration with your loved ones.",
+  },
+};
 
-  const c = $derived(content[lang]);
+const c = $derived(content[lang]);
 </script>
 
 <div class="flex w-full flex-col items-start justify-start">

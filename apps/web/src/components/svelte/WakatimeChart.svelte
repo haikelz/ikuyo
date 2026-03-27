@@ -1,89 +1,85 @@
 <script>
-  import {
-    Card,
-    CardContent,
-    CardHeader,
-  } from "@ikuyo/ui";
-  import { Calendar, Clock } from "lucide-svelte";
-  import { onMount } from "svelte";
+import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+import { Calendar, Clock } from "lucide-svelte";
+import { onMount } from "svelte";
 
-  let { data } = $props();
+let { data } = $props();
 
-  let languageChartCanvas = $state(undefined);
-  let languageChart;
+let languageChartCanvas = $state(undefined);
+let languageChart;
 
-  const colors = [
-    "#3b82f6",
-    "#ef4444",
-    "#10b981",
-    "#f59e0b",
-    "#8b5cf6",
-    "#ec4899",
-    "#14b8a6",
-    "#f97316",
-    "#84cc16",
-    "#6366f1",
-  ];
+const colors = [
+  "#3b82f6",
+  "#ef4444",
+  "#10b981",
+  "#f59e0b",
+  "#8b5cf6",
+  "#ec4899",
+  "#14b8a6",
+  "#f97316",
+  "#84cc16",
+  "#6366f1",
+];
 
-  function formatDuration(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    return `${minutes}m`;
+function formatDuration(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
   }
+  return `${minutes}m`;
+}
 
-  const wakatimeStats = $derived(
-    data.languages.filter(
-      (stat) =>
-        stat.name === "TypeScript" ||
-        stat.name === "JavaScript" ||
-        stat.name === "Go" ||
-        stat.name === "Svelte" ||
-        stat.name === "Astro" ||
-        stat.name === "Docker",
-    ),
-  );
+const wakatimeStats = $derived(
+  data.languages.filter(
+    (stat) =>
+      stat.name === "TypeScript" ||
+      stat.name === "JavaScript" ||
+      stat.name === "Go" ||
+      stat.name === "Svelte" ||
+      stat.name === "Astro" ||
+      stat.name === "Docker",
+  ),
+);
 
-  onMount(() => {
-    let cancelled = false;
+onMount(() => {
+  let cancelled = false;
 
-    async function init() {
-      const { Chart, registerables } = await import("chart.js");
-      if (cancelled || !languageChartCanvas || !data) return;
-      Chart.register(...registerables);
-      languageChart = new Chart(languageChartCanvas, {
-        type: "bar",
-        data: {
-          labels: wakatimeStats.map((lang) => lang.name),
-          datasets: [
-            {
-              data: wakatimeStats.map((lang) => lang.percent),
-              backgroundColor: colors.slice(0, wakatimeStats.length),
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
+  async function init() {
+    const { Chart, registerables } = await import("chart.js");
+    if (cancelled || !languageChartCanvas || !data) return;
+    Chart.register(...registerables);
+    languageChart = new Chart(languageChartCanvas, {
+      type: "bar",
+      data: {
+        labels: wakatimeStats.map((lang) => lang.name),
+        datasets: [
+          {
+            data: wakatimeStats.map((lang) => lang.percent),
+            backgroundColor: colors.slice(0, wakatimeStats.length),
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
           },
         },
-      });
-    }
+      },
+    });
+  }
 
-    init();
+  init();
 
-    return () => {
-      cancelled = true;
-      languageChart?.destroy();
-      languageChart = undefined;
-    };
-  });
+  return () => {
+    cancelled = true;
+    languageChart?.destroy();
+    languageChart = undefined;
+  };
+});
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

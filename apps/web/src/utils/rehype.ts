@@ -4,7 +4,7 @@ import { cn } from "../../../../packages/ui/src/lib/utils.ts";
 
 const codeBlockCopyClass = cn(
   "inline-flex size-8 shrink-0 items-center justify-center rounded-4xl border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
-  "code-block-copy absolute bottom-3 right-3"
+  "code-block-copy absolute bottom-3 right-3",
 );
 
 /**
@@ -27,12 +27,10 @@ function getLanguageFromClass(classNames: string[] | string): string | null {
   const classes = Array.isArray(classNames)
     ? classNames
     : typeof classNames === "string"
-    ? classNames.split(/\s+/)
-    : [];
+      ? classNames.split(/\s+/)
+      : [];
   const langClass = classes.find(
-    (c) =>
-      typeof c === "string" &&
-      (c.startsWith("language-") || c.includes("language-"))
+    (c) => typeof c === "string" && (c.startsWith("language-") || c.includes("language-")),
   );
   if (langClass) {
     const match = langClass.match(/language-([a-z0-9+-]+)/i);
@@ -68,7 +66,7 @@ export function rehypeCodeBlockWrapper() {
       if (node.tagName !== "pre") return;
 
       const codeNode = node.children?.find(
-        (child: any) => child.type === "element" && child.tagName === "code"
+        (child: any) => child.type === "element" && child.tagName === "code",
       );
       if (!codeNode) return;
 
@@ -76,8 +74,7 @@ export function rehypeCodeBlockWrapper() {
       const preProps = node.properties || {};
       const codeClassNames = codeProps.className ?? [];
       const preClassNames = preProps.className ?? [];
-      const meta =
-        codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
+      const meta = codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
       const dataFilename =
         preProps["data-filename"] ??
         preProps.dataFilename ??
@@ -129,7 +126,7 @@ export function rehypeCodeBlockWrapper() {
                       "rounded-t-lg",
                     ],
                   },
-                  label
+                  label,
                 ),
               ]
             : []),
@@ -169,12 +166,12 @@ export function rehypeCodeBlockWrapper() {
                     h("path", {
                       d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1",
                     }),
-                  ]
+                  ],
                 ),
-              ]
+              ],
             ),
           ]),
-        ].filter(Boolean)
+        ].filter(Boolean),
       );
 
       parent.children[index!] = wrapper;

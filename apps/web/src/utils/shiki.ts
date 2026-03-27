@@ -8,8 +8,7 @@ export function transformerMetaFilename() {
   return {
     name: "transformer-meta-filename",
     pre(node: any) {
-      const raw =
-        (this as any).options?.meta?.__raw ?? (this as any).options?.meta;
+      const raw = (this as any).options?.meta?.__raw ?? (this as any).options?.meta;
       const metaStr = typeof raw === "string" ? raw : null;
       const filename = parseFilenameFromMeta(metaStr);
       if (filename && node.properties) {

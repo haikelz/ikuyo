@@ -17,13 +17,7 @@ type Props = {
   className?: string;
 };
 
-const {
-  title,
-  description,
-  url,
-  ogImage,
-  className = "max-w-6xl!",
-} = Astro.props;
+const { title, description, url, ogImage, className = "max-w-6xl!" } = Astro.props;
 const currentPath = Astro.url.pathname;
 const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
 ---

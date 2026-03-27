@@ -1,23 +1,18 @@
 <script lang="ts">
-  import { buildHierarchy } from "@/helpers/hierarchy";
-  import { Button } from "@ikuyo/ui";
-  import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-  } from "@ikuyo/ui";
-  import { Menu, X } from "lucide-svelte";
-  import TOCHeading from "./TOCHeading.svelte";
+import { buildHierarchy } from "@/helpers/hierarchy";
+import { Button } from "@ikuyo/ui";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
+import { Menu, X } from "lucide-svelte";
+import TOCHeading from "./TOCHeading.svelte";
 
-  let { headings } = $props();
-  let isOpen = $state(false);
+let { headings } = $props();
+let isOpen = $state(false);
 
-  const toc = $derived(buildHierarchy(headings));
+const toc = $derived(buildHierarchy(headings));
 
-  function toggleTOC() {
-    isOpen = !isOpen;
-  }
+function toggleTOC() {
+  isOpen = !isOpen;
+}
 </script>
 
 <Sheet bind:open={isOpen}>

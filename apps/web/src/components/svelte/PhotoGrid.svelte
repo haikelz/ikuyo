@@ -1,59 +1,55 @@
 <script lang="ts">
-  import { XIcon } from "lucide-svelte";
-  import { onMount, tick } from "svelte";
-  import { fade, scale } from "svelte/transition";
+import { XIcon } from "lucide-svelte";
+import { onMount, tick } from "svelte";
+import { fade, scale } from "svelte/transition";
 
-  let { images = [], masonry = false } = $props<{
-    images: string[];
-    masonry?: boolean;
-  }>();
+let { images = [], masonry = false } = $props<{
+  images: string[];
+  masonry?: boolean;
+}>();
 
-  let selectedImage = $state<string | null>(null);
-  let loaded = $state<Record<number, boolean>>({});
+let selectedImage = $state<string | null>(null);
+let loaded = $state<Record<number, boolean>>({});
 
-  function optimizeUrl(url: string, width: number, quality = 85) {
-    if (url.includes("imagekit.io")) {
-      const baseUrl = url.split("?")[0];
-      return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
-    }
-    return url;
+function optimizeUrl(url: string, width: number, quality = 85) {
+  if (url.includes("imagekit.io")) {
+    const baseUrl = url.split("?")[0];
+    return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
   }
+  return url;
+}
 
-  function getPlaceholderUrl(url: string, size = 40) {
-    return optimizeUrl(url, size, 20);
-  }
+function getPlaceholderUrl(url: string, size = 40) {
+  return optimizeUrl(url, size, 20);
+}
 
-  async function openLightbox(photo: string) {
-    selectedImage = photo;
-    await tick();
-  }
+async function openLightbox(photo: string) {
+  selectedImage = photo;
+  await tick();
+}
 
-  function closeLightbox() {
-    selectedImage = null;
-  }
+function closeLightbox() {
+  selectedImage = null;
+}
 
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") closeLightbox();
-  }
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") closeLightbox();
+}
 
-  // Teleport action
-  function teleport(node: HTMLElement) {
-    document.body.appendChild(node);
-    return {
-      destroy() {
-        if (node.parentNode) node.parentNode.removeChild(node);
-      },
-    };
-  }
+// Teleport action
+function teleport(node: HTMLElement) {
+  document.body.appendChild(node);
+  return {
+    destroy() {
+      if (node.parentNode) node.parentNode.removeChild(node);
+    },
+  };
+}
 
-  onMount(() => {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-width",
-      `${scrollbarWidth}px`
-    );
-  });
+onMount(() => {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+});
 </script>
 
 <svelte:window onkeydown={handleKeydown} />

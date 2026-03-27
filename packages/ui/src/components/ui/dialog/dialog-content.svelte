@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { Button, cn, type WithoutChildrenOrChild } from "@ikuyo/ui";
-  import { Cancel01Icon } from "@hugeicons/core-free-icons";
-  import { HugeiconsIcon } from "@hugeicons/svelte";
-  import { Dialog as DialogPrimitive } from "bits-ui";
-  import type { ComponentProps, Snippet } from "svelte";
-  import * as Dialog from ".";
-  import DialogPortal from "./dialog-portal.svelte";
+import { Button, cn, type WithoutChildrenOrChild } from "@ikuyo/ui";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/svelte";
+import { Dialog as DialogPrimitive } from "bits-ui";
+import type { ComponentProps, Snippet } from "svelte";
+import * as Dialog from ".";
+import DialogPortal from "./dialog-portal.svelte";
 
-  let {
-    ref = $bindable(null),
-    class: className,
-    portalProps,
-    children,
-    showCloseButton = true,
-    ...restProps
-  }: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
-    portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DialogPortal>>;
-    children: Snippet;
-    showCloseButton?: boolean;
-  } = $props();
+let {
+  ref = $bindable(null),
+  class: className,
+  portalProps,
+  children,
+  showCloseButton = true,
+  ...restProps
+}: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
+  portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DialogPortal>>;
+  children: Snippet;
+  showCloseButton?: boolean;
+} = $props();
 </script>
 
 <DialogPortal {...portalProps}>

@@ -13,7 +13,7 @@ export async function getStaticPaths() {
       notesEntries
         .map((item) => [...new Set(item.data.tags)].join(" "))
         .join(" ")
-        .split(" ")
+        .split(" "),
     ),
   ].sort((a, b) => {
     if (a > b) return 1;

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import TOCHeading from "./TOCHeading.svelte";
+import TOCHeading from "./TOCHeading.svelte";
 
-  const { heading } = $props();
+const { heading } = $props();
 </script>
 
 <li class="list-none!">

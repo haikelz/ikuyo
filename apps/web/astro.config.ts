@@ -30,9 +30,7 @@ export default defineConfig({
       syntaxHighlight: "shiki",
       shikiConfig: {
         theme: "github-dark-default",
-        transformers: [
-          (await import("./src/utils/shiki.ts")).transformerMetaFilename(),
-        ],
+        transformers: [(await import("./src/utils/shiki.ts")).transformerMetaFilename()],
       },
       remarkPlugins: [
         [remarkToc, { heading: "toc" }],

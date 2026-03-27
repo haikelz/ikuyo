@@ -19,23 +19,20 @@ const staticPages: Record<string, { title: string }> = {
 };
 
 const notesPages = Object.fromEntries(
-  notes.map(({ slug, data }) => [`notes/${slug}`, { title: data.title }])
+  notes.map(({ slug, data }) => [`notes/${slug}`, { title: data.title }]),
 );
 
 const worksPages = Object.fromEntries(
-  works.map(({ slug, data }) => [`works/${slug}`, { title: data.title }])
+  works.map(({ slug, data }) => [`works/${slug}`, { title: data.title }]),
 );
 
-const tagsPages = Object.fromEntries(
-  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }])
-);
+const tagsPages = Object.fromEntries(uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]));
 
 const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };
 
 const fontRegular =
   "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
-const fontBold =
-  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
+const fontBold = "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: "route",
