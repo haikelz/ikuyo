@@ -17,6 +17,7 @@ export type Side = "top" | "right" | "bottom" | "left";
     class: className,
     side = "right",
     showCloseButton = true,
+    overlayClass,
     portalProps,
     children,
     ...restProps
@@ -24,12 +25,13 @@ export type Side = "top" | "right" | "bottom" | "left";
     portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SheetPortal>>;
     side?: Side;
     showCloseButton?: boolean;
+    overlayClass?: string;
     children: Snippet;
   } = $props();
 </script>
 
 <SheetPortal {...portalProps}>
-  <SheetOverlay />
+  <SheetOverlay class={overlayClass} />
   <SheetPrimitive.Content
     bind:ref
     data-slot="sheet-content"
