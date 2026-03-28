@@ -30,9 +30,9 @@ function toggleTOC() {
     <Menu size={21} />
   </Button>
   <SheetContent
-    side="bottom"
+    side="right"
     overlayClass="bg-transparent backdrop-blur-none supports-backdrop-filter:backdrop-blur-none"
-    class="mx-auto mb-4 w-[calc(100%-1.5rem)] max-w-xl rounded-2xl border border-neutral-700/70 bg-background/35 p-4 shadow-2xl backdrop-blur-md"
+    class="h-[min(80svh,32rem)] w-full max-w-none rounded-none border-t border-neutral-700/70 bg-background/35 p-4 shadow-2xl backdrop-blur-md"
     showCloseButton={false}
   >
     <SheetHeader class="space-y-0">
@@ -51,7 +51,7 @@ function toggleTOC() {
         </Button>
       </div>
     </SheetHeader>
-    <ul class="mt-3 space-y-2">
+    <ul class="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
       {#each toc as heading}
         <TOCHeading {heading} />
       {/each}
