@@ -14,6 +14,10 @@
     DialogContent,
     DialogHeader,
     DialogTitle,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
     Separator,
     Toggle,
     ToggleGroup,
@@ -535,21 +539,24 @@ $effect(() => {
         </div>
       </div>
       <div class="mt-3">
-        <ToggleGroup
-          type="single"
-          bind:value={selectedMarketCode}
-          variant="outline"
-          class="w-full flex-wrap justify-start gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1 md:w-fit"
-        >
-          {#each markets as market}
-            <ToggleGroupItem
-              value={market.code}
-              class="h-8 rounded-md border border-transparent px-2.5 text-xs text-neutral-300 data-[state=on]:border-white/20 data-[state=on]:bg-white/10 data-[state=on]:text-white"
-            >
-              {market.label}
-            </ToggleGroupItem>
-          {/each}
-        </ToggleGroup>
+        <Select type="single" bind:value={selectedMarketCode}>
+          <SelectTrigger
+            class="w-full md:w-[260px] border-white/10 bg-white/[0.02] text-neutral-200"
+          >
+            {currentMarket.label} ({currentMarket.symbol})
+          </SelectTrigger>
+          <SelectContent class="border-white/10 bg-[#0e1320] text-neutral-200">
+            {#each markets as market}
+              <SelectItem
+                value={market.code}
+                label={`${market.label} (${market.symbol})`}
+                class="focus:bg-white/10 data-[highlighted]:bg-white/10"
+              >
+                {market.label} ({market.symbol})
+              </SelectItem>
+            {/each}
+          </SelectContent>
+        </Select>
       </div>
     </CardHeader>
 
@@ -949,21 +956,24 @@ Scroll Right
         <div class="flex-1 min-h-0 overflow-y-auto p-3 pb-[max(1rem,env(safe-area-inset-bottom))] md:p-4">
           <div class="mb-3 space-y-3">
             <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <ToggleGroup
-                type="single"
-                bind:value={selectedMarketCode}
-                variant="outline"
-                class="w-full flex-wrap justify-start gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1 md:w-fit"
-              >
-                {#each markets as market}
-                  <ToggleGroupItem
-                    value={market.code}
-                    class="h-8 rounded-md border border-transparent px-2.5 text-xs text-neutral-300 data-[state=on]:border-white/20 data-[state=on]:bg-white/10 data-[state=on]:text-white"
-                  >
-                    {market.label}
-                  </ToggleGroupItem>
-                {/each}
-              </ToggleGroup>
+              <Select type="single" bind:value={selectedMarketCode}>
+                <SelectTrigger
+                  class="w-full md:w-[280px] border-white/10 bg-white/[0.02] text-neutral-200"
+                >
+                  {currentMarket.label} ({currentMarket.symbol})
+                </SelectTrigger>
+                <SelectContent class="border-white/10 bg-[#0e1320] text-neutral-200">
+                  {#each markets as market}
+                    <SelectItem
+                      value={market.code}
+                      label={`${market.label} (${market.symbol})`}
+                      class="focus:bg-white/10 data-[highlighted]:bg-white/10"
+                    >
+                      {market.label} ({market.symbol})
+                    </SelectItem>
+                  {/each}
+                </SelectContent>
+              </Select>
 
               <div class="flex flex-wrap items-center gap-2">
                 <ToggleGroup
