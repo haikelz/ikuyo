@@ -679,7 +679,7 @@ $effect(() => {
             onclick={panRight}
           >
             <ChevronRight class="size-4" />
-            Back
+Scroll Right
           </Button>
         </div>
 
@@ -1001,7 +1001,7 @@ Scroll Left
                   onclick={panRight}
                 >
                   <ChevronRight class="size-4" />
-                  Back
+Scroll Right
                 </Button>
               </div>
 

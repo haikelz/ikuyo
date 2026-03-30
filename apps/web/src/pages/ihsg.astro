@@ -184,7 +184,7 @@ async function getMarketData(config: MarketConfig): Promise<MarketDataset> {
   try {
     const yahoo = await api
       .get(
-        `${STOCK_MARKET_API_URL}/v8/finance/chart/${config.yahooSymbol}?interval=1d&range=6mo`,
+        `${STOCK_MARKET_API_URL}/v8/finance/chart/${config.yahooSymbol}?interval=1d&range=5y`,
         {
           timeout: 12000,
           headers: {
@@ -194,7 +194,7 @@ async function getMarketData(config: MarketConfig): Promise<MarketDataset> {
       )
       .json<YahooChartResponse>();
 
-    const parsedYahoo = parseYahooChart(yahoo).slice(-180);
+    const parsedYahoo = parseYahooChart(yahoo);
     const yahooHasVolume = parsedYahoo.some((point) => point.volume > 0);
 
     if (parsedYahoo.length > 0 && yahooHasVolume) {
@@ -220,7 +220,7 @@ async function getMarketData(config: MarketConfig): Promise<MarketDataset> {
         })
         .text();
 
-      const parsedStooq = parseStooqCsv(csv).slice(-180);
+      const parsedStooq = parseStooqCsv(csv);
       if (parsedStooq.length > 0) {
         return {
           code: config.code,
