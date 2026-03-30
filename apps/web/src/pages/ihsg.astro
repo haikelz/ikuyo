@@ -1,0 +1,293 @@
+---
+import IHSGChart from "@/components/svelte/IHSGChart.svelte";
+import { api } from "@/configs/ky";
+import Layout from "@/layouts/Layout.astro";
+import type { IHSGPoint, MarketCode, MarketDataset } from "@/types";
+import { STOCK_MARKET_API_URL } from "@/utils/env";
+
+type MarketConfig = {
+  code: MarketCode;
+  label: string;
+  title: string;
+  symbol: string;
+  yahooSymbol: string;
+  stooqSymbol?: string;
+};
+
+type YahooChartResponse = {
+  chart?: {
+    result?: Array<{
+      timestamp?: number[];
+      indicators?: {
+        quote?: Array<{
+          open?: Array<number | null>;
+          high?: Array<number | null>;
+          low?: Array<number | null>;
+          close?: Array<number | null>;
+          volume?: Array<number | null>;
+        }>;
+      };
+    }>;
+    error?: { description?: string } | null;
+  };
+};
+
+const MARKET_CONFIGS: MarketConfig[] = [
+  {
+    code: "ID",
+    label: "Indonesia",
+    title: "IDX Composite (IHSG)",
+    symbol: "IHSG",
+    yahooSymbol: "%5EJKSE",
+    stooqSymbol: "%5Ejkse",
+  },
+  {
+    code: "JP",
+    label: "Japan",
+    title: "Nikkei 225",
+    symbol: "N225",
+    yahooSymbol: "%5EN225",
+    stooqSymbol: "%5Enkx",
+  },
+  {
+    code: "US",
+    label: "America",
+    title: "S&P 500",
+    symbol: "SPX",
+    yahooSymbol: "%5EGSPC",
+    stooqSymbol: "%5Espx",
+  },
+  {
+    code: "CN",
+    label: "China",
+    title: "SSE Composite",
+    symbol: "SSEC",
+    yahooSymbol: "000001.SS",
+  },
+  {
+    code: "SA",
+    label: "Saudi Arabia",
+    title: "Tadawul All Share",
+    symbol: "TASI",
+    yahooSymbol: "%5ETASI.SR",
+  },
+];
+
+function parseStooqCsv(csv: string): IHSGPoint[] {
+  const lines = csv.trim().split("\n");
+  const rows = lines.slice(1);
+
+  return rows
+    .map((row) => row.split(","))
+    .filter((cols) => cols.length >= 6)
+    .map((cols) => ({
+      date: cols[0],
+      openRaw: cols[1],
+      highRaw: cols[2],
+      lowRaw: cols[3],
+      closeRaw: cols[4],
+      volumeRaw: cols[5],
+    }))
+    .filter(
+      (item) =>
+        item.date &&
+        item.openRaw !== "" &&
+        item.highRaw !== "" &&
+        item.lowRaw !== "" &&
+        item.closeRaw !== ""
+    )
+    .map((item) => ({
+      date: item.date,
+      open: Number(item.openRaw),
+      high: Number(item.highRaw),
+      low: Number(item.lowRaw),
+      close: Number(item.closeRaw),
+      volume: item.volumeRaw === "" ? 0 : Number(item.volumeRaw),
+    }))
+    .filter(
+      (item) =>
+        item.date &&
+        Number.isFinite(item.open) &&
+        Number.isFinite(item.high) &&
+        Number.isFinite(item.low) &&
+        Number.isFinite(item.close) &&
+        Number.isFinite(item.volume) &&
+        item.open > 0 &&
+        item.high > 0 &&
+        item.low > 0 &&
+        item.close > 0
+    )
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function parseYahooChart(payload: YahooChartResponse): IHSGPoint[] {
+  const result = payload.chart?.result?.[0];
+  const timestamps = result?.timestamp ?? [];
+  const quote = result?.indicators?.quote?.[0];
+  const open = quote?.open ?? [];
+  const high = quote?.high ?? [];
+  const low = quote?.low ?? [];
+  const close = quote?.close ?? [];
+  const volume = quote?.volume ?? [];
+
+  const mapped: IHSGPoint[] = [];
+  for (let i = 0; i < timestamps.length; i += 1) {
+    const openValue = open[i];
+    const highValue = high[i];
+    const lowValue = low[i];
+    const closeValue = close[i];
+    const volumeValue = volume[i];
+
+    if (
+      openValue == null ||
+      highValue == null ||
+      lowValue == null ||
+      closeValue == null
+    ) {
+      continue;
+    }
+
+    const date = new Date(timestamps[i] * 1000).toISOString().slice(0, 10);
+    const item = {
+      date,
+      open: Number(openValue),
+      high: Number(highValue),
+      low: Number(lowValue),
+      close: Number(closeValue),
+      volume: Number(volumeValue ?? 0),
+    };
+
+    if (
+      item.date &&
+      Number.isFinite(item.open) &&
+      Number.isFinite(item.high) &&
+      Number.isFinite(item.low) &&
+      Number.isFinite(item.close) &&
+      Number.isFinite(item.volume) &&
+      item.open > 0 &&
+      item.high > 0 &&
+      item.low > 0 &&
+      item.close > 0
+    ) {
+      mapped.push(item);
+    }
+  }
+
+  return mapped.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+async function getMarketData(config: MarketConfig): Promise<MarketDataset> {
+  const fetchedAt = new Date().toISOString();
+  const yahooSource = `Yahoo Finance (${config.symbol})`;
+  let yahooFallback: IHSGPoint[] = [];
+
+  try {
+    const yahoo = await api
+      .get(
+        `${STOCK_MARKET_API_URL}/v8/finance/chart/${config.yahooSymbol}?interval=1d&range=6mo`,
+        {
+          timeout: 12000,
+          headers: {
+            "User-Agent": "Mozilla/5.0",
+          },
+        }
+      )
+      .json<YahooChartResponse>();
+
+    const parsedYahoo = parseYahooChart(yahoo).slice(-180);
+    const yahooHasVolume = parsedYahoo.some((point) => point.volume > 0);
+
+    if (parsedYahoo.length > 0 && yahooHasVolume) {
+      return {
+        code: config.code,
+        label: config.label,
+        title: config.title,
+        symbol: config.symbol,
+        source: yahooSource,
+        fetchedAt,
+        data: parsedYahoo,
+      };
+    }
+
+    yahooFallback = parsedYahoo;
+  } catch {}
+
+  if (config.stooqSymbol) {
+    try {
+      const csv = await api
+        .get(`https://stooq.com/q/d/l/?s=${config.stooqSymbol}&i=d`, {
+          timeout: 12000,
+        })
+        .text();
+
+      const parsedStooq = parseStooqCsv(csv).slice(-180);
+      if (parsedStooq.length > 0) {
+        return {
+          code: config.code,
+          label: config.label,
+          title: config.title,
+          symbol: config.symbol,
+          source: `Stooq (${config.symbol})`,
+          fetchedAt,
+          data: parsedStooq,
+        };
+      }
+    } catch {}
+  }
+
+  if (yahooFallback.length > 0) {
+    return {
+      code: config.code,
+      label: config.label,
+      title: config.title,
+      symbol: config.symbol,
+      source: `${yahooSource} (volume unavailable)`,
+      fetchedAt,
+      data: yahooFallback,
+    };
+  }
+
+  return {
+    code: config.code,
+    label: config.label,
+    title: config.title,
+    symbol: config.symbol,
+    source: yahooSource,
+    fetchedAt,
+    data: [],
+    errorMessage: `Data ${config.label} belum tersedia dari penyedia data.`,
+  };
+}
+
+const marketDataList = await Promise.all(
+  MARKET_CONFIGS.map((config) => getMarketData(config))
+);
+---
+
+<Layout
+  title="Stock Market Index"
+  description="Stock Market Index from some countries"
+  url="https://ekel.dev/ihsg"
+  ogImage="home.png"
+>
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start",
+      "md:text-start",
+    ]}
+  >
+    <section class="w-full">
+      <h1 class="mb-0">./ihsg</h1>
+      <div class="slide-enter-content">
+        <p class="mb-0 text-justify">Stock Market Index from some countries.</p>
+      </div>
+    </section>
+    <section class="w-full mt-8 slide-enter-content">
+      <IHSGChart
+        client:only="svelte"
+        markets={marketDataList}
+        defaultMarketCode="ID"
+      />
+    </section>
+  </div>
+</Layout>

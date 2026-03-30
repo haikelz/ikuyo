@@ -96,3 +96,25 @@ export type EditorProps = {
   minutes: number;
   seconds: number;
 };
+
+export type IHSGPoint = {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+};
+
+export type MarketCode = "ID" | "JP" | "US" | "CN" | "SA";
+
+export type MarketDataset = {
+  code: MarketCode;
+  label: string;
+  title: string;
+  symbol: string;
+  source: string;
+  fetchedAt: string;
+  data: IHSGPoint[];
+  errorMessage?: string;
+};
