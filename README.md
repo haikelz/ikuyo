@@ -51,6 +51,7 @@ Personal monorepo for [ekel.dev](https://ekel.dev) — a static personal site bu
 
 - [Bun](https://bun.sh) >= 1.0
 - [Moon](https://moonrepo.dev/moon) (already included in dev dependencies; optional global install)
+- (Optional) [Nix](https://nixos.org/download/) with flakes enabled (`nix develop`)
 
 ## Getting Started
 
@@ -59,6 +60,20 @@ bun install
 bun dev:web      # http://localhost:3000 (see apps/web/astro.config.ts for port)
 bun build:web    # runs Moon task chain for @ikuyo/web
 ```
+
+### Nix Dev Shell (Optional)
+
+This repo includes a `flake.nix` to provide a reproducible local toolchain.
+
+```bash
+nix develop
+bun install
+bun dev:web
+```
+
+Included tools in the shell:
+- `bun`, `nodejs_22`
+- `git`, `jq`, `ripgrep`, `fd`
 
 ## Available Scripts
 
