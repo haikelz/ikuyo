@@ -669,7 +669,7 @@ $effect(() => {
             onclick={panLeft}
           >
             <ChevronLeft class="size-4" />
-            Geser
+             Scroll Left
           </Button>
           <Button
             variant="outline"
@@ -679,7 +679,7 @@ $effect(() => {
             onclick={panRight}
           >
             <ChevronRight class="size-4" />
-            Kembali
+            Back
           </Button>
         </div>
 
@@ -991,7 +991,7 @@ $effect(() => {
                   onclick={panLeft}
                 >
                   <ChevronLeft class="size-4" />
-                  Geser
+Scroll Left
                 </Button>
                 <Button
                   variant="outline"
@@ -1001,7 +1001,7 @@ $effect(() => {
                   onclick={panRight}
                 >
                   <ChevronRight class="size-4" />
-                  Kembali
+                  Back
                 </Button>
               </div>
 
