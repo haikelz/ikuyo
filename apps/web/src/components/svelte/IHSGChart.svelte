@@ -15,6 +15,7 @@
     DialogHeader,
     DialogTitle,
     Separator,
+    Toggle,
     ToggleGroup,
     ToggleGroupItem,
   } from "@ikuyo/ui";
@@ -534,16 +535,21 @@ $effect(() => {
         </div>
       </div>
       <div class="mt-3">
-        <select
+        <ToggleGroup
+          type="single"
           bind:value={selectedMarketCode}
-          class="w-full md:w-auto rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-neutral-200 outline-none focus:ring-1 focus:ring-white/25"
+          variant="outline"
+          class="w-full flex-wrap justify-start gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1 md:w-fit"
         >
           {#each markets as market}
-            <option value={market.code} class="bg-neutral-900 text-neutral-200">
-              {market.label} ({market.symbol})
-            </option>
+            <ToggleGroupItem
+              value={market.code}
+              class="h-8 rounded-md border border-transparent px-2.5 text-xs text-neutral-300 data-[state=on]:border-white/20 data-[state=on]:bg-white/10 data-[state=on]:text-white"
+            >
+              {market.label}
+            </ToggleGroupItem>
           {/each}
-        </select>
+        </ToggleGroup>
       </div>
     </CardHeader>
 
@@ -684,20 +690,22 @@ Scroll Right
         </div>
 
         <div class="flex items-center gap-2 text-xs text-neutral-400">
-          <button
-            type="button"
-            class="rounded-md border border-white/10 px-2 py-1 hover:bg-white/[0.04]"
-            onclick={() => (showSma20 = !showSma20)}
+          <Toggle
+            variant="outline"
+            size="sm"
+            class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+            bind:pressed={showSma20}
           >
-            SMA20: {showSma20 ? "On" : "Off"}
-          </button>
-          <button
-            type="button"
-            class="rounded-md border border-white/10 px-2 py-1 hover:bg-white/[0.04]"
-            onclick={() => (showVolume = !showVolume)}
+            SMA20
+          </Toggle>
+          <Toggle
+            variant="outline"
+            size="sm"
+            class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+            bind:pressed={showVolume}
           >
-            Volume: {showVolume ? "On" : "Off"}
-          </button>
+            Volume
+          </Toggle>
         </div>
       </div>
 
@@ -941,16 +949,21 @@ Scroll Right
         <div class="flex-1 min-h-0 overflow-y-auto p-3 pb-[max(1rem,env(safe-area-inset-bottom))] md:p-4">
           <div class="mb-3 space-y-3">
             <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-              <select
+              <ToggleGroup
+                type="single"
                 bind:value={selectedMarketCode}
-                class="w-full md:w-auto rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-neutral-200 outline-none focus:ring-1 focus:ring-white/25"
+                variant="outline"
+                class="w-full flex-wrap justify-start gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1 md:w-fit"
               >
                 {#each markets as market}
-                  <option value={market.code} class="bg-neutral-900 text-neutral-200">
-                    {market.label} ({market.symbol})
-                  </option>
+                  <ToggleGroupItem
+                    value={market.code}
+                    class="h-8 rounded-md border border-transparent px-2.5 text-xs text-neutral-300 data-[state=on]:border-white/20 data-[state=on]:bg-white/10 data-[state=on]:text-white"
+                  >
+                    {market.label}
+                  </ToggleGroupItem>
                 {/each}
-              </select>
+              </ToggleGroup>
 
               <div class="flex flex-wrap items-center gap-2">
                 <ToggleGroup
@@ -1006,20 +1019,22 @@ Scroll Right
               </div>
 
               <div class="flex items-center gap-2 text-xs text-neutral-400">
-                <button
-                  type="button"
-                  class="rounded-md border border-white/10 px-2 py-1 hover:bg-white/[0.04]"
-                  onclick={() => (showSma20 = !showSma20)}
+                <Toggle
+                  variant="outline"
+                  size="sm"
+                  class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+                  bind:pressed={showSma20}
                 >
-                  SMA20: {showSma20 ? "On" : "Off"}
-                </button>
-                <button
-                  type="button"
-                  class="rounded-md border border-white/10 px-2 py-1 hover:bg-white/[0.04]"
-                  onclick={() => (showVolume = !showVolume)}
+                  SMA20
+                </Toggle>
+                <Toggle
+                  variant="outline"
+                  size="sm"
+                  class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+                  bind:pressed={showVolume}
                 >
-                  Volume: {showVolume ? "On" : "Off"}
-                </button>
+                  Volume
+                </Toggle>
               </div>
             </div>
           </div>
