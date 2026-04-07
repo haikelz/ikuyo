@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { api } from "@/configs/ky";
   import type { MarketCode, MarketDataset } from "@/types";
   import {
     Alert,
@@ -38,12 +39,16 @@
   type ChartMode = "line" | "area" | "candles";
 
   let {
-    markets,
+    backendApiUrl,
     defaultMarketCode = "ID",
   }: {
-    markets: MarketDataset[];
+    backendApiUrl: string;
     defaultMarketCode?: MarketCode;
   } = $props();
+
+  let markets = $state<MarketDataset[]>([]);
+  let isLoadingMarkets = $state(true);
+  let marketsFetchError = $state<string | null>(null);
 
   let interval = $state<IntervalKey>("6M");
 let mode = $state<ChartMode>("line");
@@ -93,6 +98,28 @@ let hoverIndex = $state<number | null>(null);
     month: "short",
     year: "2-digit",
   });
+
+  async function fetchMarkets() {
+    isLoadingMarkets = true;
+    marketsFetchError = null;
+    if (!backendApiUrl) {
+      markets = [];
+      marketsFetchError = "Konfigurasi backend API belum tersedia.";
+      isLoadingMarkets = false;
+      return;
+    }
+    try {
+      const response = await api
+        .get(`${backendApiUrl}/api/v1/ihsg/markets`, { timeout: 15000 })
+        .json<{ data: MarketDataset[] }>();
+      markets = response.data;
+    } catch {
+      markets = [];
+      marketsFetchError = "Gagal memuat data market. Coba refresh halaman.";
+    } finally {
+      isLoadingMarkets = false;
+    }
+  }
 
   function intervalToSize(value: IntervalKey, total: number) {
     if (value === "1M") return Math.min(total, 22);
@@ -216,8 +243,19 @@ function onChartPointerUp(event: PointerEvent) {
     panOffset = clamp(panOffset + direction * step, 0, maxPanOffset);
   }
 
+  const emptyMarket = $derived<MarketDataset>({
+    code: selectedMarketCode,
+    label: "Market",
+    title: "Stock Market Index",
+    symbol: "--",
+    source: "-",
+    fetchedAt: new Date().toISOString(),
+    data: [],
+  });
   const currentMarket = $derived(
-    markets.find((market) => market.code === selectedMarketCode) ?? markets[0]
+    markets.find((market) => market.code === selectedMarketCode) ??
+      markets[0] ??
+      emptyMarket
   );
 
   function isMarketCode(value: string): value is MarketCode {
@@ -231,7 +269,7 @@ function onChartPointerUp(event: PointerEvent) {
   }
 
   const normalized = $derived(
-    currentMarket.data
+    (currentMarket.data ?? [])
       .map((item) => ({
         ...item,
         date: new Date(`${item.date}T00:00:00`),
@@ -271,6 +309,7 @@ $effect(() => {
     if (isMarketCode(country)) {
       selectedMarketCode = country;
     }
+    void fetchMarkets();
   });
 
   $effect(() => {
@@ -496,23 +535,36 @@ $effect(() => {
   };
 </script>
 
-{#if currentMarket.errorMessage}
-  <Alert variant="destructive" class="mb-4">
+{#if isLoadingMarkets}
+  <Alert>
+    <Activity class="size-4" />
+    <AlertTitle>Memuat Data Market</AlertTitle>
+    <AlertDescription>Mohon tunggu, sedang mengambil data terbaru.</AlertDescription>
+  </Alert>
+{:else if marketsFetchError}
+  <Alert variant="destructive">
     <AlertTriangle class="size-4" />
     <AlertTitle>Gagal Memuat Data Market</AlertTitle>
-    <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
+    <AlertDescription>{marketsFetchError}</AlertDescription>
   </Alert>
-{/if}
+{:else}
+  {#if currentMarket.errorMessage}
+    <Alert variant="destructive" class="mb-4">
+      <AlertTriangle class="size-4" />
+      <AlertTitle>Gagal Memuat Data Market</AlertTitle>
+      <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
+    </Alert>
+  {/if}
 
-{#if normalized.length === 0}
+  {#if normalized.length === 0}
   <Alert>
     <Activity class="size-4" />
     <AlertTitle>Belum Ada Data</AlertTitle>
     <AlertDescription
-      >Data IHSG belum tersedia untuk ditampilkan saat ini.</AlertDescription
+      >Data market belum tersedia untuk ditampilkan saat ini.</AlertDescription
     >
   </Alert>
-{:else}
+  {:else}
   <Card class="border-neutral-800/80 bg-[#0b0f14]">
     <CardHeader class="pb-3">
       <div
@@ -1251,4 +1303,5 @@ Scroll Right
       </div>
     </DialogContent>
   </Dialog>
+  {/if}
 {/if}
