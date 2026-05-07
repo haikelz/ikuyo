@@ -245,7 +245,7 @@ const experienceList = [
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime()
+                new Date(a.data.created_at).getTime(),
             )
             .slice(0, 6)
             .map((item) => (
