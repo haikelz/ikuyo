@@ -1,27 +1,27 @@
 <script lang="ts" module>
-import { toggleVariants } from "@ikuyo/ui";
-import { getContext, setContext } from "svelte";
-import type { VariantProps } from "tailwind-variants";
+  import { toggleVariants } from "@ikuyo/ui";
+  import { getContext, setContext } from "svelte";
+  import type { VariantProps } from "tailwind-variants";
 
-type ToggleVariants = VariantProps<typeof toggleVariants>;
+  type ToggleVariants = VariantProps<typeof toggleVariants>;
 
-interface ToggleGroupContext extends ToggleVariants {
-  spacing?: number;
-  orientation?: "horizontal" | "vertical";
-}
+  type ToggleGroupContext = {
+    spacing?: number;
+    orientation?: "horizontal" | "vertical";
+  } & ToggleVariants;
 
-export function setToggleGroupCtx(props: ToggleGroupContext) {
-  setContext("toggleGroup", props);
-}
+  export function setToggleGroupCtx(props: ToggleGroupContext) {
+    setContext("toggleGroup", props);
+  }
 
-export function getToggleGroupCtx() {
-  return getContext<Required<ToggleGroupContext>>("toggleGroup");
-}
+  export function getToggleGroupCtx() {
+    return getContext<Required<ToggleGroupContext>>("toggleGroup");
+  }
 </script>
 
 <script lang="ts">
-  import { cn } from "../../../lib/utils";
   import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
+  import { cn } from "../../../lib/utils";
 
   let {
     ref = $bindable(null),
@@ -69,7 +69,7 @@ get along, so we shut typescript up by casting `value` to `never`.
   style={`--gap: ${spacing}`}
   class={cn(
     "data-[spacing=0]:data-[variant=outline]:rounded-4xl group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
-    className
+    className,
   )}
   {...restProps}
 />

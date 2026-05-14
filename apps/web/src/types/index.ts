@@ -12,14 +12,19 @@ export type HeadingTocProps = {
   slug: string;
 };
 
-export interface HeadingNodeTocProps extends HeadingTocProps {
+export type HeadingNodeTocProps = HeadingTocProps & {
   subheadings: HeadingNodeTocProps[];
-}
+};
 
 export type WakatimeStatsProps = {
   id: string;
   user_id: string;
-  range: "all_time" | "last_7_days" | "last_30_days" | "last_6_months" | "last_year";
+  range:
+    | "all_time"
+    | "last_7_days"
+    | "last_30_days"
+    | "last_6_months"
+    | "last_year";
   timeout: number;
   holidays: number;
   status: "ok" | "pending" | "error";

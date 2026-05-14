@@ -1,6 +1,6 @@
 import { IMAGEKIT_API_BASE_URL, IMAGEKIT_PRIVATE_KEY } from "@/utils/env";
 
-export interface ImageKitFile {
+export type ImageKitFile = {
   fileId: string;
   name: string;
   filePath: string;
@@ -10,10 +10,10 @@ export interface ImageKitFile {
   height: number;
   size: number;
   fileType: string;
-  createdAt: string;
+  createAt: string;
   updatedAt: string;
   tags: string[] | null;
-}
+};
 
 export async function getAllPhotos(): Promise<ImageKitFile[]> {
   try {
@@ -24,12 +24,15 @@ export async function getAllPhotos(): Promise<ImageKitFile[]> {
 
     const base64Key = btoa(`${IMAGEKIT_PRIVATE_KEY}:`);
 
-    const response = await fetch(`${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`, {
-      headers: {
-        Authorization: `Basic ${base64Key}`,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${IMAGEKIT_API_BASE_URL}/files?${params.toString()}`,
+      {
+        headers: {
+          Authorization: `Basic ${base64Key}`,
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     return response.json();
   } catch (error) {
