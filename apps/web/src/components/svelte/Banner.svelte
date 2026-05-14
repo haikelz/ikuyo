@@ -17,7 +17,7 @@
   <div
     class={twMerge(
       "hidden fixed sm:sticky sm:top-0! isolate z-50 sm:flex items-center overflow-hidden w-full! px-3.5 py-2.5 backdrop-blur-sm md:px-6",
-      "bg-gray-600/70"
+      "bg-gray-600/70",
     )}
   >
     <div
@@ -42,7 +42,7 @@
       <p
         class={twMerge(
           "mx-auto text-sm leading-4 sm:leading-6",
-          "text-gray-300"
+          "text-gray-300",
         )}
       >
         <a href={linkTo} target="_blank" rel="noopener noreferrer">
@@ -55,7 +55,7 @@
         onclick={closeBanner}
         class={twMerge(
           "ml-4 shrink-0 rounded-md p-1.5 transition-colors duration-200",
-          "hover:bg-gray-700 text-gray-300 hover:text-gray-100"
+          "hover:bg-gray-700 text-gray-300 hover:text-gray-100",
         )}
         aria-label="Close banner"
       >
