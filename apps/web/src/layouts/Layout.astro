@@ -7,7 +7,6 @@ import { PUBLIC_UMAMI_SRC, PUBLIC_UMAMI_WEBSITE_ID } from "@/utils/env";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
-import { ClientRouter } from "astro:transitions";
 import "../index.css";
 
 type Props = {
@@ -54,7 +53,6 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <ClientRouter />
     <script
       is:inline
       defer
