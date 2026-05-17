@@ -20,15 +20,15 @@ const staticPages: Record<string, { title: string }> = {
 };
 
 const notesPages = Object.fromEntries(
-  notes.map(({ slug, data }) => [`notes/${slug}`, { title: data.title }])
+  notes.map(({ id, data }) => [`notes/${id}`, { title: data.title }]),
 );
 
 const worksPages = Object.fromEntries(
-  works.map(({ slug, data }) => [`works/${slug}`, { title: data.title }])
+  works.map(({ id, data }) => [`works/${id}`, { title: data.title }]),
 );
 
 const tagsPages = Object.fromEntries(
-  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }])
+  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]),
 );
 
 const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };

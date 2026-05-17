@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 
 export const messageSchema = z.object({
   name: z.string().min(1),

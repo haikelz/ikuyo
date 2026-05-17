@@ -240,7 +240,7 @@ const experienceList = [
                 description={item.data.description}
                 thumbnail={item.data.thumbnail}
                 type="works"
-                slug={item.slug}
+                slug={item.id}
                 tags={item.data.stack}
               />
             ))
@@ -264,7 +264,7 @@ const experienceList = [
               <Card
                 title={item.data.title}
                 description={item.data.description}
-                slug={item.slug}
+                slug={item.id}
                 createdAt={item.data.created_at}
                 tags={item.data.tags}
                 type="notes"

@@ -36,14 +36,14 @@ const notesList = await getCollection("notes");
           .sort(
             (a, b) =>
               new Date(b.data.created_at).getTime() -
-              new Date(a.data.created_at).getTime()
+              new Date(a.data.created_at).getTime(),
           )
           .map((item) => (
             <Card
               type="notes"
               title={item.data.title}
               description={item.data.description}
-              slug={item.slug}
+              slug={item.id}
               createdAt={item.data.created_at}
               tags={item.data.tags}
             />

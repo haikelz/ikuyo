@@ -61,14 +61,14 @@ const currentPath = Astro.url.pathname.split("/")[2];
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime()
+                new Date(a.data.created_at).getTime(),
             )
             .map((item) => (
               <Card
                 title={item.data.title}
                 description={item.data.description}
                 type="notes"
-                slug={item.slug}
+                slug={item.id}
                 createdAt={item.data.created_at}
                 tags={item.data.tags}
               />

@@ -35,7 +35,7 @@ const worksList = await getCollection("works");
           .sort((a, b) => a.data.id - b.data.id)
           .map((item) => (
             <Card
-              slug={item.slug}
+              slug={item.id}
               title={item.data.title}
               description={item.data.description}
               type="works"
