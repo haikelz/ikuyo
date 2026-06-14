@@ -3,5 +3,3 @@
 # ikuyo
 
 My Personal Website. Proudly powered by Astro + Svelte + Moonrepo.
-
-<p align="center"><img src="public/images/bad-apple.gif" alt="bad apple gif" /></p>
