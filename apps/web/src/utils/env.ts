@@ -1,6 +1,9 @@
 import dotenvx from "@dotenvx/dotenvx";
 
-dotenvx.config();
+dotenvx.config({
+  path: [".env", "apps/web/.env"],
+  ignore: ["MISSING_ENV_FILE"],
+});
 
 export const PUBLIC_DEVELOPMENT_URL = process.env
   .PUBLIC_DEVELOPMENT_URL as string;

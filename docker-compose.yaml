@@ -1,0 +1,37 @@
+services:
+  ikuyo:
+    image: ikuyo:latest
+    container_name: ikuyo
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      secrets:
+        - web_env
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    healthcheck:
+      test: ["CMD", "/ikuyo-server", "healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: "256M"
+        reservations:
+          cpus: "0.10"
+          memory: "64M"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+secrets:
+  web_env:
+    file: ./apps/web/.env

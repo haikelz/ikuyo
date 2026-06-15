@@ -1,0 +1,16 @@
+.git
+.DS_Store
+node_modules
+**/node_modules
+apps/web/dist
+apps/web/.astro
+apps/web/cypress
+apps/web/.env
+**/.env
+**/.env.*
+.next
+.omo
+.moon/cache
+flake.nix
+README.md
+**/.gitkeep
