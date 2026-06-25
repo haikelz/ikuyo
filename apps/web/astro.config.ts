@@ -17,7 +17,7 @@ export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
   vite: {
-    plugins: [tailwindcss() as any],
+    plugins: [tailwindcss()],
     resolve: {
       conditions: ["browser"],
       tsconfigPaths: true,
