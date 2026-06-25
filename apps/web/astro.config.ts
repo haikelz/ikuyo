@@ -20,6 +20,7 @@ export default defineConfig({
     plugins: [tailwindcss() as any],
     resolve: {
       conditions: ["browser"],
+      tsconfigPaths: true,
       noExternal: ["bits-ui", "runed", "svelte-toolbelt"],
     },
   },
