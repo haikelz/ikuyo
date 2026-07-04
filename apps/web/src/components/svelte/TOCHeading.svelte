@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { HeadingNodeTocProps } from "@/types";
-  import TOCHeading from "./TOCHeading.svelte";
+import type { HeadingNodeTocProps } from "@/types";
+import TOCHeading from "./TOCHeading.svelte";
 
-  const { heading }: { heading: HeadingNodeTocProps } = $props();
+const { heading }: { heading: HeadingNodeTocProps } = $props();
 </script>
 
 <li class="list-none!">

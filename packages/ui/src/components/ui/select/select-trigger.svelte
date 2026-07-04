@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { cn } from "../../../lib/utils";
-  import { Select as SelectPrimitive } from "bits-ui";
-  import { ChevronDown } from "lucide-svelte";
+import { cn } from "../../../lib/utils";
+import { Select as SelectPrimitive } from "bits-ui";
+import { ChevronDown } from "lucide-svelte";
 
-  let {
-    ref = $bindable(null),
-    class: className,
-    children,
-    ...restProps
-  }: SelectPrimitive.TriggerProps = $props();
+let {
+  ref = $bindable(null),
+  class: className,
+  children,
+  ...restProps
+}: SelectPrimitive.TriggerProps = $props();
 </script>
 
 <SelectPrimitive.Trigger

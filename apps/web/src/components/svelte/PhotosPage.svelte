@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
-  import PhotoGrid from "./PhotoGrid.svelte";
+import { fade } from "svelte/transition";
+import PhotoGrid from "./PhotoGrid.svelte";
 
-  type Photo = {
-    url: string;
-    thumbnail: string;
-  };
+type Photo = {
+  url: string;
+  thumbnail: string;
+};
 
-  let { photos = [] } = $props<{ photos: Photo[] }>();
+let { photos = [] } = $props<{ photos: Photo[] }>();
 </script>
 
 <div transition:fade={{ duration: 300 }}>

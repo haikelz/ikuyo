@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
-  import { Select as SelectPrimitive } from "bits-ui";
-  import type { ComponentProps } from "svelte";
+import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
+import { Select as SelectPrimitive } from "bits-ui";
+import type { ComponentProps } from "svelte";
 
-  let {
-    ref = $bindable(null),
-    class: className,
-    children,
-    sideOffset = 6,
-    portalProps,
-    ...restProps
-  }: SelectPrimitive.ContentProps & {
-    portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SelectPrimitive.Portal>>;
-  } = $props();
+let {
+  ref = $bindable(null),
+  class: className,
+  children,
+  sideOffset = 6,
+  portalProps,
+  ...restProps
+}: SelectPrimitive.ContentProps & {
+  portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SelectPrimitive.Portal>>;
+} = $props();
 </script>
 
 <SelectPrimitive.Portal {...portalProps}>

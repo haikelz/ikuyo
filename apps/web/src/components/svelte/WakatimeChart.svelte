@@ -1,102 +1,102 @@
 <script lang="ts">
-  import type { WakatimeStatsProps } from "@/types";
-  import { Card, CardContent, CardHeader } from "@ikuyo/ui";
-  import { Calendar, Clock } from "lucide-svelte";
+import type { WakatimeStatsProps } from "@/types";
+import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+import { Calendar, Clock } from "lucide-svelte";
 
-  let { data }: { data: WakatimeStatsProps } = $props();
+let { data }: { data: WakatimeStatsProps } = $props();
 
-  const colors = [
-    "#3b82f6",
-    "#ef4444",
-    "#10b981",
-    "#f59e0b",
-    "#8b5cf6",
-    "#ec4899",
-    "#14b8a6",
-    "#f97316",
-    "#84cc16",
-    "#6366f1",
-  ];
+const colors = [
+  "#3b82f6",
+  "#ef4444",
+  "#10b981",
+  "#f59e0b",
+  "#8b5cf6",
+  "#ec4899",
+  "#14b8a6",
+  "#f97316",
+  "#84cc16",
+  "#6366f1",
+];
 
-  function formatDuration(seconds: number) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    return `${minutes}m`;
+function formatDuration(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
   }
+  return `${minutes}m`;
+}
 
-  const wakatimeStats = $derived.by(() => {
-    const preferred = data.languages.filter(
-      (stat) =>
-        stat.name === "TypeScript" ||
-        stat.name === "JavaScript" ||
-        stat.name === "Go" ||
-        stat.name === "Svelte" ||
-        stat.name === "Astro" ||
-        stat.name === "Docker",
-    );
-
-    return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
-  });
-
-  const chartData = $derived(
-    wakatimeStats.map((lang) => ({
-      name: lang.name,
-      percent: Number(lang.percent ?? 0),
-    })),
+const wakatimeStats = $derived.by(() => {
+  const preferred = data.languages.filter(
+    (stat) =>
+      stat.name === "TypeScript" ||
+      stat.name === "JavaScript" ||
+      stat.name === "Go" ||
+      stat.name === "Svelte" ||
+      stat.name === "Astro" ||
+      stat.name === "Docker",
   );
 
-  const chartBars = $derived.by(() => {
-    const width = 1000;
-    const height = 260;
-    const maxY = 100;
-    const left = 48;
-    const right = 16;
-    const bottom = 38;
-    const top = 12;
-    const innerWidth = width - left - right;
-    const innerHeight = height - top - bottom;
-    const count = Math.max(chartData.length, 1);
-    const slotWidth = innerWidth / count;
-    const barWidth = Math.max(14, Math.min(64, slotWidth * 0.64));
+  return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
+});
 
-    const bars = chartData.map((item, index) => {
-      const x = left + index * slotWidth + (slotWidth - barWidth) / 2;
-      const clamped = Math.max(0, Math.min(maxY, item.percent));
-      const h = (clamped / maxY) * innerHeight;
-      const y = top + innerHeight - h;
-      return {
-        x,
-        y,
-        h,
-        w: barWidth,
-        labelX: left + index * slotWidth + slotWidth / 2,
-        color: colors[index % colors.length],
-        label: item.name,
-        value: clamped,
-      };
-    });
+const chartData = $derived(
+  wakatimeStats.map((lang) => ({
+    name: lang.name,
+    percent: Number(lang.percent ?? 0),
+  })),
+);
 
-    const yTicks = [0, 20, 40, 60, 80, 100].map((value) => ({
-      value,
-      y: top + innerHeight - (value / maxY) * innerHeight,
-    }));
+const chartBars = $derived.by(() => {
+  const width = 1000;
+  const height = 260;
+  const maxY = 100;
+  const left = 48;
+  const right = 16;
+  const bottom = 38;
+  const top = 12;
+  const innerWidth = width - left - right;
+  const innerHeight = height - top - bottom;
+  const count = Math.max(chartData.length, 1);
+  const slotWidth = innerWidth / count;
+  const barWidth = Math.max(14, Math.min(64, slotWidth * 0.64));
 
+  const bars = chartData.map((item, index) => {
+    const x = left + index * slotWidth + (slotWidth - barWidth) / 2;
+    const clamped = Math.max(0, Math.min(maxY, item.percent));
+    const h = (clamped / maxY) * innerHeight;
+    const y = top + innerHeight - h;
     return {
-      width,
-      height,
-      left,
-      right,
-      top,
-      bottom,
-      innerWidth,
-      innerHeight,
-      bars,
-      yTicks,
+      x,
+      y,
+      h,
+      w: barWidth,
+      labelX: left + index * slotWidth + slotWidth / 2,
+      color: colors[index % colors.length],
+      label: item.name,
+      value: clamped,
     };
   });
+
+  const yTicks = [0, 20, 40, 60, 80, 100].map((value) => ({
+    value,
+    y: top + innerHeight - (value / maxY) * innerHeight,
+  }));
+
+  return {
+    width,
+    height,
+    left,
+    right,
+    top,
+    bottom,
+    innerWidth,
+    innerHeight,
+    bars,
+    yTicks,
+  };
+});
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

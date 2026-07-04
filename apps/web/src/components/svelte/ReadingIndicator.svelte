@@ -1,30 +1,30 @@
 <script lang="ts">
-  import { Progress } from "@ikuyo/ui";
-  import { onMount } from "svelte";
+import { Progress } from "@ikuyo/ui";
+import { onMount } from "svelte";
 
-  let width = $state(0);
-  let mounted = $state(false);
+let width = $state(0);
+let mounted = $state(false);
 
-  onMount(() => {
-    mounted = true;
+onMount(() => {
+  mounted = true;
 
-    if (typeof window === "undefined") return;
+  if (typeof window === "undefined") return;
 
-    function calculateScrollProgress() {
-      const el = document.documentElement;
-      const scrollTop = el.scrollTop || document.body.scrollTop;
-      const scrollHeight = el.scrollHeight || document.body.scrollHeight;
-      const percent = (scrollTop / (scrollHeight - el.clientHeight)) * 100;
-      width = Number.isFinite(percent) ? percent : 0;
-    }
+  function calculateScrollProgress() {
+    const el = document.documentElement;
+    const scrollTop = el.scrollTop || document.body.scrollTop;
+    const scrollHeight = el.scrollHeight || document.body.scrollHeight;
+    const percent = (scrollTop / (scrollHeight - el.clientHeight)) * 100;
+    width = Number.isFinite(percent) ? percent : 0;
+  }
 
-    window.addEventListener("scroll", calculateScrollProgress);
-    calculateScrollProgress();
+  window.addEventListener("scroll", calculateScrollProgress);
+  calculateScrollProgress();
 
-    return () => {
-      window.removeEventListener("scroll", calculateScrollProgress);
-    };
-  });
+  return () => {
+    window.removeEventListener("scroll", calculateScrollProgress);
+  };
+});
 </script>
 
 {#if mounted}

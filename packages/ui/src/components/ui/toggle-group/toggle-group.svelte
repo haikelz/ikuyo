@@ -1,22 +1,22 @@
 <script lang="ts" module>
-  import { toggleVariants } from "@ikuyo/ui";
-  import { getContext, setContext } from "svelte";
-  import type { VariantProps } from "tailwind-variants";
+import { toggleVariants } from "@ikuyo/ui";
+import { getContext, setContext } from "svelte";
+import type { VariantProps } from "tailwind-variants";
 
-  type ToggleVariants = VariantProps<typeof toggleVariants>;
+type ToggleVariants = VariantProps<typeof toggleVariants>;
 
-  type ToggleGroupContext = {
-    spacing?: number;
-    orientation?: "horizontal" | "vertical";
-  } & ToggleVariants;
+type ToggleGroupContext = {
+  spacing?: number;
+  orientation?: "horizontal" | "vertical";
+} & ToggleVariants;
 
-  export function setToggleGroupCtx(props: ToggleGroupContext) {
-    setContext("toggleGroup", props);
-  }
+export function setToggleGroupCtx(props: ToggleGroupContext) {
+  setContext("toggleGroup", props);
+}
 
-  export function getToggleGroupCtx() {
-    return getContext<Required<ToggleGroupContext>>("toggleGroup");
-  }
+export function getToggleGroupCtx() {
+  return getContext<Required<ToggleGroupContext>>("toggleGroup");
+}
 </script>
 
 <script lang="ts">

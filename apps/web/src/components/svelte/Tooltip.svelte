@@ -1,11 +1,7 @@
 <script lang="ts">
-  import {
-    TooltipContent,
-    Tooltip as TooltipRoot,
-    TooltipTrigger,
-  } from "@ikuyo/ui";
+import { TooltipContent, Tooltip as TooltipRoot, TooltipTrigger } from "@ikuyo/ui";
 
-  let { children, content } = $props();
+let { children, content } = $props();
 </script>
 
 <TooltipRoot>

@@ -39,7 +39,7 @@ const slug = sanitizeSlug(item.id);
     <BackButton label="back to notes" client:only="svelte" />
     <h1 class="mt-4">{item.data.title}</h1>
     <div class="flex w-full items-center space-x-2">
-      <div class="rounded-full!">
+      <div class="rounded-full! p-0!">
         <Tooltip content="My Istri" client:only="svelte">
           <div class="rounded-full!">
             <Image

@@ -1,40 +1,40 @@
 <script lang="ts">
-  import { PlayIcon, XIcon } from "lucide-svelte";
-  import { tick } from "svelte";
-  import { fade, scale } from "svelte/transition";
+import { PlayIcon, XIcon } from "lucide-svelte";
+import { tick } from "svelte";
+import { fade, scale } from "svelte/transition";
 
-  let { src, title } = $props<{
-    src: string;
-    title?: string;
-  }>();
+let { src, title } = $props<{
+  src: string;
+  title?: string;
+}>();
 
-  let selectedVideo = $state<string | null>(null);
+let selectedVideo = $state<string | null>(null);
 
-  async function openLightbox() {
-    selectedVideo = src;
-    await tick();
+async function openLightbox() {
+  selectedVideo = src;
+  await tick();
+}
+
+function closeLightbox() {
+  selectedVideo = null;
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    closeLightbox();
   }
+}
 
-  function closeLightbox() {
-    selectedVideo = null;
-  }
-
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
-  }
-
-  function teleport(node: HTMLElement) {
-    document.body.appendChild(node);
-    return {
-      destroy() {
-        if (node.parentNode) {
-          node.parentNode.removeChild(node);
-        }
-      },
-    };
-  }
+function teleport(node: HTMLElement) {
+  document.body.appendChild(node);
+  return {
+    destroy() {
+      if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+    },
+  };
+}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />

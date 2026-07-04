@@ -23,8 +23,8 @@
     "test:guestbook": "moon run guestbook:test"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.1",
-    "@moonrepo/cli": "^2.3.4",
+    "@biomejs/biome": "^2.5.2",
+    "@moonrepo/cli": "^2.3.5",
     "tslib": "^2.8.1",
     "typescript": "~6.0.3"
   },

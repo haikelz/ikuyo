@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { cn } from "../../../lib/utils";
-  import { Select as SelectPrimitive } from "bits-ui";
-  import { Check } from "lucide-svelte";
+import { cn } from "../../../lib/utils";
+import { Select as SelectPrimitive } from "bits-ui";
+import { Check } from "lucide-svelte";
 
-  let {
-    ref = $bindable(null),
-    class: className,
-    children: childrenProp,
-    ...restProps
-  }: SelectPrimitive.ItemProps = $props();
+let {
+  ref = $bindable(null),
+  class: className,
+  children: childrenProp,
+  ...restProps
+}: SelectPrimitive.ItemProps = $props();
 </script>
 
 <SelectPrimitive.Item
