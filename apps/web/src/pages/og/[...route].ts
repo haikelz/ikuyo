@@ -27,15 +27,19 @@ const worksPages = Object.fromEntries(
   works.map(({ id, data }) => [`works/${id}`, { title: data.title }]),
 );
 
-const tagsPages = Object.fromEntries(uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]));
+const tagsPages = Object.fromEntries(
+  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]),
+);
 
 const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };
 
 const fontRegular =
   "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
-const fontBold = "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
+const fontBold =
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
+  param: "route",
   pages,
   getImageOptions: (_path, page: (typeof pages)[string]) => ({
     title: page.title.toUpperCase(),
