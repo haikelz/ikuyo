@@ -3,7 +3,7 @@ import Footer from "@/components/Footer.astro";
 import Banner from "@/components/svelte/Banner.svelte";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
-import { PUBLIC_UMAMI_SRC, PUBLIC_UMAMI_WEBSITE_ID } from "@/utils/env";
+import { PUBLIC_UMAMI_SRC } from "@/utils/env";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
@@ -51,7 +51,8 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
       is:inline
       defer
       src={PUBLIC_UMAMI_SRC}
-      data-website-id={PUBLIC_UMAMI_WEBSITE_ID}></script>
+      data-goatcounter="https://analytics.ekel.dev/count"
+      async src={PUBLIC_GOATCOUNTER_SRC}></script>
   </head>
   <body class="w-full flex flex-col justify-start items-start relative">
     <div class="page-bg-grid" aria-hidden="true"></div>
