@@ -3,7 +3,7 @@ import Footer from "@/components/Footer.astro";
 import Banner from "@/components/svelte/Banner.svelte";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
-import { PUBLIC_UMAMI_SRC } from "@/utils/env";
+import { PUBLIC_GOATCOUNTER_SRC } from "@/utils/env";
 import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
@@ -17,9 +17,19 @@ type Props = {
   className?: string;
 };
 
-const { title, description, url, ogImage, className = "max-w-6xl!" } = Astro.props;
+const {
+  title,
+  description,
+  url,
+  ogImage,
+  className = "max-w-6xl!",
+} = Astro.props;
 const currentPath = Astro.url.pathname;
 const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
+
+const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
+  .slice(0, 3)
+  .join(".");
 ---
 
 <!doctype html>
@@ -50,9 +60,9 @@ const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
     <script
       is:inline
       defer
-      src={PUBLIC_UMAMI_SRC}
-      data-goatcounter="https://analytics.ekel.dev/count"
-      async src={PUBLIC_GOATCOUNTER_SRC}></script>
+      data-goatcounter={removedFilenameGoatcounterSrc}
+      async
+      src={PUBLIC_GOATCOUNTER_SRC}></script>
   </head>
   <body class="w-full flex flex-col justify-start items-start relative">
     <div class="page-bg-grid" aria-hidden="true"></div>
