@@ -14,7 +14,7 @@ const { heading }: { heading: HeadingNodeTocProps } = $props();
   </a>
   {#if heading.subheadings && heading.subheadings.length > 0}
     <ul
-      class="mt-1 ml-2 space-y-1 border-l border-border/40 pl-2 list-none!"
+      class="mt-1 ml-2 space-y-1 border-l border-border/40 pl-2 list-none!" role="list"
     >
       {#each heading.subheadings as sub}
         <TOCHeading heading={sub} />
