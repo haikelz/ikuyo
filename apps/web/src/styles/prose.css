@@ -44,7 +44,7 @@
 }
 
 .prose .code-block-wrapper .code-block-copy {
-  @apply opacity-70 transition-opacity duration-200;
+  @apply opacity-70 transition-opacity duration-200 rounded-md!;
 }
 
 .prose .code-block-wrapper .code-block-content:hover .code-block-copy {

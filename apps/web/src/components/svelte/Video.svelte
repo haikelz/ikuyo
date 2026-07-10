@@ -1,40 +1,40 @@
 <script lang="ts">
-import { PlayIcon, XIcon } from "lucide-svelte";
-import { tick } from "svelte";
-import { fade, scale } from "svelte/transition";
+  import { PlayIcon, XIcon } from "lucide-svelte";
+  import { tick } from "svelte";
+  import { fade, scale } from "svelte/transition";
 
-let { src, title } = $props<{
-  src: string;
-  title?: string;
-}>();
+  let { src, title } = $props<{
+    src: string;
+    title?: string;
+  }>();
 
-let selectedVideo = $state<string | null>(null);
+  let selectedVideo = $state<string | null>(null);
 
-async function openLightbox() {
-  selectedVideo = src;
-  await tick();
-}
-
-function closeLightbox() {
-  selectedVideo = null;
-}
-
-function handleKeydown(event: KeyboardEvent) {
-  if (event.key === "Escape") {
-    closeLightbox();
+  async function openLightbox() {
+    selectedVideo = src;
+    await tick();
   }
-}
 
-function teleport(node: HTMLElement) {
-  document.body.appendChild(node);
-  return {
-    destroy() {
-      if (node.parentNode) {
-        node.parentNode.removeChild(node);
-      }
-    },
-  };
-}
+  function closeLightbox() {
+    selectedVideo = null;
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  }
+
+  function teleport(node: HTMLElement) {
+    document.body.appendChild(node);
+    return {
+      destroy() {
+        if (node.parentNode) {
+          node.parentNode.removeChild(node);
+        }
+      },
+    };
+  }
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -60,7 +60,7 @@ function teleport(node: HTMLElement) {
         class="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 pointer-events-none"
       >
         <div
-          class="p-4 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white"
+          class="p-4 rounded-md bg-black/40 backdrop-blur-md border border-white/20 text-white"
         >
           <PlayIcon size={32} fill="currentColor" />
         </div>
@@ -85,7 +85,7 @@ function teleport(node: HTMLElement) {
     tabindex="0"
   >
     <button
-      class="fixed top-6 right-6 z-[10000] p-3 rounded-full bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
+      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
