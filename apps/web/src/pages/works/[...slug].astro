@@ -48,10 +48,11 @@ const slug = sanitizeSlug(item.id);
                 <span>
                   {" "}
                   —{" "}
-                  <a
-                    href={item.data.preview}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    <a
+                      href={item.data.preview}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Preview (opens in new tab)"
                     class="font-medium text-foreground hover:text-muted-foreground transition-colors"
                   >
                     Preview
@@ -64,10 +65,11 @@ const slug = sanitizeSlug(item.id);
                 <span>
                   {" "}
                   —{" "}
-                  <a
-                    href={item.data.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    <a
+                      href={item.data.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Source (opens in new tab)"
                     class="font-medium text-foreground hover:text-muted-foreground transition-colors"
                   >
                     Source

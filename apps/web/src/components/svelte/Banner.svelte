@@ -27,7 +27,7 @@ function closeBanner() {
           "text-muted-foreground",
         )}
       >
-        <a href={linkTo} target="_blank" rel="noopener noreferrer" class="hover:text-foreground transition-colors">
+        <a href={linkTo} target="_blank" rel="noopener noreferrer" aria-label="Free Palestine (opens in new tab)" class="hover:text-foreground transition-colors">
           <strong class="font-medium text-foreground">{title}</strong>
           {description}
         </a>
