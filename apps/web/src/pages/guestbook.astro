@@ -1,9 +1,9 @@
 ---
-importformatapi } frodate-fns/ky";
-impo{ api }out from configsukytro";
-impoLayouto } from layouts/Layout.astropes";
-impotype rtGuestbookPropsURL } from typesenv";
-importBACKEND_API_URLmat } fro@/utils/envfns";
+import { api } from "@/configs/ky";
+import Layout from "@/layouts/Layout.astro";
+import type { GuestbookProps } from "@/types";
+import { BACKEND_API_URL } from "@/utils/env";
+import { format } from "date-fns";
 
 export async function getGuestbook(): Promise<GuestbookProps[]> {
   try {

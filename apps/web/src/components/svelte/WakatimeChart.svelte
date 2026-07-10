@@ -1,7 +1,9 @@
-<s
-  import type { WakatimeStatsProps } from "@/types";
+<script lang="ts">
+  import type { WakatimeStatsProps } from "@/types";    
   import { Card, CardContent, CardHeader } from "@ikuyo/ui";
   import { Calendar, Clock } from "lucide-svelte";
+
+  let { data }: { data: WakatimeStatsProps } = $props();
 
   const colors = [
     "#3b82f6",

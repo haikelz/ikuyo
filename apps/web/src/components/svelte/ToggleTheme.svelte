@@ -57,7 +57,7 @@
 <div class="flex items-center space-x-2">
   <Button
     onclick={toggleTheme}
-    variant="ghost"
+    variant="outline"
     size="icon-sm"
     class="text-muted-foreground hover:text-foreground transition-colors rounded-md"
     aria-label="Toggle theme"

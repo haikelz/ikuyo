@@ -20,7 +20,7 @@ function toggleTOC() {
 
 <Sheet bind:open={isOpen}>
   <Button
-    variant="secondary"
+    variant="outline"
     size="icon-sm"
     class="bottom-4 right-4 fixed z-[60] rounded-md {isOpen ? 'hidden' : ''}"
     onclick={toggleTOC}
@@ -42,7 +42,7 @@ function toggleTOC() {
           Table of Contents
         </SheetTitle>
         <Button
-          variant="ghost"
+          variant="outline"
           size="icon-sm"
           class="shrink-0 rounded-md"
           onclick={toggleTOC}

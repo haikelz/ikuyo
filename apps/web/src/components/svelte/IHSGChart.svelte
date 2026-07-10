@@ -592,7 +592,7 @@
               {currentMarket.source}
             </Badge>
             <Badge
-              variant="secondary"
+              variant="outline"
               class="bg-transparent text-foreground font-medium"
             >
               {interval}

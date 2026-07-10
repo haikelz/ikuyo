@@ -11,7 +11,7 @@
 
 <Button
   type="button"
-  variant="secondary"
+  variant="outline"
   size="icon-sm"
   aria-label={label}
   class="rounded-md"

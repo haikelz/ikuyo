@@ -97,12 +97,12 @@
 <nav
   class={cn(
     "fixed inset-x-0 top-0 z-50! flex w-full justify-center transition-transform duration-300 ease-in-out bg-background/95 backdrop-blur-sm border-b border-border/70",
-    isVisible ? "translate-y-0" : "-translate-y-full",
+    isVisible ? "translate-y-0" : "-translate-y-full"
   )}
 >
   <div
     class={cn(
-      "flex w-full max-w-6xl min-h-16 items-center justify-between px-4 md:px-8",
+      "flex w-full max-w-6xl min-h-16 items-center justify-between px-4 md:px-8"
     )}
   >
     <a
@@ -131,7 +131,7 @@
             "text-sm font-medium transition-colors no-underline",
             currentPath.includes(item.path)
               ? "text-foreground"
-              : "text-muted-foreground hover:text-foreground",
+              : "text-muted-foreground hover:text-foreground"
           )}
         >
           {item.label}
@@ -143,7 +143,7 @@
     </div>
     <Sheet bind:open={isOpen}>
       <Button
-        variant="ghost"
+        variant="outline"
         size="icon-sm"
         onclick={toggleNavbar}
         class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors"
@@ -191,7 +191,7 @@
                 "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
                 active
                   ? "bg-muted text-foreground"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
               )}
               onclick={() => {
                 isOpen = false;
