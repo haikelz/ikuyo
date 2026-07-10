@@ -28,78 +28,32 @@ const slug = sanitizeSlug(item.id);
   url={`https://ekel.dev/works/${slug}`}
   ogImage={`works/${slug}.png`}
 >
-  <div class="w-full mx-auto slide-enter-content">
+  <div class="w-full max-w-3xl mx-auto slide-enter-content">
     <BackButton label="back to works" client:only="svelte" />
     <article>
-      <header class="mb-10">
-        <h1
-          class="mt-8 mb-4 text-3xl sm:text-4xl md:text-5xl tracking-tighter font-medium text-foreground leading-tight"
-        >
+      <header class="mb-12">
+        <h1 class="mt-8 mb-4 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
           {item.data.title}
         </h1>
-        <div class="text-sm sm:text-base text-muted-foreground space-y-1">
-          <p class="mb-0">
-            <span class="font-medium text-foreground">{item.data.author}</span>
-          </p>
-          <p class="mb-0">
-            {remarkPluginFrontmatter.minutesRead}
-            {
-              item.data.preview ? (
-                <span>
-                  {" "}
-                  —{" "}
-                    <a
-                      href={item.data.preview}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Preview (opens in new tab)"
-                    class="font-medium text-foreground hover:text-muted-foreground transition-colors"
-                  >
-                    Preview
-                  </a>
-                </span>
-              ) : null
-            }
-            {
-              item.data.repo ? (
-                <span>
-                  {" "}
-                  —{" "}
-                    <a
-                      href={item.data.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Source (opens in new tab)"
-                    class="font-medium text-foreground hover:text-muted-foreground transition-colors"
-                  >
-                    Source
-                  </a>
-                </span>
-              ) : null
-            }
-          </p>
-        </div>
-        <div class="flex items-center gap-2 mt-6 flex-wrap">
-          {
-            item.data.stack.map((tag) => (
-              <a
-                href={`/tags/${tag}`}
-                class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                #{tag}
-              </a>
-            ))
-          }
+        <p class="text-sm text-muted-foreground mb-0">
+          {item.data.author} &middot; {remarkPluginFrontmatter.minutesRead}
+          {item.data.preview ? (
+            <span> &middot; <a href={item.data.preview} target="_blank" rel="noopener noreferrer" aria-label="Preview (opens in new tab)" class="text-foreground hover:text-muted-foreground">Preview</a></span>
+          ) : null}
+          {item.data.repo ? (
+            <span> &middot; <a href={item.data.repo} target="_blank" rel="noopener noreferrer" aria-label="Source (opens in new tab)" class="text-foreground hover:text-muted-foreground">Source</a></span>
+          ) : null}
+        </p>
+        <div class="flex items-center gap-2 mt-4 flex-wrap">
+          {item.data.stack.map((tag) => (
+            <a href={`/tags/${tag}`} class="text-sm text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
+          ))}
         </div>
       </header>
-      <div
-        class="prose prose-neutral dark:prose-invert max-w-none text-base sm:text-lg leading-7 sm:leading-relaxed text-foreground prose-a:font-medium prose-a:underline prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40"
-      >
+      <div class="prose prose-neutral dark:prose-invert max-w-none prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40">
         <Content />
       </div>
-      <p
-        class="arabic-font text-right text-lg sm:text-xl font-medium mt-12 text-muted-foreground"
-      >
+      <p class="arabic-font text-right text-base font-medium mt-12 text-muted-foreground">
         بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
       </p>
     </article>
