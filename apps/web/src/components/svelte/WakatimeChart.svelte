@@ -1,9 +1,7 @@
-<script lang="ts">
+<s
   import type { WakatimeStatsProps } from "@/types";
   import { Card, CardContent, CardHeader } from "@ikuyo/ui";
   import { Calendar, Clock } from "lucide-svelte";
-
-  let { data }: { data: WakatimeStatsProps } = $props();
 
   const colors = [
     "#3b82f6",
@@ -100,7 +98,7 @@
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-  <Card class="border border-border/40 rounded-none bg-transparent">
+  <Card class="border border-border/70 rounded-none bg-transparent">
     <CardHeader class="p-4">
       <div class="flex items-center">
         <Clock class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -114,7 +112,7 @@
     </CardHeader>
   </Card>
 
-  <Card class="border border-border/40 bg-transparent rounded-none">
+  <Card class="border border-border/70 bg-transparent rounded-none">
     <CardHeader class="p-4">
       <div class="flex items-center">
         <Calendar class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -129,7 +127,7 @@
   </Card>
 </div>
 
-<Card class="border border-border/40 bg-transparent rounded-none">
+<Card class="border border-border/70 bg-transparent rounded-none">
   <CardContent class="p-4">
     <div class="w-full">
       <div class="h-56">

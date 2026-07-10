@@ -41,7 +41,7 @@
 
 <div class="video-container my-8 w-full group">
   <button
-    class="overflow-hidden rounded-none bg-muted cursor-pointer relative block w-full p-0 border border-border/40 outline-none hover:border-border/60 transition-colors"
+    class="overflow-hidden rounded-none bg-muted cursor-pointer relative block w-full p-0 border border-border/70 outline-none hover:border-border/60 transition-colors"
     onclick={openLightbox}
     aria-label="View large video"
   >
@@ -56,7 +56,9 @@
       <div
         class="absolute inset-0 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-300"
       >
-        <div class="p-4 rounded-md bg-background/80 border border-border/40 text-foreground">
+        <div
+          class="p-4 rounded-md bg-background/80 border border-border/70 text-foreground"
+        >
           <PlayIcon size={28} fill="currentColor" />
         </div>
       </div>

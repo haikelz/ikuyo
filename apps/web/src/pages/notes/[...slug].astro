@@ -40,15 +40,15 @@ const slug = sanitizeSlug(item.id);
         <h1 class="mt-8 mb-4 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
           {item.data.title}
         </h1>
-        <p class="text-sm text-muted-foreground mb-0">
-          {item.data.author} &middot; {format(item.data.created_at, "LLLL d, yyyy")} &middot; {remarkPluginFrontmatter.minutesRead}
+        <p class="text-sm text-muted-foreground mb-0 space-x">
+          {item.data.author}, {format(item.data.created_at, "LLLL d yyyy")} - {remarkPluginFrontmatter.minutesRead}
         </p>
         <div class="flex items-center gap-2 mt-4 flex-wrap">
           {item.data.tags.map((tag) => (
             <a href={`/tags/${tag}`} class="text-sm text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
           ))}
         </div>
-        <p class="arabic-font text-right text-base font-medium mt-12 text-muted-foreground">
+        <p class="arabic-font text-right text-lg font-medium mt-12 text-muted-foreground">
         بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </p>
       </header>

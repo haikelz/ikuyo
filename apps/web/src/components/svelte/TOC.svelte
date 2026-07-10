@@ -31,7 +31,7 @@ function toggleTOC() {
   <SheetContent
     side="right"
     overlayClass="bg-transparent backdrop-blur-none supports-backdrop-filter:backdrop-blur-none"
-    class="h-[min(80svh,32rem)] w-full max-w-none rounded-none border-t border-border/40 bg-background p-4 border-l border-border/40"
+    class="h-[min(80svh,32rem)] w-full max-w-none rounded-none border-t border-border/70 bg-background p-4 border-l border-border/70"
     showCloseButton={false}
   >
     <SheetHeader class="space-y-0">

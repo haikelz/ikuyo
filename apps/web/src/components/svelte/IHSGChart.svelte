@@ -571,7 +571,7 @@
       >
     </Alert>
   {:else}
-    <Card class="border border-border/40 bg-transparent rounded-none">
+    <Card class="border border-border/70 bg-transparent rounded-none">
       <CardHeader class="pb-3">
         <div
           class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
@@ -587,7 +587,7 @@
           <div class="flex items-center gap-2">
             <Badge
               variant="outline"
-              class="border-border/40 bg-transparent text-foreground font-medium"
+              class="border-border/70 bg-transparent text-foreground font-medium"
             >
               {currentMarket.source}
             </Badge>
@@ -602,12 +602,12 @@
         <div class="mt-3">
           <Select type="single" bind:value={selectedMarketCode}>
             <SelectTrigger
-              class="w-full md:w-[260px] border-border/40 bg-transparent text-foreground"
+              class="w-full md:w-[260px] border-border/70 bg-transparent text-foreground"
             >
               {currentMarket.label} ({currentMarket.symbol})
             </SelectTrigger>
             <SelectContent
-              class="border-border/40 bg-background text-foreground"
+              class="border-border/70 bg-background text-foreground"
             >
               {#each markets as market}
                 <SelectItem
@@ -658,7 +658,7 @@
               bind:value={interval}
               variant="outline"
               spacing={0}
-              class="rounded-md border border-border/40 bg-transparent p-1"
+              class="rounded-md border border-border/70 bg-transparent p-1"
             >
               <ToggleGroupItem value="1M">1M</ToggleGroupItem>
               <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -672,7 +672,7 @@
               bind:value={mode}
               variant="outline"
               spacing={0}
-              class="rounded-md border border-border/40 bg-transparent p-1"
+              class="rounded-md border border-border/70 bg-transparent p-1"
             >
               <ToggleGroupItem value="line">Line</ToggleGroupItem>
               <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -682,25 +682,25 @@
         </div>
 
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">Open</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.open ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">High</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.high ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">Low</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.low ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">Range Chg</p>
             <p
               class="font-medium"
@@ -709,7 +709,7 @@
               {formatSigned(rangeChangePercent)}%
             </p>
           </div>
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">Range L/H</p>
             <p class="font-medium text-sm">
               {numberFormatter.format(minClose)} / {numberFormatter.format(
@@ -717,7 +717,7 @@
               )}
             </p>
           </div>
-          <div class="rounded-md border border-border/40 bg-transparent p-3">
+          <div class="rounded-md border border-border/70 bg-transparent p-3">
             <p class="text-xs text-muted-foreground">Avg Vol</p>
             <p class="font-medium">{compactFormatter.format(avgVolume)}</p>
           </div>
@@ -728,7 +728,7 @@
             <Button
               variant="outline"
               size="sm"
-              class="h-8 border-border/40 bg-transparent"
+              class="h-8 border-border/70 bg-transparent"
               disabled={panOffset >= maxPanOffset}
               onclick={panLeft}
             >
@@ -738,7 +738,7 @@
             <Button
               variant="outline"
               size="sm"
-              class="h-8 border-border/40 bg-transparent"
+              class="h-8 border-border/70 bg-transparent"
               disabled={panOffset <= 0}
               onclick={panRight}
             >
@@ -751,7 +751,7 @@
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
               bind:pressed={showSma20}
             >
               SMA20
@@ -759,7 +759,7 @@
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
               bind:pressed={showVolume}
             >
               Volume
@@ -770,7 +770,7 @@
         <Separator />
 
         <div
-          class="relative h-80 w-full rounded-md border border-border/40 p-2"
+          class="relative h-80 w-full rounded-md border border-border/70 p-2"
           style={`background: ${palette.panel};`}
         >
           {#if mode === "area"}
@@ -897,7 +897,7 @@
                 style={`left: ${hoverX}px;`}
               ></div>
               <div
-                class="absolute left-0 right-0 border-t border-dashed border-border/40 pointer-events-none"
+                class="absolute left-0 right-0 border-t border-dashed border-border/70 pointer-events-none"
                 style={`top: ${hoverY}px;`}
               ></div>
               <div
@@ -906,7 +906,7 @@
               ></div>
 
               <div
-                class="absolute min-w-44 rounded-md border border-border/40 bg-background px-2.5 py-2 text-[11px] text-foreground shadow-none pointer-events-none"
+                class="absolute min-w-44 rounded-md border border-border/70 bg-background px-2.5 py-2 text-[11px] text-foreground shadow-none pointer-events-none"
                 style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
               >
                 <p class="mb-1 text-muted-foreground">
@@ -944,7 +944,7 @@
 
         {#if showVolume}
           <div
-            class="rounded-md border border-border/40 p-2"
+            class="rounded-md border border-border/70 p-2"
             style={`background: ${palette.panel};`}
           >
             {#if hasVolumeData}
@@ -1000,7 +1000,7 @@
       >
         <div class="flex h-full min-h-0 w-full flex-col">
           <DialogHeader
-            class="px-4 py-3 border-b border-border/40 bg-background"
+            class="px-4 py-3 border-b border-border/70 bg-background"
           >
             <DialogTitle class="text-base md:text-lg">
               {currentMarket.title} ({currentMarket.symbol}) - Fullscreen
@@ -1016,12 +1016,12 @@
               >
                 <Select type="single" bind:value={selectedMarketCode}>
                   <SelectTrigger
-                    class="w-full md:w-[280px] border-border/40 bg-transparent text-foreground"
+                    class="w-full md:w-[280px] border-border/70 bg-transparent text-foreground"
                   >
                     {currentMarket.label} ({currentMarket.symbol})
                   </SelectTrigger>
                   <SelectContent
-                    class="border-border/40 bg-background text-foreground"
+                    class="border-border/70 bg-background text-foreground"
                   >
                     {#each markets as market}
                       <SelectItem
@@ -1041,7 +1041,7 @@
                     bind:value={interval}
                     variant="outline"
                     spacing={0}
-                    class="rounded-md border border-border/40 bg-transparent p-1"
+                    class="rounded-md border border-border/70 bg-transparent p-1"
                   >
                     <ToggleGroupItem value="1M">1M</ToggleGroupItem>
                     <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -1055,7 +1055,7 @@
                     bind:value={mode}
                     variant="outline"
                     spacing={0}
-                    class="rounded-md border border-border/40 bg-transparent p-1"
+                    class="rounded-md border border-border/70 bg-transparent p-1"
                   >
                     <ToggleGroupItem value="line">Line</ToggleGroupItem>
                     <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -1069,7 +1069,7 @@
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/40 bg-transparent"
+                    class="h-8 border-border/70 bg-transparent"
                     disabled={panOffset >= maxPanOffset}
                     onclick={panLeft}
                   >
@@ -1079,7 +1079,7 @@
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/40 bg-transparent"
+                    class="h-8 border-border/70 bg-transparent"
                     disabled={panOffset <= 0}
                     onclick={panRight}
                   >
@@ -1094,7 +1094,7 @@
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+                    class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
                     bind:pressed={showSma20}
                   >
                     SMA20
@@ -1102,7 +1102,7 @@
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+                    class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
                     bind:pressed={showVolume}
                   >
                     Volume
@@ -1112,7 +1112,7 @@
             </div>
 
             <div
-              class="relative h-[72vh] w-full rounded-md border border-border/40 p-2"
+              class="relative h-[72vh] w-full rounded-md border border-border/70 p-2"
               style={`background: ${palette.panel};`}
             >
               {#if mode === "area"}
@@ -1237,7 +1237,7 @@
                     style={`left: ${hoverX}px;`}
                   ></div>
                   <div
-                    class="absolute left-0 right-0 border-t border-dashed border-border/40 pointer-events-none"
+                    class="absolute left-0 right-0 border-t border-dashed border-border/70 pointer-events-none"
                     style={`top: ${hoverY}px;`}
                   ></div>
                   <div
@@ -1246,7 +1246,7 @@
                   ></div>
 
                   <div
-                    class="absolute min-w-44 rounded-md border border-border/40 bg-background px-2.5 py-2 text-[11px] text-muted-foreground pointer-events-none"
+                    class="absolute min-w-44 rounded-md border border-border/70 bg-background px-2.5 py-2 text-[11px] text-muted-foreground pointer-events-none"
                     style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
                   >
                     <p class="mb-1 text-muted-foreground">
@@ -1284,7 +1284,7 @@
 
             {#if showVolume}
               <div
-                class="mt-3 rounded-md border border-border/40 p-2"
+                class="mt-3 rounded-md border border-border/70 p-2"
                 style={`background: ${palette.panel};`}
               >
                 {#if hasVolumeData}

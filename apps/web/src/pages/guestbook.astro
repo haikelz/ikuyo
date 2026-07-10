@@ -1,9 +1,9 @@
 ---
-import { api } from "@/configs/ky";
-import Layout from "@/layouts/Layout.astro";
-import type { GuestbookProps } from "@/types";
-import { BACKEND_API_URL } from "@/utils/env";
-import { format } from "date-fns";
+importformatapi } frodate-fns/ky";
+impo{ api }out from configsukytro";
+impoLayouto } from layouts/Layout.astropes";
+impotype rtGuestbookPropsURL } from typesenv";
+importBACKEND_API_URLmat } fro@/utils/envfns";
 
 export async function getGuestbook(): Promise<GuestbookProps[]> {
   try {
@@ -68,7 +68,7 @@ const guestbook = await getGuestbook();
                 new Date(a.created_at).getTime(),
             )
             .map((item) => (
-              <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/40 hover:border-border/80 transition-colors">
+              <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/70 hover:border-border/80 transition-colors">
                 <div>
                   <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
                     {item.message}

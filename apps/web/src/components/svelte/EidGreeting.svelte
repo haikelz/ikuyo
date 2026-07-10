@@ -45,7 +45,7 @@
         bind:value={lang}
         variant="outline"
         spacing={0}
-        class="self-end mb-1 rounded-lg border border-border/40 p-1"
+        class="self-end mb-1 rounded-lg border border-border/70 p-1"
       >
         <ToggleGroupItem value="id" aria-label="Bahasa Indonesia"
           >ID</ToggleGroupItem

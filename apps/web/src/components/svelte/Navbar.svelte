@@ -96,7 +96,7 @@
 
 <nav
   class={cn(
-    "fixed inset-x-0 top-0 z-50! flex w-full justify-center transition-transform duration-300 ease-in-out bg-background/95 backdrop-blur-sm border-b border-border/40",
+    "fixed inset-x-0 top-0 z-50! flex w-full justify-center transition-transform duration-300 ease-in-out bg-background/95 backdrop-blur-sm border-b border-border/70",
     isVisible ? "translate-y-0" : "-translate-y-full",
   )}
 >
@@ -137,7 +137,7 @@
           {item.label}
         </a>
       {/each}
-      <div class="pl-4 border-l border-border/40">
+      <div class="pl-4 border-l border-border/70">
         <ToggleTheme />
       </div>
     </div>
@@ -160,7 +160,7 @@
       <SheetContent
         side="bottom"
         id="mobile-nav-sheet"
-        class="rounded-t-md border-border/80 bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t border-border/40"
+        class="rounded-t-md border-border/80 bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t border-border/70"
         showCloseButton={false}
       >
         <div
@@ -169,7 +169,9 @@
         ></div>
         <SheetHeader class="space-y-1 pb-2 text-left">
           <div class="flex items-center justify-between">
-            <SheetTitle class="text-base font-medium tracking-tight text-foreground">
+            <SheetTitle
+              class="text-base font-medium tracking-tight text-foreground"
+            >
               Navigate
             </SheetTitle>
             <ToggleTheme />

@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { format } from "date-fns";
 
 type Props = {
@@ -22,7 +21,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
       class:list={[
         "flex w-full flex-col relative p-8",
         "rounded-none",
-        "bg-transparent border border-border/40 hover:border-border/80 transition-colors",
+        "bg-transparent border border-border/70 hover:border-border/80 transition-colors",
         "text-foreground",
       ]}
     >
@@ -60,7 +59,7 @@ const { thumbnail, title, description, slug, createdAt, type, tags } =
       class:list={[
         "flex w-full flex-col relative",
         "rounded-none",
-        "bg-transparent border border-border/40 hover:border-border/80 transition-colors",
+        "bg-transparent border border-border/70 hover:border-border/80 transition-colors",
         "text-foreground",
       ]}
     >
