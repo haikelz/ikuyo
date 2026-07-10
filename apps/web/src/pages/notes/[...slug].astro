@@ -33,7 +33,7 @@ const slug = sanitizeSlug(item.id);
   url={`https://ekel.dev/notes/${slug}`}
   ogImage={`notes/${slug}.png`}
 >
-  <div class="w-full max-w-3xl mx-auto slide-enter-content">
+  <div class="w-full mx-auto slide-enter-content">
     <BackButton label="back to notes" client:only="svelte" />
     <article>
       <header class="mb-10">
@@ -44,10 +44,9 @@ const slug = sanitizeSlug(item.id);
         </h1>
         <div class="text-sm sm:text-base text-muted-foreground space-y-1">
           <p class="mb-0">
-            <span class="font-medium text-foreground">{item.data.author}</span>
-          </p>
-          <p class="mb-0">
-            {remarkPluginFrontmatter.minutesRead} — {format(item.data.created_at, "LLLL d, yyyy")}
+            {item.data.author}, {format(item.data.created_at, "LLLL d, yyyy")} - {
+              remarkPluginFrontmatter.minutesRead
+            }
           </p>
         </div>
         <div class="flex items-center gap-2 mt-6 flex-wrap">

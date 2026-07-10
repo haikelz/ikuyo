@@ -12,11 +12,11 @@ import { BACKEND_API_URL } from "@/utils/env";
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start  mx-auto",
+      "flex w-full flex-col items-start justify-start mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full mb-10 sm:mb-16">
+    <section class="w-full mt-8">
       <h1
         class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
       >
@@ -28,7 +28,7 @@ import { BACKEND_API_URL } from "@/utils/env";
         </p>
       </div>
     </section>
-    <section class="w-full slide-enter-content">
+    <section class="w-full slide-enter-content mt-10 sm:mt-16">
       <IHSGChart
         client:only="svelte"
         backendApiUrl={BACKEND_API_URL}

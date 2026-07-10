@@ -40,7 +40,7 @@
 }
 
 .prose .code-block-wrapper .code-block-filename {
-  @apply bg-muted font-mono;
+  @apply bg-base-1 font-mono;
 }
 
 .prose .code-block-wrapper .code-block-copy {

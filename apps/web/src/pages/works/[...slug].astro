@@ -28,7 +28,7 @@ const slug = sanitizeSlug(item.id);
   url={`https://ekel.dev/works/${slug}`}
   ogImage={`works/${slug}.png`}
 >
-  <div class="w-full max-w-3xl mx-auto slide-enter-content">
+  <div class="w-full mx-auto slide-enter-content">
     <BackButton label="back to works" client:only="svelte" />
     <article>
       <header class="mb-10">
@@ -45,12 +45,34 @@ const slug = sanitizeSlug(item.id);
             {remarkPluginFrontmatter.minutesRead}
             {
               item.data.preview ? (
-                <span> — <a href={item.data.preview} target="_blank" rel="noopener noreferrer" class="font-medium text-foreground hover:text-muted-foreground transition-colors">Preview</a></span>
+                <span>
+                  {" "}
+                  —{" "}
+                  <a
+                    href={item.data.preview}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-medium text-foreground hover:text-muted-foreground transition-colors"
+                  >
+                    Preview
+                  </a>
+                </span>
               ) : null
             }
             {
               item.data.repo ? (
-                <span> — <a href={item.data.repo} target="_blank" rel="noopener noreferrer" class="font-medium text-foreground hover:text-muted-foreground transition-colors">Source</a></span>
+                <span>
+                  {" "}
+                  —{" "}
+                  <a
+                    href={item.data.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-medium text-foreground hover:text-muted-foreground transition-colors"
+                  >
+                    Source
+                  </a>
+                </span>
               ) : null
             }
           </p>
