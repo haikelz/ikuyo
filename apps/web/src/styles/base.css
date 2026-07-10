@@ -45,6 +45,16 @@ nav {
   @apply border-border;
 }
 
+a {
+  @apply underline decoration-border/30 underline-offset-2 font-medium;
+}
+
+a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.75em;
+  opacity: 0.5;
+}
+
 ::-webkit-scrollbar-track {
   @apply bg-base-5;
 }

@@ -128,7 +128,7 @@
           href={item.path}
           aria-label={item.label}
           class={cn(
-            "text-sm font-medium transition-colors",
+            "text-sm font-medium transition-colors no-underline",
             currentPath.includes(item.path)
               ? "text-foreground"
               : "text-muted-foreground hover:text-foreground",
