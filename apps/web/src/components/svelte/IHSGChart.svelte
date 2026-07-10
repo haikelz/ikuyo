@@ -513,7 +513,7 @@ const axisClasses = {
     >
   </Alert>
   {:else}
-  <Card class="border-neutral-800/80 bg-[#0b0f14]">
+  <Card class="border border-border/40 bg-transparent">
     <CardHeader class="pb-3">
       <div
         class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
@@ -522,18 +522,18 @@ const axisClasses = {
           <CardTitle class="text-xl tracking-tight"
             >{currentMarket.title}</CardTitle
           >
-          <p class="text-sm text-neutral-500 mt-1">
+          <p class="text-sm text-muted-foreground mt-1">
             Trading-style view (interval, pan, indicator, volume).
           </p>
         </div>
         <div class="flex items-center gap-2">
           <Badge
             variant="outline"
-            class="border-white/15 bg-white/[0.02] text-neutral-300"
+            class="border-border/40 bg-transparent text-foreground font-medium"
           >
             {currentMarket.source}
           </Badge>
-          <Badge variant="secondary" class="bg-white/[0.04] text-neutral-300">
+          <Badge variant="secondary" class="bg-transparent text-foreground font-medium">
             {interval}
           </Badge>
         </div>
@@ -541,16 +541,16 @@ const axisClasses = {
       <div class="mt-3">
         <Select type="single" bind:value={selectedMarketCode}>
           <SelectTrigger
-            class="w-full md:w-[260px] border-white/10 bg-white/[0.02] text-neutral-200"
+            class="w-full md:w-[260px] border-border/40 bg-transparent text-foreground"
           >
             {currentMarket.label} ({currentMarket.symbol})
           </SelectTrigger>
-          <SelectContent class="border-white/10 bg-[#0e1320] text-neutral-200">
+          <SelectContent class="border-border/40 bg-background text-foreground">
             {#each markets as market}
               <SelectItem
                 value={market.code}
                 label={`${market.label} (${market.symbol})`}
-                class="focus:bg-white/10 data-[highlighted]:bg-white/10"
+                class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
               >
                 {market.label} ({market.symbol})
               </SelectItem>
@@ -595,7 +595,7 @@ const axisClasses = {
             bind:value={interval}
             variant="outline"
             spacing={0}
-            class="rounded-lg border border-white/10 bg-white/[0.02] p-1"
+            class="rounded-md border border-border/40 bg-transparent p-1"
           >
             <ToggleGroupItem value="1M">1M</ToggleGroupItem>
             <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -609,7 +609,7 @@ const axisClasses = {
             bind:value={mode}
             variant="outline"
             spacing={0}
-            class="rounded-lg border border-white/10 bg-white/[0.02] p-1"
+            class="rounded-md border border-border/40 bg-transparent p-1"
           >
             <ToggleGroupItem value="line">Line</ToggleGroupItem>
             <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -620,55 +620,55 @@ const axisClasses = {
 
       <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">Open</p>
-          <p class="font-semibold">
+          <p class="text-xs text-muted-foreground">Open</p>
+          <p class="font-medium">
             {numberFormatter.format(latest?.open ?? 0)}
           </p>
         </div>
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">High</p>
-          <p class="font-semibold">
+          <p class="text-xs text-muted-foreground">High</p>
+          <p class="font-medium">
             {numberFormatter.format(latest?.high ?? 0)}
           </p>
         </div>
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">Low</p>
-          <p class="font-semibold">
+          <p class="text-xs text-muted-foreground">Low</p>
+          <p class="font-medium">
             {numberFormatter.format(latest?.low ?? 0)}
           </p>
         </div>
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">Range Chg</p>
+          <p class="text-xs text-muted-foreground">Range Chg</p>
           <p
-            class="font-semibold"
+            class="font-medium"
             style={`color: ${rangeChange >= 0 ? palette.positive : palette.negative};`}
           >
             {formatSigned(rangeChangePercent)}%
           </p>
         </div>
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">Range L/H</p>
-          <p class="font-semibold text-sm">
+          <p class="text-xs text-muted-foreground">Range L/H</p>
+          <p class="font-medium text-sm">
             {numberFormatter.format(minClose)} / {numberFormatter.format(
               maxClose
             )}
           </p>
         </div>
         <div
-          class="rounded-lg border border-neutral-800/90 bg-neutral-950/70 p-3"
+          class="rounded-md border border-border/40 bg-transparent p-3"
         >
-          <p class="text-xs text-neutral-400">Avg Vol</p>
-          <p class="font-semibold">{compactFormatter.format(avgVolume)}</p>
+          <p class="text-xs text-muted-foreground">Avg Vol</p>
+          <p class="font-medium">{compactFormatter.format(avgVolume)}</p>
         </div>
       </div>
 
@@ -677,7 +677,7 @@ const axisClasses = {
           <Button
             variant="outline"
             size="sm"
-            class="h-8 border-white/10 bg-white/[0.02]"
+            class="h-8 border-border/40 bg-transparent"
             disabled={panOffset >= maxPanOffset}
             onclick={panLeft}
           >
@@ -687,7 +687,7 @@ const axisClasses = {
           <Button
             variant="outline"
             size="sm"
-            class="h-8 border-white/10 bg-white/[0.02]"
+            class="h-8 border-border/40 bg-transparent"
             disabled={panOffset <= 0}
             onclick={panRight}
           >
@@ -696,11 +696,11 @@ Scroll Right
           </Button>
         </div>
 
-        <div class="flex items-center gap-2 text-xs text-neutral-400">
+        <div class="flex items-center gap-2 text-xs text-muted-foreground">
           <Toggle
             variant="outline"
             size="sm"
-            class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+            class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
             bind:pressed={showSma20}
           >
             SMA20
@@ -708,7 +708,7 @@ Scroll Right
           <Toggle
             variant="outline"
             size="sm"
-            class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+            class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
             bind:pressed={showVolume}
           >
             Volume
@@ -719,7 +719,7 @@ Scroll Right
       <Separator />
 
       <div
-        class="relative h-80 w-full rounded-xl border border-white/10 p-2 shadow-inner"
+        class="relative h-80 w-full rounded-md border border-border/40 p-2 "
         style={`background: ${palette.panel};`}
       >
         {#if mode === "area"}
@@ -842,39 +842,39 @@ Scroll Right
         >
           {#if hoveredPoint}
             <div
-              class="absolute top-0 bottom-0 border-l border-dashed border-white/20 pointer-events-none"
+              class="absolute top-0 bottom-0 border-l border-dashed border-border/60 pointer-events-none"
               style={`left: ${hoverX}px;`}
             ></div>
             <div
-              class="absolute left-0 right-0 border-t border-dashed border-white/15 pointer-events-none"
+              class="absolute left-0 right-0 border-t border-dashed border-border/40 pointer-events-none"
               style={`top: ${hoverY}px;`}
             ></div>
             <div
-              class="absolute h-2.5 w-2.5 rounded-full border border-white/70 pointer-events-none"
+              class="absolute h-2.5 w-2.5 rounded-sm border border-border pointer-events-none"
               style={`left: ${hoverX - 5}px; top: ${hoverY - 5}px; background: ${palette.line};`}
             ></div>
 
             <div
-              class="absolute min-w-44 rounded-md border border-white/12 bg-[#0b1220]/95 px-2.5 py-2 text-[11px] text-slate-200 shadow-lg pointer-events-none"
+              class="absolute min-w-44 rounded-md border border-border/40 bg-background px-2.5 py-2 text-[11px] text-foreground shadow-none pointer-events-none"
               style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
             >
-              <p class="mb-1 text-slate-400">
+              <p class="mb-1 text-muted-foreground">
                 {dateFormatter.format(hoveredPoint.date)}
               </p>
               <div class="grid grid-cols-2 gap-x-2 gap-y-1">
-                <span class="text-slate-400">O</span><span
+                <span class="text-muted-foreground">O</span><span
                   >{numberFormatter.format(hoveredPoint.open)}</span
                 >
-                <span class="text-slate-400">H</span><span
+                <span class="text-muted-foreground">H</span><span
                   >{numberFormatter.format(hoveredPoint.high)}</span
                 >
-                <span class="text-slate-400">L</span><span
+                <span class="text-muted-foreground">L</span><span
                   >{numberFormatter.format(hoveredPoint.low)}</span
                 >
-                <span class="text-slate-400">C</span><span
+                <span class="text-muted-foreground">C</span><span
                   >{numberFormatter.format(hoveredPoint.close)}</span
                 >
-                <span class="text-slate-400">Vol</span><span
+                <span class="text-muted-foreground">Vol</span><span
                   >{compactFormatter.format(hoveredPoint.volume)}</span
                 >
               </div>
@@ -893,7 +893,7 @@ Scroll Right
 
       {#if showVolume}
         <div
-          class="rounded-xl border border-white/10 p-2"
+          class="rounded-md border border-border/40 p-2"
           style={`background: ${palette.panel};`}
         >
           {#if hasVolumeData}
@@ -927,14 +927,14 @@ Scroll Right
               {/each}
             </svg>
           {:else}
-            <div class="py-3 px-2 text-xs text-neutral-500">
+            <div class="py-3 px-2 text-xs text-muted-foreground">
               Volume tidak tersedia di sumber data aktif.
             </div>
           {/if}
         </div>
       {/if}
 
-      <p class="text-xs text-neutral-500">
+      <p class="text-xs text-muted-foreground">
         Last updated: {dateFormatter.format(new Date(currentMarket.fetchedAt))} |
         Data points: {visibleData.length}
       </p>
@@ -944,10 +944,10 @@ Scroll Right
   <Dialog bind:open={isChartDialogOpen}>
     <DialogContent
       showCloseButton={true}
-      class="!inset-0 !top-0 !left-0 !w-screen !h-screen !max-w-none sm:!max-w-none !translate-x-0 !translate-y-0 !rounded-none !p-0 !border-0 bg-[#0b0f14] !overflow-y-auto"
+      class="!inset-0 !top-0 !left-0 !w-screen !h-screen !max-w-none sm:!max-w-none !translate-x-0 !translate-y-0 !rounded-none !p-0 !border-0 bg-background !overflow-y-auto"
     >
       <div class="flex h-full min-h-0 w-full flex-col">
-        <DialogHeader class="px-4 py-3 border-b border-white/10 bg-[#0f1420]">
+        <DialogHeader class="px-4 py-3 border-b border-border/40 bg-background">
           <DialogTitle class="text-base md:text-lg">
             {currentMarket.title} ({currentMarket.symbol}) - Fullscreen
           </DialogTitle>
@@ -958,16 +958,16 @@ Scroll Right
             <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <Select type="single" bind:value={selectedMarketCode}>
                 <SelectTrigger
-                  class="w-full md:w-[280px] border-white/10 bg-white/[0.02] text-neutral-200"
+                  class="w-full md:w-[280px] border-border/40 bg-transparent text-foreground"
                 >
                   {currentMarket.label} ({currentMarket.symbol})
                 </SelectTrigger>
-                <SelectContent class="border-white/10 bg-[#0e1320] text-neutral-200">
+                <SelectContent class="border-border/40 bg-background text-foreground">
                   {#each markets as market}
                     <SelectItem
                       value={market.code}
                       label={`${market.label} (${market.symbol})`}
-                      class="focus:bg-white/10 data-[highlighted]:bg-white/10"
+                      class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
                     >
                       {market.label} ({market.symbol})
                     </SelectItem>
@@ -981,7 +981,7 @@ Scroll Right
                   bind:value={interval}
                   variant="outline"
                   spacing={0}
-                  class="rounded-lg border border-white/10 bg-white/[0.02] p-1"
+                  class="rounded-md border border-border/40 bg-transparent p-1"
                 >
                   <ToggleGroupItem value="1M">1M</ToggleGroupItem>
                   <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -995,7 +995,7 @@ Scroll Right
                   bind:value={mode}
                   variant="outline"
                   spacing={0}
-                  class="rounded-lg border border-white/10 bg-white/[0.02] p-1"
+                  class="rounded-md border border-border/40 bg-transparent p-1"
                 >
                   <ToggleGroupItem value="line">Line</ToggleGroupItem>
                   <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -1009,7 +1009,7 @@ Scroll Right
                 <Button
                   variant="outline"
                   size="sm"
-                  class="h-8 border-white/10 bg-white/[0.02]"
+                  class="h-8 border-border/40 bg-transparent"
                   disabled={panOffset >= maxPanOffset}
                   onclick={panLeft}
                 >
@@ -1019,7 +1019,7 @@ Scroll Left
                 <Button
                   variant="outline"
                   size="sm"
-                  class="h-8 border-white/10 bg-white/[0.02]"
+                  class="h-8 border-border/40 bg-transparent"
                   disabled={panOffset <= 0}
                   onclick={panRight}
                 >
@@ -1028,11 +1028,11 @@ Scroll Right
                 </Button>
               </div>
 
-              <div class="flex items-center gap-2 text-xs text-neutral-400">
+              <div class="flex items-center gap-2 text-xs text-muted-foreground">
                 <Toggle
                   variant="outline"
                   size="sm"
-                  class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+                  class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
                   bind:pressed={showSma20}
                 >
                   SMA20
@@ -1040,7 +1040,7 @@ Scroll Right
                 <Toggle
                   variant="outline"
                   size="sm"
-                  class="h-8 border-white/10 bg-white/[0.02] text-xs text-neutral-300 data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+                  class="h-8 border-border/40 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
                   bind:pressed={showVolume}
                 >
                   Volume
@@ -1050,7 +1050,7 @@ Scroll Right
           </div>
 
           <div
-            class="relative h-[72vh] w-full rounded-xl border border-white/10 p-2"
+            class="relative h-[72vh] w-full rounded-md border border-border/40 p-2"
             style={`background: ${palette.panel};`}
           >
             {#if mode === "area"}
@@ -1171,29 +1171,29 @@ Scroll Right
             >
               {#if hoveredPoint}
                 <div
-                  class="absolute top-0 bottom-0 border-l border-dashed border-white/20 pointer-events-none"
+                  class="absolute top-0 bottom-0 border-l border-dashed border-border/60 pointer-events-none"
                   style={`left: ${hoverX}px;`}
                 ></div>
                 <div
-                  class="absolute left-0 right-0 border-t border-dashed border-white/15 pointer-events-none"
+                  class="absolute left-0 right-0 border-t border-dashed border-border/40 pointer-events-none"
                   style={`top: ${hoverY}px;`}
                 ></div>
                 <div
-                  class="absolute h-2.5 w-2.5 rounded-full border border-white/70 pointer-events-none"
+              class="absolute h-2.5 w-2.5 rounded-sm border border-border pointer-events-none"
                   style={`left: ${hoverX - 5}px; top: ${hoverY - 5}px; background: ${palette.line};`}
                 ></div>
 
                 <div
-                  class="absolute min-w-44 rounded-md border border-white/12 bg-[#0b1220]/95 px-2.5 py-2 text-[11px] text-slate-200 shadow-lg pointer-events-none"
+              class="absolute min-w-44 rounded-md border border-border/40 bg-background px-2.5 py-2 text-[11px] text-muted-foreground pointer-events-none"
                   style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
                 >
-                  <p class="mb-1 text-slate-400">{dateFormatter.format(hoveredPoint.date)}</p>
+                  <p class="mb-1 text-muted-foreground">{dateFormatter.format(hoveredPoint.date)}</p>
                   <div class="grid grid-cols-2 gap-x-2 gap-y-1">
-                    <span class="text-slate-400">O</span><span>{numberFormatter.format(hoveredPoint.open)}</span>
-                    <span class="text-slate-400">H</span><span>{numberFormatter.format(hoveredPoint.high)}</span>
-                    <span class="text-slate-400">L</span><span>{numberFormatter.format(hoveredPoint.low)}</span>
-                    <span class="text-slate-400">C</span><span>{numberFormatter.format(hoveredPoint.close)}</span>
-                    <span class="text-slate-400">Vol</span><span>{compactFormatter.format(hoveredPoint.volume)}</span>
+                    <span class="text-muted-foreground">O</span><span>{numberFormatter.format(hoveredPoint.open)}</span>
+                    <span class="text-muted-foreground">H</span><span>{numberFormatter.format(hoveredPoint.high)}</span>
+                    <span class="text-muted-foreground">L</span><span>{numberFormatter.format(hoveredPoint.low)}</span>
+                    <span class="text-muted-foreground">C</span><span>{numberFormatter.format(hoveredPoint.close)}</span>
+                    <span class="text-muted-foreground">Vol</span><span>{compactFormatter.format(hoveredPoint.volume)}</span>
                   </div>
                   <p
                     class="mt-1.5"
@@ -1208,7 +1208,7 @@ Scroll Right
 
           {#if showVolume}
             <div
-              class="mt-3 rounded-xl border border-white/10 p-2"
+              class="mt-3 rounded-md border border-border/40 p-2"
               style={`background: ${palette.panel};`}
             >
               {#if hasVolumeData}
@@ -1241,7 +1241,7 @@ Scroll Right
                   {/each}
                 </svg>
               {:else}
-                <div class="py-3 px-2 text-xs text-neutral-500">
+                <div class="py-3 px-2 text-xs text-muted-foreground">
                   Volume tidak tersedia di sumber data aktif.
                 </div>
               {/if}
