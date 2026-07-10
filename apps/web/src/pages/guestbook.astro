@@ -27,26 +27,36 @@ const guestbook = await getGuestbook();
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 data-cy="heading" class="mb-0">Guestbook</h1>
+    <section class="w-full mt-8">
+      <h1
+        data-cy="heading"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Guestbook
+      </h1>
       <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify">
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
           Write a message for me and others. Go to
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://guestbook.ekel.dev">guestbook.ekel.dev</a
+            href="https://guestbook.ekel.dev"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >guestbook.ekel.dev</a
           > to add your message.
         </p>
       </div>
     </section>
     <section
       data-cy="guestbook"
-      class="flex w-full flex-col space-y-5 mt-8 items-start justify-start slide-enter-content"
+      class="flex w-full flex-col space-y-6 mt-10 sm:mt-16 sm:space-y-8 items-start justify-start slide-enter-content"
     >
       {
         guestbook ? (
@@ -54,20 +64,27 @@ const guestbook = await getGuestbook();
             .sort(
               (a, b) =>
                 new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime()
+                new Date(a.created_at).getTime(),
             )
             .map((item) => (
-              <div class="group relative p-6 w-full rounded-xl bg-linear-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
+              <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/40 hover:border-border/80 transition-colors">
                 <div>
-                  <h3 class="mb-0 mt-0">{item.message}</h3>
-                  <p class="mb-0 mt-3">
-                    {item.username} - {format(item.created_at, "MMMM d, y")}
+                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
+                    {item.message}
+                  </h3>
+                  <p class="mb-0 mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
+                    <span class="font-medium text-foreground">
+                      {item.username}
+                    </span>{" "}
+                    — {format(item.created_at, "MMMM d, yyyy")}
                   </p>
                 </div>
               </div>
             ))
         ) : (
-          <p class="font-bold">There is no message right now!</p>
+          <p class="font-medium text-muted-foreground">
+            There is no message right now!
+          </p>
         )
       }
     </section>

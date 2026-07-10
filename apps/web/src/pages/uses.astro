@@ -11,74 +11,117 @@ import Layout from "@/layouts/Layout.astro";
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 data-cy="heading" class="mb-0">./uses</h1>
+    <section class="w-full mt-8">
+      <h1
+        data-cy="heading"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Uses
+      </h1>
       <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify">
-          My current usage of stuffs.
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
+          My current hardware and software setup.
         </p>
       </div>
     </section>
     <section class="w-full slide-enter-content">
-      <PhotoGrid
-        client:only
-        images={[
-          "/images/uses.png",
-          "/images/IMG_1205.png",
-          "/images/hobby-related.jpeg",
-          "/images/IMG_1267.png",
-        ]}
-      />
-      <ul>
-        <li>
-          <p class="py-0!">
-            <b><u>IDE/Text Editor:</u></b> Trae/Cursor/Neovim.
+      <div class="mb-10 sm:mb-12">
+        <PhotoGrid
+          client:only
+          images={[
+            "/images/uses.png",
+            "/images/IMG_1205.png",
+            "/images/hobby-related.jpeg",
+            "/images/IMG_1267.png",
+          ]}
+        />
+      </div>
+      <ul
+        class="space-y-4 sm:space-y-6 text-base sm:text-lg text-foreground list-none pl-0"
+      >
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">IDE/Text Editor:</strong
+            > Trae/Cursor/Neovim.
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Laptop:</u></b> Lenovo Thinkbook 14 G2 ARE (Ryzen 4500U)
-            with <b>24GB of RAM</b> (8GB soldered + 16GB Kingston Fury Impact) and
-            <b>1TB of Storage</b> (512GB Samsung NVME + 512GB Team Elite EX2 Elite
-            SATA 2.5).
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Laptop:</strong> Lenovo Thinkbook
+            14 G2 ARE (Ryzen 4500U) with <strong
+              class="text-foreground font-medium">24GB of RAM</strong
+            > (8GB soldered + 16GB Kingston Fury Impact) and
+            <strong class="text-foreground font-medium">1TB of Storage</strong> (512GB
+            Samsung NVME + 512GB Team Elite EX2 Elite SATA 2.5).
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Mouse:</u></b> Logitech Pebble M350 (2022).
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Mouse:</strong> Logitech Pebble
+            M350 (2022).
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Mech Keyboard:</u></b> <strike>Royal Kludge RKG68 (2022)</strike> Noir Timeless82 V1 (Used Barebone) + Akko V3 Cream Blue Pro.
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Mech Keyboard:</strong>
+            <strike>Royal Kludge RKG68 (2022)</strike> Noir Timeless82 V1 (Used Barebone)
+            + Akko V3 Cream Blue Pro.
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Dualboot OS:</u></b>
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Dualboot OS:</strong>
             (Fedora Linux + Windows 10 Home Edition).
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Phone:</u></b> <strike>Sony Xperia X Compact</strike> Iphone SE 3 2022.
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Phone:</strong>
+            <strike>Sony Xperia X Compact</strike> Iphone SE 3 2022.
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Camera:</u></b> Sony A5000 + TTArtisan 56mm f/1.8.
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Camera:</strong> Sony A5000
+            + TTArtisan 56mm f/1.8.
           </p>
         </li>
-        <li>
-          <p class="py-0!">
-             <b><u>Audio:</u></b> Moondrop Chu2 + Modular Pula Unicrom Cable + <strike
-              >DAC Fiio JA11 (SOLD)</strike
-            > Moondrop Dawn Pro + C to Lightning Akliam C5 / DAP Fiio Snowsky Echo
-            Mini.
+        <li class="relative pl-6">
+          <span
+            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+          ></span>
+          <p class="my-0 leading-7 sm:leading-relaxed">
+            <strong class="text-foreground font-medium">Audio:</strong> Moondrop Chu2
+            + Modular Pula Unicrom Cable + <strike>DAC Fiio JA11 (SOLD)</strike> Moondrop
+            Dawn Pro + C to Lightning Akliam C5 / DAP Fiio Snowsky Echo Mini.
           </p>
         </li>
       </ul>

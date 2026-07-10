@@ -28,19 +28,27 @@ const wakatimeStats = await getWakatimeStats();
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 data-cy="heading" class="mb-0">./wakatime</h1>
+    <section class="w-full mt-8">
+      <h1
+        data-cy="heading"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Wakatime
+      </h1>
       <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify">
-          My Wakatime stats.
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
+          My coding activity and statistics.
         </p>
       </div>
     </section>
-    <section class="w-full mt-8 slide-enter-content">
+    <section class="w-full mt-10 sm:mt-16 slide-enter-content">
       <WakatimeChart client:only="svelte" data={wakatimeStats} />
     </section>
   </div>

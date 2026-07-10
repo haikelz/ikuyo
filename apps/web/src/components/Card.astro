@@ -12,40 +12,43 @@ type Props = {
   tags: string[];
 };
 
-const { thumbnail, title, description, slug, createdAt, type, tags } = Astro.props;
+const { thumbnail, title, description, slug, createdAt, type, tags } =
+  Astro.props;
 ---
 
 {
   type === "notes" ? (
     <div
       class:list={[
-        "group/card card flex w-full flex-col relative p-4",
-        "flex-wrap overflow-hidden rounded-2xl",
-        "bg-linear-to-br from-card/90 via-card/70 to-card/90",
-        "border border-border/50",
-        "text-card-foreground ring-1 ring-border/10 backdrop-blur-sm",
-        "transition-all duration-300 ease-out",
-        "hover:border-border hover:shadow-lg hover:shadow-neutral-900/50",
-        "hover:-translate-y-1",
+        "flex w-full flex-col relative p-8",
+        "rounded-none",
+        "bg-transparent border border-border/40 hover:border-border/80 transition-colors",
+        "text-foreground",
       ]}
     >
       <div class="relative z-10">
         {createdAt ? (
-          <span class="font-semibold">{format(createdAt, "LLLL d, yyyy")}</span>
+          <span class="font-medium text-sm text-muted-foreground">
+            {format(createdAt, "LLLL d, yyyy")}
+          </span>
         ) : null}
         <a
           href={`/notes/${slug}`}
-          class:list={[
-            "mt-2 cursor-pointer text-lg font-bold",
-            "no-underline!",
-          ]}
+          class:list={["mt-3 block cursor-pointer", "no-underline!"]}
         >
-          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
+          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-medium tracking-tight text-foreground">
+            {title}
+          </h3>
         </a>
-        <p class="mb-0 mt-2 line-clamp-3">{description}</p>
-        <div class="flex justify-start my-2! items-center gap-2 w-fit flex-wrap">
+        <p class="mb-0 mt-3 line-clamp-3 text-muted-foreground text-base leading-relaxed">
+          {description}
+        </p>
+        <div class="flex justify-start mt-6 items-center gap-3 w-fit flex-wrap">
           {tags.map((item) => (
-            <a class="text-base" href={`/tags/${item}`}>
+            <a
+              class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              href={`/tags/${item}`}
+            >
               <span>#{item}</span>
             </a>
           ))}
@@ -55,39 +58,30 @@ const { thumbnail, title, description, slug, createdAt, type, tags } = Astro.pro
   ) : type === "works" ? (
     <div
       class:list={[
-        "group/card card flex w-full flex-col relative",
-        "flex-wrap overflow-hidden rounded-2xl",
-        "bg-linear-to-br from-card/90 via-card/70 to-card/90",
-        "border border-border/50",
-        "text-card-foreground ring-1 ring-border/10 backdrop-blur-sm",
-        "transition-all duration-300 ease-out",
-        "hover:border-border hover:shadow-lg hover:shadow-neutral-900/50",
-        "hover:-translate-y-1",
+        "flex w-full flex-col relative",
+        "rounded-none",
+        "bg-transparent border border-border/40 hover:border-border/80 transition-colors",
+        "text-foreground",
       ]}
     >
-      <div class="relative overflow-hidden!">
-        <Image
-          src={thumbnail as string}
-          alt={title}
-          width={500}
-          height={500}
-          quality={100}
-          format="avif"
-          class="my-0! object-cover h-48! w-full rounded-none! border-none! transition-transform duration-300 group-hover:scale-105"
-        />
-        <div class="absolute inset-0 bg-linear-to-t from-neutral-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-      <div class="w-full p-4 relative z-10">
+      <div class="w-full p-8 relative z-10">
         <a
           href={`/works/${slug}`}
-          class:list={["cursor-pointer text-lg font-bold", "no-underline!"]}
+          class:list={["cursor-pointer block", "no-underline!"]}
         >
-          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-bold">{title}</h3>
+          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-medium tracking-tight text-foreground">
+            {title}
+          </h3>
         </a>
-        <p class="mb-0 mt-2">{description}</p>
-        <div class="flex justify-start my-2! items-center gap-2 w-fit flex-wrap">
+        <p class="mb-0 mt-3 text-muted-foreground text-base leading-relaxed">
+          {description}
+        </p>
+        <div class="flex justify-start mt-6 items-center gap-3 w-fit flex-wrap">
           {tags.map((item) => (
-            <a class="text-base" href={`/tags/${item}`}>
+            <a
+              class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              href={`/tags/${item}`}
+            >
               <span>#{item}</span>
             </a>
           ))}

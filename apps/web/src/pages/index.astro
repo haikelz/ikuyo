@@ -1,6 +1,5 @@
 ---
-import Card from "@/components/Card.astro";
-import Tooltip from "@/components/svelte/Tooltip.svelte";
+import Card from "@/components/card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -15,7 +14,9 @@ const experienceList = [
     position: "Web Programmer",
     startDate: "Sep 2025",
     endDate: "Present",
-    tasks: ["Working with Typescript, Go, Docker ecosystem, also do some DevOps stuff."],
+    tasks: [
+      "Working with Typescript, Go, Docker ecosystem, also do some DevOps stuff.",
+    ],
   },
   {
     company: "Linkupcareer.id",
@@ -102,117 +103,108 @@ const experienceList = [
 
 <Layout
   title="Haikel Ilham Hakim"
-  description="Product Engineer"
+  description="Product/Devops"
   url="https://ekel.dev"
   ogImage="home.png"
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start relative",
+      "flex w-full flex-col items-start justify-start relative mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full slide-enter-content m-0! p-0!">
-      <div class="relative w-full m-0! p-0!">
-        <div
-          class="relative w-full rounded-xl! rounded-b-none! h-32 sm:h-40 md:h-52 lg:h-64 p-0! m-0! overflow-hidden! group"
-        >
-          <img
-            src="/images/IMG_1205.png"
-            alt="Profile Banner"
-            class="w-full! h-full object-cover p-0! m-0! rounded-b-none! transition-transform duration-500 group-hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-neutral-950/60"
+    <section class="w-full slide-enter-content mt-8">
+      <div class="w-full">
+        <div class="mb-6">
+          <h1
+            data-cy="name"
+            class="text-3xl sm:text-4xl md:text-5xl tracking-tighter font-medium mb-4 mt-0 text-foreground"
           >
-          </div>
+            Haikel (ハイケル)
+          </h1>
+          <p
+            class="text-xl sm:text-2xl text-foreground font-medium tracking-tight mb-2 mt-0"
+          >
+            Product/Devops
+          </p>
+          <p class="text-sm sm:text-base text-muted-foreground mb-0 mt-0">
+            Indonesia
+          </p>
         </div>
-        <div class="w-full px-4 md:pl-8 md:pr-8">
-          <div
-            class="relative -mt-12 sm:-mt-16 md:-mt-20 p-0! lg:-mt-24 mb-4 flex flex-row items-end justify-between"
+
+        <div class="w-full">
+          <p
+            data-cy="description"
+            class="text-base sm:text-lg leading-7 text-foreground text-justify"
           >
-            <Tooltip content="My Istri" client:only="svelte">
-              <div class="relative group/avatar">
-                <img
-                  src="https://avatars.githubusercontent.com/u/77146709?v=4"
-                  alt="Haikel Ilham Hakim"
-                  class="relative w-20! p-0! m-0! h-20! sm:w-28! sm:h-28! md:w-36! md:h-36! lg:w-40! lg:h-40! rounded-full! mb-0! border-4 border-gray-900 object-cover bg-white shadow-lg transition-transform duration-300 group-hover/avatar:scale-105"
-                />
-              </div>
-            </Tooltip>
-            <div class="sm:flex items-end justify-end hidden">
-              <h2
-                class="text-sm sm:text-lg md:text-xl font-semibold mb-0 mt-0 text-right"
-              >
-                A Digital Minimalist
-              </h2>
-            </div>
-          </div>
-
-          <div class="mb-4">
-            <h1
-              data-cy="name"
-              class="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold mb-2 mt-0"
+            Konnichiwa! I'm Haikel Ilham Hakim. You can call me <strong
+              class="text-foreground font-medium">Haikel/Kel/Ekel</strong
+            > with the "E" pronounce is "Emas". I'm a Software Developer familiar
+            with <strong class="text-foreground font-medium">js/ts/go</strong>.
+            Outside of programming, you can find me doing <a
+              href="/photos"
+              class="text-foreground font-medium underline decoration-border hover:decoration-foreground transition-colors"
+              >street/cosplayer photography</a
+            >. Currently, I deep dive into Go, DevOps, Finance, also how to deal
+            and manage people.
+          </p>
+          <div class="flex gap-6 mt-6">
+            <a
+              href="https://www.linkedin.com/in/haikel/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+              >LinkedIn</a
             >
-              Haikel (ハイケル)
-            </h1>
-            <p
-              class="text-lg sm:text-xl md:text-xl lg:text-xl text-gray-400 mb-2 mt-0"
+            <a
+              href="https://github.com/haikelz"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+              >GitHub</a
             >
-              Product Engineer
-            </p>
-            <p
-              class="text-sm sm:text-base md:text-base lg:text-base text-gray-500 mb-0 mt-0"
+            <a
+              href="https://gitlab.com/haikelz"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+              >GitLab</a
             >
-              Indonesia
-            </p>
-          </div>
-
-          <div class="w-full mb-4 md:mb-0">
-            <p data-cy="description" class="leading-relaxed text-justify">
-              Konnichiwa! I'm Haikel Ilham Hakim. You can call me <b
-                >Haikel/Kel/Ekel</b
-              > with the
-              <b>"E"</b> pronounce is <b>"Emas"</b>. I'm a Software Developer
-              based in Indonesia and familiar with <b>js/ts/go</b>. Outside of
-              programming, you can find me doing <a
-                href="/photos"
-                class="m-0! p-0!">street/cosplayer photography</a
-              >. Currently, I deep dive into Go, DevOps, Finance, also how to
-              deal and manage people.
-              <a
-                href="https://www.linkedin.com/in/haikel/"
-                target="_blank"
-                rel="noopener noreferrer">Linkedin</a
-              >,
-              <a
-                href="https://github.com/haikelz"
-                target="_blank"
-                rel="noopener noreferrer">Github</a
-              >.
-            </p>
           </div>
         </div>
       </div>
     </section>
-    <section data-cy="experience" class="mt-8 w-full slide-enter-content">
-      <h2 class="mb-6 mt-0 font-extrabold">Experience</h2>
-      <div class="space-y-5 slide-enter-content">
+
+    <section
+      data-cy="experience"
+      class="w-full slide-enter-content mt-16 sm:mt-24"
+    >
+      <h2
+        class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+      >
+        Experience
+      </h2>
+      <div class="space-y-6 sm:space-y-8 slide-enter-content">
         {
           experienceList.map((experience) => (
-            <div class="group relative p-6 rounded-xl bg-linear-to-br from-neutral-900/80 via-neutral-900/60 to-neutral-900/80 border border-neutral-800/50 backdrop-blur-sm hover:border-neutral-700/70 hover:shadow-lg hover:shadow-neutral-900/50 transition-all duration-300">
+            <div class="group relative">
               <div class="relative z-10">
-                <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between">
-                  <h3 class="mb-0 mt-0">{experience.company}</h3>
-                  <span class="mt-1.5 rounded-xs text-base font-semibold sm:mt-0">
-                    {experience.startDate} - {experience.endDate}
+                <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
+                    {experience.company}
+                  </h3>
+                  <span class="mt-2 text-sm font-medium text-muted-foreground sm:mt-0">
+                    {experience.startDate} — {experience.endDate}
                   </span>
                 </div>
-                <p class="mb-0 mt-3 sm:mt-1">{experience.position}</p>
-                <ul class="mt-3! space-y-0! text-justify list-disc list-outside pl-[1.1rem]!">
+                <p class="mb-3 mt-0 text-base sm:text-lg text-foreground">
+                  {experience.position}
+                </p>
+                <ul class="mt-0 space-y-3 text-foreground list-none pl-0">
                   {experience.tasks.map((task) => (
-                    <li>
-                      <p class="my-0!">{task}</p>
+                    <li class="relative pl-6">
+                      <span class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40" />
+                      <p class="my-0 text-base leading-7">{task}</p>
                     </li>
                   ))}
                 </ul>
@@ -222,15 +214,23 @@ const experienceList = [
         }
       </div>
     </section>
-    <section data-cy="featured-works" class="mt-8 w-full slide-enter-content">
-      <h2 class="mt-0 mb-6 font-extrabold">Featured Works</h2>
+
+    <section
+      data-cy="featured-works"
+      class="mt-16 sm:mt-24 w-full slide-enter-content"
+    >
+      <h2
+        class="mt-0 mb-6 sm:mb-8 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+      >
+        Featured Works
+      </h2>
       <div
-        class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 slide-enter-content"
+        class="grid w-full grid-cols-1 sm:grid-cols-2 gap-6 slide-enter-content"
       >
         {
           worksList
             .sort((a, b) => a.data.id - b.data.id)
-            .slice(0, 6)
+            .slice(1, 5)
             .map((item) => (
               <Card
                 title={item.data.title}
@@ -244,17 +244,19 @@ const experienceList = [
         }
       </div>
     </section>
-    <section data-cy="featured-notes" class="mt-8 w-full">
-      <h2 class="mt-0 mb-6 font-extrabold">Latest Notes</h2>
-      <div
-        class="grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+    <section data-cy="featured-notes" class="mt-16 sm:mt-24 mb-0 w-full">
+      <h2
+        class="mt-0 mb-6 sm:mb-8 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
       >
+        Latest Notes
+      </h2>
+      <div class="grid w-full grid-cols-1 sm:grid-cols-2 gap-6">
         {
           notesList
             .sort(
               (a, b) =>
                 new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime()
+                new Date(a.data.created_at).getTime(),
             )
             .slice(0, 6)
             .map((item) => (

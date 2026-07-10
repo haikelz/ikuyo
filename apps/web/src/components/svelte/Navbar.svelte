@@ -1,182 +1,179 @@
 <script lang="ts">
-import { Button, cn, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
-import {
-  AlbumIcon,
-  HashIcon,
-  ImagesIcon,
-  ListIcon,
-  MenuIcon,
-  NotepadTextIcon,
-  XIcon,
-} from "lucide-svelte";
-import { onMount } from "svelte";
-import Tooltip from "./Tooltip.svelte";
+  import {
+    Button,
+    cn,
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+  } from "@ikuyo/ui";
+  import {
+    AlbumIcon,
+    HashIcon,
+    ImagesIcon,
+    ListIcon,
+    MenuIcon,
+    NotepadTextIcon,
+    XIcon,
+  } from "lucide-svelte";
+  import { onMount } from "svelte";
+  import ToggleTheme from "./ToggleTheme.svelte";
 
-let { currentPath } = $props();
+  let { currentPath } = $props();
 
-const navList = [
-  {
-    id: 1,
-    icon: ListIcon,
-    path: "/works",
-    label: "Works",
-  },
-  {
-    id: 2,
-    icon: NotepadTextIcon,
-    path: "/notes",
-    label: "Notes",
-  },
-  {
-    id: 3,
-    icon: HashIcon,
-    path: "/tags",
-    label: "Tags",
-  },
-  {
-    id: 4,
-    icon: ImagesIcon,
-    path: "/photos",
-    label: "Photos",
-  },
-  {
-    id: 5,
-    icon: AlbumIcon,
-    path: "/guestbook",
-    label: "Guestbook",
-  },
-];
+  const navList = [
+    {
+      id: 1,
+      icon: ListIcon,
+      path: "/works",
+      label: "Works",
+    },
+    {
+      id: 2,
+      icon: NotepadTextIcon,
+      path: "/notes",
+      label: "Notes",
+    },
+    {
+      id: 3,
+      icon: HashIcon,
+      path: "/tags",
+      label: "Tags",
+    },
+    {
+      id: 4,
+      icon: ImagesIcon,
+      path: "/photos",
+      label: "Photos",
+    },
+    {
+      id: 5,
+      icon: AlbumIcon,
+      path: "/guestbook",
+      label: "Guestbook",
+    },
+  ];
 
-let isOpen = $state(false);
-let isVisible = $state(true);
-let lastScrollY = $state(0);
-let ticking = $state(false);
+  let isOpen = $state(false);
+  let isVisible = $state(true);
+  let lastScrollY = $state(0);
+  let ticking = $state(false);
 
-function toggleNavbar() {
-  isOpen = !isOpen;
-}
-
-function handleScroll() {
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY < 10) {
-        isVisible = true;
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        isVisible = false;
-        isOpen = false;
-      } else if (currentScrollY < lastScrollY) {
-        isVisible = true;
-      }
-
-      lastScrollY = currentScrollY;
-      ticking = false;
-    });
-
-    ticking = true;
+  function toggleNavbar() {
+    isOpen = !isOpen;
   }
-}
 
-onMount(() => {
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  function handleScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-});
+        if (currentScrollY < 10) {
+          isVisible = true;
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          isVisible = false;
+          isOpen = false;
+        } else if (currentScrollY < lastScrollY) {
+          isVisible = true;
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 </script>
 
 <nav
   class={cn(
-    "fixed inset-x-0 top-0 z-50! flex w-full justify-center px-0 transition-transform duration-300 ease-in-out md:top-auto md:pt-0 md:px-4",
-    isVisible
-      ? "translate-y-0 md:bottom-4"
-      : "-translate-y-full md:translate-y-full md:bottom-0",
+    "fixed inset-x-0 top-0 z-50! flex w-full justify-center transition-transform duration-300 ease-in-out bg-background/95 backdrop-blur-sm border-b border-border/40",
+    isVisible ? "translate-y-0" : "-translate-y-full",
   )}
 >
   <div
     class={cn(
-      "flex w-full max-w-full min-h-13 items-center justify-between gap-3 border-b border-border/60 bg-background/80 px-4 backdrop-blur-xl md:min-h-0 md:w-fit md:justify-center md:gap-5 md:rounded-full! md:border md:border-border/60 md:bg-background/70 md:px-3 md:py-2.5 md:backdrop-blur-md",
+      "flex w-full max-w-6xl min-h-16 items-center justify-between px-4 md:px-8",
     )}
   >
-    <Tooltip content="My Istri">
-      {#snippet children()}
-        <a data-cy="home-btn" href="/" aria-label="Home" class="shrink-0">
-          <Button
-            type="button"
-            variant="secondary"
-            size="icon-sm"
-            class="rounded-full p-0 overflow-hidden"
-          >
-            <img
-              class="rounded-full h-6 w-6 object-cover photos"
-              alt=""
-              width={500}
-              height={500}
-              draggable={false}
-              src="https://avatars.githubusercontent.com/u/77146709?v=4"
-            />
-          </Button>
-        </a>
-      {/snippet}
-    </Tooltip>
-    <div class="hidden text-foreground md:flex md:items-center md:space-x-5">
+    <a
+      data-cy="home-btn"
+      href="/"
+      aria-label="Home"
+      class="shrink-0 flex items-center gap-3 no-underline"
+    >
+      <img
+        class="rounded-md h-8 w-8 object-cover"
+        alt="Haikel"
+        width={500}
+        height={500}
+        draggable={false}
+        src="https://avatars.githubusercontent.com/u/77146709?v=4"
+      />
+      <span class="font-medium text-foreground tracking-tight">ekel.dev</span>
+    </a>
+    <div class="hidden text-foreground md:flex md:items-center md:space-x-8">
       {#each navList as item}
-        <Tooltip content={item.label}>
-          {#snippet children()}
-            <a
-              data-cy={`${item.path.slice(1)}-btn`}
-              href={item.path}
-              aria-label={item.label}
-              class="cursor-pointer"
-            >
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                class={cn(
-                  "rounded-full",
-                  currentPath.includes(item.path) ? "bg-muted" : "",
-                )}
-              >
-                <item.icon size={21} class="font-bold text-foreground" />
-              </Button>
-            </a>
-          {/snippet}
-        </Tooltip>
+        <a
+          data-cy={`${item.path.slice(1)}-btn`}
+          href={item.path}
+          aria-label={item.label}
+          class={cn(
+            "text-sm font-medium transition-colors",
+            currentPath.includes(item.path)
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          {item.label}
+        </a>
       {/each}
+      <div class="pl-4 border-l border-border/40">
+        <ToggleTheme />
+      </div>
     </div>
     <Sheet bind:open={isOpen}>
       <Button
-        variant="secondary"
+        variant="ghost"
         size="icon-sm"
         onclick={toggleNavbar}
-        class="m-0! shrink-0 rounded-full md:hidden"
+        class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-sheet"
         aria-label="Toggle navigation menu"
       >
         {#if isOpen}
-          <XIcon size={21} />
+          <XIcon size={20} />
         {:else}
-          <MenuIcon size={21} />
+          <MenuIcon size={20} />
         {/if}
       </Button>
       <SheetContent
         side="bottom"
         id="mobile-nav-sheet"
-        class="rounded-t-2xl border-border/80 bg-background/95 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 shadow-2xl"
+        class="rounded-t-md border-border/80 bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t border-border/40"
         showCloseButton={false}
       >
         <div
-          class="mx-auto mb-3 h-1 w-10 shrink-0 rounded-full bg-muted-foreground/25"
+          class="mx-auto mb-3 h-1 w-8 shrink-0 rounded-sm bg-muted-foreground/25"
           aria-hidden="true"
         ></div>
         <SheetHeader class="space-y-1 pb-2 text-left">
-          <SheetTitle class="text-base font-semibold tracking-tight">
-            Navigate
-          </SheetTitle>
+          <div class="flex items-center justify-between">
+            <SheetTitle class="text-base font-medium tracking-tight text-foreground">
+              Navigate
+            </SheetTitle>
+            <ToggleTheme />
+          </div>
         </SheetHeader>
         <nav
           class="flex max-h-[min(70vh,28rem)] flex-col gap-1 overflow-y-auto overscroll-contain px-1 pb-1"
@@ -189,7 +186,7 @@ onMount(() => {
               href={item.path}
               aria-current={active ? "page" : undefined}
               class={cn(
-                "flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-base font-medium no-underline transition-colors",
+                "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
                 active
                   ? "bg-muted text-foreground"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
@@ -199,7 +196,7 @@ onMount(() => {
               }}
             >
               <span
-                class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-background/80 ring-1 ring-border/60"
+                class="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted/50"
               >
                 <item.icon size={20} class="text-foreground" />
               </span>

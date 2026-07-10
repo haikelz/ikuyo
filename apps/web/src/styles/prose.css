@@ -1,0 +1,76 @@
+.prose code:not(:has(span)) {
+  @apply bg-muted px-1 py-0.5 rounded-xs font-mono;
+}
+
+.prose code::before {
+  content: "";
+}
+
+.prose code::after {
+  content: "";
+}
+
+.prose pre code {
+  @apply font-medium text-base font-mono;
+}
+
+/* Code block wrapper with filename and copy button */
+.prose .code-block-wrapper {
+  @apply my-6 rounded-lg border-none! overflow-hidden;
+}
+
+.prose .code-block-wrapper .code-block-content {
+  @apply p-0;
+}
+
+.prose .code-block-wrapper pre {
+  @apply mb-0 overflow-x-auto my-0 p-0;
+}
+
+.prose .code-block-wrapper pre code {
+  @apply p-4 block m-0;
+}
+
+.prose .code-block-wrapper:has(.code-block-filename) pre {
+  @apply rounded-none rounded-b-lg;
+}
+
+.prose .code-block-wrapper:not(:has(.code-block-filename)) pre {
+  @apply rounded-lg;
+}
+
+.prose .code-block-wrapper .code-block-filename {
+  @apply bg-muted font-mono;
+}
+
+.prose .code-block-wrapper .code-block-copy {
+  @apply opacity-70 transition-opacity duration-200;
+}
+
+.prose .code-block-wrapper .code-block-content:hover .code-block-copy {
+  @apply opacity-100;
+}
+
+.prose hr {
+  @apply border-monochrome-3;
+}
+
+.prose ul {
+  @apply mb-0! mt-0!;
+}
+
+.prose img {
+  @apply w-full rounded-none;
+}
+
+.prose video {
+  @apply w-full drop-shadow-xs;
+}
+
+.prose a {
+  @apply underline underline-offset-2 font-medium;
+}
+
+.prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
+  @apply border-l-[0.25em] border-solid border-base-5;
+}

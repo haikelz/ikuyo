@@ -25,23 +25,39 @@ const tags = [
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 data-cy="heading" class="mb-0">./tags</h1>
+    <section class="w-full mt-8">
+      <h1
+        data-cy="heading"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Tags
+      </h1>
       <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify">
-          Select spesific notes based on the list of tags below.
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
+          Select specific notes based on the list of tags below.
         </p>
       </div>
     </section>
-    <section data-cy="tags-list" class="w-full mt-8 slide-enter-content">
-      <div class="gap-4 flex w-full flex-wrap items-center justify-start">
+    <section
+      data-cy="tags-list"
+      class="w-full slide-enter-content mt-16 sm:mt-24"
+    >
+      <div
+        class="gap-3 sm:gap-4 flex w-full flex-wrap items-center justify-start"
+      >
         {
           tags.map((item) => (
-            <a href={`/tags/${item}`} class="text-base">
+            <a
+              href={`/tags/${item}`}
+              class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
+            >
               <span>#{item}</span>
             </a>
           ))

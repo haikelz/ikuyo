@@ -1,0 +1,64 @@
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  @apply bg-background;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body:has(.lightbox-active) {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+nav {
+  @apply border-border;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-base-5;
+}
+
+::-webkit-scrollbar {
+  @apply bg-base-5 w-1.5 h-1.5;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-monochrome-4;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

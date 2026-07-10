@@ -20,8 +20,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       conditions: ["browser"],
-      tsconfigPaths: true,
-      noExternal: ["bits-ui", "runed", "svelte-toolbelt"],
+      noExternal: ["bits-ui", "runed", "svelte-toolbelt", "@hugeicons/svelte"],
     },
   },
   integrations: [

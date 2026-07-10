@@ -22,7 +22,7 @@ function toggleTOC() {
   <Button
     variant="secondary"
     size="icon-sm"
-    class="bottom-4 right-4 fixed z-[60] rounded-full {isOpen ? 'hidden' : ''}"
+    class="bottom-4 right-4 fixed z-[60] rounded-md {isOpen ? 'hidden' : ''}"
     onclick={toggleTOC}
     aria-label="Open table of contents"
   >
@@ -31,20 +31,20 @@ function toggleTOC() {
   <SheetContent
     side="right"
     overlayClass="bg-transparent backdrop-blur-none supports-backdrop-filter:backdrop-blur-none"
-    class="h-[min(80svh,32rem)] w-full max-w-none rounded-none border-t border-neutral-700/70 bg-background/35 p-4 shadow-2xl backdrop-blur-md"
+    class="h-[min(80svh,32rem)] w-full max-w-none rounded-none border-t border-border/40 bg-background p-4 border-l border-border/40"
     showCloseButton={false}
   >
     <SheetHeader class="space-y-0">
       <div class="flex items-center justify-between space-x-4">
         <SheetTitle
-          class="text-base font-semibold tracking-[0.12em] uppercase text-neutral-200"
+          class="text-base font-semibold tracking-[0.12em] uppercase text-muted-foreground"
         >
           Table of Contents
         </SheetTitle>
         <Button
           variant="ghost"
           size="icon-sm"
-          class="shrink-0 rounded-full"
+          class="shrink-0 rounded-md"
           onclick={toggleTOC}
           aria-label="Close table of contents"
         >

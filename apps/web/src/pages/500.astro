@@ -6,5 +6,14 @@ const description = "There are some error in the server side!";
 ---
 
 <Layout title={title} description={description} url="" ogImage="500.png">
-  <span class="text-3xl font-bold">{title}</span>
+  <div
+    class="flex flex-col items-center justify-center min-h-[50vh] text-center mx-auto px-4"
+  >
+    <h1
+      class="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground mb-4"
+    >
+      {title}
+    </h1>
+    <p class="text-lg sm:text-xl text-muted-foreground">{description}</p>
+  </div>
 </Layout>

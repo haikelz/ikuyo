@@ -13,83 +13,155 @@ const lastUpdated = new Date("2026-06-14");
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full m-0! p-0!">
-      <h1 class="mb-0">/now</h1>
-      <p class="text-neutral-400 text-sm mb-0">
+    <section class="w-full mt-8">
+      <h1
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Now
+      </h1>
+      <p class="text-muted-foreground text-lg sm:text-xl mb-0">
         Last updated: {format(lastUpdated, "MMMM d, yyyy")}
       </p>
     </section>
 
-    <div class="flex w-full flex-col items-start justify-start">
-      <section class="w-full m-0! p-0! slide-enter-content">
-        <h2 class="mb-4 mt-8! p-0!">Work</h2>
-        <p class="mb-0! text-justify">
+    <div
+      class="flex w-full flex-col mt-16 sm:mt-24 items-start justify-start space-y-10 sm:space-y-16"
+    >
+      <section class="w-full slide-enter-content">
+        <h2
+          class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+        >
+          Work
+        </h2>
+        <p
+          class="mb-0 text-base sm:text-lg text-foreground leading-7 sm:leading-relaxed"
+        >
           I'm working as a Web Programmer (Basically Fullstack Web Developer
           that also do DevOps stuff). Main stack: Typescript, Go, Docker.
         </p>
       </section>
-      <section class="w-full m-0! p-0! slide-enter-content">
-        <h2 class="mb-4 mt-8! p-0!">Learning</h2>
-        <p class="mb-0! text-justify">
+      <section class="w-full slide-enter-content">
+        <h2
+          class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+        >
+          Learning
+        </h2>
+        <p
+          class="mb-6 text-base sm:text-lg text-foreground leading-7 sm:leading-relaxed"
+        >
           Deep dive into Go, DevOps, also how to deal and manage people.
           Occasionally reading about personal finance and (only) investing on
           sharia stock. For stock market, I'm interested in fundamental
           analysis, corporate action, big money movement, and market sentiment.
           There are some quotes that I like:
         </p>
-        <blockquote>
+        <blockquote
+          class="border-l-2 border-border/40 pl-6 my-6 italic text-base sm:text-lg text-muted-foreground"
+        >
           "Be fearful when others are greedy, and greedy when others are
-          fearful" - Warren Buffett
+          fearful" — Warren Buffett
         </blockquote>
-        <blockquote>
-          "Risk is what you pay for opportunity" - Andry Hakim
+        <blockquote
+          class="border-l-2 border-border/40 pl-6 my-6 italic text-base sm:text-lg text-muted-foreground"
+        >
+          "Risk is what you pay for opportunity" — Andry Hakim
         </blockquote>
       </section>
 
       <section class="w-full slide-enter-content">
-        <h2 class="mb-4 mt-8! p-0!">Reading</h2>
-        <p class="mb-0! text-justify">
-          Currently reading <b>Ini Koding</b> by Hilman Ramadhan and <b
-            >Make Time</b
+        <h2
+          class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+        >
+          Reading
+        </h2>
+        <p
+          class="mb-0 text-base sm:text-lg text-foreground leading-7 sm:leading-relaxed"
+        >
+          Currently reading <strong class="text-foreground font-medium"
+            >Ini Koding</strong
+          > by Hilman Ramadhan and <strong class="text-foreground font-medium"
+            >Make Time</strong
           > by Jake Knapp & John Zeratsky.
         </p>
       </section>
 
-      <section class="w-full m-0! p-0! slide-enter-content">
-        <h2 class="mb-4 mt-8! p-0!">Playlist</h2>
-        <p class="mb-0! text-justify">
+      <section class="w-full slide-enter-content">
+        <h2
+          class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+        >
+          Playlist
+        </h2>
+        <p
+          class="mb-0 text-base sm:text-lg text-foreground leading-7 sm:leading-relaxed"
+        >
           I don't have any music playlist because my music taste is random. Also
           I rarely listen to music. But I have a <a
             href="https://music.youtube.com/playlist?list=PLcauesmgnpZ9BBTEFyotPzX9MotTEVdKx&si=DCSEaL1jMkeidZ79"
             target="_blank"
-            rel="noopener noreferrer">Murottal Playlist</a
+            rel="noopener noreferrer"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >Murottal Playlist</a
           > that updated regularly and always listen to it when I'm working or do
           something that require focus.
         </p>
       </section>
-      <section class="w-full m-0! p-0! slide-enter-content">
-        <h2 class="mb-4 mt-8! p-0!">Stuff</h2>
-        <p class="mb-0! text-justify">
+      <section class="w-full slide-enter-content">
+        <h2
+          class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-medium tracking-tight text-foreground"
+        >
+          Stuff
+        </h2>
+        <p
+          class="mb-6 text-base sm:text-lg text-foreground leading-7 sm:leading-relaxed"
+        >
           Well, outside of my interest in tech and finance, I also love to take
           care of my <a
             href="https://id.wikipedia.org/wiki/Yamaha_Jupiter_MX"
             target="_blank"
-            rel="noopener noreferrer">2014-motorcycle</a
+            rel="noopener noreferrer"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >2014-motorcycle</a
           > and do some modifications to it. Here are some modifications that I've
           done:
-          <ul>
-            <li>(Oil filter, air filter, spark plug header) using Daytona.</li>
-            <li>(Spark plug) using NGK Iridium.</li>
-            <li>(Velg) using BRT Chemco.</li>
-            <li>(Side-view Mirror) using parts from Yamaha 125Z.</li>
-            <li>(Tire profile) 80/80-17 front, 90/80-17 rear.</li>
-            <li>(Seat) using latex foam + custom seat cover.</li>
-          </ul>
         </p>
+        <ul
+          class="space-y-3 text-base sm:text-lg text-foreground list-none pl-0"
+        >
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Oil filter, air filter, spark plug header) using Daytona.
+          </li>
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Spark plug) using NGK Iridium.
+          </li>
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Velg) using BRT Chemco.
+          </li>
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Side-view Mirror) using parts from Yamaha 125Z.
+          </li>
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Tire profile) 80/80-17 front, 90/80-17 rear.
+          </li>
+          <li class="relative pl-6">
+            <span
+              class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
+            ></span>(Seat) using latex foam + custom seat cover.
+          </li>
+        </ul>
       </section>
     </div>
   </div>

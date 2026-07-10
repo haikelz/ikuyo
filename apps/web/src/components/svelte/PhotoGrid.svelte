@@ -66,12 +66,12 @@ onMount(() => {
         aria-label="View large image {i + 1}"
       >
         <div
-          class="photo-stack relative overflow-hidden rounded-xl! bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
+          class="photo-stack relative overflow-hidden rounded-none! bg-muted group cursor-zoom-in"
         >
           <img
             src={getPlaceholderUrl(image, 200)}
             alt=""
-            class="photo-stack-img block w-full h-auto blur-xl m-0! p-0! border-0!"
+            class="photo-stack-img block w-full h-auto m-0! p-0! border-0!"
           />
           <img
             src={optimizeUrl(image, 800)}
@@ -95,7 +95,7 @@ onMount(() => {
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
     {#each images as image, i}
       <div
-        class="photo-item aspect-4/3 relative overflow-hidden rounded-xl bg-neutral-900 group cursor-zoom-in shadow-lg hover:-translate-y-1 transition-all duration-300"
+        class="photo-item aspect-4/3 relative overflow-hidden rounded-none bg-muted group cursor-zoom-in"
         onclick={() => openLightbox(image)}
         onkeydown={(e) => e.key === "Enter" && openLightbox(image)}
         role="button"
@@ -106,7 +106,7 @@ onMount(() => {
           <img
             src={getPlaceholderUrl(image)}
             alt=""
-            class="photo-stack-img w-full h-full object-cover scale-110 blur-xl m-0! p-0! border-0!"
+            class="photo-stack-img w-full h-full object-cover m-0! p-0! border-0!"
           />
           <img
             src={optimizeUrl(image, 800)}
@@ -131,7 +131,7 @@ onMount(() => {
 {#if selectedImage}
   <div
     use:teleport
-    class="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-24px lightbox-active"
+    class="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-8 bg-black/70 lightbox-active"
     transition:fade={{ duration: 200 }}
     onclick={closeLightbox}
     onkeydown={handleKeydown}
@@ -139,7 +139,7 @@ onMount(() => {
     tabindex="0"
   >
     <button
-      class="fixed top-6 right-6 z-10000 p-3 rounded-full bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
+       class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
@@ -157,7 +157,7 @@ onMount(() => {
       <img
         src={optimizeUrl(selectedImage, 1600)}
         alt="Large view"
-        class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
+         class="max-w-full max-h-full object-contain rounded-md block border-0 m-0 p-0"
         style="user-select: none;"
         onclick={(e) => e.stopPropagation()}
       />

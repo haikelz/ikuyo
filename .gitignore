@@ -48,3 +48,5 @@ references/
 SKILL.md
 
 .omo/*
+
+.playwright-mcp/*

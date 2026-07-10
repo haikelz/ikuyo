@@ -77,7 +77,7 @@ function teleport(node: HTMLElement) {
 {#if selectedVideo}
   <div
     use:teleport
-    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-[24px] lightbox-active"
+    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-[24px] lightbox-active cursor-zoom-out"
     transition:fade={{ duration: 200 }}
     onclick={closeLightbox}
     onkeydown={handleKeydown}
@@ -112,10 +112,3 @@ function teleport(node: HTMLElement) {
     </div>
   </div>
 {/if}
-
-<style>
-  /* Keeps the lightbox transition smooth and clean */
-  :global(.lightbox-active) {
-    cursor: zoom-out;
-  }
-</style>

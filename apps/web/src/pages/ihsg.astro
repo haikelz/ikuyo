@@ -12,17 +12,23 @@ import { BACKEND_API_URL } from "@/utils/env";
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 class="mb-0">./ihsg</h1>
+    <section class="w-full mt-8">
+      <h1
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Market Index
+      </h1>
       <div class="slide-enter-content">
-        <p class="mb-0 text-justify">Stock Market Index from some countries.</p>
+        <p class="mb-0 text-lg sm:text-xl text-muted-foreground">
+          Stock Market Index from some countries.
+        </p>
       </div>
     </section>
-    <section class="w-full mt-8 slide-enter-content">
+    <section class="w-full slide-enter-content">
       <IHSGChart
         client:only="svelte"
         backendApiUrl={BACKEND_API_URL}

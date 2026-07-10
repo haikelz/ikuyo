@@ -12,9 +12,12 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   description="Photos"
   url="https://ekel.dev/photos"
   ogImage="photos.png"
-  className="max-w-full!"
 >
-  <div class="flex w-full flex-col items-start justify-start md:text-start">
-    <PhotosPage client:only="svelte" photos={photos} />
+  <div
+    class="flex w-full flex-col items-start justify-start mx-auto md:text-start"
+  >
+    <section class="w-full">
+      <PhotosPage client:only="svelte" photos={photos} />
+    </section>
   </div>
 </Layout>

@@ -1,15 +1,33 @@
 <footer
-  class="w-full flex flex-col min-[450px]:flex-row py-4 my-4 mb-2 min-[350px]:mb-0 justify-between items-center"
+  class="w-full flex flex-col md:flex-row py-6 mt-20 border-t border-border/40 justify-between items-center gap-6"
 >
   <div class="m-0! p-0!">
-    <p class="font-bold m-0! p-0!">©{new Date().getFullYear()} Haikel</p>
+    <p class="font-medium text-muted-foreground m-0! p-0!">
+      © {new Date().getFullYear()} Haikel Ilham Hakim
+    </p>
   </div>
-  <div class="flex w-fit space-x-2 min-[450px]:mt-0! mt-4! items-center">
-    <a href="https://uptime.ekel.dev" target="_blank" rel="noreferrer noopener"
+  <div class="flex w-fit space-x-6 items-center">
+    <a
+      href="https://uptime.ekel.dev"
+      target="_blank"
+      rel="noreferrer noopener"
+      class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
       >Uptime</a
-    ><span>/</span>
-    <a href="/now" class="">Now</a><span>/</span>
-    <a href="/uses" class="">Uses</a><span>/</span>
-    <a href="/wakatime" class="">Wakatime</a>
+    >
+    <a
+      href="/now"
+      class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >Now</a
+    >
+    <a
+      href="/uses"
+      class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >Uses</a
+    >
+    <a
+      href="/wakatime"
+      class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >Wakatime</a
+    >
   </div>
 </footer>

@@ -1,5 +1,5 @@
 ---
-import Card from "@/components/Card.astro";
+import Card from "@/components/card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -14,22 +14,29 @@ const notesList = await getCollection("notes");
 >
   <div
     class:list={[
-      "flex w-full flex-col items-start justify-start",
+      "flex w-full flex-col items-start justify-start  mx-auto",
       "md:text-start",
     ]}
   >
-    <section class="w-full">
-      <h1 data-cy="heading" class="mb-0">./notes</h1>
+    <section class="w-full mt-8">
+      <h1
+        data-cy="heading"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+      >
+        Notes
+      </h1>
       <div class="slide-enter-content">
-        <p data-cy="description" class="mb-0 text-justify">
-          Sometimes, I write something. Mostly about technical stuff. So yeah, I
-          call this as <b>Notes.</b>
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
+          Sometimes I write about technical stuff.
         </p>
       </div>
     </section>
     <section
       data-cy="notes-list"
-      class="mt-8 grid w-full grid-cols-1 grid-rows-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 slide-enter-content"
+      class="grid w-full grid-cols-1 mt-16 sm:mt-24 sm:grid-cols-2 gap-6 slide-enter-content"
     >
       {
         notesList
