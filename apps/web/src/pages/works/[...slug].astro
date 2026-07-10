@@ -28,7 +28,7 @@ const slug = sanitizeSlug(item.id);
   url={`https://ekel.dev/works/${slug}`}
   ogImage={`works/${slug}.png`}
 >
-  <div class="w-full max-w-3xl mx-auto slide-enter-content">
+  <div class="w-full  mx-auto slide-enter-content">
     <BackButton label="back to works" client:only="svelte" />
     <article>
       <header class="mb-12">
@@ -49,13 +49,13 @@ const slug = sanitizeSlug(item.id);
             <a href={`/tags/${tag}`} class="text-sm text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
           ))}
         </div>
+        <p class="arabic-font text-right text-base font-medium mt-12 text-muted-foreground">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </p>
       </header>
-      <div class="prose prose-neutral dark:prose-invert max-w-none prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40">
+      <div class="prose prose-neutral dark:prose-invert max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40">
         <Content />
       </div>
-      <p class="arabic-font text-right text-base font-medium mt-12 text-muted-foreground">
-        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-      </p>
     </article>
   </div>
   {

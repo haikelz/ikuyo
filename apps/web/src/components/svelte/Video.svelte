@@ -41,34 +41,29 @@
 
 <div class="video-container my-8 w-full group">
   <button
-    class="overflow-hidden rounded-xl bg-neutral-900 cursor-zoom-in relative block w-full p-0 border border-white/10 shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all duration-300 outline-none"
+    class="overflow-hidden rounded-none bg-muted cursor-pointer relative block w-full p-0 border border-border/40 outline-none hover:border-border/60 transition-colors"
     onclick={openLightbox}
     aria-label="View large video"
   >
     <div class="relative w-full overflow-hidden">
       <video
         {src}
-        class="block w-full h-auto transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90 m-0! p-0! border-0!"
+        class="block w-full h-auto m-0! p-0! border-none!"
         playsinline
       >
         <track kind="captions" />
       </video>
       <div
-        class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      ></div>
-      <div
-        class="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 pointer-events-none"
+        class="absolute inset-0 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-300"
       >
-        <div
-          class="p-4 rounded-md bg-black/40 backdrop-blur-md border border-white/20 text-white"
-        >
-          <PlayIcon size={32} fill="currentColor" />
+        <div class="p-4 rounded-md bg-background/80 border border-border/40 text-foreground">
+          <PlayIcon size={28} fill="currentColor" />
         </div>
       </div>
     </div>
   </button>
   {#if title}
-    <p class="mt-2 text-center text-sm text-neutral-400 font-medium italic">
+    <p class="mt-2 text-center text-sm text-muted-foreground">
       {title}
     </p>
   {/if}
@@ -77,7 +72,7 @@
 {#if selectedVideo}
   <div
     use:teleport
-    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-[24px] lightbox-active cursor-zoom-out"
+    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8 bg-black/70 lightbox-active cursor-zoom-out"
     transition:fade={{ duration: 200 }}
     onclick={closeLightbox}
     onkeydown={handleKeydown}
@@ -85,7 +80,7 @@
     tabindex="0"
   >
     <button
-      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-all border border-white/20 cursor-pointer shadow-2xl backdrop-blur-md outline-none"
+      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
@@ -102,7 +97,7 @@
     >
       <video
         src={selectedVideo}
-        class="max-w-full max-h-full object-contain rounded-lg shadow-[0_0_80px_rgba(0,0,0,0.8)] block border-0 m-0 p-0"
+        class="max-w-full max-h-full object-contain border-none! block m-0 p-0"
         controls
         autoplay
         onclick={(e) => e.stopPropagation()}
