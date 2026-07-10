@@ -4,320 +4,298 @@ import Layout from "@/layouts/Layout.astro";
 
 <Layout
   title="Design System"
-  description="Design tokens, components, and patterns for ekel.dev"
+  description="Design tokens and components for ekel.dev"
   url="https://ekel.dev/design-system"
 >
-  <div class="w-full max-w-4xl mx-auto">
-    <header class="mb-16">
-      <h1 class="mt-8 mb-4 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
+  <div class="w-full mx-auto">
+    <header class="mb-12">
+      <h1 class="mt-8 mb-3 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground">
         Design System
       </h1>
-      <p class="text-lg text-muted-foreground leading-7 max-w-2xl">
-        Design tokens, component patterns, and usage guidelines for this site. Every value comes from <code class="text-sm bg-muted px-1.5 py-0.5">apps/web/src/styles/</code>.
+      <p class="text-base text-muted-foreground max-w-xl">
+        Design tokens and component patterns for this site.
+        Values sourced from <code class="text-xs bg-muted px-1 py-0.5">apps/web/src/styles/</code>.
       </p>
     </header>
 
-    <!-- Colors -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Colors</h2>
-        <p class="text-sm text-muted-foreground mt-1">Semantic tokens via CSS custom properties, defined in <code class="text-xs bg-muted px-1 py-0.5">theme.css</code>.</p>
-      </div>
+    <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-12">
+      <!-- Sidebar -->
+      <aside class="hidden lg:block">
+        <nav class="sticky top-28 space-y-1 text-sm" aria-label="Sections">
+          <p class="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-3">Foundations</p>
+          <a href="#colors" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Colors</a>
+          <a href="#typography" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Typography</a>
+          <a href="#spacing" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Spacing</a>
+          <p class="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-3 mt-6">Components</p>
+          <a href="#cards" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Cards</a>
+          <a href="#navbar" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Navbar</a>
+          <a href="#links" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Links</a>
+          <a href="#tags" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Tags</a>
+          <p class="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-3 mt-6">Patterns</p>
+          <a href="#page-structure" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Page Structure</a>
+          <a href="#grid-background" class="block py-1 text-muted-foreground hover:text-foreground transition-colors no-underline">Grid Background</a>
+        </nav>
+      </aside>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Background</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">bg-background</kbd>
-          </div>
-          <div class="w-full h-12 rounded-none border border-border/40 bg-background mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(0.97 0 0)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(0.175 0 0)</code></span>
-          </div>
-        </div>
+      <!-- Content -->
+      <div class="min-w-0">
+        <!-- Colors -->
+        <section id="colors" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Colors</h2>
+          <p class="text-sm text-muted-foreground mb-6">Semantic tokens via CSS custom properties. Each token has a light and dark value defined in <code class="text-xs bg-muted px-1 py-0.5">theme.css</code>.</p>
 
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Foreground</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">text-foreground</kbd>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border border-border/40 bg-background"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Background</p>
+                <p class="text-xs text-muted-foreground truncate"><code>bg-background</code></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border border-border/40 bg-foreground"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Foreground</p>
+                <p class="text-xs text-muted-foreground truncate"><code>text-foreground</code></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border border-border/40 bg-card"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Card</p>
+                <p class="text-xs text-muted-foreground truncate"><code>bg-card</code></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border border-border/40 bg-muted"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Muted</p>
+                <p class="text-xs text-muted-foreground truncate"><code>bg-muted</code></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border border-border/40 bg-muted-foreground"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Muted Foreground</p>
+                <p class="text-xs text-muted-foreground truncate"><code>text-muted-foreground</code></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 rounded-none border border-border/40 bg-transparent p-4">
+              <div class="w-8 h-8 shrink-0 rounded-none border-2 border-border"></div>
+              <div class="min-w-0">
+                <p class="text-sm text-foreground font-medium">Border</p>
+                <p class="text-xs text-muted-foreground truncate"><code>border-border</code></p>
+              </div>
+            </div>
           </div>
-          <div class="w-full h-12 rounded-none border border-border/40 bg-foreground mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(0.175 0 0)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(0.97 0 0)</code></span>
-          </div>
-        </div>
 
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Card</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">bg-card</kbd>
+          <div class="mt-4 text-xs text-muted-foreground font-mono leading-relaxed">
+            <p>Light: <code class="text-foreground">:root &#123; --background: oklch(0.97 0 0); --foreground: oklch(0.175 0 0); ... &#125;</code></p>
+            <p>Dark: <code class="text-foreground">.dark &#123; --background: oklch(0.175 0 0); --foreground: oklch(0.97 0 0); ... &#125;</code></p>
           </div>
-          <div class="w-full h-12 rounded-none border border-border/40 bg-card mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(1 0 0)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(0.205 0 0)</code></span>
+        </section>
+
+        <!-- Typography -->
+        <section id="typography" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Typography</h2>
+          <p class="text-sm text-muted-foreground mb-6">Geist Sans for body and headings. Geist Mono for code. Noto Naskh Arabic for arabic text.</p>
+
+          <div class="space-y-8">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-muted-foreground uppercase tracking-wider">H1</span>
+                <code class="text-[11px] text-muted-foreground">text-3xl sm:text-4xl tracking-tighter font-medium text-foreground</code>
+              </div>
+              <p class="text-3xl sm:text-4xl tracking-tighter font-medium text-foreground">Page heading</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-muted-foreground uppercase tracking-wider">H2</span>
+                <code class="text-[11px] text-muted-foreground">text-2xl sm:text-3xl tracking-tight font-medium text-foreground</code>
+              </div>
+              <p class="text-2xl sm:text-3xl tracking-tight font-medium text-foreground">Section heading</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-muted-foreground uppercase tracking-wider">H3</span>
+                <code class="text-[11px] text-muted-foreground">text-xl font-medium tracking-tight text-foreground</code>
+              </div>
+              <p class="text-xl font-medium tracking-tight text-foreground">Card title</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-muted-foreground uppercase tracking-wider">Body</span>
+                <code class="text-[11px] text-muted-foreground">text-base leading-7 text-foreground</code>
+              </div>
+              <p class="text-base leading-7 text-foreground max-w-lg">Body text uses generous line height for readability. Secondary information uses muted foreground.</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-muted-foreground uppercase tracking-wider">Code</span>
+                <code class="text-[11px] text-muted-foreground">font-mono text-sm bg-muted px-1.5 py-0.5</code>
+              </div>
+              <code class="text-sm text-foreground bg-muted px-1.5 py-0.5">const design = "minimal";</code>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Muted</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">bg-muted</kbd>
+        <!-- Spacing -->
+        <section id="spacing" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Spacing</h2>
+          <p class="text-sm text-muted-foreground mb-6">Responsive spacing tokens across breakpoints.</p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border/40">
+                  <th class="text-left py-2 pr-4 font-medium text-foreground">Usage</th>
+                  <th class="text-left py-2 pr-4 font-medium text-foreground">Mobile</th>
+                  <th class="text-left py-2 pr-4 font-medium text-foreground">Desktop</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Page header margin</td>
+                  <td class="py-2 pr-4"><code>mb-10</code></td>
+                  <td class="py-2 pr-4"><code>sm:mb-16</code></td>
+                </tr>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Section gap</td>
+                  <td class="py-2 pr-4"><code>mt-16</code></td>
+                  <td class="py-2 pr-4"><code>sm:mt-24</code></td>
+                </tr>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Section heading margin</td>
+                  <td class="py-2 pr-4"><code>mb-6</code></td>
+                  <td class="py-2 pr-4"><code>sm:mb-8</code></td>
+                </tr>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Container top padding</td>
+                  <td class="py-2 pr-4"><code>pt-24</code></td>
+                  <td class="py-2 pr-4"><code>pt-24</code></td>
+                </tr>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Card padding</td>
+                  <td class="py-2 pr-4"><code>p-5</code></td>
+                  <td class="py-2 pr-4"><code>p-8</code></td>
+                </tr>
+                <tr class="border-b border-border/20">
+                  <td class="py-2 pr-4 text-foreground">Grid gap</td>
+                  <td class="py-2 pr-4"><code>gap-6</code></td>
+                  <td class="py-2 pr-4"><code>gap-6</code></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="w-full h-12 rounded-none border border-border/40 bg-muted mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(0.96 0 0)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(0.269 0 0)</code></span>
+        </section>
+
+        <!-- Cards -->
+        <section id="cards" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Cards</h2>
+          <p class="text-sm text-muted-foreground mb-6">Flat, no shadow. Subtle border that darkens on hover.</p>
+
+          <div class="rounded-none border border-border/40 bg-transparent p-8 mb-3">
+            <p class="text-2xl font-medium tracking-tight text-foreground mb-2">Card Title</p>
+            <p class="text-base text-muted-foreground leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="flex gap-2">
+              <span class="text-sm text-muted-foreground">#design</span>
+              <span class="text-sm text-muted-foreground">#system</span>
+            </div>
           </div>
-        </div>
 
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Muted Foreground</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">text-muted-foreground</kbd>
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto"><code>rounded-none border border-border/40 bg-transparent p-8
+hover:border-border/80 transition-colors</code></pre>
+        </section>
+
+        <!-- Navbar -->
+        <section id="navbar" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Navbar</h2>
+          <p class="text-sm text-muted-foreground mb-6">Fixed top bar. Text links on desktop, bottom sheet on mobile.</p>
+
+          <div class="flex gap-6 mb-3">
+            <span class="text-sm text-muted-foreground">Inactive</span>
+            <span class="text-sm text-foreground">Active</span>
           </div>
-          <div class="w-full h-12 rounded-none border border-border/40 bg-muted-foreground mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(0.45 0 0)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(0.708 0 0)</code></span>
-          </div>
-        </div>
 
-        <div class="rounded-none border border-border/40 bg-transparent p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Border</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">border-border</kbd>
-          </div>
-          <div class="w-full h-12 rounded-none border-2 border-border mb-3"></div>
-          <div class="flex gap-3 text-[11px] text-muted-foreground">
-            <span>Light <code class="text-foreground">oklch(0 0 0 / 10%)</code></span>
-            <span class="text-border/60">|</span>
-            <span>Dark <code class="text-foreground">oklch(1 0 0 / 10%)</code></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Typography -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Typography</h2>
-        <p class="text-sm text-muted-foreground mt-1">Geist Sans (body, headings), Geist Mono (code), Noto Naskh Arabic (arabic).</p>
-      </div>
-
-      <div class="space-y-10">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Page Heading</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">h1</kbd>
-          </div>
-          <p class="text-3xl sm:text-4xl tracking-tighter font-medium text-foreground mb-2">The quick brown fox jumps over the lazy dog</p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">text-3xl sm:text-4xl tracking-tighter font-medium text-foreground</code>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Section Heading</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">h2</kbd>
-          </div>
-          <p class="text-2xl sm:text-3xl tracking-tight font-medium text-foreground mb-2">The quick brown fox jumps over the lazy dog</p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">text-2xl sm:text-3xl tracking-tight font-medium text-foreground</code>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Card Title</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">h3</kbd>
-          </div>
-          <p class="text-xl font-medium tracking-tight text-foreground mb-2">The quick brown fox jumps over the lazy dog</p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">text-xl font-medium tracking-tight text-foreground</code>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Body</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">p</kbd>
-          </div>
-          <p class="text-base leading-7 text-foreground mb-2 max-w-lg">The quick brown fox jumps over the lazy dog. Body text uses generous line height for readability at all sizes.</p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">text-base leading-7 text-foreground</code>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Secondary Text</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">.muted</kbd>
-          </div>
-          <p class="text-base leading-7 text-muted-foreground mb-2 max-w-lg">Descriptions and metadata use muted foreground for clear hierarchy.</p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">text-base leading-7 text-muted-foreground</code>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs text-muted-foreground uppercase tracking-wider font-medium">Monospace</span>
-            <kbd class="text-[10px] text-muted-foreground border border-border/40 px-1.5 py-0.5">code</kbd>
-          </div>
-          <p class="mb-2"><code class="text-sm text-foreground bg-muted px-1.5 py-0.5">const design = "minimal";</code></p>
-          <code class="text-[11px] text-muted-foreground bg-transparent">font-mono text-sm bg-muted px-1.5 py-0.5</code>
-        </div>
-      </div>
-    </section>
-
-    <!-- Spacing -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Spacing</h2>
-        <p class="text-sm text-muted-foreground mt-1">Responsive spacing tokens used across all pages.</p>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-border/40">
-              <th class="text-left py-3 pr-4 font-medium text-foreground">Usage</th>
-              <th class="text-left py-3 pr-4 font-medium text-foreground">Mobile</th>
-              <th class="text-left py-3 pr-4 font-medium text-foreground">Desktop</th>
-              <th class="text-left py-3 font-medium text-muted-foreground hidden sm:table-cell">Applied on</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Page header margin</td>
-              <td class="py-3 pr-4"><code class="text-xs">mb-10</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">sm:mb-16</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">All pages</td>
-            </tr>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Section gap</td>
-              <td class="py-3 pr-4"><code class="text-xs">mt-16</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">sm:mt-24</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">Homepage, now, uses</td>
-            </tr>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Section heading margin</td>
-              <td class="py-3 pr-4"><code class="text-xs">mb-6</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">sm:mb-8</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">All h2 sections</td>
-            </tr>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Container top padding</td>
-              <td class="py-3 pr-4"><code class="text-xs">pt-24</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">pt-24</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">Layout shell</td>
-            </tr>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Card padding</td>
-              <td class="py-3 pr-4"><code class="text-xs">p-5</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">p-8</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">Notes/works cards</td>
-            </tr>
-            <tr class="border-b border-border/20">
-              <td class="py-3 pr-4 text-foreground">Grid gap</td>
-              <td class="py-3 pr-4"><code class="text-xs">gap-6</code></td>
-              <td class="py-3 pr-4"><code class="text-xs">gap-6</code></td>
-              <td class="py-3 text-muted-foreground hidden sm:table-cell">Card grids</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Components -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Components</h2>
-        <p class="text-sm text-muted-foreground mt-1">Reusable patterns used throughout the site.</p>
-      </div>
-
-      <div class="mb-10">
-        <h3 class="text-lg font-medium tracking-tight text-foreground mb-3">Card</h3>
-        <div class="rounded-none border border-border/40 bg-transparent p-8 mb-3">
-          <p class="text-2xl font-medium tracking-tight text-foreground mb-2">Card Title</p>
-          <p class="text-base text-muted-foreground leading-relaxed">Flat card with subtle border that darkens on hover.</p>
-          <div class="flex gap-2 mt-4">
-            <span class="text-sm text-muted-foreground">#design</span>
-            <span class="text-sm text-muted-foreground">#system</span>
-          </div>
-        </div>
-        <pre class="text-[11px] text-muted-foreground bg-muted p-4 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>rounded-none border border-border/40 bg-transparent p-8 hover:border-border/80</code></pre>
-      </div>
-
-      <div class="mb-10">
-        <h3 class="text-lg font-medium tracking-tight text-foreground mb-3">Navbar Links</h3>
-        <div class="flex gap-6 mb-3">
-          <span class="text-sm text-muted-foreground">Inactive</span>
-          <span class="text-sm text-foreground">Active</span>
-        </div>
-        <pre class="text-[11px] text-muted-foreground bg-muted p-4 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>text-sm font-medium no-underline transition-colors
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto"><code>text-sm font-medium no-underline transition-colors
 Active: text-foreground
 Inactive: text-muted-foreground hover:text-foreground</code></pre>
-      </div>
+        </section>
 
-      <div class="mb-10">
-        <h3 class="text-lg font-medium tracking-tight text-foreground mb-3">Tags</h3>
-        <div class="flex gap-2 mb-3">
-          <span class="text-sm text-muted-foreground">#typescript</span>
-          <span class="text-sm text-muted-foreground">#svelte</span>
-          <span class="text-sm text-muted-foreground">#go</span>
-        </div>
-        <pre class="text-[11px] text-muted-foreground bg-muted p-4 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>text-sm text-muted-foreground hover:text-foreground transition-colors</code></pre>
-      </div>
+        <!-- Links -->
+        <section id="links" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Links</h2>
+          <p class="text-sm text-muted-foreground mb-6">Always underlined with subtle decoration. External links get an auto-appended arrow via CSS.</p>
 
-      <div>
-        <h3 class="text-lg font-medium tracking-tight text-foreground mb-3">Links</h3>
-        <div class="space-y-2 mb-3">
-          <p><a href="/" class="text-foreground underline decoration-border/30 underline-offset-2 font-medium">Internal link</a></p>
-          <p><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-border/30 underline-offset-2 font-medium">External link</a></p>
-        </div>
-        <pre class="text-[11px] text-muted-foreground bg-muted p-4 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>text-foreground underline decoration-border/30 underline-offset-2 font-medium
-External: a[target="_blank"]::after adds arrow icon</code></pre>
-      </div>
-    </section>
+          <div class="space-y-2 mb-3">
+            <p><a href="/" class="text-foreground underline decoration-border/30 underline-offset-2 font-medium">Internal link</a></p>
+            <p><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-foreground underline decoration-border/30 underline-offset-2 font-medium">External link</a></p>
+          </div>
 
-    <!-- Page Structure -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Page Structure</h2>
-        <p class="text-sm text-muted-foreground mt-1">Every page follows this template.</p>
-      </div>
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto"><code>text-foreground underline decoration-border/30 underline-offset-2 font-medium
+External: a[target="_blank"]::after &#123; content: " \2197"; &#125;</code></pre>
+        </section>
 
-      <pre class="text-[11px] text-muted-foreground bg-muted p-6 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>&lt;Layout title="Page" description="..."&gt;
-  &lt;section class="mb-10 sm:mb-16"&gt;
-    &lt;h1 class="text-3xl sm:text-4xl tracking-tighter
-               font-medium text-foreground"&gt;
-      Page Title
-    &lt;/h1&gt;
-    &lt;p class="text-lg sm:text-xl text-muted-foreground"&gt;
-      Description
-    &lt;/p&gt;
-  &lt;/section&gt;
-  &lt;!-- Content: mt-16 sm:mt-24 --&gt;
+        <!-- Tags -->
+        <section id="tags" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Tags</h2>
+          <p class="text-sm text-muted-foreground mb-6">Muted text that reveals on hover.</p>
+
+          <div class="flex gap-2 mb-3">
+            <span class="text-sm text-muted-foreground">#typescript</span>
+            <span class="text-sm text-muted-foreground">#svelte</span>
+            <span class="text-sm text-muted-foreground">#go</span>
+          </div>
+
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto"><code>text-sm text-muted-foreground hover:text-foreground transition-colors no-underline</code></pre>
+        </section>
+
+        <!-- Page Structure -->
+        <section id="page-structure" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Page Structure</h2>
+          <p class="text-sm text-muted-foreground mb-6">Template for creating new pages.</p>
+
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>&lt;Layout title="Page" description="..."&gt;
+  &lt;div class="w-full ..."&gt;
+    &lt;section class="mb-10 sm:mb-16"&gt;
+      &lt;h1 class="text-3xl sm:text-4xl tracking-tighter
+                 font-medium text-foreground"&gt;
+        Page Title
+      &lt;/h1&gt;
+      &lt;p class="text-lg sm:text-xl text-muted-foreground"&gt;
+        Description
+      &lt;/p&gt;
+    &lt;/section&gt;
+    &lt;!-- Content sections: mt-16 sm:mt-24 --&gt;
+  &lt;/div&gt;
 &lt;/Layout&gt;</code></pre>
-    </section>
+        </section>
 
-    <!-- Grid Background -->
-    <section class="mb-20">
-      <div class="border-b border-border/40 pb-4 mb-8">
-        <h2 class="text-2xl font-medium tracking-tight text-foreground">Grid Background</h2>
+        <!-- Grid Background -->
+        <section id="grid-background" class="mb-16">
+          <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">Grid Background</h2>
+          <p class="text-sm text-muted-foreground mb-6">Desktop column grid with dashed lines at 25, 50, and 75 percent positions.</p>
+
+          <pre class="text-xs text-muted-foreground font-mono bg-muted p-4 rounded-none border border-border/40 overflow-x-auto"><code>// Layout.astro
+&lt;div class="hidden md:block fixed inset-0 pointer-events-none z-0"&gt;
+  &lt;div class="mx-auto max-w-6xl h-full relative"&gt;
+    // Container edge borders
+    &lt;div class="absolute inset-0 border-x border-border/30"&gt;&lt;/div&gt;
+    // Column dividers at 25%, 50%, 75%
+    &lt;div class="absolute left-1/4 top-0 bottom-0
+      border-l border-dashed border-border/30"
+      style="border-left-width: 0.5px"&gt;&lt;/div&gt;
+    // ... repeat for 1/2 and 3/4
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </section>
+
+        <footer class="border-t border-border/40 pt-8">
+          <p class="text-sm text-muted-foreground">
+            Built with Astro, Svelte, Tailwind CSS 4, and shadcn-svelte.
+          </p>
+        </footer>
       </div>
-      <p class="text-sm text-muted-foreground mb-4 leading-7">
-        Column grid overlay with dashed vertical lines at 25%, 50%, and 75%. Desktop only. Container edges get solid border lines.
-      </p>
-      <pre class="text-[11px] text-muted-foreground bg-muted p-6 rounded-none border border-border/40 overflow-x-auto leading-relaxed"><code>hidden md:block fixed inset-0 pointer-events-none z-0
-Container edges: border-x border-border/30
-Column lines: 0.5px border-l border-dashed border-border/30</code></pre>
-    </section>
-
-    <footer class="border-t border-border/40 pt-8 pb-4">
-      <p class="text-sm text-muted-foreground">
-        Built with Astro, Svelte, Tailwind CSS 4, and shadcn-svelte.
-      </p>
-    </footer>
+    </div>
   </div>
 </Layout>
