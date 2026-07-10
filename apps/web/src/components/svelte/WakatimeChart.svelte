@@ -100,7 +100,7 @@
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-  <Card class="border border-border/70 rounded-none bg-transparent">
+  <Card class="border border-border/70 rounded-none bg-transparent ring-0 gap-0 py-0">
     <CardHeader class="p-4">
       <div class="flex items-center">
         <Clock class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -114,7 +114,7 @@
     </CardHeader>
   </Card>
 
-  <Card class="border border-border/70 bg-transparent rounded-none">
+  <Card class="border border-border/70 bg-transparent rounded-none ring-0 gap-0 py-0">
     <CardHeader class="p-4">
       <div class="flex items-center">
         <Calendar class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -129,7 +129,7 @@
   </Card>
 </div>
 
-<Card class="border border-border/70 bg-transparent rounded-none">
+<Card class="border border-border/70 bg-transparent rounded-none ring-0 gap-0 py-0">
   <CardContent class="p-4">
     <div class="w-full">
       <div class="h-56">
@@ -185,7 +185,7 @@
               y={bar.y}
               width={bar.w}
               height={bar.h}
-              rx="6"
+              rx="0"
               fill={bar.color}
             />
             <text
@@ -207,7 +207,7 @@
             <div class="flex items-center justify-between w-full">
               <div class="flex items-center">
                 <div
-                  class="w-4 h-4 mr-2"
+                  class="w-4 h-4 rounded-none mr-2"
                   style="background-color: {colors[index % colors.length]}"
                 ></div>
                 <span class="text-foreground">{lang.name}</span>

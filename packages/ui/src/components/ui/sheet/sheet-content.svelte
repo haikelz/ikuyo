@@ -1,14 +1,14 @@
 <script lang="ts" module>
-export type Side = "top" | "right" | "bottom" | "left";
+  export type Side = "top" | "right" | "bottom" | "left";
 </script>
 
 <script lang="ts">
-  import { Button } from "@ikuyo/ui";
-  import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
   import { Cancel01Icon } from "@hugeicons/core-free-icons";
   import { HugeiconsIcon } from "@hugeicons/svelte";
+  import { Button } from "@ikuyo/ui";
   import { Dialog as SheetPrimitive } from "bits-ui";
   import type { ComponentProps, Snippet } from "svelte";
+  import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
   import SheetOverlay from "./sheet-overlay.svelte";
   import SheetPortal from "./sheet-portal.svelte";
 
@@ -47,7 +47,7 @@ export type Side = "top" | "right" | "bottom" | "left";
       <SheetPrimitive.Close data-slot="sheet-close">
         {#snippet child({ props })}
           <Button
-            variant="ghost"
+            variant="outline"
             class="absolute top-4 right-4"
             size="icon-sm"
             {...props}
