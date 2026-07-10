@@ -1,0 +1,41 @@
+---
+author: Haikel
+title: K8S
+tags:
+  - k8s
+  - devops
+created_at: 2026-07-12
+description: My small VPS w/k8s setup
+---
+
+import Photo from "@/components/svelte/Photo.svelte";
+
+Recently, I just got a cheap VPS with this specs:
+
+- OS: Debian 13 (Trixie)
+- RAM: 2 GB
+- CPU: 2 Core
+
+For the kernel, I replace the default kernel with [Xanmod 7.0.14](https://xanmod.org/). After that, I'm messing around w/k8s in the VPS. I already deployed 3 apps:
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/k8s/Screenshot%202026-07-10%20at%2021.50.58.png"
+  alt="specs"
+/>
+
+- [Goatcounter](https://www.goatcounter.com/) (Self hosted analytics).
+- 1 Static Astro Website.
+- [Mazanoke](https://github.com/civilblur/mazanoke) (Self-hosted image compression service)
+
+For analytics stuff, initally I'm using Umami. But then I'm looking something different, and finally found Goatcounter.
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/k8s/Screenshot%202026-07-10%20at%2022.07.27.png"
+  alt="goatcounter"
+/>
+
+This note will updated regularly if there are any update with my deployed apps. Things to do next:
+
+- Deploy a Whatsmeow bot.

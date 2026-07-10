@@ -146,7 +146,7 @@
         variant="outline"
         size="icon-sm"
         onclick={toggleNavbar}
-        class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors"
+        class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors rounded-md"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-sheet"
         aria-label="Toggle navigation menu"
