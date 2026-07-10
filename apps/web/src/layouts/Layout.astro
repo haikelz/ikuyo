@@ -64,6 +64,14 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       src={PUBLIC_GOATCOUNTER_SRC}></script>
   </head>
   <body class="w-full flex flex-col justify-start items-start">
+    <div class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
+      <div class="mx-auto max-w-6xl h-full relative">
+        <div class="absolute inset-0 border-x border-border/20"></div>
+        <div class="absolute left-1/4 top-0 bottom-0 border-l border-border/20" style="border-left-style: dashed; border-left-width: 0.5px"></div>
+        <div class="absolute left-1/2 top-0 bottom-0 border-l border-border/20" style="border-left-style: dashed; border-left-width: 0.5px"></div>
+        <div class="absolute left-3/4 top-0 bottom-0 border-l border-border/20" style="border-left-style: dashed; border-left-width: 0.5px"></div>
+      </div>
+    </div>
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-lg focus:ring-2 focus:ring-ring focus:outline-none"
