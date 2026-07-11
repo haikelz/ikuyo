@@ -1,5 +1,5 @@
 ---
-import Card from "@/components/Card.astro";
+import Card from "@/components/card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -27,40 +27,27 @@ export async function getStaticPaths() {
   }));
 }
 
-// get dynamic path
 const currentPath = Astro.url.pathname.split("/")[2];
 ---
 
 <Layout
-  title={`Notes with tag ${currentPath}.`}
+  title={`Notes with tag ${currentPath}`}
   description="Notes with tag"
   url={`https://ekel.dev/tags/${currentPath}`}
   ogImage={`tags/${currentPath}.png`}
 >
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start  mx-auto",
-      "md:text-start",
-    ]}
-  >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
-      >
+  <div class="w-full mx-auto slide-enter-content">
+    <section class="w-full mt-8">
+      <h1 class="mb-4 mt-0 text-3xl sm:text-4xl tracking-tighter font-bold text-foreground">
         #{currentPath}
       </h1>
-        <p
-          id="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          Notes tagged with {currentPath}.
-        </p>
-      </div>
+      <p class="mb-0 text-lg sm:text-xl text-muted-foreground">
+        Notes tagged with {currentPath}.
+      </p>
     </section>
-    <section class="w-full">
-      <div
-        class="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 slide-enter-content"
-      >
+
+    <section class="w-full mt-10 sm:mt-16">
+      <div class="grid w-full grid-cols-1 sm:grid-cols-2 gap-6 slide-enter-content">
         {
           notes
             .filter((item) => item.data.tags.includes(currentPath))
