@@ -7,6 +7,7 @@ import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
 import "../index.css";
+import { ClientRouter } from "astro:transitions";
 
 type Props = {
   title: string;
@@ -62,8 +63,28 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       data-goatcounter={removedFilenameGoatcounterSrc}
       async
       src={PUBLIC_GOATCOUNTER_SRC}></script>
+    <script is:inline>
+      const theme = (() => {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'light') return stored;
+        
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+      })();
+
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+
+      document.addEventListener('astro:after-swap', () => {
+     
+      const theme = localStorage.getItem('theme') ?? 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    });
+    </script>
+    <ClientRouter  />
   </head>
-  <body class="w-full flex flex-col justify-start items-start">
+  <body class="w-full flex flex-col justify-start items-start" transition:animate="initial" >
     <div class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
       <div class="mx-auto max-w-6xl h-full relative">
         <div class="absolute inset-0 border-x border-border/70"></div>

@@ -14,7 +14,7 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   ogImage="photos.png"
 >
   <div
-    class="flex w-full flex-col items-start justify-start mx-auto md:text-start"
+    class="flex w-full flex-col items-start justify-start mx-auto md:text-start slide-enter-content"
   >
     <section class="w-full">
       <PhotosPage client:only="svelte" photos={photos} />

@@ -31,14 +31,13 @@ const guestbook = await getGuestbook();
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8">
+    <section class="w-full mt-8 slide-enter-content">
       <h1
         data-cy="heading"
         class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
       >
         Guestbook
       </h1>
-      <div class="slide-enter-content">
         <p
           data-cy="description"
           class="mb-0 text-lg sm:text-xl text-muted-foreground"
@@ -53,7 +52,6 @@ const guestbook = await getGuestbook();
             >guestbook.ekel.dev</a
           > to add your message.
         </p>
-      </div>
     </section>
     <section
       data-cy="guestbook"

@@ -43,13 +43,12 @@ const currentPath = Astro.url.pathname.split("/")[2];
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8">
+    <section class="w-full mt-8 slide-enter-content">
       <h1
         class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
       >
         #{currentPath}
       </h1>
-      <div class="slide-enter-content">
         <p
           id="description"
           class="mb-0 text-lg sm:text-xl text-muted-foreground"

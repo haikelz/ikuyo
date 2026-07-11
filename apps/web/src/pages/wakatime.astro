@@ -32,21 +32,19 @@ const wakatimeStats = await getWakatimeStats();
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8">
+    <section class="w-full mt-8 slide-enter-content">
       <h1
         data-cy="heading"
         class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
       >
         Wakatime
       </h1>
-      <div class="slide-enter-content">
-        <p
-          data-cy="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          My coding activity and statistics.
-        </p>
-      </div>
+      <p
+        data-cy="description"
+        class="mb-0 text-lg sm:text-xl text-muted-foreground"
+      >
+        My coding activity and statistics.
+      </p>
     </section>
     <section class="w-full mt-10 sm:mt-16 slide-enter-content">
       <WakatimeChart client:only="svelte" data={wakatimeStats} />
