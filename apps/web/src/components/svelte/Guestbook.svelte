@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { api } from "@/configs/ky";
   import type { GuestbookProps } from "@/types";
   import { BACKEND_API_URL } from "@/utils/env";
   import { onMount } from "svelte";
@@ -20,10 +19,10 @@
     loading = true;
     error = null;
     try {
-      const response = await api
-        .get(`${BACKEND_API_URL}/api/v1/guestbook`)
-        .json<{ data: GuestbookProps[] }>();
-      messages = response.data.sort(
+      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook`);
+      if (!res.ok) throw new Error();
+      const json = await res.json() as { data: GuestbookProps[] };
+      messages = json.data.sort(
         (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
     } catch (err) {
@@ -40,9 +39,12 @@
     submitting = true;
     formError = null;
     try {
-      await api.post(`${BACKEND_API_URL}/api/v1/guestbook`, {
-        json: { username: username.trim(), message: message.trim() },
+      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: username.trim(), message: message.trim() }),
       });
+      if (!res.ok) throw new Error();
       message = "";
       username = "";
       showForm = false;
@@ -57,7 +59,8 @@
   async function handleDelete(id: number) {
     deletingId = id;
     try {
-      await api.delete(`${BACKEND_API_URL}/api/v1/guestbook/${id}`);
+      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error();
       messages = messages.filter((m) => m.id !== id);
     } catch {
       // silently fail
