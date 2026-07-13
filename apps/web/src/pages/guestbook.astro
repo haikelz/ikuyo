@@ -1,6 +1,7 @@
 ---
 import GuestbookMessages from "@/components/svelte/Guestbook.svelte";
 import Layout from "@/layouts/Layout.astro";
+import { BACKEND_API_URL } from "@/utils/env";
 ---
 
 <Layout
@@ -36,7 +37,7 @@ import Layout from "@/layouts/Layout.astro";
       data-cy="guestbook"
       class="flex w-full flex-col space-y-6 sm:space-y-8 items-start justify-start"
     >
-      <GuestbookMessages client:load />
+      <GuestbookMessages client:only="svelte" apiUrl={BACKEND_API_URL} />
     </section>
   </div>
 </Layout>

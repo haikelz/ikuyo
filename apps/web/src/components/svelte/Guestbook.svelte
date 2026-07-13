@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { GuestbookProps } from "@/types";
-  import { BACKEND_API_URL } from "@/utils/env";
   import { onMount } from "svelte";
+
+  let { apiUrl }: { apiUrl: string } = $props();
 
   let messages = $state<GuestbookProps[]>([]);
   let loading = $state(true);
@@ -19,7 +20,7 @@
     loading = true;
     error = null;
     try {
-      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook`);
+      const res = await fetch(`${apiUrl}/api/v1/guestbook`);
       if (!res.ok) throw new Error();
       const json = await res.json() as { data: GuestbookProps[] };
       messages = json.data.sort(
@@ -39,7 +40,7 @@
     submitting = true;
     formError = null;
     try {
-      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook`, {
+      const res = await fetch(`${apiUrl}/api/v1/guestbook`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username.trim(), message: message.trim() }),
@@ -59,7 +60,7 @@
   async function handleDelete(id: number) {
     deletingId = id;
     try {
-      const res = await fetch(`${BACKEND_API_URL}/api/v1/guestbook/${id}`, { method: "DELETE" });
+      const res = await fetch(`${apiUrl}/api/v1/guestbook/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       messages = messages.filter((m) => m.id !== id);
     } catch {

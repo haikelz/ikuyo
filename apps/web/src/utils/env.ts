@@ -5,9 +5,9 @@ dotenvx.config({
   ignore: ["MISSING_ENV_FILE"],
 });
 
-export const PUBLIC_DEVELOPMENT_URL = process.env
+export const PUBLIC_DEVELOPMENT_URL = import.meta.env
   .PUBLIC_DEVELOPMENT_URL as string;
-export const PUBLIC_PRODUCTION_URL = process.env
+export const PUBLIC_PRODUCTION_URL = import.meta.env
   .PUBLIC_PRODUCTION_URL as string;
 export const TURSO_DATABASE_URL = process.env.TURSO_DATABASE_URL as string;
 export const TURSO_AUTH_TOKEN = process.env.TURSO_AUTH_TOKEN as string;
@@ -23,8 +23,9 @@ export const IMAGEKIT_PRIVATE_KEY = process.env.IMAGEKIT_PRIVATE_KEY as string;
 export const IMAGEKIT_API_BASE_URL = process.env
   .IMAGEKIT_API_BASE_URL as string;
 
-export const PUBLIC_UMAMI_SRC = process.env.PUBLIC_UMAMI_SRC as string;
-export const PUBLIC_UMAMI_WEBSITE_ID = process.env
+export const PUBLIC_UMAMI_SRC = import.meta.env
+  .PUBLIC_UMAMI_SRC as string;
+export const PUBLIC_UMAMI_WEBSITE_ID = import.meta.env
   .PUBLIC_UMAMI_WEBSITE_ID as string;
-export const PUBLIC_GOATCOUNTER_SRC = process.env
+export const PUBLIC_GOATCOUNTER_SRC = import.meta.env
   .PUBLIC_GOATCOUNTER_SRC as string;
