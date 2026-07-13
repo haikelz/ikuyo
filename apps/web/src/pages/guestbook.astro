@@ -1,7 +1,22 @@
 ---
-import GuestbookMessages from "@/components/svelte/Guestbook.svelte";
+import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
+import type { GuestbookProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
+import { format } from "date-fns";
+
+export async function getGuestbook(): Promise<GuestbookProps[]> {
+  try {
+    const response = await api
+      .get(`${BACKEND_API_URL}/api/v1/guestbook`)
+      .json<{ data: GuestbookProps[] }>();
+    return response.data;
+  } catch (err) {
+    throw new Error((err as Error).message);
+  }
+}
+
+const guestbook = await getGuestbook();
 ---
 
 <Layout
@@ -10,34 +25,67 @@ import { BACKEND_API_URL } from "@/utils/env";
   url="https://ekel.dev/guestbook"
   ogImage="guestbook.png"
 >
-  <div class="w-full max-w-3xl mx-auto">
-    <section class="w-full mb-10 sm:mb-16">
+  <div
+    class:list={[
+      "flex w-full flex-col items-start justify-start  mx-auto",
+      "md:text-start",
+    ]}
+  >
+    <section class="w-full mt-8 slide-enter-content">
       <h1
         data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl tracking-tighter font-bold text-foreground"
+        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
       >
         Guestbook
       </h1>
-      <p
-        data-cy="description"
-        class="mb-0 text-lg sm:text-xl text-muted-foreground"
-      >
-        Write a message for me and others. Go to
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="guestbook.ekel.dev (opens in new tab)"
-          href="https://guestbook.ekel.dev"
-          class="text-foreground font-medium hover:text-muted-foreground transition-colors"
-          >guestbook.ekel.dev</a
-        > to add your message.
-      </p>
+        <p
+          data-cy="description"
+          class="mb-0 text-lg sm:text-xl text-muted-foreground"
+        >
+          Write a message for me and others. Go to
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="guestbook.ekel.dev (opens in new tab)"
+            href="https://guestbook.ekel.dev"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >guestbook.ekel.dev</a
+          > to add your message.
+        </p>
     </section>
     <section
       data-cy="guestbook"
-      class="flex w-full flex-col space-y-6 sm:space-y-8 items-start justify-start"
+      class="flex w-full flex-col space-y-6 mt-10 sm:mt-16 sm:space-y-8 items-start justify-start slide-enter-content"
     >
-      <GuestbookMessages client:only="svelte" apiUrl={BACKEND_API_URL} />
+      {
+        guestbook ? (
+          guestbook
+            .sort(
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime(),
+            )
+            .map((item) => (
+              <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/70 hover:border-border/80 transition-colors">
+                <div>
+                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
+                    {item.message}
+                  </h3>
+                  <p class="mb-0 mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
+                    <span class="font-medium text-foreground">
+                      {item.username}
+                    </span>{" "}
+                    — {format(item.created_at, "MMMM d, yyyy")}
+                  </p>
+                </div>
+              </div>
+            ))
+        ) : (
+          <p class="font-medium text-muted-foreground">
+            There is no message right now!
+          </p>
+        )
+      }
     </section>
   </div>
 </Layout>
