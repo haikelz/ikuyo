@@ -1,5 +1,5 @@
 ::view-transition-group(root) {
-  animation: none;
+  animation-duration: 0.4s;
 }
 
 @keyframes slide-enter {
@@ -91,22 +91,41 @@
   }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+@keyframes exit-slide-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
+
+@keyframes enter-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 ::view-transition-old(root) {
-  z-index: 1;
+  animation: exit-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
 ::view-transition-new(root) {
-  z-index: 9999;
+  animation: enter-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-.dark::view-transition-new(root) {
-  z-index: 1;
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 /* Shimmer effect for loading */
