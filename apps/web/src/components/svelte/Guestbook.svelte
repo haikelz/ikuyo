@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { GuestbookProps } from "@/types";
   import { onMount } from "svelte";
+  import { Button, Card, CardContent, Dialog, DialogContent, DialogHeader, DialogTitle, Input, Textarea } from "@ikuyo/ui";
 
   let { apiUrl }: { apiUrl: string } = $props();
 
@@ -10,7 +11,7 @@
   let deletingId = $state<number | null>(null);
 
   // Create form
-  let showForm = $state(false);
+  let open = $state(false);
   let message = $state("");
   let username = $state("");
   let submitting = $state(false);
@@ -48,7 +49,7 @@
       if (!res.ok) throw new Error();
       message = "";
       username = "";
-      showForm = false;
+      open = false;
       await fetchMessages();
     } catch (err) {
       formError = "Failed to send message. Try again.";
@@ -70,102 +71,68 @@
     }
   }
 
-  function handleKeydown(e: KeyboardEvent) {
-    if (e.key === "Escape") showForm = false;
-  }
-
   onMount(fetchMessages);
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
-<!-- Create message trigger -->
 <div class="mb-6">
-  <button
-    class="text-sm font-medium text-foreground border border-border/70 bg-transparent px-4 py-2 rounded-none hover:border-border transition-colors"
-    onclick={() => (showForm = true)}
-  >
+  <Button variant="outline" class="rounded-none" onclick={() => (open = true)}>
     Write a message
-  </button>
+  </Button>
 </div>
 
-<!-- Create form modal -->
-{#if showForm}
-  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-  <div
-    class="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/50"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Write a guestbook message"
-    onclick={(e) => e.target === e.currentTarget && (showForm = false)}
-  >
-    <form
-      onsubmit={handleCreate}
-      class="w-full max-w-md rounded-none border border-border/70 bg-background p-6"
-    >
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-medium tracking-tight text-foreground">Write a Message</h3>
-        <button
-          type="button"
-          class="text-muted-foreground hover:text-foreground transition-colors"
-          onclick={() => (showForm = false)}
-          aria-label="Close"
-        >&#x2715;</button>
-      </div>
+<Dialog bind:open>
+  <DialogContent class="rounded-none border-border/70 bg-background sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle class="text-lg font-medium tracking-tight text-foreground">Write a Message</DialogTitle>
+    </DialogHeader>
 
-      <div class="space-y-4">
-        <div>
-          <label for="username" class="block text-sm font-medium text-foreground mb-1">Name</label>
-          <input
-            id="username"
-            type="text"
-            bind:value={username}
-            maxlength="50"
-            required
-            class="w-full text-sm text-foreground bg-transparent border border-border/70 rounded-none px-3 py-2 outline-none focus:border-border"
-            placeholder="Your name"
-          />
-        </div>
-        <div>
-          <label for="message" class="block text-sm font-medium text-foreground mb-1">Message</label>
-          <textarea
-            id="message"
-            bind:value={message}
-            maxlength="500"
-            rows="4"
-            required
-            class="w-full text-sm text-foreground bg-transparent border border-border/70 rounded-none px-3 py-2 outline-none focus:border-border resize-none"
-            placeholder="Write your message..."
-          ></textarea>
-          <p class="text-xs text-muted-foreground mt-1">{message.length}/500</p>
-        </div>
+    <form onsubmit={handleCreate} class="space-y-4 mt-4">
+      <div class="space-y-2">
+        <label for="username" class="text-sm font-medium text-foreground">Name</label>
+        <Input
+          id="username"
+          bind:value={username}
+          maxlength={50}
+          required
+          placeholder="Your name"
+          class="rounded-none border-border/70 bg-transparent text-foreground placeholder:text-muted-foreground"
+        />
+      </div>
+      <div class="space-y-2">
+        <label for="msg" class="text-sm font-medium text-foreground">Message</label>
+        <Textarea
+          id="msg"
+          bind:value={message}
+          maxlength={500}
+          rows={4}
+          required
+          placeholder="Write your message..."
+          class="rounded-none border-border/70 bg-transparent text-foreground placeholder:text-muted-foreground"
+        />
+        <p class="text-xs text-muted-foreground">{message.length}/500</p>
       </div>
 
       {#if formError}
-        <p class="text-sm text-muted-foreground mt-3">{formError}</p>
+        <p class="text-sm text-muted-foreground">{formError}</p>
       {/if}
 
-      <div class="flex justify-end gap-3 mt-6">
-        <button
-          type="button"
-          class="text-sm text-muted-foreground hover:text-foreground transition-colors px-4 py-2"
-          onclick={() => (showForm = false)}
-        >
+      <div class="flex justify-end gap-3 pt-2">
+        <Button type="button" variant="ghost" class="rounded-none" onclick={() => (open = false)}>
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
-          class="text-sm font-medium text-foreground border border-border/70 bg-transparent px-4 py-2 rounded-none hover:border-border transition-colors disabled:opacity-50"
+          variant="outline"
+          class="rounded-none"
           disabled={submitting || !message.trim() || !username.trim()}
         >
           {submitting ? "Sending..." : "Send"}
-        </button>
+        </Button>
       </div>
     </form>
-  </div>
-{/if}
+  </DialogContent>
+</Dialog>
 
-<!-- Messages -->
 {#if loading}
   <p class="text-muted-foreground">Loading messages...</p>
 {:else if error}
@@ -174,23 +141,26 @@
   <p class="text-muted-foreground">No messages yet. Be the first!</p>
 {:else}
   {#each messages as item (item.id)}
-    <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/70 hover:border-border/80 transition-colors">
-      <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
-        {item.message}
-      </h3>
-      <div class="flex items-center justify-between mt-3 sm:mt-4">
-        <p class="mb-0 text-sm sm:text-base text-muted-foreground">
-          <span class="font-medium text-foreground">{item.username}</span>
-        </p>
-        <button
-          class="text-xs text-muted-foreground hover:text-foreground transition-colors opacity-0 group-hover:opacity-100"
-          onclick={() => handleDelete(item.id)}
-          disabled={deletingId === item.id}
-          aria-label="Delete message"
-        >
-          {deletingId === item.id ? "..." : "Delete"}
-        </button>
-      </div>
-    </div>
+    <Card class="group rounded-none border-border/70 bg-transparent mb-4 hover:border-border/80 transition-colors">
+      <CardContent class="p-6 sm:p-8">
+        <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
+          {item.message}
+        </h3>
+        <div class="flex items-center justify-between mt-3 sm:mt-4">
+          <p class="mb-0 text-sm sm:text-base text-muted-foreground">
+            <span class="font-medium text-foreground">{item.username}</span>
+          </p>
+          <Button
+            variant="ghost"
+            size="sm"
+            class="rounded-none opacity-0 group-hover:opacity-100 transition-opacity text-xs text-muted-foreground hover:text-foreground"
+            onclick={() => handleDelete(item.id)}
+            disabled={deletingId === item.id}
+          >
+            {deletingId === item.id ? "..." : "Delete"}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   {/each}
 {/if}
