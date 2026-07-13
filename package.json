@@ -11,7 +11,7 @@
     "url": "https://github.com/haikelz/ikuyo"
   },
   "scripts": {
-    "build:web": "moon run web:build",
+    "build:web": "bun run --cwd apps/web format:biome && bun run --cwd packages/ui format:biome && moon run web:build",
     "dev:web": "moon run web:dev",
     "lint:biome": "bun run --cwd apps/web lint:biome && bun run --cwd packages/ui lint:biome",
     "format:biome": "bun run --cwd apps/web format:biome && bun run --cwd packages/ui format:biome",

@@ -1,542 +1,486 @@
 <script lang="ts">
-  import { api } from "@/configs/ky";
-  import type { MarketCode, MarketDataset } from "@/types";
-  import {
-    Alert,
-    AlertDescription,
-    AlertTitle,
-    Badge,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    Separator,
-    Toggle,
-    ToggleGroup,
-    ToggleGroupItem,
-  } from "@ikuyo/ui";
-  import { AreaChart, LineChart } from "layerchart";
-  import {
-    Activity,
-    AlertTriangle,
-    ChevronLeft,
-    ChevronRight,
-    TrendingDown,
-    TrendingUp,
-  } from "lucide-svelte";
-  import { onMount } from "svelte";
+import { api } from "@/configs/ky";
+import type { MarketCode, MarketDataset } from "@/types";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  Separator,
+  Toggle,
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@ikuyo/ui";
+import { AreaChart, LineChart } from "layerchart";
+import {
+  Activity,
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-svelte";
+import { onMount } from "svelte";
 
-  type IntervalKey = "1M" | "3M" | "6M" | "1Y" | "ALL";
-  type ChartMode = "line" | "area" | "candles";
+type IntervalKey = "1M" | "3M" | "6M" | "1Y" | "ALL";
+type ChartMode = "line" | "area" | "candles";
 
-  let {
-    backendApiUrl,
-    defaultMarketCode = "ID",
-  }: {
-    backendApiUrl: string;
-    defaultMarketCode?: MarketCode;
-  } = $props();
+let {
+  backendApiUrl,
+  defaultMarketCode = "ID",
+}: {
+  backendApiUrl: string;
+  defaultMarketCode?: MarketCode;
+} = $props();
 
-  let markets = $state<MarketDataset[]>([]);
-  let isLoadingMarkets = $state(true);
-  let marketsFetchError = $state<string | null>(null);
+let markets = $state<MarketDataset[]>([]);
+let isLoadingMarkets = $state(true);
+let marketsFetchError = $state<string | null>(null);
 
-  let interval = $state<IntervalKey>("6M");
-  let mode = $state<ChartMode>("line");
-  let panOffset = $state(0);
-  let showVolume = $state(true);
-  let showSma20 = $state(true);
-  let hoverIndex = $state<number | null>(null);
-  let hoverX = $state(0);
-  let hoverY = $state(0);
-  let tooltipX = $state(0);
-  let tooltipY = $state(0);
-  let isDragging = $state(false);
-  let dragStartX = $state(0);
-  let dragStartPanOffset = $state(0);
-  let selectedMarketCode = $state<MarketCode>(defaultMarketCode);
-  let dragMoved = $state(false);
-  let isChartDialogOpen = $state(false);
+let interval = $state<IntervalKey>("6M");
+let mode = $state<ChartMode>("line");
+let panOffset = $state(0);
+let showVolume = $state(true);
+let showSma20 = $state(true);
+let hoverIndex = $state<number | null>(null);
+let hoverX = $state(0);
+let hoverY = $state(0);
+let tooltipX = $state(0);
+let tooltipY = $state(0);
+let isDragging = $state(false);
+let dragStartX = $state(0);
+let dragStartPanOffset = $state(0);
+let selectedMarketCode = $state<MarketCode>(defaultMarketCode);
+let dragMoved = $state(false);
+let isChartDialogOpen = $state(false);
 
-  const palette = {
-    panel: "#131722",
-    line: "#7aa2f7",
-    area: "#334155",
-    sma: "#f59e0b",
-    positive: "#26a69a",
-    negative: "#ef5350",
-    volume: "#475569",
-  };
+const palette = {
+  panel: "#131722",
+  line: "#7aa2f7",
+  area: "#334155",
+  sma: "#f59e0b",
+  positive: "#26a69a",
+  negative: "#ef5350",
+  volume: "#475569",
+};
 
-  const numberFormatter = new Intl.NumberFormat("id-ID", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  const compactFormatter = new Intl.NumberFormat("id-ID", {
-    notation: "compact",
-    maximumFractionDigits: 2,
-  });
-  const dateFormatter = new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-  const axisShortDateFormatter = new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-  });
-  const axisLongDateFormatter = new Intl.DateTimeFormat("id-ID", {
-    month: "short",
-    year: "2-digit",
-  });
+const numberFormatter = new Intl.NumberFormat("id-ID", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const compactFormatter = new Intl.NumberFormat("id-ID", {
+  notation: "compact",
+  maximumFractionDigits: 2,
+});
+const dateFormatter = new Intl.DateTimeFormat("id-ID", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+});
+const axisShortDateFormatter = new Intl.DateTimeFormat("id-ID", {
+  day: "2-digit",
+  month: "short",
+});
+const axisLongDateFormatter = new Intl.DateTimeFormat("id-ID", {
+  month: "short",
+  year: "2-digit",
+});
 
-  async function fetchMarkets() {
-    isLoadingMarkets = true;
-    marketsFetchError = null;
-    if (!backendApiUrl) {
-      markets = [];
-      marketsFetchError = "Konfigurasi backend API belum tersedia.";
-      isLoadingMarkets = false;
-      return;
-    }
-    try {
-      const response = await api
-        .get(`${backendApiUrl}/api/v1/ihsg/markets`, { timeout: 15000 })
-        .json<{ data: MarketDataset[] }>();
-      markets = response.data;
-    } catch {
-      markets = [];
-      marketsFetchError = "Gagal memuat data market. Coba refresh halaman.";
-    } finally {
-      isLoadingMarkets = false;
-    }
+async function fetchMarkets() {
+  isLoadingMarkets = true;
+  marketsFetchError = null;
+  if (!backendApiUrl) {
+    markets = [];
+    marketsFetchError = "Konfigurasi backend API belum tersedia.";
+    isLoadingMarkets = false;
+    return;
   }
-
-  function intervalToSize(value: IntervalKey, total: number) {
-    if (value === "1M") return Math.min(total, 22);
-    if (value === "3M") return Math.min(total, 66);
-    if (value === "6M") return Math.min(total, 132);
-    if (value === "1Y") return Math.min(total, 252);
-    return total;
+  try {
+    const response = await api
+      .get(`${backendApiUrl}/api/v1/ihsg/markets`, { timeout: 15000 })
+      .json<{ data: MarketDataset[] }>();
+    markets = response.data;
+  } catch {
+    markets = [];
+    marketsFetchError = "Gagal memuat data market. Coba refresh halaman.";
+  } finally {
+    isLoadingMarkets = false;
   }
+}
 
-  function clamp(n: number, min: number, max: number) {
-    return Math.max(min, Math.min(n, max));
-  }
+function intervalToSize(value: IntervalKey, total: number) {
+  if (value === "1M") return Math.min(total, 22);
+  if (value === "3M") return Math.min(total, 66);
+  if (value === "6M") return Math.min(total, 132);
+  if (value === "1Y") return Math.min(total, 252);
+  return total;
+}
 
-  function formatSigned(value: number) {
-    return `${value >= 0 ? "+" : ""}${numberFormatter.format(value)}`;
-  }
+function clamp(n: number, min: number, max: number) {
+  return Math.max(min, Math.min(n, max));
+}
 
-  function formatAxisDate(value: Date) {
-    return interval === "1M"
-      ? axisShortDateFormatter.format(value)
-      : axisLongDateFormatter.format(value);
-  }
+function formatSigned(value: number) {
+  return `${value >= 0 ? "+" : ""}${numberFormatter.format(value)}`;
+}
 
-  function panLeft() {
-    panOffset = clamp(
-      panOffset + Math.max(1, Math.round(windowSize * 0.2)),
-      0,
-      maxPanOffset,
-    );
-  }
+function formatAxisDate(value: Date) {
+  return interval === "1M"
+    ? axisShortDateFormatter.format(value)
+    : axisLongDateFormatter.format(value);
+}
 
-  function panRight() {
-    panOffset = clamp(
-      panOffset - Math.max(1, Math.round(windowSize * 0.2)),
-      0,
-      maxPanOffset,
-    );
-  }
+function panLeft() {
+  panOffset = clamp(panOffset + Math.max(1, Math.round(windowSize * 0.2)), 0, maxPanOffset);
+}
 
-  function onChartMove(event: MouseEvent) {
-    if (visibleData.length === 0) return;
+function panRight() {
+  panOffset = clamp(panOffset - Math.max(1, Math.round(windowSize * 0.2)), 0, maxPanOffset);
+}
+
+function onChartMove(event: MouseEvent) {
+  if (visibleData.length === 0) return;
+  const target = event.currentTarget as HTMLDivElement | null;
+  if (!target) return;
+
+  const rect = target.getBoundingClientRect();
+  const localX = clamp(event.clientX - rect.left, 0, rect.width);
+  const localY = clamp(event.clientY - rect.top, 0, rect.height);
+  const ratio = rect.width > 0 ? localX / rect.width : 0;
+  const index = clamp(
+    Math.round(ratio * Math.max(0, visibleData.length - 1)),
+    0,
+    visibleData.length - 1,
+  );
+  const point = visibleData[index];
+  const yRange = yDomain[1] - yDomain[0];
+
+  hoverIndex = index;
+  hoverX =
+    visibleData.length > 1 ? (index / (visibleData.length - 1)) * rect.width : rect.width / 2;
+  hoverY = yRange > 0 ? (1 - (point.close - yDomain[0]) / yRange) * rect.height : rect.height / 2;
+  tooltipX = clamp(localX + 12, 8, rect.width - 184);
+  tooltipY = clamp(localY + 12, 8, rect.height - 120);
+}
+
+function onChartLeave() {
+  if (isDragging) return;
+  hoverIndex = null;
+}
+
+function onChartPointerDown(event: PointerEvent) {
+  const target = event.currentTarget as HTMLDivElement | null;
+  if (!target) return;
+  isDragging = true;
+  dragMoved = false;
+  dragStartX = event.clientX;
+  dragStartPanOffset = panOffset;
+  target.setPointerCapture(event.pointerId);
+}
+
+function onChartPointerMove(event: PointerEvent) {
+  if (isDragging) {
     const target = event.currentTarget as HTMLDivElement | null;
-    if (!target) return;
-
+    if (!target || maxPanOffset <= 0) return;
     const rect = target.getBoundingClientRect();
-    const localX = clamp(event.clientX - rect.left, 0, rect.width);
-    const localY = clamp(event.clientY - rect.top, 0, rect.height);
-    const ratio = rect.width > 0 ? localX / rect.width : 0;
-    const index = clamp(
-      Math.round(ratio * Math.max(0, visibleData.length - 1)),
-      0,
-      visibleData.length - 1,
-    );
-    const point = visibleData[index];
-    const yRange = yDomain[1] - yDomain[0];
-
-    hoverIndex = index;
-    hoverX =
-      visibleData.length > 1
-        ? (index / (visibleData.length - 1)) * rect.width
-        : rect.width / 2;
-    hoverY =
-      yRange > 0
-        ? (1 - (point.close - yDomain[0]) / yRange) * rect.height
-        : rect.height / 2;
-    tooltipX = clamp(localX + 12, 8, rect.width - 184);
-    tooltipY = clamp(localY + 12, 8, rect.height - 120);
-  }
-
-  function onChartLeave() {
-    if (isDragging) return;
-    hoverIndex = null;
-  }
-
-  function onChartPointerDown(event: PointerEvent) {
-    const target = event.currentTarget as HTMLDivElement | null;
-    if (!target) return;
-    isDragging = true;
-    dragMoved = false;
-    dragStartX = event.clientX;
-    dragStartPanOffset = panOffset;
-    target.setPointerCapture(event.pointerId);
-  }
-
-  function onChartPointerMove(event: PointerEvent) {
-    if (isDragging) {
-      const target = event.currentTarget as HTMLDivElement | null;
-      if (!target || maxPanOffset <= 0) return;
-      const rect = target.getBoundingClientRect();
-      const dx = event.clientX - dragStartX;
-      if (Math.abs(dx) > 4) {
-        dragMoved = true;
-      }
-      const pointsPerPixel = maxPanOffset / Math.max(1, rect.width);
-      const deltaPoints = Math.round(-dx * pointsPerPixel);
-      panOffset = clamp(dragStartPanOffset + deltaPoints, 0, maxPanOffset);
-    } else {
-      onChartMove(event as unknown as MouseEvent);
+    const dx = event.clientX - dragStartX;
+    if (Math.abs(dx) > 4) {
+      dragMoved = true;
     }
+    const pointsPerPixel = maxPanOffset / Math.max(1, rect.width);
+    const deltaPoints = Math.round(-dx * pointsPerPixel);
+    panOffset = clamp(dragStartPanOffset + deltaPoints, 0, maxPanOffset);
+  } else {
+    onChartMove(event as unknown as MouseEvent);
   }
+}
 
-  function onChartPointerUp(event: PointerEvent) {
-    const target = event.currentTarget as HTMLDivElement | null;
-    if (!target) return;
+function onChartPointerUp(event: PointerEvent) {
+  const target = event.currentTarget as HTMLDivElement | null;
+  if (!target) return;
+  isDragging = false;
+  target.releasePointerCapture(event.pointerId);
+  if (!dragMoved) {
+    isChartDialogOpen = true;
+  }
+}
+
+function onChartWheel(event: WheelEvent) {
+  if (maxPanOffset <= 0) return;
+  event.preventDefault();
+  const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+  const step = Math.max(1, Math.round(windowSize * 0.06));
+  const direction = delta > 0 ? 1 : -1;
+  panOffset = clamp(panOffset + direction * step, 0, maxPanOffset);
+}
+
+const emptyMarket = $derived<MarketDataset>({
+  code: selectedMarketCode,
+  label: "Market",
+  title: "Stock Market Index",
+  symbol: "--",
+  source: "-",
+  fetchedAt: new Date().toISOString(),
+  data: [],
+});
+const currentMarket = $derived(
+  markets.find((market) => market.code === selectedMarketCode) ?? markets[0] ?? emptyMarket,
+);
+
+function isMarketCode(value: string): value is MarketCode {
+  return value === "ID" || value === "JP" || value === "US" || value === "CN" || value === "SA";
+}
+
+const normalized = $derived(
+  (currentMarket.data ?? [])
+    .map((item) => ({
+      ...item,
+      date: new Date(`${item.date}T00:00:00`),
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime()),
+);
+
+const windowSize = $derived(intervalToSize(interval, normalized.length));
+const maxPanOffset = $derived(Math.max(0, normalized.length - windowSize));
+const startIndex = $derived(Math.max(0, normalized.length - windowSize - panOffset));
+const visibleData = $derived(normalized.slice(startIndex, startIndex + windowSize));
+
+$effect(() => {
+  panOffset = clamp(panOffset, 0, maxPanOffset);
+});
+
+$effect(() => {
+  selectedMarketCode;
+  panOffset = 0;
+  hoverIndex = null;
+});
+
+$effect(() => {
+  if (!isChartDialogOpen) {
     isDragging = false;
-    target.releasePointerCapture(event.pointerId);
-    if (!dragMoved) {
-      isChartDialogOpen = true;
-    }
+    dragMoved = false;
+  }
+});
+
+onMount(() => {
+  const params = new URLSearchParams(window.location.search);
+  const country = (params.get("country") ?? "").toUpperCase();
+  if (isMarketCode(country)) {
+    selectedMarketCode = country;
+  }
+  void fetchMarkets();
+});
+
+$effect(() => {
+  selectedMarketCode;
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.searchParams.set("country", selectedMarketCode);
+  window.history.replaceState({}, "", url.toString());
+});
+
+const latest = $derived(visibleData[visibleData.length - 1] ?? null);
+const first = $derived(visibleData[0] ?? null);
+const previous = $derived(visibleData.length > 1 ? visibleData[visibleData.length - 2] : null);
+const dayChange = $derived(
+  latest && previous ? Number((latest.close - previous.close).toFixed(2)) : 0,
+);
+const dayChangePercent = $derived(
+  latest && previous && previous.close > 0
+    ? Number((((latest.close - previous.close) / previous.close) * 100).toFixed(2))
+    : 0,
+);
+const rangeChange = $derived(latest && first ? Number((latest.close - first.close).toFixed(2)) : 0);
+const rangeChangePercent = $derived(
+  latest && first && first.close > 0
+    ? Number((((latest.close - first.close) / first.close) * 100).toFixed(2))
+    : 0,
+);
+const minClose = $derived(
+  visibleData.length ? Math.min(...visibleData.map((point) => point.close)) : 0,
+);
+const maxClose = $derived(
+  visibleData.length ? Math.max(...visibleData.map((point) => point.close)) : 0,
+);
+const minPrice = $derived(
+  visibleData.length ? Math.min(...visibleData.map((point) => point.low)) : 0,
+);
+const maxPrice = $derived(
+  visibleData.length ? Math.max(...visibleData.map((point) => point.high)) : 0,
+);
+const yDomain = $derived.by(() => {
+  if (!visibleData.length) return [0, 1] as [number, number];
+  const spread = Math.max(maxPrice - minPrice, Math.max(maxPrice * 0.01, 1));
+  return [Math.max(0, minPrice - spread * 0.08), maxPrice + spread * 0.08] as [number, number];
+});
+const avgVolume = $derived(
+  visibleData.length
+    ? visibleData.reduce((acc, point) => acc + point.volume, 0) / visibleData.length
+    : 0,
+);
+const hasVolumeData = $derived(visibleData.some((point) => point.volume > 0));
+const maxVolume = $derived(
+  hasVolumeData ? Math.max(...visibleData.map((point) => point.volume), 1) : 0,
+);
+
+const sma20Data = $derived.by(() => {
+  const period = 20;
+  const series: Array<{ date: Date; sma: number }> = [];
+
+  for (let i = 0; i < visibleData.length; i += 1) {
+    if (i < period - 1) continue;
+    const chunk = visibleData.slice(i - period + 1, i + 1);
+    const avg = chunk.reduce((acc, item) => acc + item.close, 0) / period;
+    series.push({ date: visibleData[i].date, sma: Number(avg.toFixed(2)) });
   }
 
-  function onChartWheel(event: WheelEvent) {
-    if (maxPanOffset <= 0) return;
-    event.preventDefault();
-    const delta =
-      Math.abs(event.deltaX) > Math.abs(event.deltaY)
-        ? event.deltaX
-        : event.deltaY;
-    const step = Math.max(1, Math.round(windowSize * 0.06));
-    const direction = delta > 0 ? 1 : -1;
-    panOffset = clamp(panOffset + direction * step, 0, maxPanOffset);
-  }
+  return series;
+});
 
-  const emptyMarket = $derived<MarketDataset>({
-    code: selectedMarketCode,
-    label: "Market",
-    title: "Stock Market Index",
-    symbol: "--",
-    source: "-",
-    fetchedAt: new Date().toISOString(),
-    data: [],
-  });
-  const currentMarket = $derived(
-    markets.find((market) => market.code === selectedMarketCode) ??
-      markets[0] ??
-      emptyMarket,
-  );
-
-  function isMarketCode(value: string): value is MarketCode {
-    return (
-      value === "ID" ||
-      value === "JP" ||
-      value === "US" ||
-      value === "CN" ||
-      value === "SA"
-    );
-  }
-
-  const normalized = $derived(
-    (currentMarket.data ?? [])
-      .map((item) => ({
-        ...item,
-        date: new Date(`${item.date}T00:00:00`),
-      }))
-      .sort((a, b) => a.date.getTime() - b.date.getTime()),
-  );
-
-  const windowSize = $derived(intervalToSize(interval, normalized.length));
-  const maxPanOffset = $derived(Math.max(0, normalized.length - windowSize));
-  const startIndex = $derived(
-    Math.max(0, normalized.length - windowSize - panOffset),
-  );
-  const visibleData = $derived(
-    normalized.slice(startIndex, startIndex + windowSize),
-  );
-
-  $effect(() => {
-    panOffset = clamp(panOffset, 0, maxPanOffset);
-  });
-
-  $effect(() => {
-    selectedMarketCode;
-    panOffset = 0;
-    hoverIndex = null;
-  });
-
-  $effect(() => {
-    if (!isChartDialogOpen) {
-      isDragging = false;
-      dragMoved = false;
-    }
-  });
-
-  onMount(() => {
-    const params = new URLSearchParams(window.location.search);
-    const country = (params.get("country") ?? "").toUpperCase();
-    if (isMarketCode(country)) {
-      selectedMarketCode = country;
-    }
-    void fetchMarkets();
-  });
-
-  $effect(() => {
-    selectedMarketCode;
-    if (typeof window === "undefined") return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("country", selectedMarketCode);
-    window.history.replaceState({}, "", url.toString());
-  });
-
-  const latest = $derived(visibleData[visibleData.length - 1] ?? null);
-  const first = $derived(visibleData[0] ?? null);
-  const previous = $derived(
-    visibleData.length > 1 ? visibleData[visibleData.length - 2] : null,
-  );
-  const dayChange = $derived(
-    latest && previous ? Number((latest.close - previous.close).toFixed(2)) : 0,
-  );
-  const dayChangePercent = $derived(
-    latest && previous && previous.close > 0
-      ? Number(
-          (((latest.close - previous.close) / previous.close) * 100).toFixed(2),
-        )
-      : 0,
-  );
-  const rangeChange = $derived(
-    latest && first ? Number((latest.close - first.close).toFixed(2)) : 0,
-  );
-  const rangeChangePercent = $derived(
-    latest && first && first.close > 0
-      ? Number((((latest.close - first.close) / first.close) * 100).toFixed(2))
-      : 0,
-  );
-  const minClose = $derived(
-    visibleData.length
-      ? Math.min(...visibleData.map((point) => point.close))
-      : 0,
-  );
-  const maxClose = $derived(
-    visibleData.length
-      ? Math.max(...visibleData.map((point) => point.close))
-      : 0,
-  );
-  const minPrice = $derived(
-    visibleData.length ? Math.min(...visibleData.map((point) => point.low)) : 0,
-  );
-  const maxPrice = $derived(
-    visibleData.length
-      ? Math.max(...visibleData.map((point) => point.high))
-      : 0,
-  );
-  const yDomain = $derived.by(() => {
-    if (!visibleData.length) return [0, 1] as [number, number];
-    const spread = Math.max(maxPrice - minPrice, Math.max(maxPrice * 0.01, 1));
-    return [
-      Math.max(0, minPrice - spread * 0.08),
-      maxPrice + spread * 0.08,
-    ] as [number, number];
-  });
-  const avgVolume = $derived(
-    visibleData.length
-      ? visibleData.reduce((acc, point) => acc + point.volume, 0) /
-          visibleData.length
-      : 0,
-  );
-  const hasVolumeData = $derived(visibleData.some((point) => point.volume > 0));
-  const maxVolume = $derived(
-    hasVolumeData
-      ? Math.max(...visibleData.map((point) => point.volume), 1)
-      : 0,
-  );
-
-  const sma20Data = $derived.by(() => {
-    const period = 20;
-    const series: Array<{ date: Date; sma: number }> = [];
-
-    for (let i = 0; i < visibleData.length; i += 1) {
-      if (i < period - 1) continue;
-      const chunk = visibleData.slice(i - period + 1, i + 1);
-      const avg = chunk.reduce((acc, item) => acc + item.close, 0) / period;
-      series.push({ date: visibleData[i].date, sma: Number(avg.toFixed(2)) });
-    }
-
-    return series;
-  });
-
-  const lineSeries = $derived.by(() => {
-    const closeSeries = {
-      key: "close",
-      label: "Close",
-      value: "close",
-      color: palette.line,
-    };
-
-    if (!showSma20 || sma20Data.length === 0) {
-      return [closeSeries];
-    }
-
-    return [
-      closeSeries,
-      {
-        key: "sma20",
-        label: "SMA20",
-        data: sma20Data,
-        value: "sma",
-        color: palette.sma,
-      },
-    ];
-  });
-
-  const hoveredPoint = $derived(
-    hoverIndex != null ? (visibleData[hoverIndex] ?? null) : null,
-  );
-  const hoveredPrevious = $derived(
-    hoverIndex != null && hoverIndex > 0
-      ? (visibleData[hoverIndex - 1] ?? null)
-      : null,
-  );
-  const hoveredChange = $derived(
-    hoveredPoint && hoveredPrevious
-      ? Number((hoveredPoint.close - hoveredPrevious.close).toFixed(2))
-      : 0,
-  );
-  const hoveredChangePercent = $derived(
-    hoveredPoint && hoveredPrevious && hoveredPrevious.close > 0
-      ? Number(
-          (
-            ((hoveredPoint.close - hoveredPrevious.close) /
-              hoveredPrevious.close) *
-            100
-          ).toFixed(2),
-        )
-      : 0,
-  );
-
-  const candlePlot = $derived.by(() => {
-    const width = 1000;
-    const height = 304;
-    const min = yDomain[0];
-    const max = yDomain[1];
-    const range = max - min || 1;
-    const toY = (value: number) => height - ((value - min) / range) * height;
-    const step =
-      visibleData.length > 1 ? width / (visibleData.length - 1) : width;
-    const bodyWidth = Math.max(2, Math.min(10, step * 0.55));
-
-    const candles = visibleData.map((point, index) => {
-      const x = visibleData.length > 1 ? index * step : width / 2;
-      const openY = toY(point.open);
-      const closeY = toY(point.close);
-      const highY = toY(point.high);
-      const lowY = toY(point.low);
-      const isUp = point.close >= point.open;
-      return {
-        x,
-        openY,
-        closeY,
-        highY,
-        lowY,
-        bodyY: Math.min(openY, closeY),
-        bodyHeight: Math.max(1, Math.abs(closeY - openY)),
-        isUp,
-        date: point.date,
-      };
-    });
-
-    const gridStep = Math.max(1, Math.floor(visibleData.length / 6));
-    const verticalGridX = visibleData
-      .map((_, index) => index)
-      .filter((index) => index % gridStep === 0)
-      .map((index) => (visibleData.length > 1 ? index * step : width / 2));
-
-    const ticks = Array.from({ length: 5 }, (_, index) => {
-      const ratio = index / 4;
-      const value = min + (max - min) * ratio;
-      return {
-        value,
-        y: height - ratio * height,
-      };
-    });
-
-    return {
-      width,
-      height,
-      bodyWidth,
-      candles,
-      verticalGridX,
-      ticks,
-    };
-  });
-
-  const volumePlot = $derived.by(() => {
-    const width = 1000;
-    const height = 96;
-    const step =
-      visibleData.length > 1 ? width / (visibleData.length - 1) : width;
-    const barWidth = Math.max(1, Math.min(8, step * 0.62));
-    const maxVol = Math.max(maxVolume, 1);
-
-    const bars = visibleData.map((point, index) => {
-      const x = visibleData.length > 1 ? index * step : width / 2;
-      const value = Math.max(0, point.volume);
-      const barHeight = Math.max(1, (value / maxVol) * (height - 8));
-      return {
-        x,
-        y: height - barHeight,
-        height: barHeight,
-        isUp: point.close >= point.open,
-      };
-    });
-
-    const gridY = [height * 0.25, height * 0.5, height * 0.75];
-
-    return {
-      width,
-      height,
-      barWidth,
-      bars,
-      gridY,
-    };
-  });
-
-  const axisClasses = {
-    tickLabel: "fill-slate-500 stroke-transparent text-[10px] font-medium",
-    tick: "stroke-white/8",
-    rule: "stroke-white/12",
+const lineSeries = $derived.by(() => {
+  const closeSeries = {
+    key: "close",
+    label: "Close",
+    value: "close",
+    color: palette.line,
   };
+
+  if (!showSma20 || sma20Data.length === 0) {
+    return [closeSeries];
+  }
+
+  return [
+    closeSeries,
+    {
+      key: "sma20",
+      label: "SMA20",
+      data: sma20Data,
+      value: "sma",
+      color: palette.sma,
+    },
+  ];
+});
+
+const hoveredPoint = $derived(hoverIndex != null ? (visibleData[hoverIndex] ?? null) : null);
+const hoveredPrevious = $derived(
+  hoverIndex != null && hoverIndex > 0 ? (visibleData[hoverIndex - 1] ?? null) : null,
+);
+const hoveredChange = $derived(
+  hoveredPoint && hoveredPrevious
+    ? Number((hoveredPoint.close - hoveredPrevious.close).toFixed(2))
+    : 0,
+);
+const hoveredChangePercent = $derived(
+  hoveredPoint && hoveredPrevious && hoveredPrevious.close > 0
+    ? Number(
+        (((hoveredPoint.close - hoveredPrevious.close) / hoveredPrevious.close) * 100).toFixed(2),
+      )
+    : 0,
+);
+
+const candlePlot = $derived.by(() => {
+  const width = 1000;
+  const height = 304;
+  const min = yDomain[0];
+  const max = yDomain[1];
+  const range = max - min || 1;
+  const toY = (value: number) => height - ((value - min) / range) * height;
+  const step = visibleData.length > 1 ? width / (visibleData.length - 1) : width;
+  const bodyWidth = Math.max(2, Math.min(10, step * 0.55));
+
+  const candles = visibleData.map((point, index) => {
+    const x = visibleData.length > 1 ? index * step : width / 2;
+    const openY = toY(point.open);
+    const closeY = toY(point.close);
+    const highY = toY(point.high);
+    const lowY = toY(point.low);
+    const isUp = point.close >= point.open;
+    return {
+      x,
+      openY,
+      closeY,
+      highY,
+      lowY,
+      bodyY: Math.min(openY, closeY),
+      bodyHeight: Math.max(1, Math.abs(closeY - openY)),
+      isUp,
+      date: point.date,
+    };
+  });
+
+  const gridStep = Math.max(1, Math.floor(visibleData.length / 6));
+  const verticalGridX = visibleData
+    .map((_, index) => index)
+    .filter((index) => index % gridStep === 0)
+    .map((index) => (visibleData.length > 1 ? index * step : width / 2));
+
+  const ticks = Array.from({ length: 5 }, (_, index) => {
+    const ratio = index / 4;
+    const value = min + (max - min) * ratio;
+    return {
+      value,
+      y: height - ratio * height,
+    };
+  });
+
+  return {
+    width,
+    height,
+    bodyWidth,
+    candles,
+    verticalGridX,
+    ticks,
+  };
+});
+
+const volumePlot = $derived.by(() => {
+  const width = 1000;
+  const height = 96;
+  const step = visibleData.length > 1 ? width / (visibleData.length - 1) : width;
+  const barWidth = Math.max(1, Math.min(8, step * 0.62));
+  const maxVol = Math.max(maxVolume, 1);
+
+  const bars = visibleData.map((point, index) => {
+    const x = visibleData.length > 1 ? index * step : width / 2;
+    const value = Math.max(0, point.volume);
+    const barHeight = Math.max(1, (value / maxVol) * (height - 8));
+    return {
+      x,
+      y: height - barHeight,
+      height: barHeight,
+      isUp: point.close >= point.open,
+    };
+  });
+
+  const gridY = [height * 0.25, height * 0.5, height * 0.75];
+
+  return {
+    width,
+    height,
+    barWidth,
+    bars,
+    gridY,
+  };
+});
+
+const axisClasses = {
+  tickLabel: "fill-slate-500 stroke-transparent text-[10px] font-medium",
+  tick: "stroke-white/8",
+  rule: "stroke-white/12",
+};
 </script>
 
 {#if isLoadingMarkets}

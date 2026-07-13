@@ -1,57 +1,56 @@
 <script>
-  import { Button } from "@ikuyo/ui";
-  import { Moon, Sun } from "lucide-svelte";
-  import { onMount } from "svelte";
+import { Button } from "@ikuyo/ui";
+import { Moon, Sun } from "lucide-svelte";
+import { onMount } from "svelte";
 
-  let theme = "system";
-  let isDark = false;
+let theme = "system";
+let isDark = false;
 
-  function setTheme(newTheme) {
-    theme = newTheme;
+function setTheme(newTheme) {
+  theme = newTheme;
 
-    if (
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-      isDark = true;
-    } else {
-      document.documentElement.classList.remove("dark");
-      isDark = false;
-    }
-
-    localStorage.setItem("theme", theme);
+  if (
+    theme === "dark" ||
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+    isDark = true;
+  } else {
+    document.documentElement.classList.remove("dark");
+    isDark = false;
   }
 
-  function toggleTheme() {
-    const newTheme = isDark ? "light" : "dark";
-    setTheme(newTheme);
+  localStorage.setItem("theme", theme);
+}
+
+function toggleTheme() {
+  const newTheme = isDark ? "light" : "dark";
+  setTheme(newTheme);
+}
+
+onMount(() => {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme) {
+    theme = savedTheme;
   }
 
-  onMount(() => {
-    const savedTheme = localStorage.getItem("theme");
+  setTheme(theme);
 
-    if (savedTheme) {
-      theme = savedTheme;
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const handleChange = () => {
+    if (theme === "system") {
+      setTheme("system");
     }
+  };
 
-    setTheme(theme);
+  mediaQuery.addEventListener("change", handleChange);
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleChange = () => {
-      if (theme === "system") {
-        setTheme("system");
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
-  });
+  return () => {
+    mediaQuery.removeEventListener("change", handleChange);
+  };
+});
 </script>
 
 <div class="flex items-center space-x-2">

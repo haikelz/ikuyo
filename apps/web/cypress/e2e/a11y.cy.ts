@@ -6,9 +6,7 @@ describe("Accessibility features", () => {
 
   it("skip-to-content link is visible when focused", () => {
     cy.get('a[href="#main-content"]').focus();
-    cy.get('a[href="#main-content"]')
-      .should("be.visible")
-      .and("contain.text", "Skip to content");
+    cy.get('a[href="#main-content"]').should("be.visible").and("contain.text", "Skip to content");
   });
 
   it("skip-to-content link navigates focus to main content", () => {
