@@ -36,6 +36,7 @@ const worksList = await getCollection("works");
       data-cy="works-list"
       class="grid w-full grid-cols-1 mt-10 sm:mt-16 sm:grid-cols-2 gap-6 slide-enter-content"
     >
+      <h2 class="sr-only">All works</h2>
       {
         worksList
           .sort((a, b) => a.data.id - b.data.id)

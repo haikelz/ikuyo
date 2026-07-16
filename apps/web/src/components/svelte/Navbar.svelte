@@ -102,6 +102,7 @@ onMount(() => {
       data-cy="home-btn"
       href="/"
       aria-label="Home"
+      aria-current={currentPath === "/" ? "page" : undefined}
       class="shrink-0 flex items-center gap-3 no-underline"
     >
       <img
@@ -120,6 +121,7 @@ onMount(() => {
           data-cy={`${item.path.slice(1)}-btn`}
           href={item.path}
           aria-label={item.label}
+          aria-current={currentPath.includes(item.path) ? "page" : undefined}
           class={cn(
             "text-sm font-medium transition-colors no-underline",
             currentPath.includes(item.path)

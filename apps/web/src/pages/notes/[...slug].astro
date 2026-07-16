@@ -1,11 +1,13 @@
 ---
 import BackButton from "@/components/svelte/BackButton.svelte";
+import ReactionButton from "@/components/svelte/ReactionButton.svelte";
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
 import { sanitizeSlug } from "@/helpers/slug";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { format } from "date-fns";
+import { BACKEND_API_URL } from "@/utils/env";
 
 export async function getStaticPaths() {
   const notesEntries = await getCollection("notes");
@@ -56,6 +58,9 @@ const slug = sanitizeSlug(item.id);
         <Content />
       </div>
    </article>
+    <div class="mt-12 pt-6 border-t border-border/50">
+      <ReactionButton slug={slug} apiUrl={BACKEND_API_URL} client:only="svelte" />
+    </div>
   </div>
   {
     headings && headings.length > 0 ? (

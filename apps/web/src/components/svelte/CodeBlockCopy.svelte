@@ -33,4 +33,4 @@ onMount(() => {
 });
 </script>
 
-<div style="display: none" aria-hidden="true" />
+<div style="display: none" aria-hidden="true"></div>

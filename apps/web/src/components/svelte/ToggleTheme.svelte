@@ -59,7 +59,8 @@ onMount(() => {
     variant="outline"
     size="icon-sm"
     class="text-muted-foreground hover:text-foreground transition-colors rounded-md"
-    aria-label="Toggle theme"
+    aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+    aria-pressed={isDark}
   >
     {#if isDark}
       <Sun size={20} />

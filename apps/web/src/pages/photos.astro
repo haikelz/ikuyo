@@ -16,7 +16,16 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   <div
     class="flex w-full flex-col items-start justify-start mx-auto md:text-start slide-enter-content"
   >
+    <header class="w-full mt-8 mb-10 sm:mb-16">
+      <h1 class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
+        Photos
+      </h1>
+      <p class="mb-0 text-lg sm:text-xl text-muted-foreground">
+        A selection of photographs from my camera roll.
+      </p>
+    </header>
     <section class="w-full">
+      <h2 class="sr-only">Photo gallery</h2>
       <PhotosPage client:only="svelte" photos={photos} />
     </section>
   </div>

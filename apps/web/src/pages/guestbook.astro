@@ -57,6 +57,7 @@ const guestbook = await getGuestbook();
       data-cy="guestbook"
       class="flex w-full flex-col space-y-6 mt-10 sm:mt-16 sm:space-y-8 items-start justify-start slide-enter-content"
     >
+      <h2 class="sr-only">Guestbook entries</h2>
       {
         guestbook ? (
           guestbook

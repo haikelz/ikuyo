@@ -31,6 +31,7 @@ onMount(() => {
   <Progress
     value={width}
     max={100}
+    aria-label="Reading progress"
     class="fixed top-0 left-0 z-50 h-1 w-full rounded-none bg-transparent"
   />
 {/if}

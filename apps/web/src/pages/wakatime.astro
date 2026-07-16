@@ -1,53 +1,37 @@
 ---
-import WakatimeChart from "@/components/svelte/WakatimeChart.svelte";
+import WakatimeStats from "@/components/svelte/WakatimeStats.svelte";
 import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
 import type { WakatimeStatsProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
 
-async function getWakatimeStats(): Promise<WakatimeStatsProps> {
-  try {
-    const response = await api
-      .get(`${BACKEND_API_URL}/api/v1/wakatime/stats`)
-      .json<{ data: WakatimeStatsProps }>();
-
-    return response.data;
-  } catch (err) {
-    throw new Error((err as Error).message);
-  }
+async function fetchStats(range?: string): Promise<WakatimeStatsProps> {
+  const url = range
+    ? `${BACKEND_API_URL}/api/v1/wakatime/stats?range=${range}`
+    : `${BACKEND_API_URL}/api/v1/wakatime/stats`;
+  const response = await api.get(url).json<{ data: WakatimeStatsProps }>();
+  return response.data;
 }
 
-const wakatimeStats = await getWakatimeStats();
+const [allTime, weekly] = await Promise.all([
+  fetchStats(),
+  fetchStats("last_7_days"),
+]);
 ---
 
 <Layout
   title="Wakatime"
-  description="Wakatime"
+  description="Coding activity and statistics"
   url="https://ekel.dev/wakatime"
   ogImage="wakatime.png"
 >
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start  mx-auto",
-      "md:text-start",
-    ]}
-  >
+  <div class="flex w-full flex-col items-start justify-start mx-auto md:text-start">
     <section class="w-full mt-8 slide-enter-content">
-      <h1
-        data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Wakatime
-      </h1>
-      <p
-        data-cy="description"
-        class="mb-0 text-lg sm:text-xl text-muted-foreground"
-      >
-        My coding activity and statistics.
-      </p>
+      <h1 class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground">Wakatime</h1>
+      <p class="mb-0 text-lg sm:text-xl text-muted-foreground">Coding activity and statistics.</p>
     </section>
     <section class="w-full mt-10 sm:mt-16 slide-enter-content">
-      <WakatimeChart client:only="svelte" data={wakatimeStats} />
+      <WakatimeStats client:only="svelte" allTime={allTime} weekly={weekly} />
     </section>
   </div>
 </Layout>

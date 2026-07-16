@@ -67,15 +67,15 @@ let selectedMarketCode = $state<MarketCode>(defaultMarketCode);
 let dragMoved = $state(false);
 let isChartDialogOpen = $state(false);
 
-const palette = {
-  panel: "#131722",
-  line: "#7aa2f7",
-  area: "#334155",
-  sma: "#f59e0b",
-  positive: "#26a69a",
-  negative: "#ef5350",
-  volume: "#475569",
-};
+const palette = $derived({
+  panel: "var(--card)",
+  line: "var(--chart-2)",
+  area: "var(--chart-1)",
+  sma: "var(--chart-5)",
+  positive: "#16a34a",
+  negative: "#dc2626",
+  volume: "var(--muted-foreground)",
+});
 
 const numberFormatter = new Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 2,
@@ -225,6 +225,19 @@ function onChartWheel(event: WheelEvent) {
   const step = Math.max(1, Math.round(windowSize * 0.06));
   const direction = delta > 0 ? 1 : -1;
   panOffset = clamp(panOffset + direction * step, 0, maxPanOffset);
+}
+
+function onChartKeydown(event: KeyboardEvent) {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    panLeft();
+  } else if (event.key === "ArrowRight") {
+    event.preventDefault();
+    panRight();
+  } else if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    isChartDialogOpen = true;
+  }
 }
 
 const emptyMarket = $derived<MarketDataset>({
@@ -478,9 +491,13 @@ const volumePlot = $derived.by(() => {
 
 const axisClasses = {
   tickLabel: "fill-slate-500 stroke-transparent text-[10px] font-medium",
-  tick: "stroke-white/8",
-  rule: "stroke-white/12",
+  tick: "stroke-foreground/8",
+  rule: "stroke-foreground/12",
 };
+
+const gridClass = "stroke-foreground/5";
+const gridColor = "var(--border)";
+const gridColor03 = "var(--border)";
 </script>
 
 {#if isLoadingMarkets}
@@ -695,7 +712,7 @@ const axisClasses = {
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-accent-foreground/20 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
               bind:pressed={showSma20}
             >
               SMA20
@@ -703,7 +720,7 @@ const axisClasses = {
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-secondary-foreground/20 data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground"
               bind:pressed={showVolume}
             >
               Volume
@@ -745,7 +762,7 @@ const axisClasses = {
                   classes: axisClasses,
                 },
                 grid: {
-                  class: "stroke-white/[0.04]",
+                  class: gridClass,
                 },
               }}
             />
@@ -773,7 +790,7 @@ const axisClasses = {
                   classes: axisClasses,
                 },
                 grid: {
-                  class: "stroke-white/[0.04]",
+                  class: gridClass,
                 },
               }}
             />
@@ -789,7 +806,7 @@ const axisClasses = {
                   y1={tick.y}
                   x2={candlePlot.width}
                   y2={tick.y}
-                  stroke="rgba(255,255,255,0.04)"
+                  stroke={gridColor}
                   stroke-width="1"
                 />
               {/each}
@@ -800,7 +817,7 @@ const axisClasses = {
                   y1="0"
                   x2={x}
                   y2={candlePlot.height}
-                  stroke="rgba(255,255,255,0.03)"
+                  stroke={gridColor03}
                   stroke-width="1"
                 />
               {/each}
@@ -828,6 +845,10 @@ const axisClasses = {
 
           <div
             class={`absolute inset-2 ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none`}
+            role="button"
+            tabindex="0"
+            aria-label="Interactive market chart. Press Enter to open the expanded view. Use the Left and Right Arrow keys to pan."
+            onkeydown={onChartKeydown}
             onpointerdown={onChartPointerDown}
             onpointermove={onChartPointerMove}
             onpointerup={onChartPointerUp}
@@ -903,7 +924,7 @@ const axisClasses = {
                     y1={y}
                     x2={volumePlot.width}
                     y2={y}
-                    stroke="rgba(255,255,255,0.04)"
+                    stroke={gridColor}
                     stroke-width="1"
                   />
                 {/each}
@@ -1038,7 +1059,7 @@ const axisClasses = {
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-amber-400/50 data-[state=on]:bg-amber-400/15 data-[state=on]:text-amber-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-accent-foreground/20 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
                     bind:pressed={showSma20}
                   >
                     SMA20
@@ -1046,7 +1067,7 @@ const axisClasses = {
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-sky-400/50 data-[state=on]:bg-sky-400/15 data-[state=on]:text-sky-200"
+              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-secondary-foreground/20 data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground"
                     bind:pressed={showVolume}
                   >
                     Volume
@@ -1131,7 +1152,7 @@ const axisClasses = {
                       y1={tick.y}
                       x2={candlePlot.width}
                       y2={tick.y}
-                      stroke="rgba(255,255,255,0.04)"
+                      stroke={gridColor}
                       stroke-width="1"
                     />
                   {/each}
@@ -1141,7 +1162,7 @@ const axisClasses = {
                       y1="0"
                       x2={x}
                       y2={candlePlot.height}
-                      stroke="rgba(255,255,255,0.03)"
+                      stroke={gridColor03}
                       stroke-width="1"
                     />
                   {/each}
@@ -1168,6 +1189,13 @@ const axisClasses = {
 
               <div
                 class={`absolute inset-2 ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none`}
+                role="slider"
+                tabindex="0"
+                aria-label="Expanded interactive market chart. Use the Left and Right Arrow keys to pan."
+                aria-valuemin="0"
+                aria-valuemax={maxPanOffset}
+                aria-valuenow={panOffset}
+                onkeydown={onChartKeydown}
                 onpointerdown={onChartPointerDown}
                 onpointermove={onChartPointerMove}
                 onpointerup={onChartPointerUp}
@@ -1243,7 +1271,7 @@ const axisClasses = {
                         y1={y}
                         x2={volumePlot.width}
                         y2={y}
-                        stroke="rgba(255,255,255,0.04)"
+                        stroke={gridColor}
                         stroke-width="1"
                       />
                     {/each}

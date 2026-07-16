@@ -1,7 +1,6 @@
 <script lang="ts">
 import { XIcon } from "lucide-svelte";
-import { onMount, tick } from "svelte";
-import { fade, scale } from "svelte/transition";
+import { onMount } from "svelte";
 
 let { src, alt, title } = $props<{
   src: string;
@@ -11,6 +10,8 @@ let { src, alt, title } = $props<{
 
 let selectedImage = $state<string | null>(null);
 let imageLoaded = $state(false);
+let triggerElement: HTMLButtonElement | null = null;
+let dialogElement = $state<HTMLDialogElement | null>(null);
 
 function optimizeUrl(url: string, width: number, quality = 85) {
   if (url.includes("imagekit.io")) {
@@ -24,24 +25,22 @@ function getPlaceholderUrl(url: string, size = 40) {
   return optimizeUrl(url, size, 20);
 }
 
-async function openLightbox() {
+function openLightbox(event: MouseEvent & { currentTarget: HTMLButtonElement }) {
+  triggerElement = event.currentTarget;
   selectedImage = src;
-  await tick();
 }
 
 function closeLightbox() {
+  if (dialogElement?.open) dialogElement.close();
   selectedImage = null;
+  requestAnimationFrame(() => triggerElement?.focus());
 }
 
-function handleKeydown(event: KeyboardEvent) {
-  if (event.key === "Escape") closeLightbox();
-}
-
-function teleport(node: HTMLElement) {
-  document.body.appendChild(node);
+function showModal(node: HTMLDialogElement) {
+  node.showModal();
   return {
     destroy() {
-      if (node.parentNode) node.parentNode.removeChild(node);
+      if (node.open) node.close();
     },
   };
 }
@@ -54,13 +53,12 @@ onMount(() => {
 });
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
 <div class="photo-container my-8 w-full group">
   <button
+    type="button"
     class="overflow-hidden rounded-none cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
     onclick={openLightbox}
-    aria-label="View large image"
+    aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
     <div
       class="photo-stack relative w-full overflow-hidden rounded-none bg-muted transition-transform duration-500 group-hover:scale-105 grid"
@@ -95,43 +93,41 @@ onMount(() => {
 </div>
 
 {#if selectedImage}
-  <div
-    use:teleport
-    class="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-8 bg-black/70 lightbox-active cursor-zoom-out"
-    transition:fade={{ duration: 200 }}
-    onclick={closeLightbox}
-    onkeydown={handleKeydown}
-    role="button"
-    tabindex="0"
+  <dialog
+    bind:this={dialogElement}
+    use:showModal
+    class="fixed inset-0 z-9999 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-black/70 p-4 open:flex sm:p-8 backdrop:bg-black/70 lightbox-active cursor-zoom-out"
+    aria-label="Image viewer"
+    onclose={closeLightbox}
+    oncancel={closeLightbox}
+    onkeydown={(event) => event.key === "Escape" && closeLightbox()}
+    onclick={(event) => event.target === event.currentTarget && closeLightbox()}
   >
     <button
+      type="button"
       class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
       }}
       aria-label="Close lightbox"
+      autofocus
     >
       <XIcon size={24} />
     </button>
 
     <div
       class="relative w-full h-full max-w-7xl flex items-center justify-center p-0"
-      transition:scale={{ duration: 300, start: 0.95, opacity: 0 }}
-      role="presentation"
+      role="document"
     >
-      <button
-        type="button"
-        class="border-0 bg-transparent p-0 cursor-default outline-none max-w-full max-h-full flex items-center justify-center"
-        onclick={(e) => e.stopPropagation()}
-      >
+      <div class="max-w-full max-h-full flex items-center justify-center">
         <img
           src={optimizeUrl(selectedImage, 1600)}
-          alt="Large view"
+          alt={alt ?? title ?? "Enlarged view"}
           class="max-w-full max-h-full object-contain rounded-none block border-0 m-0 p-0"
           style="user-select: none;"
         />
-      </button>
+      </div>
     </div>
-  </div>
+  </dialog>
 {/if}

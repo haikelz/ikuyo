@@ -36,6 +36,7 @@ const notesList = await getCollection("notes");
       data-cy="notes-list"
       class="grid w-full grid-cols-1 mt-10 sm:mt-16 sm:grid-cols-2 gap-6 slide-enter-content"
     >
+      <h2 class="sr-only">All notes</h2>
       {
         notesList
           .sort(
