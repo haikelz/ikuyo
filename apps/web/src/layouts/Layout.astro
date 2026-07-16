@@ -56,23 +56,21 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       async
       src={PUBLIC_GOATCOUNTER_SRC}></script>
     <script is:inline>
-      const theme = (() => {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      const applyTheme = () => {
         const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || stored === 'light') return stored;
-        
-        return window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light';
-      })();
+        const theme = stored === 'light' || stored === 'dark' || stored === 'system'
+          ? stored
+          : 'system';
+        const isDark = theme === 'dark' || (theme === 'system' && mediaQuery.matches);
 
-      document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.classList.toggle('dark', isDark);
+      };
 
-      document.addEventListener('astro:after-swap', () => {
-     
-      const theme = localStorage.getItem('theme') ?? 
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-    });
+      applyTheme();
+      mediaQuery.addEventListener('change', applyTheme);
+      document.addEventListener('astro:after-swap', applyTheme);
     </script>
     <ClientRouter  />
   </head>
