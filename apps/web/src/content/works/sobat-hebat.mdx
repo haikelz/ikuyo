@@ -6,67 +6,33 @@ title: SOBAT HEBAT
 stack:
   - nextjs
   - nestjs
-  - typescript
 description: Sistem Informasi Pengobatan Agar Tubuh Sehat Bebas Tuberkulosis Puskesmas Pangkalbalam
 ---
 
-import Photo from "@/components/svelte/Photo.svelte";
-
+import PhotoGrid from "@/components/svelte/PhotoGrid.svelte";
 
 ## SOBAT HEBAT
 
-Sistem Informasi Pengobatan Agar Tubuh Sehat Bebas Tuberkulosis adalah sebuah sistem yang dirancang khusus untuk membantu pasien paru-paru mengontrol jadwal pengobatan mereka dengan lebih mudah dan efektif serta membantu pengelolaan data pasien
+Puskesmas Pangkalbalam reached out because they had a growing problem. TB patients need six to twelve months of consistent medication, and missing doses leads to drug resistance — which means longer treatment, higher costs, and risk of transmission. Their entire workflow ran on paper: patient folders, manual attendance logs, phone calls for follow-up. It worked when the patient count was small. As numbers grew, patients started slipping through.
 
-## Absensi dan Pengelolaan Data Pasien Jadi Lebih Mudah!
+My job was to replace that paper trail with something digital. Nothing more, nothing less. The constraint was real: the system had to work for two very different groups of people. Patients who just need to know whether they took their medication today and when their next visit is. Puskesmas staff who need to scan across dozens of patients and spot who needs attention. I decided on a single platform with role-based dashboards — same database, different views. Building two separate apps would have meant more maintenance, more surface area for bugs, and no real benefit since the data was shared anyway.
 
-Sistem kami membantu para profesional kesehatan dalam memantau, mengelola, dan meningkatkan perawatan pasien penyakit paru-paru.
+Something I noticed during the first few weeks of working with the Puskesmas: many patients had limited health literacy. A date on a screen meant less to them than a color or an icon. I adjusted the patient dashboard to lean on visual status indicators — green for taken, red for missed, gray for upcoming. It was a small change, but the staff told me patients started engaging with the app more after that. I did not run an A/B test or collect metrics on it. I just observed the shift and adjusted.
 
-1. Absensi Pasien
+The data model ended up being more involved than I expected. A simple attendance record is not very useful on its own — "patient visited Tuesday" does not tell you whether they took their morning dose, their evening dose, or both. TB regimens have multiple medications per day. I modeled attendance as linked to specific medication slots, not just calendar dates. That way the system can flag "attended but missed evening dose" separately from "missed the entire day." Staff told me this distinction mattered for follow-up decisions, and that was the validation.
 
-   Absensi pasien jadi lebih mudah serta dapat dipantau langsung oleh pihak Puskesmas.
+On the frontend I used Next.js with TypeScript. Patient-facing pages are server-rendered because many patients access the site from budget Android phones on slow connections — the faster the first paint, the more likely they are to use it. The admin dashboard fetches from the client because staff need updates in near real-time as they process patients. The backend is NestJS, organized into separate modules per domain: patients, attendance, medications, lab results. I drew those boundaries early, which paid off later when I needed to refactor the attendance logic without touching anything else.
 
-2. Kontrol Jadwal Konsumsi Obat
-
-   Akses penuh terhadap jadwal konsumsi obat pasien sesuai dosis yang ditetapkan
-
-3. Pengelolaan Data Pasien
-
-   Kelola data pasien penyakit paru - paru dengan lebih mudah dan efisien
-
-## Untuk Pasien
-
-1. Pendaftaran Lebih Mudah
-
-   Daftar jadi pasien baru dengan mudah dan cepat
-
-2. Akses Informasi Kesehatan
-
-   Akses riwayat pemeriksaan dan rekam medis Anda kapan saja dan di mana saja melalui poster informasi kesehatan.
-
-3. Absensi Pasien Lebih Mudah
-
-   Absensi pasien jadi lebih mudah serta dapat dipantau langsung oleh pihak Puskesmas
-
-## Untuk Puskesmas
-
-1. Administrasi Lebih Efisien
-
-   Kurangi beban administratif dengan alur kerja otomatis dan dokumentasi yang terstruktur rapi.
-
-2. Kontrol Jadwal Konsumsi Obat
-
-   Akses penuh terhadap jadwal konsumsi obat pasien sesuai dosis yang ditetapkan
-
-3. Pengelolaan Data Pasien
-
-   Kelola data pasien penyakit paru - paru dengan lebih mudah dan efisien
+One decision I spent time on: offline support. I chose not to build it. The Puskesmas provides WiFi on-site, patients mostly interact during visits, and keeping data consistent across the dashboard was higher priority than working without a connection. It was the right call for this project, but I would approach it differently for a system deployed across multiple Puskesmas with varying infrastructure.
 
 ## Screenshots
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/sobat-hebat/homepage.png?updatedAt=1756565470574" alt="homepage" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/sobat-hebat/dashboard-pasien.png?updatedAt=1756565470626" alt="absensi kontrol obat" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/sobat-hebat/rekap-absensi.png?updatedAt=1756565470611" alt="rekap absensi" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/sobat-hebat/hasil-lab.png?updatedAt=1756565470440" alt="hasil lab" />
+<PhotoGrid
+  client:only="svelte"
+  images={[
+    "https://ik.imagekit.io/haikelz/works/sobat-hebat/homepage.png?updatedAt=1756565470574",
+    "https://ik.imagekit.io/haikelz/works/sobat-hebat/dashboard-pasien.png?updatedAt=1756565470626",
+    "https://ik.imagekit.io/haikelz/works/sobat-hebat/rekap-absensi.png?updatedAt=1756565470611",
+    "https://ik.imagekit.io/haikelz/works/sobat-hebat/hasil-lab.png?updatedAt=1756565470444",
+  ]}
+/>

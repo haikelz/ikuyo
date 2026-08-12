@@ -32,6 +32,7 @@ const routeTemplates = [
   "/works/longker",
   "/notes",
   "/notes/mengapa-saya-menggunakan-linux",
+  "/experiences/linkupcareer",
   "/tags",
   "/tags/linux",
   "/photos",
@@ -59,7 +60,7 @@ describe("Page template semantics", () => {
       cy.get("button").each(($button) => {
         expect($button.attr("aria-label") ?? $button.text().trim()).not.to.equal("");
       });
-      cy.get('img:not([alt])').should("not.exist");
+      cy.get("img:not([alt])").should("not.exist");
     });
   }
 });
@@ -77,7 +78,7 @@ describe("Keyboard interactions", () => {
 
   it("announces current navigation and theme state", () => {
     cy.visit("/works");
-    cy.get('a[href="/works"]').filter(':visible').should("have.attr", "aria-current", "page");
+    cy.get('a[href="/works"]').filter(":visible").should("have.attr", "aria-current", "page");
     cy.get('button[aria-label^="Switch to"]').first().should("have.attr", "aria-pressed");
   });
 });

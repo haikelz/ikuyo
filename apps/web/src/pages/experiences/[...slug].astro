@@ -1,0 +1,63 @@
+---
+import BackButton from "@/components/svelte/BackButton.svelte";
+import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
+import TOC from "@/components/svelte/TOC.svelte";
+import { sanitizeSlug } from "@/helpers/slug";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const experienceEntries = await getCollection("experiences");
+
+  return experienceEntries
+    .filter((item) => item.data.hasDetail !== false)
+    .map((item) => ({
+      params: { slug: item.id },
+      props: { item },
+    }));
+}
+
+const { item } = Astro.props;
+const { Content, headings } = await render(item);
+const slug = sanitizeSlug(item.id);
+---
+
+<ReadingIndicator client:only="svelte" />
+<Layout
+  title=`Experience Working at ${item.data.company}`
+  description={item.data.description}
+  url={`https://ekel.dev/experiences/${slug}`}
+  ogImage={`experiences/${slug}.png`}
+>
+  <div class="w-full mx-auto slide-enter-content">
+    <BackButton label="back to experiences" client:only="svelte" />
+    <article class="max-w-full">
+      <header class="mb-12">
+        <h1
+          class="mt-8 mb-4 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight"
+        >
+          {item.data.company}
+        </h1>
+        <p
+          data-cy="experience-position"
+          class="mb-2 text-lg sm:text-xl text-foreground"
+        >
+          {item.data.position}
+        </p>
+        <p class="mb-0 text-sm text-muted-foreground">
+          {item.data.startDate} &mdash; {item.data.endDate}
+        </p>
+      </header>
+      <div
+        class="prose prose-neutral dark:prose-invert max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40"
+      >
+        <Content />
+      </div>
+    </article>
+  </div>
+  {
+    headings && headings.length > 0 ? (
+      <TOC headings={headings} client:only="svelte" />
+    ) : null
+  }
+</Layout>

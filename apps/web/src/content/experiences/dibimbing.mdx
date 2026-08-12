@@ -1,0 +1,79 @@
+---
+company: "Dibimbing.id"
+position: "Full-stack Engineer"
+startDate: "Sep 2024"
+endDate: "Dec 2024"
+order: 4
+description: "Full-stack academic-system development for Cakrawala University."
+highlights:
+  - "Assisted Dibimbing Tech Team in creating an academic system for Cakrawala University."
+  - "Conducted research with colleagues and advised Dibimbing Tech Team on the selection of the backend stack between Node.js and Golang for the Cakrawala University project based on some use cases."
+  - "Constructed the Frontend and Backend of the project using Next JS and Go Fiber."
+  - "Set up code formatting and linting tools like ESLint and Prettier, also wrote Docker multistage build configuration for the Frontend side."
+  - "Played a key role in developing the shortlist registration, biodata, admin biodata verification, and maintenance condition features."
+---
+
+import Photo from "@/components/svelte/Photo.svelte";
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/experiences/dibimbing-id/DBB04795.jpeg"
+  alt="dibimbing id MSIB 7"
+/>
+
+Dibimbing.id is an Indonesian edtech startup that helps people build digital skills and prepare for careers in tech. Its learning experience combines accessible programs, mentors, learning-management technology, and career services that connect learners with job opportunities.
+
+This was my first internship away from home, so I was nervous at first. I was a 20-year-old who had grown up in a genuinely slow-living area and was about to experience Jakarta for the first time. We worked remotely for four days each week and came into the office every Wednesday, from 9 AM to 5 PM.
+
+## Case Study
+
+Cakrawala University is a private university under PT Dibimbing Digital Indonesia. It already had an academic information system (SIAKAD) through SEVIMA, which helped the team move quickly at first. The next goal was to build an in-house SIAKAD alongside a student-admission system (SPMB).
+
+For this story, I will focus on the backend decision. The Dibimbing.id engineering team was used to building backends with Express.js and TypeScript, but this project called for a closer look at other options:
+
+- Course-registration periods can create huge spikes in traffic, as students race to secure their preferred classes. That kind of peak load can easily overwhelm an academic system.
+- We wanted to understand how each option would handle concurrent work and avoid slowdowns when part of the workload was blocked or delayed.
+- We also wanted a stack that would stay performant as the system grew.
+
+Because Dibimbing had not used Go in a project before, we were asked to compare Node.js and Go from more than just a performance perspective. Our research covered:
+
+- What adopting Go would look like in a real project.
+- Performance characteristics and benchmarks.
+- Whether there was a Go framework with an Express-like developer experience.
+- How GraphQL and code generation would fit into a Go workflow.
+- The core Go packages we would need.
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/experiences/dibimbing-id/Screenshot%202026-07-20%20at%2015.14.39.png"
+  alt="research and comparation"
+/>
+
+After the research, we chose Go with Fiber because Fiber felt familiar to engineers coming from Express.js. We decided not to add GraphQL, and the final stack was:
+
+- Next.js with TypeScript
+- Chakra UI 3 for UI components
+- Recoil for state management
+- TanStack Query
+- Fiber
+- GORM
+- PostgreSQL
+- Redis
+- Kafka
+- Docker
+- A modular monolith with clean architecture and a touch of MVC
+- Swagger documentation
+
+## Challenge
+
+This was my first time using Go on a large, business-critical project, so there was a lot to learn, practice, and apply, especially around race conditions, concurrency, and optimization.
+
+Chakra UI 3 was another challenge. It had only recently launched, so references and troubleshooting material were limited. I was already familiar with Chakra UI v2, but v3 was a complete shift: it used compound components, similar to shadcn/ui. AI tooling was not as capable as it is now, so I often had to dig into the library, think through the problem, and find my own way around implementation issues.
+
+## Other
+
+Alongside the technical work, I also got to explore the business side. Dibimbing.id held a business-case competition for intern at the time, and my team was recognised as one of the Top Business Case teams.
+
+## End
+
+Overall, this first internship was a really valuable experience. It opened my eyes to the professional tech world and pushed me out of my frontend comfort zone into full-stack work. Big thanks to mas Farhan, mas Asa, and the other interns for being such great collaborators. I learned a lot from everyone, especially mas Farhan, who was my direct mentor. :D

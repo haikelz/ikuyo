@@ -1,76 +1,149 @@
-# ikuyo
+# Ikuyo
 
-Personal website — [ekel.dev](https://ekel.dev)
+[ekel.dev](https://ekel.dev) is Haikel Ilham Hakim's statically generated
+personal website. It publishes professional experience, selected work,
+technical notes, photography, and a few interactive utilities while keeping
+most pages pre-rendered at build time.
 
-Built with Astro, Svelte 5, Tailwind CSS 4, and Moonrepo. Has light/dark mode, clean typography, and core a11y.
+## Technology
 
-## Stack
+| Concern             | Implementation                                |
+| ------------------- | --------------------------------------------- |
+| Web framework       | Astro 6, static output                        |
+| Interactive islands | Svelte 5                                      |
+| Styling             | Tailwind CSS 4 and custom CSS                 |
+| Shared UI           | shadcn-svelte primitives in `packages/ui`     |
+| Content             | Typed Astro collections with MDX              |
+| Fonts               | Geist Sans, Geist Mono, and Noto Naskh Arabic |
+| Workspace           | Bun workspaces and Moon                       |
+| Quality             | Astro Check, Biome, Cypress, Lighthouse CI    |
+| Monitoring          | Sentry                                        |
 
-| Layer | Tech |
-|---|---|
-| Framework | [Astro 6](https://astro.build) |
-| Components | [Svelte 5](https://svelte.dev) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com) + typography plugin |
-| UI primitives | [shadcn-svelte](https://shadcn-svelte.com) (bits-ui) |
-| Fonts | Geist Sans, Geist Mono, Noto Naskh Arabic |
-| Build | [Moonrepo](https://moonrepo.dev) |
-| Content | MDX with Shiki syntax highlighting |
-| Monitoring | Sentry, GoatCounter, Lighthouse CI |
-| Testing | Cypress E2E |
-| Formatting | Biome |
+Astro owns routes, layouts, content rendering, and static generation. Svelte is
+reserved for components that need client-side interaction, such as theme,
+navigation, charts, reactions, and photo controls.
 
-## Pages
+## Public routes
 
-- `/` — Home (bio, experience, featured works, latest notes)
-- `/works` — Project portfolio
-- `/notes` — Writing
-- `/tags` — Tag index
-- `/photos` — Street/cosplayer photography
-- `/guestbook` — Messages from visitors
-- `/now` — What I'm doing now
-- `/uses` — Hardware and software setup
-- `/wakatime` — Coding activity stats
-- `/ihsg` — Stock market index viewer
+- `/` — biography, experience, featured work, and latest notes
+- `/experiences/<slug>` — professional experience details
+- `/works` and `/works/<slug>` — project portfolio
+- `/notes` and `/notes/<slug>` — writing
+- `/tags` and `/tags/<slug>` — note indexes by tag
+- `/photos` — photography
+- `/guestbook` — visitor messages
+- `/now` — current activities
+- `/uses` — hardware and software
+- `/wakatime` — coding activity
+- `/ihsg` — stock-index viewer
 
-## Project Structure
+There is intentionally no `/experiences` index route. Content routes are built
+from records in `apps/web/src/content`, not duplicated in page modules.
 
+## Repository layout
+
+```text
+ikuyo/
+├── apps/web/
+│   ├── cypress/                 # Browser-level behavior and accessibility
+│   └── src/
+│       ├── components/          # Site-specific Astro and Svelte components
+│       ├── content/             # Notes, works, and experiences as MDX
+│       ├── content.config.ts    # Collection schemas and loaders
+│       ├── layouts/             # Shared page shell
+│       ├── pages/               # Astro file-based routes
+│       ├── styles/              # Global theme, prose, and utility CSS
+│       └── utils/               # Content, environment, and rendering helpers
+├── packages/ui/                 # Shared Svelte UI primitives
+├── docs/                        # Product contracts and Harness documentation
+├── scripts/                     # Harness bootstrap, CLI, and schema
+├── AGENTS.md                    # Agent entrypoint for every request
+└── DESIGN.md                    # Visual-system contract
 ```
-ikuyo
-├── apps
-│   └── web          # Astro main site
-│       ├── src
-│       │   ├── components  # Astro + Svelte components
-│       │   ├── layouts     # Page layout shell
-│       │   ├── pages       # Routes (file-based)
-│       │   ├── styles      # CSS modules
-│       │   └── utils       # Helpers, rehype/remark plugins
-│       └── cypress         # E2E tests
-└── packages
-    └── ui                 # Shared Svelte UI components
-```
 
-## Getting Started
+## Local development
+
+Requirements:
+
+- [Bun](https://bun.sh/)
+
+Install dependencies and start the Astro development server:
 
 ```bash
 bun install
 bun run dev:web
 ```
 
-Site runs at `http://localhost:3000`.
+The site is available at `http://localhost:3000`.
+
+## Commands
+
+Run commands from the repository root unless noted otherwise.
 
 ```bash
-bun run build:web   # Production build
-bun run test:web    # Cypress E2E
-bun run lint:biome  # Lint
+bun run dev:web                    # Start the web development server
+bun run --cwd apps/web build       # Astro check and production build
+bun run build:web                  # Format workspaces, then build through Moon
+bun run lint:biome                 # Check web and shared UI source
+bun run format:biome               # Format web and shared UI source
+bun run test:web                   # Start the site and run all Cypress tests
+bun run lhci:mobile                # Lighthouse CI mobile preset
+bun run lhci:desktop               # Lighthouse CI desktop preset
 ```
+
+`build:web` writes formatting changes before building. Use
+`bun run --cwd apps/web build` when you need a non-formatting build check.
 
 ## Environment
 
-Copy `apps/web/.env.example` to `apps/web/.env` and fill in:
+Copy the example file before using integrations that require credentials:
 
-- `PUBLIC_GOATCOUNTER_SRC` — Analytics
-- `SENTRY_DSN` / `SENTRY_AUTH_TOKEN` / `SENTRY_PROJECT` — Error monitoring
-- `BACKEND_API_URL` — API for guestbook and wakatime data
+```bash
+cp apps/web/.env.example apps/web/.env
+```
+
+The example declares production/development URLs, Turso credentials, Sentry,
+Lighthouse CI, ImageKit, and Cloudflare values. Keep secrets out of version
+control. The static content pages can be developed without every external
+integration configured, but affected integrations need their matching values.
+
+## Content workflow
+
+Collection contracts live in `apps/web/src/content.config.ts`. Add or update an
+MDX record under the matching collection:
+
+- `apps/web/src/content/notes`
+- `apps/web/src/content/works`
+- `apps/web/src/content/experiences`
+
+Dynamic routes use Astro `getStaticPaths`, `getCollection`, and `render` to
+produce one static page per record. Update the collection schema rather than
+adding untyped or duplicated page data.
+
+## Engineering Harness
+
+This repository includes a local engineering Harness that turns requests into
+bounded, validated work. `AGENTS.md` is the entrypoint. Human-readable policy
+and product truth live in `docs`; operational records live in the ignored
+`harness.db` through `scripts/bin/harness-cli`.
+
+For change requests, the workflow is:
+
+```text
+intent → intake and risk lane → story/proof scope → implementation
+       → validation → trace → captured friction
+```
+
+Bootstrap local Harness state when needed:
+
+```bash
+scripts/bootstrap-harness.sh
+scripts/bin/harness-cli query matrix --active --summary
+```
+
+Read `docs/README.md` and `docs/HARNESS.md` for the full workflow. Read-only
+requests do not mutate Harness state; build, fix, and edit requests record
+intake and a completion trace.
 
 ## License
 

@@ -3,100 +3,11 @@ import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const [notesList, worksList] = await Promise.all([
-  await getCollection("notes"),
-  await getCollection("works"),
+const [notesList, worksList, experienceList] = await Promise.all([
+  getCollection("notes"),
+  getCollection("works"),
+  getCollection("experiences"),
 ]);
-
-const experienceList = [
-  {
-    company: "[Undisclosed]",
-    position: "Web Programmer",
-    startDate: "Sep 2025",
-    endDate: "Present",
-    tasks: ["Working with Typescript, Go, Docker ecosystem, also do some DevOps stuff."],
-  },
-  {
-    company: "Linkupcareer.id",
-    position: "IT Staff",
-    startDate: "Apr 2025",
-    endDate: "Jan 2026",
-    tasks: [
-      "Managing HRM (OrangeHRM), LMS (Moodle), Internal Email, VPS, and other internal tools.",
-      "Conducted user interviews for internship candidates, while also evaluating each candidate's technical, communication, and management skills.",
-    ],
-  },
-
-  {
-    company: "Puskesmas Pangkalbalam",
-    position: "Software Developer",
-    startDate: "Mar 2025",
-    endDate: "Jul 2025",
-    tasks: [
-      "Working on a lung patient management system named SOBAT HEBAT (Sistem Informasi Pengobatan Agar Tubuh Sehat Bebas TBC) using Next JS an Nest JS.",
-      "Implemented monorepo concept for the Frontend side using Nx also its remote caching using Nx Cloud, Error monitoring using Sentry, and Backend API Monitoring using Prometheus + Grafana.",
-      "Implemented Progressive Web App (PWA) to make the Website easier to use and more accessible by elderly users.",
-      "Wrote unit testing for the Frontend side using Vitest.",
-      "Set up code formatting and linting tools like Biome, also wrote Docker multistage build configuration.",
-    ],
-  },
-  {
-    company: "Dibimbing.id",
-    position: "Fullstack Engineer",
-    startDate: "Sep 2024",
-    endDate: "Dec 2024",
-    tasks: [
-      "Assisted Dibimbing Tech Team in creating an academic system for Cakrawala University.",
-      "Conducted research with colleagues and advised Dibimbing Tech Team on the selection of the backend stack between Node.js and Golang for the Cakrawala University project based on some use cases.",
-      "Constructed the Frontend and Backend of the project using Next JS and Go Fiber.",
-      "Set up code formatting and linting tools like ESLint and Prettier, also wrote Docker multistage build configuration for the Frontend side.",
-      "Played a key role in developing the shortlist registration, biodata, admin biodata verification, and maintenance condition features.",
-    ],
-  },
-  {
-    company: "Infinite Learning",
-    position: "Web Development & UI/UX Design",
-    startDate: "Feb 2024",
-    endDate: "Jun 2024",
-    tasks: [
-      "Responsible as a Programmer to do market research, conducted business analysis, performed usability testing.",
-      "Constructed the Frontend and Backend of the project from scratch using React JS (Frontend) and Express JS (Backend).",
-      "Assisted colleagues in troubleshooting Javascript and React JS-related issues.",
-    ],
-  },
-  {
-    company: "[Undisclosed]",
-    position: "Data Entry",
-    startDate: "Jun 2018",
-    endDate: "Mar 2024",
-    tasks: [
-      "Seasonal job at a Vocational High School in Pangkalpinang during midterm and final examination periods.",
-      "Managed manual data entry of students’ midterm and final exam scores for Grades 10–12 using Microsoft Excel.",
-      "Verified and maintained data accuracy, consistency, and completeness to ensure reliable academic records.",
-      "Organized and reviewed large volumes of student data efficiently within tight reporting deadlines.",
-    ],
-  },
-  {
-    company: "[Undisclosed]",
-    position: "Frontend Web Developer",
-    startDate: "Nov 2023",
-    endDate: "Dec 2023",
-    tasks: [
-      "Responsible for handling, fixing bugs, and developing requested features to the existing dashboard. The dashboard was created using React JS, Tailwind CSS, and Context API.",
-      "Improve the performance of the dashboard and remove unused or redundant code.",
-    ],
-  },
-  {
-    company: "We Up Indonesia",
-    position: "Frontend Web Developer",
-    startDate: "Oct 2022",
-    endDate: "Dec 2022",
-    tasks: [
-      "Responsible for slicing and building a company profile Website for We Up using Next JS, Typescript, Tailwind CSS, and AOS.",
-      "Write documentation about the project and collaborate with other divisions.",
-    ],
-  },
-];
 ---
 
 <Layout
@@ -187,25 +98,35 @@ const experienceList = [
       </h2>
       <div class="space-y-6 sm:space-y-8 slide-enter-content">
         {
-          experienceList.map((experience) => (
+          experienceList.sort((a, b) => a.data.order - b.data.order).map((experience) => (
             <div class="group relative">
               <div class="relative z-10">
                 <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-baseline sm:justify-between mb-2">
                   <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                    {experience.company}
+                    {experience.data.hasDetail === false ? (
+                      experience.data.company
+                    ) : (
+                      <a
+                        data-cy="experience-link"
+                        href={`/experiences/${experience.id}`}
+                        class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+                      >
+                        {experience.data.company}
+                      </a>
+                    )}
                   </h3>
                   <span class="mt-2 text-sm font-medium text-muted-foreground sm:mt-0">
-                    {experience.startDate} — {experience.endDate}
+                    {experience.data.startDate} &mdash; {experience.data.endDate}
                   </span>
                 </div>
                 <p class="mb-3 mt-0 text-base sm:text-lg text-foreground">
-                  {experience.position}
+                  {experience.data.position}
                 </p>
                 <ul role="list" class="mt-0 space-y-3 text-foreground list-none pl-0">
-                  {experience.tasks.map((task) => (
+                  {experience.data.highlights.map((highlight) => (
                     <li class="relative pl-6">
                       <span class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40" />
-                      <p class="my-0 text-base leading-7">{task}</p>
+                      <p class="my-0 text-base leading-7">{highlight}</p>
                     </li>
                   ))}
                 </ul>

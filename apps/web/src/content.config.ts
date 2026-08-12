@@ -27,7 +27,22 @@ const worksCollection = defineCollection({
   }),
 });
 
+const experiencesCollection = defineCollection({
+  loader: glob({ base: "./src/content/experiences", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    company: z.string().min(1),
+    position: z.string().min(1),
+    startDate: z.string().min(1),
+    endDate: z.string().min(1),
+    order: z.number().int().positive(),
+    description: z.string().min(1),
+    highlights: z.array(z.string().min(1)).min(1),
+    hasDetail: z.boolean().optional(),
+  }),
+});
+
 export const collections = {
   notes: notesCollection,
   works: worksCollection,
+  experiences: experiencesCollection,
 };

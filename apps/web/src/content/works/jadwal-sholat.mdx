@@ -5,47 +5,42 @@ thumbnail: https://ik.imagekit.io/haikelz/works/jadwal-sholat/jadwal-sholat.png?
 title: Jadwal Sholat
 stack:
   - nextjs
-  - typescript
-  - react-query
 description: A Website to get prayer schedule, read Al-Qur'an, and Asma'ul Husna
 preview: https://jdwshlt.ekel.dev/
 repo: https://github.com/haikelz/jadwal-sholat
 ---
 
-import Photo from "@/components/svelte/Photo.svelte";
+import PhotoGrid from "@/components/svelte/PhotoGrid.svelte";
 
+I started Jadwal Sholat around 2022 because I was frustrated with the options available. Every prayer-time site I tried had the same issues: slow to load on mobile data, packed with ads, and most of them assumed the user was in Jakarta. I live in Bangka, and the time difference matters. I built the first version as a simple page that pulled prayer times based on the user's location. That was it.
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/jadwal-sholat.png?updatedAt=1691495653131" alt="Jadwal Sholat" />
+Then people I shared it with started asking for more. First the Quran. Then Asma'ul Husna. Then daily duas. Each request was reasonable, so I added them. What began as a single-purpose tool grew into something broader. I did not plan the expansion — users shaped it.
 
-## Deskripsi
+The hardest part of this project had nothing to do with features. It was the Next.js migration. I built the initial version on Next.js 12. When Next.js 13 released with the App Router in late 2022, I decided to migrate. What I underestimated was how deeply the existing codebase depended on Pages Router patterns — `getServerSideProps`, `getStaticProps`, the `_app` and `_document` files. The App Router replaced all of that with React Server Components, a new layout system, and a fundamentally different data-fetching model. It was not a version bump. It was a rewrite of how every route worked.
 
-Jadwal Sholat adalah sebuah Aplikasi web untuk menampilkan Jadwal sholat, baca Al-Qur'an, juga daftar Asma'ul Husna. Website ini saya buat awalnya untuk membantu saya sendiri untuk melihat jadwal sholat yang akurat, tapi kemudian saya kembangkan lagi sehingga fungsinya tidak hanya untuk melihat jadwal sholat saja.
+I spent weeks migrating routes one by one. The location-based prayer time logic had to be rethought because the data-fetching flow changed. The Quran reader relied on client-side state that did not map cleanly to the server-first paradigm. Some pages broke in ways the migration guide did not cover — the PWA manifest stopped resolving, service worker registration needed updating, and several libraries did not yet support React Server Components. At one point I considered rolling back to Pages Router. I did not, because the App Router was clearly where Next.js was heading. But the experience taught me that framework migrations are not about following a guide. They are about understanding every assumption your codebase has made, sometimes without you realizing it.
 
-Cukup banyak perubahan stack yang dipakai di Website ini, tapi core utama yang tetep dipakai adalah Next JS + Typescript.
+Performance matters for this app in a specific way. People open it five times every day, often from the same phone they have had for years. I chose PWA over native because most users in Indonesia discover apps through WhatsApp links, not app stores. Installing from the browser takes two taps. There is no APK, no permissions dialog.
 
-Website ini sudah PWA, jadi bisa diinstall di hp tanpa perlu bolak balik masuk browser.
+Location is geolocation-first. The app requests permission and calculates prayer times for the user's coordinates. If they decline, it falls back to Bandung — the city where most early users were based. An explicit fallback that is slightly off is better than silently defaulting to Jakarta and being wrong.
 
-## Fitur
+The Quran reader took the most effort. Per-ayah audio with pause and resume sounds straightforward, but the external API does not provide ayah-level timestamps, and different qaris recite at different speeds. I had to buffer audio segments and track position manually. The Asma'ul Husna page uses GraphQL — the only route that does — because the data has nested relationships. In hindsight I would not add GraphQL again for what is essentially a read-only reference page, but it is stable.
 
-- Tampilkan Jadwal sholat berdasarkan lokasi pengguna. By default jika lokasi tidak diset/diizinkan pengguna, maka jadwal sholat akan mengacu ke daerah Bandung.
-- Memutar suara Adzan berdasarkan lokasi pengguna.
-- Baca Al-Qur'an(dengan audio yang bisa dipilih berdasarkan qori', terjemahan, juga bahasa latin).
-- Asma'ul Husna.
-- Do'a Harian.
+The adhan feature preloads and caches the audio before the scheduled time. If the file has not downloaded when the time arrives, the adhan simply does not play. That is the failure mode, and preloading is the mitigation. Small thing, but if the adhan does not fire on time, the feature has no purpose.
 
 ## Screenshots
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-17.png?updatedAt=1736305156411" alt="Screenshot 1" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-26.png?updatedAt=1736305157610" alt="Screenshot 2" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-28-49.png?updatedAt=1736305156326" alt="Screenshot 3" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-15.png?updatedAt=1736305156600" alt="Screenshot 4" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-20.png?updatedAt=1736305156457" alt="Screenshot 5" />
-
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-35.png?updatedAt=1736305156567" alt="Screenshot 6" />
+<PhotoGrid
+  client:only="svelte"
+  images={[
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-17.png?updatedAt=1736305156411",
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-02%2010-47-26.png?updatedAt=1736305157610",
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-28-49.png?updatedAt=1736305156326",
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-15.png?updatedAt=1736305156600",
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-20.png?updatedAt=1736305156457",
+    "https://ik.imagekit.io/haikelz/works/jadwal-sholat/Screenshot%20from%202024-05-01%2017-29-35.png?updatedAt=1736305156567",
+  ]}
+/>
 
 ## Tech Stack
 
@@ -58,4 +53,3 @@ Website ini sudah PWA, jadi bisa diinstall di hp tanpa perlu bolak balik masuk b
 - Cypress
 - Leaflet
 - Framer Motion
-- GraphQL(only for `/asmaul-husna` page)

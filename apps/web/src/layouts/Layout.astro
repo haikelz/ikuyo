@@ -17,11 +17,19 @@ type Props = {
   className?: string;
 };
 
-const { title, description, url, ogImage, className = "max-w-6xl!" } = Astro.props;
+const {
+  title,
+  description,
+  url,
+  ogImage,
+  className = "max-w-4xl!",
+} = Astro.props;
 const currentPath = Astro.url.pathname;
 const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
 
-const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0, 3).join(".");
+const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
+  .slice(0, 3)
+  .join(".");
 ---
 
 <!doctype html>
@@ -56,31 +64,51 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       async
       src={PUBLIC_GOATCOUNTER_SRC}></script>
     <script is:inline>
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
       const applyTheme = () => {
-        const stored = localStorage.getItem('theme');
-        const theme = stored === 'light' || stored === 'dark' || stored === 'system'
-          ? stored
-          : 'system';
-        const isDark = theme === 'dark' || (theme === 'system' && mediaQuery.matches);
+        const stored = localStorage.getItem("theme");
+        const theme =
+          stored === "light" || stored === "dark" || stored === "system"
+            ? stored
+            : "system";
+        const isDark =
+          theme === "dark" || (theme === "system" && mediaQuery.matches);
 
-        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.classList.toggle("dark", isDark);
       };
 
       applyTheme();
-      mediaQuery.addEventListener('change', applyTheme);
-      document.addEventListener('astro:after-swap', applyTheme);
+      mediaQuery.addEventListener("change", applyTheme);
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
-    <ClientRouter  />
+    <ClientRouter />
   </head>
-  <body class="w-full flex flex-col justify-start items-start" transition:animate="initial" >
-    <div class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
-      <div class="mx-auto max-w-6xl h-full relative">
+  <body
+    class="w-full flex flex-col justify-start items-start"
+    transition:animate="initial"
+  >
+    <div
+      class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0"
+      aria-hidden="true"
+    >
+      <div class="mx-auto max-w-4xl h-full relative">
         <div class="absolute inset-0 border-x border-border/70"></div>
-        <div class="absolute left-1/4 top-0 bottom-0 border-l border-dashed border-border/70" style="border-left-width: 0.5px"></div>
-        <div class="absolute left-1/2 top-0 bottom-0 border-l border-dashed border-border/70" style="border-left-width: 0.5px"></div>
-        <div class="absolute left-3/4 top-0 bottom-0 border-l border-dashed border-border/70" style="border-left-width: 0.5px"></div>
+        <div
+          class="absolute left-1/4 top-0 bottom-0 border-l border-dashed border-border/70"
+          style="border-left-width: 0.5px"
+        >
+        </div>
+        <div
+          class="absolute left-1/2 top-0 bottom-0 border-l border-dashed border-border/70"
+          style="border-left-width: 0.5px"
+        >
+        </div>
+        <div
+          class="absolute left-3/4 top-0 bottom-0 border-l border-dashed border-border/70"
+          style="border-left-width: 0.5px"
+        >
+        </div>
       </div>
     </div>
     <a

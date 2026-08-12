@@ -4,19 +4,20 @@ author: Haikel
 thumbnail: https://ik.imagekit.io/haikelz/works/asmaul-husna-api.png?updatedAt=1691043581589
 title: Asmaul Husna API
 stack:
-  - honojs
-  - typescript
+  - go
+  - fiber
 preview: https://asmaul-husna-api.vercel.app/
 repo: https://github.com/haikelz/asmaul-husna-api
 description: Asmaul Husna API is an API to get the list of Asma'ul Husna
 ---
 
-import Photo from "@/components/svelte/Photo.svelte";
+import PhotoGrid from "@/components/svelte/PhotoGrid.svelte";
 
+I kept running into the same thing across Islamic applications: a hardcoded JSON file of the 99 Names of Allah. Copied from some blog, pasted into the project, rarely touched again. When the transliteration had an error or the Arabic was missing a character, every app that copied that file inherited the same defect. There was no single source of truth — just fragmented copies propagating mistakes.
 
-<Photo client:only="svelte" src="https://ik.imagekit.io/haikelz/works/asmaul-husna-api.png?updatedAt=1691043581589" alt="opengraph" />
+I built this API to be that source. One endpoint, consistent structure: Arabic script, Latin transliteration, Indonesian meaning, standard ordering. Free, no authentication, hosted on Vercel so it loads quickly from Indonesian locations. If someone is building an Islamic app and needs Asma'ul Husna, they can hit this instead of bundling a stale JSON file.
 
-Asma'ul Husna API is an API to get the list of Asma'ul Husna.
+I wrote it in Go with Fiber. At the time I was looking to get more comfortable with Go, and a small focused API seemed like the right size of project for that. Fiber keeps allocations low compared to the standard library, which matters at steady traffic. I added Prometheus and Grafana for observability — request counts, latency percentiles, error rates. Even a free API should tell you when something is wrong before users do.
 
 ## Endpoints
 
@@ -24,8 +25,8 @@ Asma'ul Husna API is an API to get the list of Asma'ul Husna.
 | ------------------- | ------ | ------------------------------------------ |
 | `/`                 | GET    | Get info about the API                     |
 | `/api/all`          | GET    | Get all Asma'ul Husna                      |
-| `/api/:urutan`      | GET    | Get spesific Asma'ul Husna based on urutan |
-| `/api/latin/:latin` | GET    | Get spesific Asma'ul Husna based on latin  |
+| `/api/:urutan`      | GET    | Get specific Asma'ul Husna based on urutan |
+| `/api/latin/:latin` | GET    | Get specific Asma'ul Husna based on latin  |
 
 ## Response Example
 
@@ -110,7 +111,7 @@ Response:
 }
 ```
 
-**Get spesific Asma'ul Husna based on urutan**
+**Get specific Asma'ul Husna based on urutan**
 
 Request:
 
@@ -135,7 +136,7 @@ Response:
 }
 ```
 
-**Get spesific Asma'ul Husna based on latin**
+**Get specific Asma'ul Husna based on latin**
 
 Note: the latin can be lowercase or uppercase.
 
@@ -168,11 +169,6 @@ Response:
 - Fiber
 - Swagger for API Documentation
 - Prometheus and Grafana for API monitoring
-
-## Getting Started
-
-- First, clone this repo.
-- Make sure that you've already installed `air` for live reloading. Type `air` to run the project locally. If you are a Windows user, you must change some configurations in `air.toml` file, more spesific in `cmd` and `bin` parts.
 
 ## Credits
 

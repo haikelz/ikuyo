@@ -1,101 +1,108 @@
 <script lang="ts">
-import { Button, cn, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
-import {
-  AlbumIcon,
-  HashIcon,
-  ImagesIcon,
-  ListIcon,
-  MenuIcon,
-  NotepadTextIcon,
-  XIcon,
-} from "lucide-svelte";
-import { onMount } from "svelte";
-import ToggleTheme from "./ToggleTheme.svelte";
+  import {
+    Button,
+    cn,
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+  } from "@ikuyo/ui";
+  import {
+    AlbumIcon,
+    HashIcon,
+    ImagesIcon,
+    ListIcon,
+    MenuIcon,
+    NotepadTextIcon,
+    XIcon,
+  } from "lucide-svelte";
+  import { onMount } from "svelte";
+  import ToggleTheme from "./ToggleTheme.svelte";
 
-let { currentPath } = $props();
+  let { currentPath } = $props();
 
-const navList = [
-  {
-    id: 1,
-    icon: ListIcon,
-    path: "/works",
-    label: "Works",
-  },
-  {
-    id: 2,
-    icon: NotepadTextIcon,
-    path: "/notes",
-    label: "Notes",
-  },
-  {
-    id: 3,
-    icon: HashIcon,
-    path: "/tags",
-    label: "Tags",
-  },
-  {
-    id: 4,
-    icon: ImagesIcon,
-    path: "/photos",
-    label: "Photos",
-  },
-  {
-    id: 5,
-    icon: AlbumIcon,
-    path: "/guestbook",
-    label: "Guestbook",
-  },
-];
+  const navList = [
+    {
+      id: 1,
+      icon: ListIcon,
+      path: "/works",
+      label: "Works",
+    },
+    {
+      id: 2,
+      icon: NotepadTextIcon,
+      path: "/notes",
+      label: "Notes",
+    },
+    {
+      id: 3,
+      icon: HashIcon,
+      path: "/tags",
+      label: "Tags",
+    },
+    {
+      id: 4,
+      icon: ImagesIcon,
+      path: "/photos",
+      label: "Photos",
+    },
+    {
+      id: 5,
+      icon: AlbumIcon,
+      path: "/guestbook",
+      label: "Guestbook",
+    },
+  ];
 
-let isOpen = $state(false);
-let isVisible = $state(true);
-let lastScrollY = $state(0);
-let ticking = $state(false);
+  let isOpen = $state(false);
+  let isVisible = $state(true);
+  let lastScrollY = $state(0);
+  let ticking = $state(false);
 
-function toggleNavbar() {
-  isOpen = !isOpen;
-}
-
-function handleScroll() {
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY < 10) {
-        isVisible = true;
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        isVisible = false;
-        isOpen = false;
-      } else if (currentScrollY < lastScrollY) {
-        isVisible = true;
-      }
-
-      lastScrollY = currentScrollY;
-      ticking = false;
-    });
-
-    ticking = true;
+  function toggleNavbar() {
+    isOpen = !isOpen;
   }
-}
 
-onMount(() => {
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  function handleScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-});
+        if (currentScrollY < 10) {
+          isVisible = true;
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          isVisible = false;
+          isOpen = false;
+        } else if (currentScrollY < lastScrollY) {
+          isVisible = true;
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 </script>
 
 <nav
   class={cn(
     "fixed inset-x-0 top-0 z-50! flex w-full justify-center transition-transform duration-300 ease-in-out bg-background/95 backdrop-blur-sm border-b border-border/70",
-    isVisible ? "translate-y-0" : "-translate-y-full"
+    isVisible ? "translate-y-0" : "-translate-y-full",
   )}
 >
   <div
     class={cn(
-      "flex w-full max-w-6xl min-h-16 items-center justify-between px-4 md:px-8"
+      "flex w-full max-w-4xl min-h-16 items-center justify-between px-4 md:px-8",
     )}
   >
     <a
@@ -126,7 +133,7 @@ onMount(() => {
             "text-sm font-medium transition-colors no-underline",
             currentPath.includes(item.path)
               ? "text-foreground"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-foreground",
           )}
         >
           {item.label}
@@ -186,7 +193,7 @@ onMount(() => {
                 "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
                 active
                   ? "bg-muted text-foreground"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
               )}
               onclick={() => {
                 isOpen = false;

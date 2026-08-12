@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 
 const notes = await getCollection("notes");
 const works = await getCollection("works");
+const experiences = await getCollection("experiences");
 const uniqueTags = [...new Set(notes.flatMap((note) => note.data.tags))];
 
 const staticPages: Record<string, { title: string }> = {
@@ -27,9 +28,15 @@ const worksPages = Object.fromEntries(
   works.map(({ id, data }) => [`works/${id}`, { title: data.title }]),
 );
 
+const experiencesPages = Object.fromEntries(
+  experiences
+    .filter(({ data }) => data.hasDetail !== false)
+    .map(({ id, data }) => [`experiences/${id}`, { title: data.company }]),
+);
+
 const tagsPages = Object.fromEntries(uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]));
 
-const pages = { ...staticPages, ...notesPages, ...worksPages, ...tagsPages };
+const pages = { ...staticPages, ...notesPages, ...worksPages, ...experiencesPages, ...tagsPages };
 
 const fontRegular =
   "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";

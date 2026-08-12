@@ -17,7 +17,7 @@
     "format:biome": "bun run --cwd apps/web format:biome && bun run --cwd packages/ui format:biome",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
-    "test:web": "moon run web:test",
+    "test:web": "bun run --cwd apps/web test",
     "build:guestbook": "moon run guestbook:build",
     "dev:guestbook": "moon run guestbook:dev",
     "test:guestbook": "moon run guestbook:test"

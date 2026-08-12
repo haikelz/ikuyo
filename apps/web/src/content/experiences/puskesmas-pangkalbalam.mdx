@@ -1,0 +1,42 @@
+---
+company: "Puskesmas Pangkalbalam"
+position: "Software Developer"
+startDate: "Mar 2025"
+endDate: "Jul 2025"
+order: 3
+description: "Software development for the SOBAT HEBAT lung-patient management system."
+highlights:
+  - "Working on a lung patient management system named SOBAT HEBAT (Sistem Informasi Pengobatan Agar Tubuh Sehat Bebas TBC) using Next JS an Nest JS."
+  - "Implemented monorepo concept for the Frontend side using Nx also its remote caching using Nx Cloud, Error monitoring using Sentry, and Backend API Monitoring using Prometheus + Grafana."
+  - "Implemented Progressive Web App (PWA) to make the Website easier to use and more accessible by elderly users."
+  - "Wrote unit testing for the Frontend side using Vitest."
+  - "Set up code formatting and linting tools like Biome, also wrote Docker multistage build configuration."
+---
+
+Puskesmas Pangkalbalam is a community health center in Pangkalpinang that provides public healthcare services, including outpatient, emergency, laboratory, pharmacy, maternal-care, health-promotion, and elderly-health services. Its vision is to improve service quality so the community can live independently and healthily.
+
+## Case Study
+
+SOBAT HEBAT is a tuberculosis patient-management system. I wrote the full product story in the [SOBAT HEBAT](/works/sobat-hebat) case study, so here I want to focus on the engineering side — the parts that did not make it into the product page.
+
+Me with my friend worked on the project, with my main contribution in Frontend. The system had two very different audiences: patients who needed to check their medication schedule, and Puskesmas staff who needed to track attendance and treatment progress across the entire registry. The frontend was Next.js and the backend was NestJS. Both were already running, but the frontend repository had grown into a single sprawling project with no clear separation between the patient app and the admin app.
+
+My first meaningful contribution was restructuring the frontend into an Nx monorepo. The patient app and the admin app shared components and utilities, but they were two separate build targets with different concerns — the patient app had to load fast on budget Android phones, while the admin app needed near real-time data updates. Splitting them into Nx projects with remote caching through Nx Cloud meant we could build, test, and deploy each app independently, and CI runs got noticeably faster because unchanged projects reused cached artifacts.
+
+The PWA work is what I remember most clearly. Many of the patients were elderly, and some had limited familiarity with smartphones. Installing a native app meant going through the Play Store, accepting storage permissions, and understanding what an APK even was. A PWA removes all of that — a patient opens the link, taps "Add to Home Screen," and the app behaves like a native one. The hard part was not the manifest or the service worker. It was deciding what to cache and when to update it. Medication schedules change, and a stale cached schedule could show a patient the wrong dose time. I spent more time on cache invalidation strategy than on the PWA setup itself.
+
+Observability was another area I owned. The backend already had Prometheus and Grafana for API monitoring, but the frontend had nothing — when a patient's session failed or a form silently broke, we did not know about it until a staff member reported it. I wired Sentry into the frontend so runtime errors surfaced with stack traces and device context. Combined with the backend metrics, we finally had a complete picture: if an error happened, we could see whether it was a frontend exception, an API failure, or a deployment problem.
+
+On the testing side, I wrote unit tests with Vitest for the frontend. The logic that mattered most was the attendance and medication-schedule calculation — the code that turned a treatment regimen into concrete daily dose times. That was the kind of pure logic that unit tests are actually good at catching, and it had been living in a component with no coverage.
+
+The tooling work — Biome for formatting and linting, Docker multistage builds for both apps — was less glamorous but it removed friction for the whole team. Consistent formatting stopped the endless "can you run the formatter" comments in code review, and multistage builds kept our production images small.
+
+## Challenge
+
+The biggest challenge was the monorepo migration itself. Nx is powerful but it assumes you understand the project graph — which project depends on which, and what happens when a shared utility changes. I had to learn that model while moving a live codebase, without breaking either app. There were moments where a shared component change rippled into both apps in ways I had not predicted, and I would only find out during a CI run.
+
+The second challenge was more human. Working directly with the Puskesmas meant translating between what the staff described and what the system actually needed to model. The staff would say "patient did not come today," but what they actually needed was "patient attended but missed their evening dose." The distinction matters for follow-up, and I only understood it by sitting with them and watching how they actually used the system, not by reading the requirements document.
+
+## End
+
+This was a shorter engagement than my previous internship, but it taught me more about shipping software that real people depend on. It is one thing to build a feature; it is another to build one that an elderly patient can use without help, and that a Puskesmas staff member trusts enough to rely on for treatment decisions.

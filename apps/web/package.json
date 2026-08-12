@@ -10,7 +10,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "open": "cypress open",
-    "test": "start-server-and-test dev http://localhost:4321 'cypress run'",
+    "test": "start-server-and-test dev http://localhost:3000 'cypress run'",
     "lhci:mobile": "lhci autorun",
     "lhci:desktop": "lhci autorun --collect.settings.preset=desktop",
     "lint:biome": "biome check .",

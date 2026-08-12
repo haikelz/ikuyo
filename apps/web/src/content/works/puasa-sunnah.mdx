@@ -1,0 +1,125 @@
+---
+id: 1
+author: Haikel
+thumbnail: https://raw.githubusercontent.com/haikelz/puasa-sunnah/main/docs/github-social-preview.png
+title: Puasa Sunnah API
+stack:
+  - go
+  - fiber
+repo: https://github.com/haikelz/puasa-sunnah
+preview: https://puasasunnah.ekel.dev/
+description: A production-grade API for classifying and scheduling voluntary fasting days in the Islamic calendar
+---
+
+After building the Asma'ul Husna API, I wanted to tackle something more ambitious in Go. The idea came from personal experience: I knew there were sunnah fasting days — Mondays and Thursdays, the White Days, Ashura, Arafah — but I could never keep track of when they fell on the Gregorian calendar. The Hijri calendar shifts roughly 10 days each year, so a date that was Ashura last year is something else this year. I wanted a tool that would tell me, for any given date, what fasting opportunities apply.
+
+That turned into a proper API. Not a static lookup table, but a classifier that cross-references a Gregorian date against the corresponding Hijri date and applies the actual Islamic rulings: what is recommended, what is prohibited, and what depends on context the API cannot know from a single request.
+
+The trickiest part was the calendar itself. Hijri months are 29 or 30 days, and the start of each month is determined by observation or calculation depending on the authority. In Indonesia, Kementerian Agama publishes an official calendar each year that combines hisab and rukyat. I bundled the published 2026 calendar as the data source. No runtime API call, no hidden fallback. If you ask for a date outside the 2026 coverage window, the API returns an error rather than fabricating a date. Getting the month boundaries wrong by even one day changes which fasting recommendations apply.
+
+The classifier works through a decision tree. First it checks restrictions: Ramadan is obligatory for those to whom it applies, so it is not labeled voluntary. Eid al-Fitr, Eid al-Adha, and the Days of Tashriq are explicitly prohibited. Friday alone has a nuanced ruling that depends on adjacent days and personal circumstances; the API documents the rule but does not calculate it, because a stateless request cannot know what someone fasted yesterday. Then it applies recommendations: fixed-date fasts like Ashura and Arafah, weekday-based fasts like Mondays and Thursdays, and calendar-relative ones like the White Days. One date can match several recommendations.
+
+The schedule endpoint was the feature that made this usable day-to-day. Instead of classifying one date at a time, you can request a week, a month, or a full year. The response filters out prohibited and obligatory periods, leaving a clean list of voluntary fasting dates. For Shawwal, the six days are labeled as eligible candidates — the API provides the date range but does not choose or track which six days a person fasts.
+
+I built it with the same stack and architecture as Asma'ul Husna: Go with Fiber, modular monolith structure, Docker and Kubernetes configs for deployment. The module boundaries follow delivery, use-case, and repository layers. The Kemenag calendar adapter sits behind a repository interface, so swapping it for a different authority's calendar does not touch the fasting rules. The API is bilingual — every endpoint accepts `/en` or `/id` as a language segment. Interactive Swagger documentation is available at [puasasunnah.ekel.dev/swagger](https://puasasunnah.ekel.dev/swagger/).
+
+## Endpoints
+
+| Endpoint                       | Method | Description                                        |
+| ------------------------------ | ------ | -------------------------------------------------- |
+| `/health`                      | GET    | Health check                                       |
+| `/api/:lang/fasting/rules`     | GET    | List supported fasting rules and evidence          |
+| `/api/:lang/fasting/schedules` | GET    | Get fasting opportunities by week, month, or year  |
+| `/api/:lang/fasting/classify`  | POST   | Classify a single date for fasting recommendations |
+
+**Note:** `:lang` must be `en` for English or `id` for Indonesian. All user-facing text is localized; machine-readable keys stay constant across languages.
+
+## Response Example
+
+**Classify a date**
+
+The core endpoint. Supply a Gregorian date and the corresponding Hijri date — the API does not convert between calendars, because Hijri dates depend on which authority you follow.
+
+Request:
+
+```bash
+curl -X POST https://puasasunnah.ekel.dev/api/en/fasting/classify \
+  -H 'Content-Type: application/json' \
+  -d '{"date":"2026-06-25","hijri":{"year":1448,"month":1,"day":10},"is_pilgrim_at_arafah":false}'
+```
+
+Response:
+
+```json
+{
+  "data": {
+    "date": "2026-06-25",
+    "weekday": "Thursday",
+    "hijri": { "year": 1448, "month": 1, "day": 10 },
+    "verdict": "recommended",
+    "recommendations": [
+      {
+        "key": "monday_thursday",
+        "name": "Monday or Thursday",
+        "evidence": "Jami` at-Tirmidhi 747"
+      },
+      {
+        "key": "ashura",
+        "name": "Ashura",
+        "evidence": "Sahih Muslim 1162b"
+      }
+    ],
+    "restrictions": [],
+    "notes": [],
+    "disclaimer": "Planning information only. Hijri dates can differ between authorities. Ask a qualified scholar about personal rulings."
+  }
+}
+```
+
+**Get monthly schedule**
+
+Request a month of fasting opportunities. Prohibited and obligatory periods are filtered out.
+
+```bash
+curl 'https://puasasunnah.ekel.dev/api/en/fasting/schedules?period=month&date=2026-08-09'
+```
+
+Response (dates array omitted):
+
+```json
+{
+  "data": {
+    "period": "month",
+    "anchor_date": "2026-08-09",
+    "start_date": "2026-08-01",
+    "end_date": "2026-08-31",
+    "timezone": "Asia/Jakarta",
+    "calendar_source": {
+      "id": "kemenag-ri-2026",
+      "status": "published_planning_calendar",
+      "coverage_start": "2025-12-28",
+      "coverage_end": "2027-01-02"
+    },
+    "total": 11
+  }
+}
+```
+
+**List supported rules**
+
+```bash
+curl https://puasasunnah.ekel.dev/api/en/fasting/rules
+```
+
+Returns every supported fasting type with its calendar rule, evidence citation, and caveats — including rules the API documents but cannot calculate from a stateless request (like the Fast of Dawud and the Friday-alone rule).
+
+## Tech Stack
+
+- Go
+- Fiber
+- Swagger for API Documentation
+- Docker and Kubernetes configs for deployment
+
+## Credits
+
+- [Ditjen Bimas Islam, Kementerian Agama RI](https://kemenag.go.id/) for the published [Kalender Hijriah Indonesia Tahun 2026](https://aceh.kemenag.go.id/storage/berita_informasi/01K7GE96M0ZVRJ62Z520RMYG1B.pdf) used as the calendar data source.
