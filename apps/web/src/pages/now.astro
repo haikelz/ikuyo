@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import { format } from "date-fns";
 
 const lastUpdated = new Date("2026-06-14");
@@ -17,19 +18,12 @@ const lastUpdated = new Date("2026-06-14");
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Now
-      </h1>
-      <p class="text-muted-foreground text-lg sm:text-xl mb-0">
-        Last updated: {format(lastUpdated, "MMMM d, yyyy")}
-      </p>
-    </section>
+    <PageHeader title="Now" eyebrow="Current focus">
+      Last updated {format(lastUpdated, "MMMM d, yyyy")}.
+    </PageHeader>
 
     <section
-      class="flex w-full max-w-full space-y-10! text-justify! flex-col mt-10 sm:mt-16 items-start justify-start prose prose-neutral dark:prose-invert prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40"
+      class="prose prose-neutral mt-10 flex w-full max-w-full flex-col items-start justify-start text-justify! dark:prose-invert sm:mt-16 prose-code:text-sm prose-pre:border prose-pre:border-border/40 prose-pre:bg-muted [&>div]:border-t [&>div]:border-border/70 [&>div]:py-8 [&>div>h2]:mb-4! [&>div>h2]:font-mono [&>div>h2]:text-xs [&>div>h2]:font-medium [&>div>h2]:uppercase [&>div>h2]:tracking-[0.14em] [&>div>h2]:text-muted-foreground"
     >
       <div class="w-full slide-enter-content pt-0! mt-0!">
         <h2

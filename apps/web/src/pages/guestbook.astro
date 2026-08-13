@@ -1,6 +1,7 @@
 ---
 import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import type { GuestbookProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
 import { format } from "date-fns";
@@ -31,56 +32,51 @@ const guestbook = await getGuestbook();
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Guestbook
-      </h1>
-        <p
-          data-cy="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          Write a message for me and others. Go to
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="guestbook.ekel.dev (opens in new tab)"
-            href="https://guestbook.ekel.dev"
-            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
-            >guestbook.ekel.dev</a
-          > to add your message.
-        </p>
-    </section>
+    <PageHeader title="Guestbook" eyebrow="Messages from visitors">
+      Write a message for me and others. Go to
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="guestbook.ekel.dev (opens in new tab)"
+        href="https://guestbook.ekel.dev"
+        class="font-medium text-foreground transition-colors hover:text-muted-foreground"
+        >guestbook.ekel.dev</a
+      > to add your message.
+    </PageHeader>
     <section
       data-cy="guestbook"
-      class="flex w-full flex-col space-y-6 mt-10 sm:mt-16 sm:space-y-8 items-start justify-start slide-enter-content"
+      class="w-full mt-10 sm:mt-16 slide-enter-content"
     >
       <h2 class="sr-only">Guestbook entries</h2>
       {
         guestbook ? (
-          guestbook
-            .sort(
-              (a, b) =>
-                new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime(),
-            )
-            .map((item) => (
-              <div class="group relative p-6 sm:p-8 w-full rounded-none bg-transparent border border-border/70 hover:border-border/80 transition-colors">
-                <div>
-                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
+          <div class="w-full border-b border-border/70">
+            {guestbook
+              .sort(
+                (a, b) =>
+                  new Date(b.created_at).getTime() -
+                  new Date(a.created_at).getTime(),
+              )
+              .map((item) => (
+                <article
+                  data-cy="guestbook-row"
+                  class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+                >
+                  <time
+                    datetime={new Date(item.created_at).toISOString()}
+                    class="font-mono text-xs tabular-nums text-muted-foreground"
+                  >
+                    {format(item.created_at, "yyyy.MM.dd")}
+                  </time>
+                  <h3 class="m-0 text-lg font-semibold leading-7 tracking-tight text-foreground text-pretty">
                     {item.message}
                   </h3>
-                  <p class="mb-0 mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground">
-                    <span class="font-medium text-foreground">
-                      {item.username}
-                    </span>{" "}
-                    — {format(item.created_at, "MMMM d, yyyy")}
+                  <p class="m-0 text-sm font-medium text-muted-foreground">
+                    {item.username}
                   </p>
-                </div>
-              </div>
-            ))
+                </article>
+              ))}
+          </div>
         ) : (
           <p class="font-medium text-muted-foreground">
             There is no message right now!

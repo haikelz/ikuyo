@@ -2,7 +2,6 @@
 import { format } from "date-fns";
 
 type Props = {
-  thumbnail?: string;
   title: string;
   description: string;
   slug: string;
@@ -11,7 +10,7 @@ type Props = {
   tags: string[];
 };
 
-const { thumbnail, title, description, slug, createdAt, type, tags } = Astro.props;
+const { title, description, slug, createdAt, type, tags } = Astro.props;
 ---
 
 {
@@ -58,11 +57,16 @@ const { thumbnail, title, description, slug, createdAt, type, tags } = Astro.pro
       class:list={[
         "flex w-full flex-col relative",
         "rounded-none",
-        "bg-transparent border border-border/70 hover:border-border/80 transition-colors",
+        "bg-transparent border border-border/70 hover:border-foreground/25 transition-colors",
         "text-foreground",
       ]}
     >
-      <div class="w-full p-8 relative z-10">
+      <div class="flex w-full flex-col p-6 sm:p-8 relative z-10">
+        <p
+          class="mb-4 mt-0 font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground"
+        >
+          Project
+        </p>
         <a
           href={`/works/${slug}`}
           class:list={["cursor-pointer block", "no-underline!"]}
@@ -71,10 +75,10 @@ const { thumbnail, title, description, slug, createdAt, type, tags } = Astro.pro
             {title}
           </h3>
         </a>
-        <p class="mb-0 mt-3 text-muted-foreground text-base leading-relaxed">
+        <p class="mb-0 mt-3 text-muted-foreground text-base leading-relaxed text-pretty">
           {description}
         </p>
-        <div class="flex justify-start mt-6 items-center gap-3 w-fit flex-wrap">
+        <div class="flex justify-start mt-auto pt-6 items-center gap-x-3 gap-y-2 w-fit flex-wrap">
           {tags.map((item) => (
             <a
               class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

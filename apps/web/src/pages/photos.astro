@@ -1,5 +1,6 @@
 ---
 import PhotosPage from "@/components/svelte/PhotosPage.svelte";
+import PageHeader from "@/components/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getAllPhotos } from "@/utils/imagekit";
 
@@ -16,15 +17,10 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   <div
     class="flex w-full flex-col items-start justify-start mx-auto md:text-start slide-enter-content"
   >
-    <header class="w-full mt-8 mb-10 sm:mb-16">
-      <h1 class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
-        Photos
-      </h1>
-      <p class="mb-0 text-lg sm:text-xl text-muted-foreground">
-        A selection of photographs from my camera roll.
-      </p>
-    </header>
-    <section class="w-full">
+    <PageHeader title="Photos" eyebrow="Photography" className="mb-10 sm:mb-16">
+      A selection of photographs from my camera roll.
+    </PageHeader>
+    <section class="w-full border-t border-border/70 pt-4">
       <h2 class="sr-only">Photo gallery</h2>
       <PhotosPage client:only="svelte" photos={photos} />
     </section>

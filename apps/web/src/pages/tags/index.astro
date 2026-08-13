@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import { getCollection } from "astro:content";
 
 const notes = await getCollection("notes");
@@ -29,32 +30,21 @@ const tags = [
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Tags
-      </h1>
-        <p
-          data-cy="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          Select specific notes based on the list of tags below.
-        </p>
-    </section>
+    <PageHeader title="Tags" eyebrow="Topics">
+      Select specific notes based on the list of tags below.
+    </PageHeader>
     <section
       data-cy="tags-list"
       class="w-full slide-enter-content mt-10 sm:mt-16"
     >
       <div
-        class="gap-3 sm:gap-4 flex w-full flex-wrap items-center justify-start"
+        class="flex w-full flex-wrap items-center justify-start gap-2"
       >
         {
           tags.map((item) => (
             <a
               href={`/tags/${item}`}
-              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              class="border border-border/70 px-3 py-2 font-mono text-xs text-muted-foreground no-underline! transition-colors hover:border-foreground/30 hover:text-foreground"
             >
               <span>#{item}</span>
             </a>

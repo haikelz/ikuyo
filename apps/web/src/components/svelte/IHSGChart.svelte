@@ -68,10 +68,10 @@ let dragMoved = $state(false);
 let isChartDialogOpen = $state(false);
 
 const palette = $derived({
-  panel: "var(--card)",
-  line: "var(--chart-2)",
-  area: "var(--chart-1)",
-  sma: "var(--chart-5)",
+  panel: "transparent",
+  line: "var(--foreground)",
+  area: "var(--foreground)",
+  sma: "var(--muted-foreground)",
   positive: "#16a34a",
   negative: "#dc2626",
   volume: "var(--muted-foreground)",
@@ -490,7 +490,7 @@ const volumePlot = $derived.by(() => {
 });
 
 const axisClasses = {
-  tickLabel: "fill-slate-500 stroke-transparent text-[10px] font-medium",
+  tickLabel: "fill-muted-foreground stroke-transparent font-mono text-[10px]",
   tick: "stroke-foreground/8",
   rule: "stroke-foreground/12",
 };
@@ -509,14 +509,14 @@ const gridColor03 = "var(--border)";
     >
   </Alert>
 {:else if marketsFetchError}
-  <Alert variant="destructive">
+  <Alert variant="destructive" class="rounded-none">
     <AlertTriangle class="size-4" />
     <AlertTitle>Gagal Memuat Data Market</AlertTitle>
     <AlertDescription>{marketsFetchError}</AlertDescription>
   </Alert>
 {:else}
   {#if currentMarket.errorMessage}
-    <Alert variant="destructive" class="mb-4">
+    <Alert variant="destructive" class="mb-4 rounded-none">
       <AlertTriangle class="size-4" />
       <AlertTitle>Gagal Memuat Data Market</AlertTitle>
       <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
@@ -524,7 +524,7 @@ const gridColor03 = "var(--border)";
   {/if}
 
   {#if normalized.length === 0}
-    <Alert>
+    <Alert class="rounded-none">
       <Activity class="size-4" />
       <AlertTitle>Belum Ada Data</AlertTitle>
       <AlertDescription
@@ -548,13 +548,13 @@ const gridColor03 = "var(--border)";
           <div class="flex items-center gap-2">
             <Badge
               variant="outline"
-              class="border-border/70 bg-transparent text-foreground font-medium"
+              class="rounded-none border-border bg-transparent font-mono text-foreground"
             >
               {currentMarket.source}
             </Badge>
             <Badge
               variant="outline"
-              class="bg-transparent text-foreground font-medium"
+              class="rounded-none bg-transparent font-mono text-foreground"
             >
               {interval}
             </Badge>
@@ -563,12 +563,12 @@ const gridColor03 = "var(--border)";
         <div class="mt-3">
           <Select type="single" bind:value={selectedMarketCode}>
             <SelectTrigger
-              class="w-full md:w-[260px] border-border/70 bg-transparent text-foreground"
+              class="w-full rounded-none border-border bg-transparent text-foreground md:w-[260px]"
             >
               {currentMarket.label} ({currentMarket.symbol})
             </SelectTrigger>
             <SelectContent
-              class="border-border/70 bg-background text-foreground"
+              class="rounded-none border-border bg-background text-foreground"
             >
               {#each markets as market}
                 <SelectItem
@@ -619,7 +619,7 @@ const gridColor03 = "var(--border)";
               bind:value={interval}
               variant="outline"
               spacing={0}
-              class="rounded-md border border-border/70 bg-transparent p-1"
+              class="rounded-none border border-border bg-transparent p-0"
             >
               <ToggleGroupItem value="1M">1M</ToggleGroupItem>
               <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -633,7 +633,7 @@ const gridColor03 = "var(--border)";
               bind:value={mode}
               variant="outline"
               spacing={0}
-              class="rounded-md border border-border/70 bg-transparent p-1"
+              class="rounded-none border border-border bg-transparent p-0"
             >
               <ToggleGroupItem value="line">Line</ToggleGroupItem>
               <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -642,27 +642,27 @@ const gridColor03 = "var(--border)";
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">Open</p>
+        <div class="grid grid-cols-2 border-y border-border md:grid-cols-4 lg:grid-cols-6">
+          <div class="border-r border-b border-border p-3 lg:border-b-0">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">Open</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.open ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">High</p>
+          <div class="border-b border-border p-3 md:border-r lg:border-b-0">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">High</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.high ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">Low</p>
+          <div class="border-r border-b border-border p-3 lg:border-b-0">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">Low</p>
             <p class="font-medium">
               {numberFormatter.format(latest?.low ?? 0)}
             </p>
           </div>
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">Range Chg</p>
+          <div class="border-b border-border p-3 md:border-r lg:border-b-0">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">Range Chg</p>
             <p
               class="font-medium"
               style={`color: ${rangeChange >= 0 ? palette.positive : palette.negative};`}
@@ -670,16 +670,16 @@ const gridColor03 = "var(--border)";
               {formatSigned(rangeChangePercent)}%
             </p>
           </div>
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">Range L/H</p>
+          <div class="border-r border-border p-3">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">Range L/H</p>
             <p class="font-medium text-sm">
               {numberFormatter.format(minClose)} / {numberFormatter.format(
                 maxClose,
               )}
             </p>
           </div>
-          <div class="rounded-md border border-border/70 bg-transparent p-3">
-            <p class="text-xs text-muted-foreground">Avg Vol</p>
+          <div class="p-3">
+            <p class="font-mono text-xs uppercase tracking-wide text-muted-foreground">Avg Vol</p>
             <p class="font-medium">{compactFormatter.format(avgVolume)}</p>
           </div>
         </div>
@@ -689,7 +689,7 @@ const gridColor03 = "var(--border)";
             <Button
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent"
+              class="h-8 rounded-none border-border bg-transparent"
               disabled={panOffset >= maxPanOffset}
               onclick={panLeft}
             >
@@ -699,7 +699,7 @@ const gridColor03 = "var(--border)";
             <Button
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent"
+              class="h-8 rounded-none border-border bg-transparent"
               disabled={panOffset <= 0}
               onclick={panRight}
             >
@@ -712,7 +712,7 @@ const gridColor03 = "var(--border)";
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-accent-foreground/20 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+              class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
               bind:pressed={showSma20}
             >
               SMA20
@@ -720,7 +720,7 @@ const gridColor03 = "var(--border)";
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-secondary-foreground/20 data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground"
+              class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
               bind:pressed={showVolume}
             >
               Volume
@@ -731,7 +731,7 @@ const gridColor03 = "var(--border)";
         <Separator />
 
         <div
-          class="relative h-80 w-full rounded-md border border-border/70 p-2"
+          class="relative h-80 w-full border border-border p-2"
           style={`background: ${palette.panel};`}
         >
           {#if mode === "area"}
@@ -866,12 +866,12 @@ const gridColor03 = "var(--border)";
                 style={`top: ${hoverY}px;`}
               ></div>
               <div
-                class="absolute h-2.5 w-2.5 rounded-sm border border-border pointer-events-none"
+                class="pointer-events-none absolute h-2.5 w-2.5 border border-border"
                 style={`left: ${hoverX - 5}px; top: ${hoverY - 5}px; background: ${palette.line};`}
               ></div>
 
               <div
-                class="absolute min-w-44 rounded-md border border-border/70 bg-background px-2.5 py-2 text-[11px] text-foreground shadow-none pointer-events-none"
+                class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 font-mono text-[11px] text-foreground"
                 style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
               >
                 <p class="mb-1 text-muted-foreground">
@@ -909,7 +909,7 @@ const gridColor03 = "var(--border)";
 
         {#if showVolume}
           <div
-            class="rounded-md border border-border/70 p-2"
+            class="border border-border p-2"
             style={`background: ${palette.panel};`}
           >
             {#if hasVolumeData}
@@ -935,10 +935,8 @@ const gridColor03 = "var(--border)";
                     y={bar.y}
                     width={volumePlot.barWidth}
                     height={bar.height}
-                    fill={bar.isUp
-                      ? "rgba(38,166,154,0.65)"
-                      : "rgba(239,83,80,0.65)"}
-                    rx="1"
+                    fill={bar.isUp ? palette.positive : palette.negative}
+                    fill-opacity="0.55"
                   />
                 {/each}
               </svg>
@@ -981,12 +979,12 @@ const gridColor03 = "var(--border)";
               >
                 <Select type="single" bind:value={selectedMarketCode}>
                   <SelectTrigger
-                    class="w-full md:w-[280px] border-border/70 bg-transparent text-foreground"
+                    class="w-full rounded-none border-border bg-transparent text-foreground md:w-[280px]"
                   >
                     {currentMarket.label} ({currentMarket.symbol})
                   </SelectTrigger>
                   <SelectContent
-                    class="border-border/70 bg-background text-foreground"
+                    class="rounded-none border-border bg-background text-foreground"
                   >
                     {#each markets as market}
                       <SelectItem
@@ -1006,7 +1004,7 @@ const gridColor03 = "var(--border)";
                     bind:value={interval}
                     variant="outline"
                     spacing={0}
-                    class="rounded-md border border-border/70 bg-transparent p-1"
+                    class="rounded-none border border-border bg-transparent p-0"
                   >
                     <ToggleGroupItem value="1M">1M</ToggleGroupItem>
                     <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -1020,7 +1018,7 @@ const gridColor03 = "var(--border)";
                     bind:value={mode}
                     variant="outline"
                     spacing={0}
-                    class="rounded-md border border-border/70 bg-transparent p-1"
+                    class="rounded-none border border-border bg-transparent p-0"
                   >
                     <ToggleGroupItem value="line">Line</ToggleGroupItem>
                     <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -1034,7 +1032,7 @@ const gridColor03 = "var(--border)";
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/70 bg-transparent"
+                    class="h-8 rounded-none border-border bg-transparent"
                     disabled={panOffset >= maxPanOffset}
                     onclick={panLeft}
                   >
@@ -1044,7 +1042,7 @@ const gridColor03 = "var(--border)";
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 border-border/70 bg-transparent"
+                    class="h-8 rounded-none border-border bg-transparent"
                     disabled={panOffset <= 0}
                     onclick={panRight}
                   >
@@ -1059,7 +1057,7 @@ const gridColor03 = "var(--border)";
                   <Toggle
                     variant="outline"
                     size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-accent-foreground/20 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+                    class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
                     bind:pressed={showSma20}
                   >
                     SMA20
@@ -1067,7 +1065,7 @@ const gridColor03 = "var(--border)";
                   <Toggle
                     variant="outline"
                     size="sm"
-              class="h-8 border-border/70 bg-transparent text-xs text-foreground font-medium data-[state=on]:border-secondary-foreground/20 data-[state=on]:bg-secondary data-[state=on]:text-secondary-foreground"
+                    class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
                     bind:pressed={showVolume}
                   >
                     Volume
@@ -1077,7 +1075,7 @@ const gridColor03 = "var(--border)";
             </div>
 
             <div
-              class="relative h-[72vh] w-full rounded-md border border-border/70 p-2"
+              class="relative h-[72vh] w-full border border-border p-2"
               style={`background: ${palette.panel};`}
             >
               {#if mode === "area"}
@@ -1213,12 +1211,12 @@ const gridColor03 = "var(--border)";
                     style={`top: ${hoverY}px;`}
                   ></div>
                   <div
-                    class="absolute h-2.5 w-2.5 rounded-sm border border-border pointer-events-none"
+                    class="pointer-events-none absolute h-2.5 w-2.5 border border-border"
                     style={`left: ${hoverX - 5}px; top: ${hoverY - 5}px; background: ${palette.line};`}
                   ></div>
 
                   <div
-                    class="absolute min-w-44 rounded-md border border-border/70 bg-background px-2.5 py-2 text-[11px] text-muted-foreground pointer-events-none"
+                    class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 font-mono text-[11px] text-foreground"
                     style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
                   >
                     <p class="mb-1 text-muted-foreground">
@@ -1256,7 +1254,7 @@ const gridColor03 = "var(--border)";
 
             {#if showVolume}
               <div
-                class="mt-3 rounded-md border border-border/70 p-2"
+                class="mt-3 border border-border p-2"
                 style={`background: ${palette.panel};`}
               >
                 {#if hasVolumeData}
@@ -1281,10 +1279,8 @@ const gridColor03 = "var(--border)";
                         y={bar.y}
                         width={volumePlot.barWidth}
                         height={bar.height}
-                        fill={bar.isUp
-                          ? "rgba(38,166,154,0.65)"
-                          : "rgba(239,83,80,0.65)"}
-                        rx="1"
+                        fill={bar.isUp ? palette.positive : palette.negative}
+                        fill-opacity="0.55"
                       />
                     {/each}
                   </svg>

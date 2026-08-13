@@ -1,5 +1,6 @@
 ---
 import PhotoGrid from "@/components/svelte/PhotoGrid.svelte";
+import PageHeader from "@/components/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
@@ -15,22 +16,11 @@ import Layout from "@/layouts/Layout.astro";
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Uses
-      </h1>
-        <p
-          data-cy="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          My current hardware and software setup.
-        </p>
-    </section>
-    <section class="w-full slide-enter-content">
-      <div class="mb-10 sm:mb-12">
+    <PageHeader title="Uses" eyebrow="Current setup">
+      My current hardware and software setup.
+    </PageHeader>
+    <section class="mt-10 w-full slide-enter-content sm:mt-16">
+      <div class="mb-10 border-y border-border/70 py-4 sm:mb-12">
         <PhotoGrid
           client:only
           images={[
@@ -42,7 +32,7 @@ import Layout from "@/layouts/Layout.astro";
         />
       </div>
       <ul
-        class="space-y-4 sm:space-y-6 text-base sm:text-lg text-foreground list-none pl-0" role="list"
+        class="list-none border-b border-border/70 pl-0 text-base text-foreground sm:text-lg [&>li]:border-t [&>li]:border-border/70 [&>li]:py-6 [&>li]:pl-0! [&>li>span]:hidden" role="list"
       >
         <li class="relative pl-6">
           <span

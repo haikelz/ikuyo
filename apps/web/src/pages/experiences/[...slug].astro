@@ -24,32 +24,55 @@ const slug = sanitizeSlug(item.id);
 
 <ReadingIndicator client:only="svelte" />
 <Layout
-  title=`Experience Working at ${item.data.company}`
+  title={item.data.company}
   description={item.data.description}
   url={`https://ekel.dev/experiences/${slug}`}
   ogImage={`experiences/${slug}.png`}
+  ogImageAlt={`${item.data.position} at ${item.data.company}`}
+  seoType="article"
+  tags={item.data.stack ?? [item.data.position, "Experience"]}
 >
-  <div class="w-full mx-auto slide-enter-content">
+  <div class="w-full max-w-3xl xl:mr-auto slide-enter-content">
     <BackButton label="back to experiences" client:only="svelte" />
-    <article class="max-w-full">
-      <header class="mb-12">
+    <article class="w-full max-w-full">
+      <header class="mb-14">
+        <p class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Case study
+        </p>
         <h1
-          class="mt-8 mb-4 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight"
+          class="mt-0 mb-4 text-3xl sm:text-4xl tracking-tighter font-semibold text-foreground leading-tight text-balance"
         >
           {item.data.company}
         </h1>
         <p
           data-cy="experience-position"
-          class="mb-2 text-lg sm:text-xl text-foreground"
+          class="mb-2 text-lg sm:text-xl text-foreground text-pretty"
         >
           {item.data.position}
         </p>
-        <p class="mb-0 text-sm text-muted-foreground">
-          {item.data.startDate} &mdash; {item.data.endDate}
-        </p>
+        <div class="mt-6 border-y border-border/70 py-4">
+          <p class="mb-0 font-mono text-xs text-muted-foreground tabular-nums">
+            {item.data.startDate} &mdash; {item.data.endDate}
+          </p>
+        </div>
       </header>
+      <section data-cy="experience-highlights" class="mb-14 border-b border-border/70">
+        <h2 class="sr-only">Highlights</h2>
+        <ul class="m-0 list-none p-0" role="list">
+          {
+            item.data.highlights.map((highlight, index) => (
+              <li class="grid gap-3 border-t border-border/70 py-5 sm:grid-cols-[3rem_1fr] sm:gap-5">
+                <span class="font-mono text-xs tabular-nums text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p class="m-0 text-sm leading-6 text-foreground text-pretty">{highlight}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
       <div
-        class="prose prose-neutral dark:prose-invert max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40"
+        class="prose prose-neutral max-w-full w-full dark:prose-invert text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
       >
         <Content />
       </div>

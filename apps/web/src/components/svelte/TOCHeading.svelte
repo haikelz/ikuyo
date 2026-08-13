@@ -2,23 +2,31 @@
 import type { HeadingNodeTocProps } from "@/types";
 import TOCHeading from "./TOCHeading.svelte";
 
-const { heading }: { heading: HeadingNodeTocProps } = $props();
+const {
+  heading,
+  nested = false,
+  onNavigate,
+}: {
+  heading: HeadingNodeTocProps;
+  nested?: boolean;
+  onNavigate?: () => void;
+} = $props();
 </script>
 
 <li class="list-none!">
   <a
     href={`#${heading.slug}`}
-    class="block truncate rounded-md px-2 py-1 text-sm leading-6 font-medium text-muted-foreground no-underline! transition-colors duration-150 hover:bg-muted hover:text-foreground"
+    onclick={onNavigate}
+    class="block py-1.5 text-pretty no-underline! transition-colors duration-150 hover:text-foreground {nested
+      ? 'text-xs leading-5 text-muted-foreground'
+      : 'text-sm leading-5 font-medium text-foreground/80'}"
   >
     {heading.text}
   </a>
   {#if heading.subheadings && heading.subheadings.length > 0}
-    <ul
-      class="mt-1 ml-2 space-y-1 border-l border-border/70 pl-2 list-none!"
-      role="list"
-    >
+    <ul class="mb-1 ms-0 mt-0 space-y-0 border-s border-border/70 ps-3 list-none!" role="list">
       {#each heading.subheadings as sub}
-        <TOCHeading heading={sub} />
+        <TOCHeading heading={sub} nested={true} {onNavigate} />
       {/each}
     </ul>
   {/if}

@@ -1,137 +1,156 @@
 ---
-import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import { format } from "date-fns";
 
 const [notesList, worksList, experienceList] = await Promise.all([
   getCollection("notes"),
   getCollection("works"),
   getCollection("experiences"),
 ]);
+
+const experiences = experienceList.sort((a, b) => a.data.order - b.data.order);
+const featuredWorks = worksList.sort((a, b) => a.data.id - b.data.id).slice(1, 5);
+const latestNotes = notesList
+  .sort((a, b) => new Date(b.data.created_at).getTime() - new Date(a.data.created_at).getTime())
+  .slice(0, 4);
 ---
 
 <Layout
   title="Haikel Ilham Hakim"
-  description="Product/Devops"
+  description="Full-stack engineer building business systems, delivery infrastructure, and content-driven products with Go and TypeScript."
   url="https://ekel.dev"
   ogImage="home.png"
+  ogImageAlt="Haikel Ilham Hakim — full-stack engineer"
+  seoType="profile"
 >
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start relative mx-auto",
-      "md:text-start",
-    ]}
-  >
-    <section class="w-full slide-enter-content mt-8">
-      <div class="w-full">
-        <div class="mb-6">
-          <h1
-            data-cy="name"
-            class="text-3xl sm:text-4xl md:text-5xl tracking-tighter font-bold mb-4 mt-0 text-foreground"
-          >
-            Haikel (<span lang="ja">ハイケル</span>)
-          </h1>
-          <p
-            class="text-xl sm:text-2xl text-foreground font-medium tracking-tight mb-2 mt-0"
-          >
-            Product/Devops
-          </p>
-          <p class="text-sm sm:text-base text-muted-foreground mb-0 mt-0">
-            Indonesia
-          </p>
-        </div>
+  <div class="relative mx-auto flex w-full flex-col items-start justify-start">
+    <section class="w-full slide-enter-content mt-8 sm:mt-12">
+      <p
+        class="mb-4 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+      >
+        Product/Devops
+      </p>
+      <h1
+        data-cy="name"
+        class="max-w-full text-4xl sm:text-5xl md:text-6xl tracking-[-0.045em] leading-[1.02] font-black mb-6 mt-0 text-foreground text-balance"
+      >
+        I build systems that move products and businesses forward.
+      </h1>
+      <p
+        class="max-w-full text-lg sm:text-xl text-muted-foreground leading-8 mb-0 mt-0 text-pretty"
+      >
+        I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
+        working across business software, delivery infrastructure, and content-driven
+        products with Go and TypeScript.
+      </p>
 
-        <div class="w-full">
-          <p
-            data-cy="description"
-            class="text-base sm:text-lg leading-7 text-foreground text-justify"
+      <div class="mt-7 w-full max-w-full" >
+        <p
+          data-cy="description"
+          class="text-base leading-7 text-foreground text-pretty"
+        >
+          Outside of programming, you can find me doing <a
+            href="/photos"
+            class="text-foreground font-medium underline decoration-border hover:decoration-foreground transition-colors"
+            >street/cosplayer photography</a
+          >. I'm currently going deeper into Go, DevOps, finance, and engineering
+          leadership.
+        </p>
+        <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
+          <a
+            href="https://www.linkedin.com/in/haikel/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn (opens in new tab)"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >LinkedIn</a
           >
-            Konnichiwa! I'm Haikel Ilham Hakim. You can call me <strong
-              class="text-foreground font-medium">Haikel/Kel/Ekel</strong
-            > with the "E" pronounce is "Emas". I'm a Software Developer familiar
-            with <strong class="text-foreground font-medium">js/ts/go</strong>.
-            Outside of programming, you can find me doing <a
-              href="/photos"
-              class="text-foreground font-medium underline decoration-border hover:decoration-foreground transition-colors"
-              >street/cosplayer photography</a
-            >. Currently, I deep dive into Go, Devops, Finance, also how to deal
-            and manage people.
-          </p>
-          <div class="flex gap-6 mt-6">
-            <a
-              href="https://www.linkedin.com/in/haikel/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn (opens in new tab)"
-              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
-              >LinkedIn</a
-            >
-            <a
-              href="https://github.com/haikelz"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub (opens in new tab)"
-              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
-              >GitHub</a
-            >
-            <a
-              href="https://gitlab.com/haikelz"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitLab (opens in new tab)"
-              class="text-foreground font-medium hover:text-muted-foreground transition-colors"
-              >GitLab</a
-            >
-          </div>
+          <a
+            href="https://github.com/haikelz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub (opens in new tab)"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >GitHub</a
+          >
+          <a
+            href="https://gitlab.com/haikelz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitLab (opens in new tab)"
+            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            >GitLab</a
+          >
         </div>
       </div>
     </section>
 
     <section
       data-cy="experience"
-      class="w-full slide-enter-content mt-10 sm:mt-16"
+      class="w-full slide-enter-content mt-16 sm:mt-24"
     >
-      <h2
-        class="mb-6 sm:mb-8 mt-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-      >
-        Experience
-      </h2>
-      <div class="space-y-6 sm:space-y-8 slide-enter-content">
+      <div class="mb-8">
+        <p
+          class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+        >
+          Selected career
+        </p>
+        <h2
+          class="mb-0 mt-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
+        >
+          Experience
+        </h2>
+      </div>
+      <div class="border-b border-border/70 slide-enter-content">
         {
-          experienceList.sort((a, b) => a.data.order - b.data.order).map((experience) => (
-            <div class="group relative">
-              <div class="relative z-10">
-                <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-baseline sm:justify-between mb-2">
-                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
-                    {experience.data.hasDetail === false ? (
-                      experience.data.company
-                    ) : (
-                      <a
-                        data-cy="experience-link"
-                        href={`/experiences/${experience.id}`}
-                        class="text-foreground font-medium after:content-['↗'] after:text-[0.75em]! after:opacity-50 hover:text-muted-foreground transition-colors"
-                      >
-                        {experience.data.company}
-                      </a>
-                    )}
-                  </h3>
-                  <span class="mt-2 text-sm font-medium text-muted-foreground sm:mt-0">
+          experiences.map((experience, index) => (
+            <article class="group grid gap-5 border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10">
+              <div class="font-mono text-xs font-medium tabular-nums text-muted-foreground">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <div>
+                <div class="flex w-full flex-col items-start justify-start gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                  <div>
+                    <h3 class="mb-1 mt-0 text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
+                      {experience.data.hasDetail === false ? (
+                        experience.data.company
+                      ) : (
+                        <a
+                          data-cy="experience-link"
+                          href={`/experiences/${experience.id}`}
+                          class="text-foreground no-underline! hover:text-muted-foreground transition-colors"
+                        >
+                          {experience.data.company}
+                        </a>
+                      )}
+                    </h3>
+                    <p class="mb-0 mt-0 text-base text-foreground">
+                      {experience.data.position}
+                    </p>
+                  </div>
+                  <span class="text-sm font-medium tabular-nums text-muted-foreground">
                     {experience.data.startDate} &mdash; {experience.data.endDate}
                   </span>
                 </div>
-                <p class="mb-3 mt-0 text-base sm:text-lg text-foreground">
-                  {experience.data.position}
-                </p>
-                <ul role="list" class="mt-0 space-y-3 text-foreground list-none pl-0">
+                <ul role="list" class="mt-5 space-y-2 text-foreground list-none pl-0">
                   {experience.data.highlights.map((highlight) => (
-                    <li class="relative pl-6">
-                      <span class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40" />
-                      <p class="my-0 text-base leading-7">{highlight}</p>
+                    <li data-cy="experience-highlight" class="relative pl-6">
+                      <span class="absolute left-0 top-2.5 h-px w-3 bg-muted-foreground/50" />
+                      <p class="my-0 text-sm leading-6 text-justify text-pretty">{highlight}</p>
                     </li>
                   ))}
                 </ul>
+                {experience.data.hasDetail === false ? null : (
+                  <a
+                    href={`/experiences/${experience.id}`}
+                    class="mt-6 inline-flex min-h-8 items-center text-sm font-semibold text-foreground decoration-border transition-colors hover:text-muted-foreground"
+                  >
+                    Read case study <span aria-hidden="true">&nbsp;→</span>
+                  </a>
+                )}
               </div>
-            </div>
+            </article>
           ))
         }
       </div>
@@ -139,58 +158,120 @@ const [notesList, worksList, experienceList] = await Promise.all([
 
     <section
       data-cy="featured-works"
-      class="mt-10 sm:mt-16 w-full slide-enter-content"
+      class="mt-16 sm:mt-24 w-full slide-enter-content"
     >
-      <h2
-        class="mt-0 mb-6 sm:mb-8 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-      >
-        Featured Works
-      </h2>
-      <div
-        class="grid w-full grid-cols-1 sm:grid-cols-2 gap-6 slide-enter-content"
-      >
+      <div class="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
+            Selected projects
+          </p>
+          <h2
+            class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
+          >
+            Featured works
+          </h2>
+        </div>
+        <a
+          href="/works"
+          class="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+        >
+          View all <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="border-b border-border/70 slide-enter-content">
         {
-          worksList
-            .sort((a, b) => a.data.id - b.data.id)
-            .slice(1, 5)
-            .map((item) => (
-              <Card
-                title={item.data.title}
-                description={item.data.description}
-                thumbnail={item.data.thumbnail}
-                type="works"
-                slug={item.id}
-                tags={item.data.stack}
-              />
-            ))
+          featuredWorks.map((item, index) => (
+            <article
+              data-cy="featured-work"
+              class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+            >
+              <span class="font-mono text-xs tabular-nums text-muted-foreground">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
+                  <a
+                    href={`/works/${item.id}`}
+                    class="no-underline! hover:text-muted-foreground transition-colors"
+                  >
+                    {item.data.title}
+                  </a>
+                </h3>
+                <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground text-pretty">
+                  {item.data.description}
+                </p>
+                <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
+                  {item.data.stack.join(" · ")}
+                </p>
+              </div>
+              <a
+                href={`/works/${item.id}`}
+                aria-label={`View ${item.data.title}`}
+                class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
+              >
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
         }
       </div>
     </section>
-    <section data-cy="featured-notes" class="mt-10 sm:mt-16 mb-0 w-full">
-      <h2
-        class="mt-0 mb-6 sm:mb-8 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-      >
-        Latest Notes
-      </h2>
-      <div class="grid w-full grid-cols-1 sm:grid-cols-2 gap-6">
+
+    <section data-cy="featured-notes" class="mt-16 sm:mt-24 mb-0 w-full">
+      <div class="mb-8 flex items-end justify-between gap-4">
+        <div>
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
+            Recent writing
+          </p>
+          <h2
+            class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
+          >
+            Latest notes
+          </h2>
+        </div>
+        <a
+          href="/notes"
+          class="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+        >
+          View all <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="border-b border-border/70">
         {
-          notesList
-            .sort(
-              (a, b) =>
-                new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
-            )
-            .slice(0, 4)
-            .map((item) => (
-              <Card
-                title={item.data.title}
-                description={item.data.description}
-                slug={item.id}
-                createdAt={item.data.created_at}
-                tags={item.data.tags}
-                type="notes"
-              />
-            ))
+          latestNotes.map((item) => (
+            <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
+              <time
+                datetime={item.data.created_at.toISOString()}
+                class="font-mono text-xs tabular-nums text-muted-foreground"
+              >
+                {format(item.data.created_at, "yyyy.MM.dd")}
+              </time>
+              <div>
+                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
+                  <a
+                    href={`/notes/${item.id}`}
+                    class="no-underline! hover:text-muted-foreground transition-colors"
+                  >
+                    {item.data.title}
+                  </a>
+                </h3>
+                <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground text-pretty">
+                  {item.data.description}
+                </p>
+              </div>
+              <a
+                href={`/notes/${item.id}`}
+                aria-label={`Read ${item.data.title}`}
+                class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
+              >
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
         }
       </div>
     </section>

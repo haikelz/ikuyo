@@ -1,12 +1,8 @@
 const experiencePaths = [
-  "/experiences/web-programmer",
+  "/experiences/undisclosed-1",
   "/experiences/linkupcareer",
   "/experiences/puskesmas-pangkalbalam",
   "/experiences/dibimbing",
-  "/experiences/infinite-learning",
-  "/experiences/data-entry",
-  "/experiences/frontend-web-developer",
-  "/experiences/we-up-indonesia",
 ];
 
 describe("Experience pages", () => {
@@ -14,10 +10,19 @@ describe("Experience pages", () => {
     cy.visit("/");
 
     cy.get('[data-cy="experience"] [data-cy="experience-link"]')
-      .should("have.length", 8)
+      .should("have.length", 4)
       .each(($link) => {
         expect($link.attr("href")).to.match(/^\/experiences\/[a-z0-9-]+$/);
       });
+  });
+
+  it("shows every authored highlight on the homepage", () => {
+    cy.visit("/");
+
+    cy.get('a[data-cy="experience-link"][href="/experiences/undisclosed-1"]')
+      .closest("article")
+      .find('[data-cy="experience-highlight"]')
+      .should("have.length", 4);
   });
 
   it("serves every migrated experience route", () => {
@@ -29,7 +34,7 @@ describe("Experience pages", () => {
   it("renders an experience article with its role and highlights", () => {
     cy.visit("/experiences/linkupcareer");
 
-    cy.title().should("eq", "Linkupcareer.id");
+    cy.title().should("eq", "Linkupcareer.id — Haikel Ilham Hakim");
     cy.get("h1").should("contain.text", "Linkupcareer.id");
     cy.get('[data-cy="experience-position"]').should("contain.text", "IT Staff");
     cy.get('[data-cy="experience-highlights"] li').should("have.length", 2);

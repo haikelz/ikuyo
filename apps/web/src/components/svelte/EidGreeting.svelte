@@ -27,11 +27,14 @@ const content = {
 const c = $derived(content[lang]);
 </script>
 
-<div class="flex w-full flex-col items-start justify-start mx-auto">
-  <section class="w-full mt-8 slide-enter-content">
-    <div class="flex items-center justify-between w-full">
+<div class="mx-auto flex w-full flex-col items-start justify-start">
+  <section class="mt-8 w-full border-b border-border pb-8 slide-enter-content">
+    <div class="flex w-full flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <p class="text-muted-foreground text-lg sm:text-xl mb-2">
+        <p class="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Eid / 1446 H
+        </p>
+        <p class="mb-1 text-sm text-muted-foreground">
           {c.subtitle}
         </p>
         <h1
@@ -45,7 +48,7 @@ const c = $derived(content[lang]);
         bind:value={lang}
         variant="outline"
         spacing={0}
-        class="self-end mb-1 rounded-lg border border-border/70 p-1"
+        class="self-start rounded-none border border-border p-0 sm:self-end"
       >
         <ToggleGroupItem value="id" aria-label="Bahasa Indonesia"
           >ID</ToggleGroupItem
@@ -55,7 +58,7 @@ const c = $derived(content[lang]);
     </div>
   </section>
 
-  <section class="w-full mt-8 slide-enter-content">
+  <section class="mt-0 w-full border-b border-border py-8 slide-enter-content">
     <p
       class="text-right text-3xl sm:text-4xl leading-loose tracking-wide font-medium text-foreground"
       style="font-family: 'Noto Naskh Arabic', serif;"
@@ -69,7 +72,7 @@ const c = $derived(content[lang]);
     </p>
   </section>
 
-  <section class="w-full mt-8 slide-enter-content">
+  <section class="w-full border-b border-border py-8 slide-enter-content">
     <p
       class="text-foreground text-base sm:text-lg leading-7 sm:leading-relaxed"
     >
@@ -82,8 +85,8 @@ const c = $derived(content[lang]);
     </p>
   </section>
 
-  <section class="w-full slide-enter-content">
-    <p class="text-muted-foreground text-base sm:text-lg font-medium">
+  <section class="w-full py-6 slide-enter-content">
+    <p class="font-mono text-sm text-muted-foreground">
       — Haikel
     </p>
   </section>

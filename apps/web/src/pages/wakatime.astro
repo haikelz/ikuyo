@@ -1,5 +1,6 @@
 ---
 import WakatimeStats from "@/components/svelte/WakatimeStats.svelte";
+import PageHeader from "@/components/PageHeader.astro";
 import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
 import type { WakatimeStatsProps } from "@/types";
@@ -13,10 +14,7 @@ async function fetchStats(range?: string): Promise<WakatimeStatsProps> {
   return response.data;
 }
 
-const [allTime, weekly] = await Promise.all([
-  fetchStats(),
-  fetchStats("last_7_days"),
-]);
+const [allTime, weekly] = await Promise.all([fetchStats(), fetchStats("last_7_days")]);
 ---
 
 <Layout
@@ -26,10 +24,9 @@ const [allTime, weekly] = await Promise.all([
   ogImage="wakatime.png"
 >
   <div class="flex w-full flex-col items-start justify-start mx-auto md:text-start">
-    <section class="w-full mt-8 slide-enter-content">
-      <h1 class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground">Wakatime</h1>
-      <p class="mb-0 text-lg sm:text-xl text-muted-foreground">Coding activity and statistics.</p>
-    </section>
+    <PageHeader title="Wakatime" eyebrow="Coding activity">
+      Coding activity and statistics.
+    </PageHeader>
     <section class="w-full mt-10 sm:mt-16 slide-enter-content">
       <WakatimeStats client:only="svelte" allTime={allTime} weekly={weekly} />
     </section>

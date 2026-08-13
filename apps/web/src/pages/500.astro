@@ -1,19 +1,25 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 
 const title = "500 Internal Server Error!";
 const description = "There are some error in the server side!";
 ---
 
-<Layout title={title} description={description} url="" ogImage="500.png">
-  <div
-    class="flex flex-col items-center justify-center min-h-[50vh] text-center mx-auto px-4 slide-enter-content"
-  >
-    <h1
-      class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground mb-4"
-    >
-      {title}
-    </h1>
-    <p class="text-lg sm:text-xl text-muted-foreground">{description}</p>
+<Layout title={title} description={description} ogImage="500.png" noindex>
+  <div class="w-full mx-auto slide-enter-content">
+    <PageHeader title={title} eyebrow="Error 500">
+      {description}
+    </PageHeader>
+    <nav class="mt-10 grid border-y border-border/70 sm:grid-cols-2" aria-label="Recovery links">
+      <a class="border-b border-border/70 px-0 py-6 no-underline! sm:border-e sm:border-b-0 sm:px-6" href="/">
+        <span class="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">Return</span>
+        <span class="mt-2 block font-semibold text-foreground">Homepage →</span>
+      </a>
+      <a class="px-0 py-6 no-underline! sm:px-6" href="/guestbook">
+        <span class="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">Try later</span>
+        <span class="mt-2 block font-semibold text-foreground">Open guestbook →</span>
+      </a>
+    </nav>
   </div>
 </Layout>

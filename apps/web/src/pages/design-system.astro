@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 ---
 
 <Layout
@@ -8,20 +9,13 @@ import Layout from "@/layouts/Layout.astro";
   url="https://ekel.dev/design-system"
 >
   <div class="w-full mx-auto slide-enter-content">
-    <header class="mb-12">
-      <h1
-        class="mt-8 mb-3 text-3xl sm:text-4xl tracking-tighter font-bold text-foreground"
-      >
-        Design System
-      </h1>
-      <p class="text-base text-muted-foreground max-w-xl">
-        Design tokens and components for ekel.dev
-      </p>
-    </header>
+    <PageHeader title="Design System" eyebrow="Interface reference" className="mb-12">
+      Design tokens and components for ekel.dev.
+    </PageHeader>
 
     <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-12">
       <!-- Sidebar -->
-      <aside class="hidden lg:block">
+      <aside class="hidden border-s border-border/70 ps-5 lg:block">
         <nav class="sticky top-28 space-y-1 text-sm" aria-label="Sections">
           <p
             class="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-3"
@@ -87,7 +81,7 @@ import Layout from "@/layouts/Layout.astro";
       </aside>
 
       <!-- Content -->
-      <div class="min-w-0">
+      <div class="min-w-0 [&>section]:border-t [&>section]:border-border/70 [&>section]:pt-8">
         <!-- Colors -->
         <section id="colors" class="mb-16">
           <h2 class="text-xl font-medium tracking-tight text-foreground mb-1">

@@ -60,7 +60,7 @@ onMount(() => {
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
         <div
-          class="photo-stack relative overflow-hidden rounded-none! bg-muted group cursor-zoom-in"
+          class="photo-stack group relative cursor-zoom-in overflow-hidden border border-border bg-muted"
         >
           <img
             src={getPlaceholderUrl(image, 200)}
@@ -70,7 +70,7 @@ onMount(() => {
           <img
             src={optimizeUrl(image, 800)}
             alt="Photo {i + 1} of {images.length}"
-            class="photo-stack-img block w-full h-auto transition-opacity duration-300 m-0! p-0! border-0! {loaded[
+            class="photo-stack-img block h-auto w-full border-0! m-0! p-0! transition-opacity duration-300 {loaded[
               i
             ]
               ? 'opacity-100'
@@ -90,7 +90,7 @@ onMount(() => {
     {#each images as image, i}
       <button
         type="button"
-        class="photo-item aspect-4/3 relative overflow-hidden rounded-none bg-muted group cursor-zoom-in"
+        class="photo-item group relative aspect-4/3 cursor-zoom-in overflow-hidden border border-border bg-muted"
         onclick={(event) => openLightbox(image, event.currentTarget)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
@@ -103,7 +103,7 @@ onMount(() => {
           <img
             src={optimizeUrl(image, 800)}
             alt="Photo {i + 1} of {images.length}"
-            class="photo-stack-img w-full h-full object-cover transition-all duration-300 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:opacity-90 m-0! p-0! border-0! {loaded[
+            class="photo-stack-img h-full w-full border-0! m-0! p-0! object-cover grayscale transition-[filter,opacity] duration-300 group-hover:grayscale-0 {loaded[
               i
             ]
               ? 'opacity-100'
@@ -133,7 +133,7 @@ onMount(() => {
   >
     <button
       type="button"
-       class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
+      class="fixed top-6 right-6 z-10000 cursor-pointer border border-border bg-background p-3 text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
@@ -151,7 +151,7 @@ onMount(() => {
       <img
         src={optimizeUrl(selectedImage, 1600)}
         alt="Enlarged gallery item"
-         class="max-w-full max-h-full object-contain rounded-md block border-0 m-0 p-0"
+        class="block max-h-full max-w-full border border-border object-contain m-0 p-0"
         style="user-select: none;"
       />
     </div>
@@ -184,6 +184,12 @@ onMount(() => {
     break-inside: avoid;
     margin-bottom: 1rem;
     cursor: zoom-in;
+  }
+
+  .masonry-item:focus-visible,
+  .photo-item:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 
   .photo-stack {

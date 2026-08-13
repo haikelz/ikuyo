@@ -11,9 +11,14 @@ import "../index.css";
 type Props = {
   title: string;
   description: string;
-  url: string;
+  url?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   className?: string;
+  seoType?: "website" | "article" | "profile";
+  publishedTime?: string;
+  tags?: string[];
+  noindex?: boolean;
 };
 
 const {
@@ -21,41 +26,127 @@ const {
   description,
   url,
   ogImage,
+  ogImageAlt = `${title} — ekel.dev`,
   className = "max-w-4xl!",
+  seoType = "website",
+  publishedTime,
+  tags = [],
+  noindex = false,
 } = Astro.props;
 const currentPath = Astro.url.pathname;
-const resolvedOgImage = `https://ekel.dev/og/${ogImage ?? "home.png"}`;
+const siteUrl = Astro.site ?? new URL("https://ekel.dev");
+const canonicalUrl = new URL(url || currentPath, siteUrl);
+const resolvedOgImage = new URL(`/og/${ogImage ?? "home.png"}`, siteUrl);
+const pageTitle = currentPath === "/" ? title : `${title} — Haikel Ilham Hakim`;
+const robots = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
-const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
-  .slice(0, 3)
-  .join(".");
+const personSchema = {
+  "@type": "Person",
+  "@id": `${siteUrl.href}#person`,
+  name: "Haikel Ilham Hakim",
+  alternateName: ["Haikel", "Ekel"],
+  url: siteUrl.href,
+  image: new URL("/images/avatar.png", siteUrl).href,
+  jobTitle: "Software Developer",
+  homeLocation: {
+    "@type": "Country",
+    name: "Indonesia",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/haikel/",
+    "https://github.com/haikelz",
+    "https://gitlab.com/haikelz",
+  ],
+};
+
+const pageSchema = {
+  "@type": seoType === "profile" ? "ProfilePage" : seoType === "article" ? "Article" : "WebPage",
+  "@id": `${canonicalUrl.href}#page`,
+  url: canonicalUrl.href,
+  name: pageTitle,
+  headline: title,
+  description,
+  inLanguage: "en",
+  isPartOf: {
+    "@id": `${siteUrl.href}#website`,
+  },
+  author: {
+    "@id": `${siteUrl.href}#person`,
+  },
+  ...(publishedTime ? { datePublished: publishedTime, dateModified: publishedTime } : {}),
+  ...(tags.length > 0 ? { keywords: tags.join(", ") } : {}),
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: resolvedOgImage.href,
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl.href}#website`,
+      url: siteUrl.href,
+      name: "ekel.dev",
+      description: "Haikel Ilham Hakim's portfolio, case studies, projects, and technical notes.",
+      inLanguage: "en",
+      publisher: {
+        "@id": `${siteUrl.href}#person`,
+      },
+    },
+    personSchema,
+    pageSchema,
+  ],
+};
+const serializedStructuredData = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+
+const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0, 3).join(".");
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta charset="UTF-8" />
-    <meta name="title" content={title} />
+    <meta name="title" content={pageTitle} />
     <meta name="description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
+    <meta name="author" content="Haikel Ilham Hakim" />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1c1c1c" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content={seoType === "article" ? "article" : "website"} />
+    <meta property="og:site_name" content="ekel.dev" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={resolvedOgImage} />
-    <meta property="og:image:alt" content="ekel.dev opengraph image" />
+    <meta property="og:image" content={resolvedOgImage.href} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:secure_url" content={resolvedOgImage} />
+    <meta property="og:image:secure_url" content={resolvedOgImage.href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={resolvedOgImage} />
+    {publishedTime ? <meta property="article:published_time" content={publishedTime} /> : null}
+    {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@haikelz" />
+    <meta name="twitter:url" content={canonicalUrl.href} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage.href} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <link rel="alternate" type="application/rss+xml" title="Haikel Ilham Hakim's notes" href={new URL("/rss.xml", siteUrl)} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="me" href="https://github.com/haikelz" />
+    <link rel="me" href="https://www.linkedin.com/in/haikel/" />
     <link rel="sitemap" href="/sitemap.xml" />
+    <script is:inline type="application/ld+json" set:html={serializedStructuredData}></script>
     <script
       is:inline
       defer
@@ -83,7 +174,7 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
     </script>
   </head>
   <body
-    class="w-full flex flex-col justify-start items-start"
+    class="w-full flex flex-col justify-start items-start antialiased"
     transition:animate="initial"
   >
     <div

@@ -37,6 +37,9 @@ const experiencesCollection = defineCollection({
     order: z.number().int().positive(),
     description: z.string().min(1),
     highlights: z.array(z.string().min(1)).min(1),
+    scope: z.array(z.string().min(1)).optional(),
+    stack: z.array(z.string().min(1)).optional(),
+    impact: z.array(z.string().min(1)).optional(),
     hasDetail: z.boolean().optional(),
   }),
 });

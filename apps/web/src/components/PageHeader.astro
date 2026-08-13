@@ -1,0 +1,26 @@
+---
+type Props = {
+  title: string;
+  eyebrow: string;
+  className?: string;
+};
+
+const { title, eyebrow, className = "" } = Astro.props;
+---
+
+<header class:list={["w-full mt-8 slide-enter-content", className]}>
+  <p
+    class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+  >
+    {eyebrow}
+  </p>
+  <h1
+    data-cy="heading"
+    class="mb-4 mt-0 text-3xl font-bold tracking-tighter text-foreground sm:text-4xl md:text-5xl"
+  >
+    {title}
+  </h1>
+  <div data-cy="description" class="max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">
+    <slot />
+  </div>
+</header>

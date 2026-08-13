@@ -1,6 +1,6 @@
 ---
-import Card from "@/components/Card.astro";
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import { getCollection } from "astro:content";
 
 const worksList = await getCollection("works");
@@ -18,39 +18,53 @@ const worksList = await getCollection("works");
       "md:text-start",
     ]}
   >
-    <section class="w-full mt-8 slide-enter-content">
-      <h1
-        data-cy="heading"
-        class="mb-4 mt-0 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
-      >
-        Works
-      </h1>
-        <p
-          data-cy="description"
-          class="mb-0 text-lg sm:text-xl text-muted-foreground"
-        >
-          A collection of projects I've built.
-        </p>
-    </section>
+    <PageHeader title="Works" eyebrow="Selected projects">
+      A collection of projects I've built.
+    </PageHeader>
     <section
       data-cy="works-list"
-      class="grid w-full grid-cols-1 mt-10 sm:mt-16 sm:grid-cols-2 gap-6 slide-enter-content"
+      class="w-full mt-10 sm:mt-16 slide-enter-content"
     >
       <h2 class="sr-only">All works</h2>
-      {
-        worksList
-          .sort((a, b) => a.data.id - b.data.id)
-          .map((item) => (
-            <Card
-              slug={item.id}
-              title={item.data.title}
-              description={item.data.description}
-              type="works"
-              thumbnail={item.data.thumbnail}
-              tags={item.data.stack}
-            />
-          ))
-      }
+      <div class="border-b border-border/70">
+        {
+          worksList
+            .sort((a, b) => a.data.id - b.data.id)
+            .map((item, index) => (
+              <article
+                data-cy="work-row"
+                class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+              >
+                <span class="font-mono text-xs tabular-nums text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
+                    <a
+                      href={`/works/${item.id}`}
+                      class="no-underline! transition-colors hover:text-muted-foreground"
+                    >
+                      {item.data.title}
+                    </a>
+                  </h3>
+                  <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-pretty text-muted-foreground">
+                    {item.data.description}
+                  </p>
+                  <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
+                    {item.data.stack.join(" · ")}
+                  </p>
+                </div>
+                <a
+                  href={`/works/${item.id}`}
+                  aria-label={`View ${item.data.title}`}
+                  class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
+                >
+                  <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            ))
+        }
+      </div>
     </section>
   </div>
 </Layout>
