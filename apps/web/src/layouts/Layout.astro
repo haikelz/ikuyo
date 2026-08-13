@@ -7,7 +7,6 @@ import "@fontsource/geist-mono";
 import "@fontsource/geist-sans";
 import "@fontsource/noto-naskh-arabic";
 import "../index.css";
-import { ClientRouter } from "astro:transitions";
 
 type Props = {
   title: string;
@@ -82,7 +81,6 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       mediaQuery.addEventListener("change", applyTheme);
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
-    <ClientRouter />
   </head>
   <body
     class="w-full flex flex-col justify-start items-start"

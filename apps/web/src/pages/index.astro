@@ -102,14 +102,14 @@ const [notesList, worksList, experienceList] = await Promise.all([
             <div class="group relative">
               <div class="relative z-10">
                 <div class="flex w-full flex-col items-start justify-start sm:flex-row sm:items-baseline sm:justify-between mb-2">
-                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                  <h3 class="mb-0 mt-0 text-xl sm:text-2xl font-medium tracking-tight text-foreground">
                     {experience.data.hasDetail === false ? (
                       experience.data.company
                     ) : (
                       <a
                         data-cy="experience-link"
                         href={`/experiences/${experience.id}`}
-                        class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+                        class="text-foreground font-medium after:content-['↗'] after:text-[0.75em]! after:opacity-50 hover:text-muted-foreground transition-colors"
                       >
                         {experience.data.company}
                       </a>

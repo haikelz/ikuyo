@@ -4,19 +4,100 @@ position: "Web Programmer"
 startDate: "Sep 2025"
 endDate: "Present"
 order: 1
-description: "Web programming work across TypeScript, Go, Docker, and DevOps."
+description: "Full-stack engineering across a logistics platform, SaaS products, content infrastructure, API documentation, and delivery pipelines."
 highlights:
-  - "Working with Typescript, Go, Docker ecosystem, also do some DevOps stuff."
+  - "Refactored legacy Go codebase into a cleaner modular monolith with clean architecture."
+  - "Refactored multiple Next.js applications while delivering finance, RBAC, reporting, export, storage, and content-management features."
+  - "Migrated the company profile from WordPress to a statically generated Astro and React site backed by Directus."
+  - "Built enterprise finance and correspondence-archive SaaS products with Next.js, Go, Echo, PostgreSQL, Astro, and React."
 ---
 
-I am keeping my current company to private, so I will describe the work without naming it. This is my current role.
+I am keeping my current company private, so I will describe the work without naming it. I joined as an intern for two months, continued through a three-month probation period, and was then offered a contract. Each stage came with broader responsibilities.
 
 ## Case Study
 
-I joined as an intern for two months, moved through a three-month probation period, and was then offered a contract. Each stage added more responsibility.
+This case study focuses on one of our clients: a logistics company that exclusively delivers goods and operates around Islamic values. I cannot disclose the company name, but I can share the technical problems we inherited and how I contributed to the project.
 
-The stack is Go and PostgreSQL on the backend, and Next.js with TypeScript on the frontend. Docker is used for local development and deployment. I also handle server setup and VPS management, and I use Astro JS with a headless CMS for content-driven pages.
+The project was handed over to our team with a codebase that had become difficult to maintain on both the backend and frontend. The backend used Go and PostgreSQL. The frontend was split across several applications:
+
+- A legacy admin dashboard generated with Create React App.
+- A courier web application.
+- A newer admin web application.
+- A customer-facing order web application.
+
+After the handover, the client also asked us to add two more applications: an account-registration website and an affiliate platform for its community. This meant we had to improve the inherited systems while continuing to deliver new products and features.
+
+## Stabilizing the Backend
+
+Building the instant-order system on top of the inherited backend exposed a broader problem: responsibilities were difficult to follow, and adding behavior safely took more effort than it should have.
+
+I gradually refactored parts of the Go codebase into a modular monolith with clean architecture. The goal was not to rewrite everything at once, but to establish clearer responsibilities and module boundaries while development continued.
+
+The backend also had more than 360 active routes without a complete API reference. I initialized its Swagger OpenAPI documentation and worked through the existing routes to make the system easier for the team to understand and integrate with.
+
+### Optimizing the Delivery Pipeline
+
+Delivery had its own problem. CI/CD failures meant that some changes never reached deployment. I investigated the failing pipeline and fixed the issues that blocked releases so changes could reach production reliably again.
+
+Once the pipeline was stable, I focused on its efficiency. I moved the Go container build to an Alpine-based image and introduced a multi-stage Docker build. This reduced both the build time and the final image size by keeping build-time dependencies out of the runtime image.
+
+### Automating Database Backups
+
+I also implemented an automated database-backup workflow with both local and S3 copies. Each backup has a three-day retention window; once it becomes older than three days, the scheduled cleanup treats it as expired and removes it.
+
+The workflow runs in two stages every day:
+
+1. At **00:01**, a cron job creates the database backup on local storage.
+2. At **00:30**, after a 29-minute interval, another scheduled job uploads that local backup to S3.
+
+During the scheduled process, the cron jobs also clean up expired backups so old files do not continue accumulating beyond the retention window.
+
+## Reworking the Frontend Foundation
+
+On the frontend, I worked across the newer admin dashboard, courier application, and order application. Before adding larger features, I refactored parts of these inherited applications to make the code easier to maintain, improve performance, and eliminate recurring errors. I also upgraded packages and introduced React Query, Zod, React Hook Form, and TanStack Table where they gave us clearer patterns for data fetching, validation, forms, and complex data views.
+
+## Building the Instant-Order System
+
+The instant-order system was the most challenging feature I worked on in this project because it connected location data, real-time communication, pricing, payments, notifications, and driver operations in one flow.
+
+Customers needed an estimated delivery fee before placing an order. I integrated the Google Maps API to calculate the delivery distance, then used the client's predefined pricing rules to produce the estimate.
+
+During delivery, customers needed to see the courier's movement rather than wait without context. I built live courier tracking with Google Maps and WebSockets, with Redis supporting the real-time system. I also implemented push notifications to alert drivers when a new instant order became available.
+
+The payment flow supported both cash and the client's internal wallet. This wallet is a closed balance that can only be used within the company's own application and services.
+
+Supporting an instant-delivery service also required a reliable driver supply. I built registration for new instant couriers and an approval workflow in which administrators review the documents uploaded by each applicant before activating the driver. On the admin side, I added reporting charts to show the growth of instant orders over time.
+
+## Building Other Operational Features
+
+Outside the instant-order flow, I initialized the finance module in the newer admin application, including its chart of accounts, financial summaries, and a log for every transaction.
+
+I also built a customer broadcast module and delivered customer-data exports, tools to inspect S3 storage, role-based access control for super admins, admins, and warehouse admins, and banner management for the mobile application.
+
+## Challenge
+
+One issue became visible while inspecting the client's S3 storage: image files had accumulated until they occupied around 100 GB. Leaving that growth unchecked would continue wasting storage and increasing operational overhead.
+
+I addressed it by applying image compression to reduce the size of the stored assets. This brought storage usage down to around 5 GB, a reduction of roughly 95%, while allowing the product to continue using the images it needed.
+
+This was only one of the challenges behind the project. I will continue the story by explaining the constraints, implementation details, and results behind the other areas as they can be shared.
+
+## Beyond the Logistics Project
+
+The logistics platform is only one part of my current role. I also work on our own company website and other client products, which has given me responsibilities across content architecture, application development, and deployment.
+
+### Migrating the Company Profile
+
+Our company profile previously ran on WordPress. I handled its migration to Astro with React components and replaced the coupled WordPress content workflow with Directus as a headless CMS.
+
+We intentionally configured the website for static output so its pages would be pre-rendered and SEO-friendly. That introduced an editorial challenge: a static website does not automatically reflect content changes made after a deployment. I configured the publishing flow so adding or editing content in Directus triggers a new website build, allowing editors to keep managing content through the CMS while the public site remains static.
+
+### Client Delivery and Internal SaaS Products
+
+Beyond application development, I manage CI/CD deployments for several client projects. This includes keeping their delivery processes reliable as different products continue to change.
+
+Separately from those client projects, my company develops its own SaaS products. I helped build two of them: one for enterprise financial management, and another for managing corporate correspondence and archives. Their application stack uses Next.js on the frontend, Go with Echo on the backend, and PostgreSQL for persistence. I used Astro with React for their landing pages, keeping the marketing surfaces separate from the product applications.
 
 ## End
 
-This is my current role, so the story is still ongoing.
+This is my current role, and the work is still ongoing. I will keep expanding this case study as the project develops and as more details can be shared safely.
