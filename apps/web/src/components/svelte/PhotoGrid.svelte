@@ -60,7 +60,7 @@ onMount(() => {
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
         <div
-          class="photo-stack group relative cursor-zoom-in overflow-hidden border border-border bg-muted"
+          class="photo-stack group relative cursor-zoom-in overflow-hidden"
         >
           <img
             src={getPlaceholderUrl(image, 200)}
