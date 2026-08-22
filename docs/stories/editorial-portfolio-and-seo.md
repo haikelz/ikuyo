@@ -106,6 +106,14 @@ unrelated guestbook API prevents a complete static build.
   Astro checks passed, the public-route Cypress suite passed at 375px, 768px,
   and 1280px, and settled screenshots were inspected at desktop and 375px.
   The production build passed and generated 91 static pages.
+- Design-system guideline proof: the public reference now documents the actual
+  content-first principles, semantic foundations, spacing rhythm, page-header,
+  editorial-row, structured-content, long-form, media/data, responsive, and
+  accessibility patterns used by current routes. Focused Biome and Astro checks
+  passed; responsive Cypress proof passed at 375px, 768px, and 1280px. Settled
+  desktop and mobile screenshots were inspected, including a follow-up mobile
+  pass confirming spacing guidance and code examples do not clip. The
+  production build passed and generated 91 static pages.
 - Existing `a11y.cy.ts`: 20 tests passed; three unrelated tests remain blocked
   by unavailable guestbook/Wakatime APIs and a stale theme-toggle selector.
   On the final run, all 17 public-route semantic checks passed and only the
