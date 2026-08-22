@@ -10,17 +10,19 @@ import Layout from "@/layouts/Layout.astro";
   url="https://ekel.dev/uses"
   ogImage="uses.png"
 >
-  <div
-    class:list={[
-      "flex w-full flex-col items-start justify-start  mx-auto",
-      "md:text-start",
-    ]}
-  >
+  <div class="mx-auto flex w-full flex-col items-start justify-start">
     <PageHeader title="Uses" eyebrow="Current setup">
       My current hardware and software setup.
     </PageHeader>
+
     <section class="mt-10 w-full slide-enter-content sm:mt-16">
-      <div class="mb-10 border-y border-border/70 py-4 sm:mb-12">
+      <header class="mb-4 flex items-baseline justify-between gap-4">
+        <h2 class="m-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Around the desk
+        </h2>
+        <span class="font-mono text-xs tabular-nums text-muted-foreground">04 photos</span>
+      </header>
+      <div class="border-y border-border/70 py-4">
         <PhotoGrid
           client:only
           images={[
@@ -31,88 +33,65 @@ import Layout from "@/layouts/Layout.astro";
           ]}
         />
       </div>
-      <ul
-        class="list-none border-b border-border/70 pl-0 text-base text-foreground sm:text-lg [&>li]:border-t [&>li]:border-border/70 [&>li]:py-6 [&>li]:pl-0! [&>li>span]:hidden" role="list"
-      >
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">IDE/Text Editor:</strong
-            > Trae/Cursor/Neovim.
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Laptop:</strong> Lenovo Thinkbook
-            14 G2 ARE (Ryzen 4500U) with <strong
-              class="text-foreground font-medium">24GB of RAM</strong
-            > (8GB soldered + 16GB Kingston Fury Impact) and
-            <strong class="text-foreground font-medium">1TB of Storage</strong> (512GB
-            Samsung NVME + 512GB Team Elite EX2 Elite SATA 2.5).
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Mouse:</strong> Logitech Pebble
-            M350 (2022).
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Mech Keyboard:</strong>
-            <strike>Royal Kludge RKG68 (2022)</strike> Noir Timeless82 V1 (Used Barebone)
-            + Akko V3 Cream Blue Pro.
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Dualboot OS:</strong>
-            (Fedora Linux + Windows 10 Home Edition).
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Phone:</strong>
-            <strike>Sony Xperia X Compact</strike> Iphone SE 3 2022.
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Camera:</strong> Sony A5000
-            + TTArtisan 56mm f/1.8.
-          </p>
-        </li>
-        <li class="relative pl-6">
-          <span
-            class="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          ></span>
-          <p class="my-0 leading-7 sm:leading-relaxed">
-            <strong class="text-foreground font-medium">Audio:</strong> Moondrop Chu2
-            + Modular Pula Unicrom Cable + <strike>DAC Fiio JA11 (SOLD)</strike> Moondrop
-            Dawn Pro + C to Lightning Akliam C5 / DAP Fiio Snowsky Echo Mini.
-          </p>
-        </li>
-      </ul>
+    </section>
+
+    <section class="mt-16 w-full slide-enter-content sm:mt-24">
+      <header class="mb-6">
+        <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Tools of the trade
+        </p>
+        <h2 class="m-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          Daily setup
+        </h2>
+      </header>
+
+      <dl class="m-0 border-b border-border/70">
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Editor</dt>
+          <dd class="m-0 leading-7 text-foreground">Trae, Cursor, and Neovim.</dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Laptop</dt>
+          <dd class="m-0 leading-7 text-foreground">
+            Lenovo ThinkBook 14 G2 ARE (Ryzen 4500U), <strong class="font-medium">24GB RAM</strong>
+            (8GB soldered + 16GB Kingston Fury Impact), and <strong class="font-medium">1TB storage</strong>
+            (512GB Samsung NVMe + 512GB Team Elite EX2 SATA 2.5).
+          </dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Mouse</dt>
+          <dd class="m-0 leading-7 text-foreground">Logitech Pebble M350 (2022).</dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Keyboard</dt>
+          <dd class="m-0 leading-7 text-foreground">
+            <s class="text-muted-foreground">Royal Kludge RKG68 (2022)</s> Noir Timeless82 V1
+            (used barebone) + Akko V3 Cream Blue Pro.
+          </dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Operating system</dt>
+          <dd class="m-0 leading-7 text-foreground">Fedora Linux + Windows 10 Home dual boot.</dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Phone</dt>
+          <dd class="m-0 leading-7 text-foreground">
+            <s class="text-muted-foreground">Sony Xperia X Compact</s> iPhone SE 3 (2022).
+          </dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Camera</dt>
+          <dd class="m-0 leading-7 text-foreground">Sony A5000 + TTArtisan 56mm f/1.8.</dd>
+        </div>
+        <div class="grid gap-2 border-t border-border/70 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+          <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Audio</dt>
+          <dd class="m-0 leading-7 text-foreground">
+            Moondrop Chu 2 + modular Pula Unicrom cable +
+            <s class="text-muted-foreground">FiiO JA11 DAC (sold)</s> Moondrop Dawn Pro +
+            Akliam C5 USB-C-to-Lightning cable / FiiO Snowsky Echo Mini DAP.
+          </dd>
+        </div>
+      </dl>
     </section>
   </div>
 </Layout>

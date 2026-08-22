@@ -99,6 +99,13 @@ unrelated guestbook API prevents a complete static build.
   case-study tests passed after adding ruled highlight rows and widening the
   desktop table of contents.
 - Final `bun run --cwd apps/web build`: passed, generating 91 static pages.
+- Uses and Now refinement proof: both routes now use explicit editorial
+  sections instead of dense utility-class prose. Uses presents its gallery and
+  setup as a semantic description list; Now presents five numbered focus rows,
+  contained quotations, and a scannable modification list. Focused Biome and
+  Astro checks passed, the public-route Cypress suite passed at 375px, 768px,
+  and 1280px, and settled screenshots were inspected at desktop and 375px.
+  The production build passed and generated 91 static pages.
 - Existing `a11y.cy.ts`: 20 tests passed; three unrelated tests remain blocked
   by unavailable guestbook/Wakatime APIs and a stale theme-toggle selector.
   On the final run, all 17 public-route semantic checks passed and only the
