@@ -66,6 +66,8 @@ ikuyo/
 Requirements:
 
 - [Bun](https://bun.sh/)
+- [Node.js 22.16.0](https://nodejs.org/) (pinned by `.node-version` for Astro
+  and Cloudflare Pages)
 
 Install dependencies and start the Astro development server:
 

@@ -10,6 +10,13 @@
 - MDX collections in `apps/web/src/content` own writing, work, and experience records.
 - Svelte components are client islands only when interaction requires them.
 
+## Deployment contract
+
+- Cloudflare Pages builds the static site through the existing Bun and Moon
+  workflow.
+- The repository-root `.node-version` is the source of truth for the Node.js
+  runtime required by Astro during deployment.
+
 ## Homepage activity contract
 
 - The homepage presents Haikel's public GitHub contribution calendar in place
