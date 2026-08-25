@@ -42,6 +42,8 @@ const levelClasses = [
   "border-foreground/20 bg-foreground/65",
   "border-foreground bg-foreground",
 ] as const;
+const skeletonWeeks = Array.from({ length: 53 });
+const skeletonDays = Array.from({ length: 7 });
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -224,7 +226,12 @@ onMount(() => {
     >
       Product / Devops
     </p>
-    {#if data}
+    {#if isLoading}
+      <span
+        class="h-9 w-24 border border-border/70 bg-muted motion-safe:animate-pulse"
+        aria-hidden="true"
+      ></span>
+    {:else if data}
       <Select type="single" bind:value={selectedYear}>
         <SelectTrigger
           data-cy="activity-year-select"
@@ -252,9 +259,32 @@ onMount(() => {
   {#if isLoading}
     <div
       role="status"
-      class="flex min-h-32 items-center border border-border/70 px-4 py-6 font-mono text-xs text-muted-foreground"
+      data-cy="contribution-loading"
+      aria-label="Loading activity calendar"
+      class="w-full overflow-hidden border border-border/70 p-4 motion-safe:animate-pulse"
     >
-      Loading activity…
+      <span class="sr-only">Loading activity calendar.</span>
+      <div class="mb-3 ml-9 h-2.5 w-24 bg-muted" aria-hidden="true"></div>
+      <div class="flex min-w-[45rem] gap-2" aria-hidden="true">
+        <div class="grid w-7 shrink-0 grid-rows-7 gap-[3px]">
+          {#each skeletonDays as _}
+            <span class="h-2.5 w-5 bg-muted"></span>
+          {/each}
+        </div>
+        <div class="flex flex-1 gap-[3px]">
+          {#each skeletonWeeks as _, weekIndex}
+            <div class="grid w-2.5 flex-1 grid-rows-7 gap-[3px]">
+              {#each skeletonDays as _, dayIndex}
+                <span
+                  class={weekIndex % 6 === 0 && dayIndex % 3 === 0
+                    ? "aspect-square w-full bg-muted-foreground/20"
+                    : "aspect-square w-full bg-muted"}
+                ></span>
+              {/each}
+            </div>
+          {/each}
+        </div>
+      </div>
     </div>
   {:else if errorMessage || !data}
     <div
