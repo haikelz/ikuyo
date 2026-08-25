@@ -1,4 +1,5 @@
 ---
+import GitHubContributionGraph from "@/components/svelte/GitHubContributionGraph.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
@@ -26,19 +27,10 @@ const latestNotes = notesList
 >
   <div class="relative mx-auto flex w-full flex-col items-start justify-start">
     <section class="w-full slide-enter-content mt-8 sm:mt-12">
+      <h1 data-cy="name" class="sr-only">Haikel Ilham Hakim</h1>
+      <GitHubContributionGraph username="haikelz" client:load />
       <p
-        class="mb-4 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
-      >
-        Product/Devops
-      </p>
-      <h1
-        data-cy="name"
-        class="max-w-full text-4xl sm:text-5xl md:text-6xl tracking-[-0.045em] leading-[1.02] font-black mb-6 mt-0 text-foreground text-balance"
-      >
-        I Build Systems That Move Products and Businesses Forward.
-      </h1>
-      <p
-        class="max-w-full text-lg sm:text-xl text-muted-foreground leading-8 mb-0 mt-0 text-pretty"
+        class="max-w-full text-lg sm:text-xl text-muted-foreground leading-8 mb-0 mt-8 text-pretty"
       >
         I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
         working across business software, delivery infrastructure, and content-driven

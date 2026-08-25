@@ -10,6 +10,17 @@
 - MDX collections in `apps/web/src/content` own writing, work, and experience records.
 - Svelte components are client islands only when interaction requires them.
 
+## Homepage activity contract
+
+- The homepage presents Haikel's public GitHub contribution calendar in place
+  of the former hero statement.
+- Contribution data loads after hydration so provider downtime cannot block a
+  static build.
+- Unknown provider data is parsed before display, and unavailable data receives
+  an honest fallback state.
+- The calendar scrolls within its own region at narrow widths without causing
+  page-level horizontal overflow.
+
 ## Experience contract
 
 - Every homepage experience summary comes from the `experiences` collection.
