@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@ikuyo/ui";
+import { Badge, Select, SelectContent, SelectItem, SelectTrigger } from "@ikuyo/ui";
 import { onMount } from "svelte";
 
 type ContributionDay = {
@@ -221,11 +221,14 @@ onMount(() => {
 
 <div data-cy="github-contributions" class="w-full">
   <div class="mb-4 flex min-h-10 items-center justify-between gap-4">
-    <p
-      class="m-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+    <Badge
+      data-cy="open-to-work-badge"
+      variant="outline"
+      class="h-7 rounded-none border-border bg-transparent px-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground"
     >
-      Product / Devops
-    </p>
+      <span class="size-1.5 bg-emerald-500" aria-hidden="true"></span>
+      #opentowork
+    </Badge>
     {#if isLoading}
       <span
         class="h-9 w-24 border border-border/70 bg-muted motion-safe:animate-pulse"

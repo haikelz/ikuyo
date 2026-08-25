@@ -91,14 +91,15 @@ describe("Homepage GitHub contributions", () => {
     cy.get('[data-cy="contribution-tooltip"]').should("contain.text", "2025");
   });
 
-  it("aligns the year select with the Product/Devops label", () => {
+  it("aligns the year select with the open-to-work badge", () => {
     interceptContributions();
 
     cy.visit("/");
     cy.wait("@contributions");
 
-    cy.contains("Product/Devops")
+    cy.get('[data-cy="open-to-work-badge"]')
       .should("be.visible")
+      .and("contain.text", "#opentowork")
       .parent()
       .should("have.class", "flex")
       .and("have.class", "items-center")

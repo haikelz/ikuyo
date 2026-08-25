@@ -25,6 +25,7 @@
   static build.
 - The loading state mirrors the calendar and year control with a reduced-motion
   safe skeleton instead of shifting from a text placeholder.
+- A visible `#opentowork` availability badge sits beside the year control.
 - Unknown provider data is parsed before display, and unavailable data receives
   an honest fallback state.
 - The calendar scrolls within its own region at narrow widths without causing
