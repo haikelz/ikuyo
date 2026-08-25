@@ -114,6 +114,12 @@ unrelated guestbook API prevents a complete static build.
   desktop and mobile screenshots were inspected, including a follow-up mobile
   pass confirming spacing guidance and code examples do not clip. The
   production build passed and generated 91 static pages.
+- IHSG availability-state proof: the live endpoint returned HTTP 200 while all
+  five market records contained empty datasets and provider error messages.
+  The client now falls back to the first usable market when one exists and
+  presents one non-destructive availability notice when none do. Two focused
+  Cypress scenarios passed, as did Biome, Astro check, the 375px / 768px /
+  1280px responsive route suite, and the production build of 91 static pages.
 - Existing `a11y.cy.ts`: 20 tests passed; three unrelated tests remain blocked
   by unavailable guestbook/Wakatime APIs and a stale theme-toggle selector.
   On the final run, all 17 public-route semantic checks passed and only the

@@ -113,6 +113,14 @@ async function fetchMarkets() {
       .get(`${backendApiUrl}/api/v1/ihsg/markets`, { timeout: 15000 })
       .json<{ data: MarketDataset[] }>();
     markets = response.data;
+
+    const selectedMarket = markets.find((market) => market.code === selectedMarketCode);
+    if (!selectedMarket?.data.length) {
+      const availableMarket = markets.find((market) => market.data.length > 0);
+      if (availableMarket) {
+        selectedMarketCode = availableMarket.code;
+      }
+    }
   } catch {
     markets = [];
     marketsFetchError = "Gagal memuat data market. Coba refresh halaman.";
@@ -515,10 +523,10 @@ const gridColor03 = "var(--border)";
     <AlertDescription>{marketsFetchError}</AlertDescription>
   </Alert>
 {:else}
-  {#if currentMarket.errorMessage}
+  {#if currentMarket.errorMessage && normalized.length > 0}
     <Alert variant="destructive" class="mb-4 rounded-none">
       <AlertTriangle class="size-4" />
-      <AlertTitle>Gagal Memuat Data Market</AlertTitle>
+      <AlertTitle>Data Market Tidak Lengkap</AlertTitle>
       <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
     </Alert>
   {/if}
@@ -526,10 +534,10 @@ const gridColor03 = "var(--border)";
   {#if normalized.length === 0}
     <Alert class="rounded-none">
       <Activity class="size-4" />
-      <AlertTitle>Belum Ada Data</AlertTitle>
-      <AlertDescription
-        >Data market belum tersedia untuk ditampilkan saat ini.</AlertDescription
-      >
+      <AlertTitle>Data Market Belum Tersedia</AlertTitle>
+      <AlertDescription>
+        {currentMarket.errorMessage ?? "Penyedia data belum mengirimkan data market saat ini."}
+      </AlertDescription>
     </Alert>
   {:else}
     <Card class="border border-border/70 bg-transparent rounded-none">

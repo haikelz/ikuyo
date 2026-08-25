@@ -222,7 +222,7 @@ onMount(() => {
     <p
       class="m-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
     >
-      Product/Devops
+      Haikel Ilham Hakim
     </p>
     {#if data}
       <Select type="single" bind:value={selectedYear}>
@@ -336,10 +336,7 @@ onMount(() => {
       </div>
     </div>
 
-    <div class="mt-3 flex items-center justify-between gap-4">
-      <p class="m-0 font-mono text-[10px] text-muted-foreground">
-        Scroll to explore the full year
-      </p>
+    <div class="mt-3 flex items-center justify-end gap-4">
       <div class="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground" aria-label="Activity intensity from less to more">
         <span>Less</span>
         {#each levelClasses as levelClass}
