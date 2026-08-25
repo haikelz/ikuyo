@@ -1,50 +1,51 @@
 <script lang="ts">
-  import { Heart } from "lucide-svelte";
-  import { api } from "@/configs/ky";
-  import { onMount } from "svelte";
+import { Heart } from "lucide-svelte";
+import { api } from "@/configs/ky";
+import { onMount } from "svelte";
 
-  export let slug: string;
-  export let apiUrl: string;
+export let slug: string;
+export let apiUrl: string;
 
-  let love = 0;
-  let loading = false;
-  let reacted = localStorage.getItem(`reaction:${slug}`) === "1";
+let love = 0;
+let loading = false;
+let reacted = localStorage.getItem(`reaction:${slug}`) === "1";
 
-  async function fetchReactions() {
-    try {
+async function fetchReactions() {
+  try {
+    const { data } = await api
+      .get(`${apiUrl}/api/v1/reactions`)
+      .json<{ data: { slug: string; love: number }[] }>();
+    const found = data.find((r) => r.slug === slug);
+    if (found) love = found.love;
+  } catch {}
+}
+
+async function toggleReaction() {
+  if (loading) return;
+  loading = true;
+  try {
+    if (reacted) {
       const { data } = await api
-        .get(`${apiUrl}/api/v1/reactions`)
-        .json<{ data: { slug: string; love: number }[] }>();
-      const found = data.find((r) => r.slug === slug);
-      if (found) love = found.love;
-    } catch {}
-  }
-
-  async function toggleReaction() {
-    if (loading) return;
-    loading = true;
-    try {
-      if (reacted) {
-        const { data } = await api
-          .post(`${apiUrl}/api/v1/reactions/${slug}/remove`)
-          .json<{ data: { slug: string; love: number } }>();
-        love = data.love;
-        reacted = false;
-        localStorage.removeItem(`reaction:${slug}`);
-      } else {
-        const { data } = await api
-          .post(`${apiUrl}/api/v1/reactions/${slug}/add`)
-          .json<{ data: { slug: string; love: number } }>();
-        love = data.love;
-        reacted = true;
-        localStorage.setItem(`reaction:${slug}`, "1");
-      }
-    } catch {} finally {
-      loading = false;
+        .post(`${apiUrl}/api/v1/reactions/${slug}/remove`)
+        .json<{ data: { slug: string; love: number } }>();
+      love = data.love;
+      reacted = false;
+      localStorage.removeItem(`reaction:${slug}`);
+    } else {
+      const { data } = await api
+        .post(`${apiUrl}/api/v1/reactions/${slug}/add`)
+        .json<{ data: { slug: string; love: number } }>();
+      love = data.love;
+      reacted = true;
+      localStorage.setItem(`reaction:${slug}`, "1");
     }
+  } catch {
+  } finally {
+    loading = false;
   }
+}
 
-  onMount(fetchReactions);
+onMount(fetchReactions);
 </script>
 
 <div class="flex flex-col items-center gap-2 py-4">

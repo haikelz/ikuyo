@@ -1,45 +1,45 @@
 <script lang="ts">
-  import type { WakatimeStatsProps } from "@/types";
-  import { Card, CardContent, CardHeader } from "@ikuyo/ui";
-  import { Clock, Zap } from "lucide-svelte";
+import type { WakatimeStatsProps } from "@/types";
+import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+import { Clock, Zap } from "lucide-svelte";
 
-  let { data }: { data: WakatimeStatsProps } = $props();
+let { data }: { data: WakatimeStatsProps } = $props();
 
-  const colors = [
-    "#3b82f6",
-    "#ef4444",
-    "#10b981",
-    "#f59e0b",
-    "#8b5cf6",
-    "#ec4899",
-    "#14b8a6",
-    "#f97316",
-    "#84cc16",
-    "#6366f1",
-  ];
+const colors = [
+  "#3b82f6",
+  "#ef4444",
+  "#10b981",
+  "#f59e0b",
+  "#8b5cf6",
+  "#ec4899",
+  "#14b8a6",
+  "#f97316",
+  "#84cc16",
+  "#6366f1",
+];
 
-  function formatDuration(seconds: number) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    return `${minutes}m`;
+function formatDuration(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
   }
+  return `${minutes}m`;
+}
 
-  const todayStats = $derived.by(() => {
-    const preferred = data.languages.filter(
-      (stat) =>
-        stat.name === "TypeScript" ||
-        stat.name === "JavaScript" ||
-        stat.name === "Go" ||
-        stat.name === "Svelte" ||
-        stat.name === "Astro" ||
-        stat.name === "Docker",
-    );
+const todayStats = $derived.by(() => {
+  const preferred = data.languages.filter(
+    (stat) =>
+      stat.name === "TypeScript" ||
+      stat.name === "JavaScript" ||
+      stat.name === "Go" ||
+      stat.name === "Svelte" ||
+      stat.name === "Astro" ||
+      stat.name === "Docker",
+  );
 
-    return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
-  });
+  return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
+});
 </script>
 
 <div class="mb-8">

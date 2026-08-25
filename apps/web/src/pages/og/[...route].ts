@@ -43,7 +43,6 @@ const fontRegular =
 const fontBold = "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
-  param: "route",
   pages,
   getImageOptions: (_path, page: (typeof pages)[string]) => ({
     title: page.title.toUpperCase(),
