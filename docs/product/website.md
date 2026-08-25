@@ -16,6 +16,8 @@
   of the former hero statement.
 - Contribution data loads after hydration so provider downtime cannot block a
   static build.
+- The loading state mirrors the calendar and year control with a reduced-motion
+  safe skeleton instead of shifting from a text placeholder.
 - Unknown provider data is parsed before display, and unavailable data receives
   an honest fallback state.
 - The calendar scrolls within its own region at narrow widths without causing

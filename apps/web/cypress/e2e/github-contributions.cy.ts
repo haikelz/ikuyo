@@ -22,6 +22,30 @@ function interceptContributions(response: unknown = contributionResponse) {
 }
 
 describe("Homepage GitHub contributions", () => {
+  it("shows a calendar skeleton while contribution data loads", () => {
+    cy.intercept("GET", "https://github-contributions-api.jogruber.de/v4/haikelz?y=all", {
+      statusCode: 200,
+      body: contributionResponse,
+      delay: 5000,
+    }).as("contributions");
+
+    cy.visit("/");
+
+    for (const width of [375, 768, 1280]) {
+      cy.viewport(width, 900);
+      cy.get('[data-cy="contribution-loading"]')
+        .should("be.visible")
+        .and("have.attr", "aria-label", "Loading activity calendar");
+      cy.document().then((document) => {
+        expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
+      });
+      cy.screenshot(`github-activity/home-loading-${width}`, { capture: "viewport" });
+    }
+    cy.contains("Loading activity…").should("not.exist");
+    cy.wait("@contributions");
+    cy.get('[data-cy="contribution-loading"]').should("not.exist");
+  });
+
   it("replaces the hero statement with the parsed contribution calendar", () => {
     interceptContributions();
     cy.viewport(1280, 900);

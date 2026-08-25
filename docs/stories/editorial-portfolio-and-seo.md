@@ -24,6 +24,8 @@ crawlable SEO metadata from the shared layout.
 
 - The homepage gives experience, work, and notes distinct editorial treatments
   while preserving collection-backed content and links.
+- The homepage activity calendar uses a shape-matched skeleton while its
+  provider request is pending, without relying on motion to communicate state.
 - Work cards remain text-first without thumbnail previews, and experience
   summaries provide a clear path to their detail pages while retaining every
   authored highlight.
@@ -120,6 +122,14 @@ unrelated guestbook API prevents a complete static build.
   presents one non-destructive availability notice when none do. Two focused
   Cypress scenarios passed, as did Biome, Astro check, the 375px / 768px /
   1280px responsive route suite, and the production build of 91 static pages.
+- Activity skeleton proof: the pending contribution request now renders a
+  shape-matched calendar and year-control skeleton with motion disabled under
+  reduced-motion preferences. The focused loading scenario passed and its
+  375px, 768px, and 1280px screenshots were inspected without page overflow;
+  focused Biome, Astro check, and the 91-page production build also passed. The
+  contribution spec's unrelated stale `Product/Devops` assertion remains red
+  because that label no longer exists in the current homepage. Repository-wide
+  Biome remains red on the same 11 pre-existing findings outside changed files.
 - Existing `a11y.cy.ts`: 20 tests passed; three unrelated tests remain blocked
   by unavailable guestbook/Wakatime APIs and a stale theme-toggle selector.
   On the final run, all 17 public-route semantic checks passed and only the

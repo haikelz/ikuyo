@@ -222,7 +222,7 @@ onMount(() => {
     <p
       class="m-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
     >
-      Haikel Ilham Hakim
+      Product / Devops
     </p>
     {#if data}
       <Select type="single" bind:value={selectedYear}>
