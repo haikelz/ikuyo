@@ -1,0 +1,71 @@
+# AI-GUIDELINES-IGNORE:BEGIN
+# Managed by ai-guideline/install.sh. Put project-specific patterns outside this block.
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+credentials.json
+*-credentials.json
+secrets.json
+*-secrets.json
+service-account*.json
+
+# Dependencies, generated output, and tool caches
+node_modules/
+vendor/
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.astro/
+coverage/
+.cache/
+.turbo/
+.nx/cache/
+.moon/cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+target/
+
+# Local infrastructure and data state
+.terraform/
+*.tfstate
+*.tfstate.*
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+
+# Logs, temporary files, and generated binaries
+logs/
+tmp/
+temp/
+*.log
+*.bak
+*.tmp
+*.swp
+*.swo
+*.class
+*.exe
+*.dll
+*.dylib
+*.so
+.DS_Store
+# AI-GUIDELINES-IGNORE:END

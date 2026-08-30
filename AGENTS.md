@@ -92,3 +92,25 @@ bun run test:web
 For UI changes, also inspect the built route at mobile, tablet, and desktop
 widths. Record exact commands and outcomes in the active story and Harness trace
 before calling change work complete. Never claim a check passed unless it ran.
+
+<!-- AI-GUIDELINES:BEGIN -->
+## AI Engineering Guidelines
+
+Read `.agents/general.md` for every task. Then select the smallest matching context profile below. Do not read every installed companion by default. Repository-local contracts and instructions remain authoritative.
+
+- **Repository setup, documentation, planning, or process:** no companion guideline.
+- **JavaScript or TypeScript language/library work:** `.agents/guidelines/javascript-typescript.md` and `.agents/guidelines/haikel-javascript-typescript.md`.
+- **Astro UI or application work:** `.agents/guidelines/javascript-typescript.md`, `.agents/guidelines/haikel-javascript-typescript.md`, and `.agents/guidelines/astro.md`.
+- **Container, Compose, delivery, or runtime work:** `.agents/guidelines/docker.md`; add an application profile only when its build or runtime behavior also changes.
+- **Cross-cutting work:** use the union of only the affected profiles and state why each additional document is needed.
+
+### Workspace scopes
+
+Match the changed path first, then use only that workspace's applicable profile.
+
+- `.moon/cache/schemas/**`: javascript-typescript.
+- `packages/ui/**`: javascript-typescript.
+- `packages/typescript/**`: javascript-typescript.
+- `packages/biome/**`: javascript-typescript.
+- `apps/web/**`: javascript-typescript, astro, docker.
+<!-- AI-GUIDELINES:END -->

@@ -1,0 +1,12 @@
+# ai-guideline installer manifest v2
+# workspace .: javascript-typescript docker
+# workspace .moon/cache/schemas: javascript-typescript
+# workspace packages/ui: javascript-typescript
+# workspace packages/typescript: javascript-typescript
+# workspace packages/biome: javascript-typescript
+# workspace apps/web: javascript-typescript astro docker
+general.md 9be844d4348fe135cdeced27965fd3be05aa6798981464bdda5975312390809f
+guidelines/javascript-typescript.md 3c302844e73ab07f16eb03fceaed4a8056ff688f4f6d1c200385f2d3b1bdfa8a
+guidelines/haikel-javascript-typescript.md 0df51e90004e09395bb9aa3aed7f4765e811286ff44ee2f6673e4a70ffb48863
+guidelines/astro.md 301fe16eb25f4e3952038dc22b3962a7e2ceda5f670de12aaaa138e900cea472
+guidelines/docker.md 4580f13093d975124e242141b031aa9aa59c2ca18f1c533ec5868e0c1244cd16
