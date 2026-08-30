@@ -8,6 +8,19 @@ dev-dist
 tmp
 out-tsc
 
+# Terraform local state and plans
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
 # dependencies
 node_modules
 

@@ -96,6 +96,18 @@ bun run lhci:desktop               # Lighthouse CI desktop preset
 `build:web` writes formatting changes before building. Use
 `bun run --cwd apps/web build` when you need a non-formatting build check.
 
+## Cloudflare deployment
+
+Cloudflare Pages infrastructure is declared under `infra/cloudflare`. Terraform
+adopts the existing project, custom domain, and optional DNS record; GitHub
+Actions builds the site and Wrangler uploads `apps/web/dist`. The rollout starts
+with manual imports, a reviewed Terraform plan, and a manual deployment to avoid
+interrupting the existing Git-based deployment.
+
+Follow the step-by-step operator guide in `infra/cloudflare/README.md`. Never
+commit Terraform state or Cloudflare API tokens, and do not run `terraform
+apply` until imported resources produce a no-replacement plan.
+
 ## Environment
 
 Copy the example file before using integrations that require credentials:

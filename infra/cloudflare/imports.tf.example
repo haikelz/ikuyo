@@ -1,0 +1,19 @@
+# Rename this file to imports.tf only while adopting existing resources.
+# Remove it after the imports have completed successfully.
+
+import {
+  to = cloudflare_pages_project.site
+  id = "${var.cloudflare_account_id}/${var.pages_project_name}"
+}
+
+import {
+  to = cloudflare_pages_domain.site
+  id = "${var.cloudflare_account_id}/${var.pages_project_name}/${var.domain_name}"
+}
+
+# The DNS import ID requires the existing record ID from Cloudflare.
+# Enable manage_dns_record and replace the placeholder before uncommenting.
+# import {
+#   to = cloudflare_dns_record.pages[0]
+#   id = "${var.cloudflare_zone_id}/EXISTING_DNS_RECORD_ID"
+# }

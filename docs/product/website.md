@@ -12,10 +12,14 @@
 
 ## Deployment contract
 
-- Cloudflare Pages builds the static site through the existing Bun and Moon
-  workflow.
+- Cloudflare Pages hosts the static Astro output built with Bun. The existing
+  Git/Moon build remains the fallback during the staged Wrangler rollout.
 - The repository-root `.node-version` is the source of truth for the Node.js
   runtime required by Astro during deployment.
+- Terraform owns durable Pages project, custom-domain, and optional DNS
+  configuration after existing resources are imported and reviewed.
+- GitHub Actions and Wrangler own static asset deployments; the workflow remains
+  manual until its first production deployment is verified.
 
 ## Homepage activity contract
 

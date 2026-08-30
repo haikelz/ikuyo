@@ -1,0 +1,8 @@
+cloudflare_account_id = "00000000000000000000000000000000"
+cloudflare_zone_id    = "00000000000000000000000000000000"
+pages_project_name   = "replace-with-existing-pages-project-name"
+production_branch    = "master"
+domain_name          = "ekel.dev"
+
+# Change to true only after importing the existing DNS record into state.
+manage_dns_record = false
