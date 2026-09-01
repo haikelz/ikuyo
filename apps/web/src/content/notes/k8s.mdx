@@ -4,7 +4,7 @@ title: K8S
 tags:
   - k8s
   - devops
-created_at: 2026-07-10
+created_at: 2026-09-01
 description: My small VPS w/k8s setup
 ---
 
@@ -29,8 +29,9 @@ For the kernel, I replace the Psycachy kernel with [Xanmod 7.0.14](https://xanmo
 />
 
 - [Goatcounter](https://www.goatcounter.com/) (Self hosted analytics).
-- 1 Static Astro Website.
 - [Mazanoke](https://github.com/civilblur/mazanoke) (Self-hosted image compression service)
+- 1 Static Astro Website.
+- 1 Backend Golang Service.
 
 For analytics stuff, initally I'm using Umami. But then I'm looking something different, and finally found Goatcounter.
 
@@ -40,6 +41,31 @@ For analytics stuff, initally I'm using Umami. But then I'm looking something di
   alt="goatcounter"
 />
 
-This note will updated regularly if there are any update with my deployed apps. Things to do next:
+[Update 2026-09-01] Besides that, actually I got another VPS, but this time with higher specs:
 
-- Deploy a Whatsmeow bot.
+- OS: Ubuntu 26 (Resolute Raccoon)
+- RAM: 4 GB
+- CPU: 2 Core
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/k8s/Screenshot%202026-09-01%20at%2007.53.02.png"
+  alt="another VPS"
+/>
+
+Nah, for this VPS, I deployed ArgoCD to manage GitOps-based deployment. Apps deployed to ArgoCD:
+
+- 1 AI Assistant
+- 1 Whatsapp Bot
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/k8s/Screenshot%202026-09-01%20at%2007.22.23.png"
+  alt="ArgoCD Preview"
+/>
+
+<Photo
+  client:only="svelte"
+  src="https://ik.imagekit.io/haikelz/blog/k8s/Group%2070.png"
+  alt="ArgoCD AI Assistant"
+/>
