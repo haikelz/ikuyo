@@ -1,3 +1,5 @@
+
+
 # Ikuyo
 
 [ekel.dev](https://ekel.dev) is Haikel Ilham Hakim's statically generated
@@ -9,7 +11,7 @@ most pages pre-rendered at build time.
 
 | Concern             | Implementation                                |
 | ------------------- | --------------------------------------------- |
-| Web framework       | Astro 6, static output                        |
+| Web framework       | Astro 7, static output                        |
 | Interactive islands | Svelte 5                                      |
 | Styling             | Tailwind CSS 4 and custom CSS                 |
 | Shared UI           | shadcn-svelte primitives in `packages/ui`     |
