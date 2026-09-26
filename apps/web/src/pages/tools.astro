@@ -1,0 +1,90 @@
+---
+import PageHeader from "@/components/PageHeader.astro";
+import Layout from "@/layouts/Layout.astro"; 
+
+const tools = [
+  {
+    id: 1,
+    name: "Transit",
+    url: "https://transit.ekel.dev",
+    description: "Jakarta public transport preview. Browse schedules, plan routes, and monitor live status for KRL, TransJakarta, MRT, and LRT.",
+  },
+  {
+    id: 2,
+    name: "Puasa Sunnah API" ,
+    url: "https://puasasunnah.ekel.dev",
+    description: "API for classifying and scheduling voluntary fasting days in the Islamic calendar.",
+  },
+  {
+    id: 3,
+    name: "Asmaul Husna API",
+    url: "https://asmaul-husna-api.vercel.app",
+    description: "RESTful API to get the list of Asma'ul Husna.",
+  },
+  {
+    id: 4,
+    name: "AI Guideline",
+    url: "https://github.com/haikelz/ai-guideline",
+    description: "My engineering rules for coding agents. Covers JS, TS, Go, frontend, backend, databases, infra, and deployment.",
+  },
+  {
+    id: 5,
+    name: "Jdwshlt",
+    url: "https://jdwshlt.ekel.dev",
+    description: "Islamic companion app for prayer times, Al-Qur'an, hadith, Asmaul Husna, and sunnah fasting schedules.",
+  },
+  {
+    id: 6,
+    name: "Fam",
+    url: "https://fam.ekel.dev",
+    description: "Add a LinkedIn Open to Work or Hiring frame to your profile photo — entirely in the browser. No uploads, just an 800×800 PNG.",
+  },
+  {
+    id: 7,
+    name: "Rata",
+    url: "https://rata.ekel.dev",
+    description: "Stock transaction calculator for Indonesian equities. Estimates average price, position size, and profit/loss before you submit a trade.",
+  },
+];
+---
+
+<Layout
+  title="Tools"
+  description="Services and SaaS projects I've built."
+  url="https://ekel.dev/tools"
+  ogImage="tools.png"
+>
+  <div class="mx-auto flex w-full flex-col items-start justify-start">
+    <PageHeader title="Tools" eyebrow="Services & SaaS">
+      A collection of tools/apps I've built.
+    </PageHeader>
+
+    <section class="mt-10 w-full slide-enter-content sm:mt-16">
+      <div class="border-b border-border/70">
+        {
+          tools.map((tool) => (
+            <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-1 sm:items-baseline sm:gap-6">
+              <span class="font-mono text-xs tabular-nums text-muted-foreground">
+                {String(tool.id).padStart(2, "0")}
+              </span>
+              <h2 class="m-0 text-lg w-full font-semibold tracking-tight text-foreground">
+                <a
+                  href={tool.url}
+                  target={tool.url.startsWith("http") ? "_blank" : undefined}
+                  rel={tool.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  aria-label={`${tool.name} (opens in new tab)`}
+                  class="no-underline! hover:text-muted-foreground transition-colors"
+                >
+                  {tool.name}
+                </a>
+              </h2>
+              <p class="m-0 text-sm leading-6 text-muted-foreground text-pretty">
+                {tool.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>

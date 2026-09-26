@@ -75,3 +75,6 @@ scripts/bin/harness-cli
 scripts/bin/harness-cli.exe
 .harness/
 .playwright-cli/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/

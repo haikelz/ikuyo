@@ -11,9 +11,15 @@ const [notesList, worksList, experienceList] = await Promise.all([
 ]);
 
 const experiences = experienceList.sort((a, b) => a.data.order - b.data.order);
-const featuredWorks = worksList.sort((a, b) => a.data.id - b.data.id).slice(1, 5);
+const featuredWorks = worksList
+  .sort((a, b) => a.data.id - b.data.id)
+  .slice(1, 5);
 const latestNotes = notesList
-  .sort((a, b) => new Date(b.data.created_at).getTime() - new Date(a.data.created_at).getTime())
+  .sort(
+    (a, b) =>
+      new Date(b.data.created_at).getTime() -
+      new Date(a.data.created_at).getTime(),
+  )
   .slice(0, 4);
 ---
 
@@ -29,18 +35,14 @@ const latestNotes = notesList
     <section class="w-full slide-enter-content mt-8 sm:mt-12">
       <h1 data-cy="name" class="sr-only">Haikel Ilham Hakim</h1>
       <GitHubContributionGraph username="haikelz" client:load />
-      <div class="mt-7 w-full max-w-full" >
+      <div class="mt-7 w-full max-w-full">
         <p
           class="max-w-full text-lg sm:text-xl text-muted-foreground leading-8 text-pretty text-justify"
         >
           I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
-          working across business software, delivery infrastructure, and content-driven
-          products with Go and TypeScript. Outside of programming, you can find me doing <a
-            href="/photos"
-            class="text-foreground font-medium underline decoration-border hover:decoration-foreground transition-colors"
-            >street/cosplayer photography</a
-          >. I'm currently going deeper into Go, DevOps, finance, and engineering
-          leadership.
+          working across business software, delivery infrastructure, and
+          content-driven products with Go and TypeScript. I'm currently going
+          deeper into Go, DevOps, finance, and engineering leadership.
         </p>
         <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
           <a
@@ -115,14 +117,20 @@ const latestNotes = notesList
                     </p>
                   </div>
                   <span class="text-sm font-medium tabular-nums text-muted-foreground">
-                    {experience.data.startDate} &mdash; {experience.data.endDate}
+                    {experience.data.startDate} &mdash;{" "}
+                    {experience.data.endDate}
                   </span>
                 </div>
-                <ul role="list" class="mt-5 space-y-2 text-foreground list-none pl-0">
+                <ul
+                  role="list"
+                  class="mt-5 space-y-2 text-foreground list-none pl-0"
+                >
                   {experience.data.highlights.map((highlight) => (
                     <li data-cy="experience-highlight" class="relative pl-6">
                       <span class="absolute left-0 top-2.5 h-px w-3 bg-muted-foreground/50" />
-                      <p class="my-0 text-sm leading-6 text-justify text-pretty">{highlight}</p>
+                      <p class="my-0 text-sm leading-6 text-justify text-pretty">
+                        {highlight}
+                      </p>
                     </li>
                   ))}
                 </ul>
