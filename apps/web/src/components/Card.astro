@@ -17,10 +17,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
   type === "notes" ? (
     <div
       class:list={[
-        "flex w-full flex-col relative p-8",
-        "rounded-none",
-        "bg-transparent border border-border/70 hover:border-border/80 transition-colors",
-        "text-foreground",
+        "group flex w-full flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground sm:p-8",
       ]}
     >
       <div class="relative z-10">
@@ -31,9 +28,9 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
         ) : null}
         <a
           href={`/notes/${slug}`}
-          class:list={["mt-3 block cursor-pointer", "no-underline!"]}
+          class:list={["mt-3 block cursor-pointer no-underline!"]}
         >
-          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-medium tracking-tight text-foreground">
+          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-semibold tracking-tight text-card-foreground transition-colors group-hover:text-primary">
             {title}
           </h3>
         </a>
@@ -56,9 +53,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
     <div
       class:list={[
         "flex w-full flex-col relative",
-        "rounded-none",
-        "bg-transparent border border-border/70 hover:border-foreground/25 transition-colors",
-        "text-foreground",
+        "group rounded-2xl border border-border bg-card text-card-foreground",
       ]}
     >
       <div class="flex w-full flex-col p-6 sm:p-8 relative z-10">
@@ -71,7 +66,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
           href={`/works/${slug}`}
           class:list={["cursor-pointer block", "no-underline!"]}
         >
-          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-medium tracking-tight text-foreground">
+          <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-semibold tracking-tight text-card-foreground transition-colors group-hover:text-primary">
             {title}
           </h3>
         </a>

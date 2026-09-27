@@ -31,44 +31,40 @@ const slug = sanitizeSlug(item.id);
   seoType="article"
   tags={item.data.stack}
 >
-  <div class="w-full mx-auto slide-enter-content">
-    <BackButton label="back to works" client:only="svelte" />
-    <article>
-      <header class="mb-12">
-        <p class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-          Project archive
-        </p>
-        <h1 class="mt-0 mb-6 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
-          {item.data.title}
-        </h1>
-        <div class="border-y border-border/70 py-4">
-          <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author}, {remarkPluginFrontmatter.minutesRead}
-            {item.data.preview ? (
-              <span> - <a href={item.data.preview} target="_blank" rel="noopener noreferrer" aria-label="Preview (opens in new tab)" class="text-foreground hover:text-muted-foreground">Preview</a></span>
-            ) : null}
-            {item.data.repo ? (
-              <span> <a href={item.data.repo} target="_blank" rel="noopener noreferrer" aria-label="Source (opens in new tab)" class="text-foreground hover:text-muted-foreground">Source</a></span>
-            ) : null}
+  <div class="mx-auto w-full min-w-0 slide-enter-content">
+      <BackButton label="back to works" client:only="svelte" />
+      <article>
+        <header class="mb-12">
+          <p class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Project archive
           </p>
-          <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
-            {item.data.stack.map((tag) => (
-              <a href={`/tags/${tag}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
-            ))}
+          <h1 class="mt-0 mb-6 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
+            {item.data.title}
+          </h1>
+          <div class="border-y border-border/70 py-4">
+            <p class="text-sm text-muted-foreground mb-0 space-x">
+              {item.data.author}, {remarkPluginFrontmatter.minutesRead}
+              {item.data.preview ? (
+                <span> - <a href={item.data.preview} target="_blank" rel="noopener noreferrer" aria-label="Preview (opens in new tab)" class="text-foreground hover:text-muted-foreground">Preview</a></span>
+              ) : null}
+              {item.data.repo ? (
+                <span> <a href={item.data.repo} target="_blank" rel="noopener noreferrer" aria-label="Source (opens in new tab)" class="text-foreground hover:text-muted-foreground">Source</a></span>
+              ) : null}
+            </p>
+            <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
+              {item.data.stack.map((tag) => (
+                <a href={`/tags/${tag}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
+              ))}
+            </div>
           </div>
+          <p class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </p>
+        </header>
+        <div class="prose max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/70">
+          <Content />
         </div>
-        <p class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground">
-        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </p>
-      </header>
-      <div class="prose prose-neutral dark:prose-invert max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/70">
-        <Content />
-      </div>
-    </article>
+      </article>
   </div>
-  {
-    headings && headings.length > 0 ? (
-      <TOC headings={headings} client:only="svelte" />
-    ) : null
-  }
+  {headings.length > 0 ? <TOC slot="floating" headings={headings} client:only="svelte" /> : null}
 </Layout>

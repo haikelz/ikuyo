@@ -47,7 +47,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
   getImageOptions: (_path, page: (typeof pages)[string]) => ({
     title: page.title.toUpperCase(),
     description: "ekel.dev - Product/Devops",
-    bgGradient: [[13, 17, 23]], // #0d1117 — matches the existing OG
+    bgGradient: [[24, 23, 29]],
     logo: {
       path: "./public/images/avatar.png",
       size: [180, 180],

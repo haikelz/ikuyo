@@ -34,27 +34,27 @@ const navigation = [
 const principles = [
   {
     number: "01",
-    title: "Content leads",
+    title: "Editorial first",
     description:
       "Hierarchy comes from writing, type, and spacing. Decoration never competes with the story.",
   },
   {
     number: "02",
-    title: "Borders organize",
+    title: "Soft surfaces, clear edges",
     description:
-      "Fine rules define rows and groups. Surfaces stay square, transparent, and free of decorative shadows.",
+      "Rounded cards and quiet borders establish hierarchy. Shadows are reserved for elevation and interaction.",
   },
   {
     number: "03",
-    title: "Metadata stays quiet",
+    title: "Color carries meaning",
     description:
-      "Dates, indexes, tags, and eyebrow labels use Geist Mono and muted semantic color.",
+      "Indigo marks primary actions; semantic status colors communicate information, success, warning, and error.",
   },
   {
     number: "04",
     title: "Every route belongs",
     description:
-      "Articles, galleries, charts, utilities, and errors share one visual language without sharing one layout.",
+      "Articles, galleries, charts, utilities, and errors share the ReUI Sera tokens without sharing one layout.",
   },
 ];
 
@@ -69,6 +69,20 @@ const colors = [
   },
   { name: "Border", token: "border-border/70", swatch: "border-2 border-border" },
   { name: "Focus ring", token: "ring-ring", swatch: "border-2 border-ring" },
+  { name: "Primary", token: "bg-primary text-primary-foreground", swatch: "bg-primary" },
+  { name: "Info", token: "bg-info text-info-foreground", swatch: "bg-info" },
+  { name: "Success", token: "bg-success text-success-foreground", swatch: "bg-success" },
+  { name: "Warning", token: "bg-warning text-warning-foreground", swatch: "bg-warning" },
+  {
+    name: "Destructive",
+    token: "bg-destructive text-destructive-foreground",
+    swatch: "bg-destructive",
+  },
+  {
+    name: "Invert",
+    token: "bg-invert text-invert-foreground",
+    swatch: "bg-invert",
+  },
 ];
 ---
 
@@ -79,8 +93,8 @@ const colors = [
 >
   <div class="mx-auto w-full slide-enter-content">
     <PageHeader title="Design System" eyebrow="Living interface guideline" className="mb-12 sm:mb-16">
-      A practical reference for keeping every ekel.dev page quiet, editorial,
-      content-first, and recognizably part of the same system.
+      A practical reference for the ReUI Sera visual language implemented with
+      this site's native Astro and Svelte components.
     </PageHeader>
 
     <div class="grid gap-12 lg:grid-cols-[11rem_minmax(0,1fr)]">
@@ -150,8 +164,9 @@ const colors = [
             Color and typography
           </h2>
           <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
-            Use semantic tokens so light and dark themes stay equivalent. Accent
-            color is reserved for meaning, such as positive and negative market movement.
+            Use semantic tokens so light and dark themes stay equivalent. Indigo
+            anchors actions; info, success, warning, and destructive roles
+            communicate status consistently.
           </p>
 
           <div class="grid border-b border-border/70 sm:grid-cols-2">
@@ -228,7 +243,7 @@ const colors = [
             <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
               <span class="font-medium text-foreground">Editorial rows</span>
               <code class="text-xs text-muted-foreground">py-6 to py-10</code>
-              <span class="leading-6 text-muted-foreground">Scale with content density; do not turn rows into padded cards.</span>
+              <span class="leading-6 text-muted-foreground">Scale with content density; use cards when grouping discrete items.</span>
             </li>
             <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
               <span class="font-medium text-foreground">Reading measure</span>
@@ -281,7 +296,7 @@ const colors = [
             <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
               <time class="font-mono text-xs tabular-nums text-muted-foreground">2026.08.22</time>
               <div>
-                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">A content-first entry</h3>
+                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">An editorial entry</h3>
                 <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
                   The description explains the destination without turning the row into a card.
                 </p>
@@ -345,8 +360,8 @@ const colors = [
           </h2>
           <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
             Galleries and charts retain the structure their content needs. Bring
-            them into the system through square borders, transparent surfaces,
-            mono metadata, semantic color, and restrained interaction.
+            them into the system through rounded surfaces, semantic color,
+            readable metadata, and restrained interaction.
           </p>
           <div class="grid gap-px border border-border/70 bg-border/70 sm:grid-cols-3">
             <div class="bg-background p-5">
@@ -355,11 +370,11 @@ const colors = [
             </div>
             <div class="bg-background p-5">
               <p class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Chart</p>
-              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Use monochrome structure and reserve red or green for direction.</p>
+              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Use semantic colors for market direction and status.</p>
             </div>
             <div class="bg-background p-5">
               <p class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Controls</p>
-              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Prefer existing UI primitives with square, border-led styling.</p>
+              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Prefer shared UI primitives with consistent rounded corners and clear focus.</p>
             </div>
           </div>
         </section>

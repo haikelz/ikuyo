@@ -48,7 +48,7 @@ const c = $derived(content[lang]);
         bind:value={lang}
         variant="outline"
         spacing={0}
-        class="self-start rounded-none border border-border p-0 sm:self-end"
+        class="self-start rounded-xl border border-border p-0 sm:self-end"
       >
         <ToggleGroupItem value="id" aria-label="Bahasa Indonesia"
           >ID</ToggleGroupItem

@@ -1,97 +1,90 @@
 <script lang="ts">
-  import {
-    Button,
-    cn,
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-  } from "@ikuyo/ui";
-  import {
-    AlbumIcon,
-    HashIcon,
-    ImagesIcon,
-    ListIcon,
-    MenuIcon,
-    NotepadTextIcon,
-    XIcon,
-  } from "lucide-svelte";
-  import { onMount } from "svelte";
-  import ToggleTheme from "./ToggleTheme.svelte";
+import { Button, cn, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
+import {
+  AlbumIcon,
+  HashIcon,
+  ImagesIcon,
+  ListIcon,
+  MenuIcon,
+  NotepadTextIcon,
+  XIcon,
+} from "lucide-svelte";
+import { onMount } from "svelte";
+import ToggleTheme from "./ToggleTheme.svelte";
 
-  let { currentPath } = $props();
+let { currentPath } = $props();
 
-  const navList = [
-    {
-      id: 1,
-      icon: ListIcon,
-      path: "/works",
-      label: "Works",
-    },
-    {
-      id: 2,
-      icon: NotepadTextIcon,
-      path: "/notes",
-      label: "Notes",
-    },
-    {
-      id: 3,
-      icon: HashIcon,
-      path: "/tags",
-      label: "Tags",
-    },
-    {
-      id: 4,
-      icon: ImagesIcon,
-      path: "/photos",
-      label: "Photos",
-    },
-    {
-      id: 5,
-      icon: AlbumIcon,
-      path: "/guestbook",
-      label: "Guestbook",
-    },
-  ];
+const navList = [
+  {
+    id: 1,
+    icon: ListIcon,
+    path: "/works",
+    label: "Works",
+  },
+  {
+    id: 2,
+    icon: NotepadTextIcon,
+    path: "/notes",
+    label: "Notes",
+  },
+  {
+    id: 3,
+    icon: HashIcon,
+    path: "/tags",
+    label: "Tags",
+  },
+  {
+    id: 4,
+    icon: ImagesIcon,
+    path: "/photos",
+    label: "Photos",
+  },
+  {
+    id: 5,
+    icon: AlbumIcon,
+    path: "/guestbook",
+    label: "Guestbook",
+  },
+];
 
-  let isOpen = $state(false);
-  let isVisible = $state(true);
-  let lastScrollY = $state(0);
-  let ticking = $state(false);
+let isOpen = $state(false);
+let isVisible = $state(true);
+let lastScrollY = $state(0);
+let ticking = $state(false);
 
-  function toggleNavbar() {
-    isOpen = !isOpen;
+function toggleNavbar() {
+  isOpen = !isOpen;
+}
+
+function handleScroll() {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 10) {
+        isVisible = true;
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        isVisible = false;
+        isOpen = false;
+      } else if (currentScrollY < lastScrollY) {
+        isVisible = true;
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    });
+
+    ticking = true;
   }
+}
 
-  function handleScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
+onMount(() => {
+  window.addEventListener("scroll", handleScroll, { passive: true });
 
-        if (currentScrollY < 10) {
-          isVisible = true;
-        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          isVisible = false;
-          isOpen = false;
-        } else if (currentScrollY < lastScrollY) {
-          isVisible = true;
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
-
-      ticking = true;
-    }
-  }
-
-  onMount(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+});
 </script>
 
 <nav
@@ -102,7 +95,7 @@
 >
   <div
     class={cn(
-      "flex w-full max-w-4xl min-h-16 items-center justify-between px-4 md:px-8",
+      "flex w-full max-w-5xl min-h-16 items-center justify-between px-4 md:px-8",
     )}
   >
     <a
@@ -132,7 +125,7 @@
           class={cn(
             "text-sm font-medium transition-colors no-underline",
             currentPath.includes(item.path)
-              ? "text-foreground"
+              ? "text-primary"
               : "text-muted-foreground hover:text-foreground",
           )}
         >
@@ -148,7 +141,7 @@
         variant="outline"
         size="icon-sm"
         onclick={toggleNavbar}
-        class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors rounded-md"
+        class="m-0! shrink-0 md:hidden text-muted-foreground hover:text-foreground transition-colors rounded-xl"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-sheet"
         aria-label="Toggle navigation menu"
@@ -162,7 +155,7 @@
       <SheetContent
         side="bottom"
         id="mobile-nav-sheet"
-        class="rounded-t-md border-border/80 bg-background pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t border-border/70"
+        class="rounded-t-2xl border-border bg-card pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t"
         showCloseButton={false}
       >
         <div
@@ -190,9 +183,9 @@
               href={item.path}
               aria-current={active ? "page" : undefined}
               class={cn(
-                "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
+                "flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-base font-medium no-underline transition-colors",
                 active
-                  ? "bg-muted text-foreground"
+                  ? "bg-accent text-accent-foreground"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
               )}
               onclick={() => {
@@ -200,7 +193,7 @@
               }}
             >
               <span
-                class="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted/50"
+                class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted"
               >
                 <item.icon size={20} class="text-foreground" />
               </span>

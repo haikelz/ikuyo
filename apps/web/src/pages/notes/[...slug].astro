@@ -39,41 +39,37 @@ const slug = sanitizeSlug(item.id);
   publishedTime={item.data.created_at.toISOString()}
   tags={item.data.tags}
 >
-  <div class="w-full mx-auto slide-enter-content">
-    <BackButton label="back to notes" client:only="svelte" />
-    <article>
-      <header class="mb-12">
-        <p class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-          Technical note
-        </p>
-        <h1 class="mt-0 mb-6 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
-          {item.data.title}
-        </h1>
-        <div class="border-y border-border/70 py-4">
-          <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author}, {format(item.data.created_at, "LLLL d yyyy")} - {remarkPluginFrontmatter.minutesRead}
+  <div class="mx-auto w-full min-w-0 slide-enter-content">
+      <BackButton label="back to notes" client:only="svelte" />
+      <article>
+        <header class="mb-12">
+          <p class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Technical note
           </p>
-          <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
-            {item.data.tags.map((tag) => (
-              <a href={`/tags/${tag}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
-            ))}
+          <h1 class="mt-0 mb-6 text-3xl sm:text-4xl tracking-tighter font-medium text-foreground leading-tight">
+            {item.data.title}
+          </h1>
+          <div class="border-y border-border/70 py-4">
+            <p class="text-sm text-muted-foreground mb-0 space-x">
+              {item.data.author}, {format(item.data.created_at, "LLLL d yyyy")} - {remarkPluginFrontmatter.minutesRead}
+            </p>
+            <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
+              {item.data.tags.map((tag) => (
+                <a href={`/tags/${tag}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors">#{tag}</a>
+              ))}
+            </div>
           </div>
+          <p class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </p>
+        </header>
+        <div class="prose max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40">
+          <Content />
         </div>
-        <p class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground">
-        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </p>
-      </header>
-      <div class="prose prose-neutral dark:prose-invert max-w-none text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40">
-        <Content />
+      </article>
+      <div class="mt-12 pt-6 border-t border-border/50">
+        <ReactionButton slug={slug} apiUrl={BACKEND_API_URL} client:only="svelte" />
       </div>
-   </article>
-    <div class="mt-12 pt-6 border-t border-border/50">
-      <ReactionButton slug={slug} apiUrl={BACKEND_API_URL} client:only="svelte" />
-    </div>
   </div>
-  {
-    headings && headings.length > 0 ? (
-      <TOC headings={headings} client:only="svelte" />
-    ) : null
-  }
+  {headings.length > 0 ? <TOC slot="floating" headings={headings} client:only="svelte" /> : null}
 </Layout>

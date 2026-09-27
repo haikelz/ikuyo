@@ -1,3 +1,22 @@
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--primary);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: var(--muted);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
 .prose code:not(:has(span)) {
   @apply bg-muted px-1 py-0.5 rounded-xs font-mono;
 }
@@ -16,7 +35,7 @@
 
 /* Code block wrapper with filename and copy button */
 .prose .code-block-wrapper {
-  @apply my-6 rounded-lg border-none! overflow-hidden;
+  @apply my-6 rounded-2xl border border-border overflow-hidden bg-card;
 }
 
 .prose .code-block-wrapper .code-block-content {
@@ -32,15 +51,15 @@
 }
 
 .prose .code-block-wrapper:has(.code-block-filename) pre {
-  @apply rounded-none rounded-b-lg;
+  @apply rounded-none rounded-b-2xl;
 }
 
 .prose .code-block-wrapper:not(:has(.code-block-filename)) pre {
-  @apply rounded-lg;
+  @apply rounded-2xl;
 }
 
 .prose .code-block-wrapper .code-block-filename {
-  @apply bg-base-1 font-mono;
+  @apply bg-muted px-4 py-2 text-muted-foreground font-mono;
 }
 
 .prose .code-block-wrapper .code-block-copy {
@@ -52,7 +71,7 @@
 }
 
 .prose hr {
-  @apply border-monochrome-3;
+  @apply border-border;
 }
 
 .prose ul {
@@ -60,7 +79,7 @@
 }
 
 .prose img {
-  @apply w-full rounded-none;
+  @apply w-full rounded-xl;
 }
 
 .prose video {
@@ -72,5 +91,5 @@
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
-  @apply border-l-[0.25em] border-solid border-base-5;
+  @apply border-l-[0.25em] border-solid border-primary/40 bg-muted/50 rounded-r-xl;
 }

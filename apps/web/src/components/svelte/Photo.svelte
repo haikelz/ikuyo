@@ -56,12 +56,12 @@ onMount(() => {
 <div class="photo-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden rounded-none cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
+    class="overflow-hidden rounded-2xl cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
     onclick={openLightbox}
     aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
     <div
-      class="photo-stack relative w-full overflow-hidden rounded-none bg-muted transition-transform duration-500 group-hover:scale-105 grid"
+      class="photo-stack relative w-full overflow-hidden rounded-2xl bg-muted transition-transform duration-500 group-hover:scale-[1.02] grid"
     >
       <img
         src={getPlaceholderUrl(src, 200)}

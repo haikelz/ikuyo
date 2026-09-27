@@ -34,7 +34,7 @@ function showModal(node: HTMLDialogElement) {
 <div class="video-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden rounded-none bg-muted cursor-pointer relative block w-full p-0 border border-border/70 outline-none hover:border-border/60 transition-colors"
+    class="overflow-hidden rounded-2xl bg-muted cursor-pointer relative block w-full p-0 border border-border outline-none hover:border-primary/40 transition-colors"
     onclick={openLightbox}
     aria-label={`Play ${title ?? "video"} in a dialog`}
   >

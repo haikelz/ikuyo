@@ -56,19 +56,19 @@ a[target="_blank"]::after {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-base-5;
+  @apply bg-background;
 }
 
 ::-webkit-scrollbar {
-  @apply bg-base-5 w-1.5 h-1.5;
+  @apply bg-background w-1.5 h-1.5;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-monochrome-4;
+  @apply bg-muted-foreground/30 rounded-full;
 }
 
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: inherit;
 }

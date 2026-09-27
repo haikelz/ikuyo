@@ -28,7 +28,7 @@ const {
   url,
   ogImage,
   ogImageAlt = `${title} — ekel.dev`,
-  className = "max-w-4xl!",
+  className = "max-w-5xl!",
   seoType = "website",
   publishedTime,
   tags = [],
@@ -63,12 +63,7 @@ const personSchema = {
 };
 
 const pageSchema = {
-  "@type":
-    seoType === "profile"
-      ? "ProfilePage"
-      : seoType === "article"
-        ? "Article"
-        : "WebPage",
+  "@type": seoType === "profile" ? "ProfilePage" : seoType === "article" ? "Article" : "WebPage",
   "@id": `${canonicalUrl.href}#page`,
   url: canonicalUrl.href,
   name: pageTitle,
@@ -81,9 +76,7 @@ const pageSchema = {
   author: {
     "@id": `${siteUrl.href}#person`,
   },
-  ...(publishedTime
-    ? { datePublished: publishedTime, dateModified: publishedTime }
-    : {}),
+  ...(publishedTime ? { datePublished: publishedTime, dateModified: publishedTime } : {}),
   ...(tags.length > 0 ? { keywords: tags.join(", ") } : {}),
   primaryImageOfPage: {
     "@type": "ImageObject",
@@ -99,8 +92,7 @@ const structuredData = {
       "@id": `${siteUrl.href}#website`,
       url: siteUrl.href,
       name: "ekel.dev",
-      description:
-        "Haikel Ilham Hakim's portfolio, case studies, projects, and technical notes.",
+      description: "Haikel Ilham Hakim's portfolio, case studies, projects, and technical notes.",
       inLanguage: "en",
       publisher: {
         "@id": `${siteUrl.href}#person`,
@@ -110,14 +102,9 @@ const structuredData = {
     pageSchema,
   ],
 };
-const serializedStructuredData = JSON.stringify(structuredData).replace(
-  /</g,
-  "\\u003c",
-);
+const serializedStructuredData = JSON.stringify(structuredData).replace(/</g, "\\u003c");
 
-const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
-  .slice(0, 3)
-  .join(".");
+const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0, 3).join(".");
 ---
 
 <!doctype html>
@@ -131,12 +118,12 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
     <meta name="robots" content={robots} />
     <meta
       name="theme-color"
-      content="#f7f7f7"
+      content="#faf9fc"
       media="(prefers-color-scheme: light)"
     />
     <meta
       name="theme-color"
-      content="#1c1c1c"
+      content="#17161b"
       media="(prefers-color-scheme: dark)"
     />
     <meta
@@ -216,29 +203,6 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
     class="w-full flex flex-col justify-start items-start antialiased"
     transition:animate="initial"
   >
-    <div
-      class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0"
-      aria-hidden="true"
-    >
-      <div class="mx-auto max-w-4xl h-full relative">
-        <div class="absolute inset-0 border-x border-border/70"></div>
-        <div
-          class="absolute left-1/4 top-0 bottom-0 border-l border-dashed border-border/70"
-          style="border-left-width: 0.5px"
-        >
-        </div>
-        <div
-          class="absolute left-1/2 top-0 bottom-0 border-l border-dashed border-border/70"
-          style="border-left-width: 0.5px"
-        >
-        </div>
-        <div
-          class="absolute left-3/4 top-0 bottom-0 border-l border-dashed border-border/70"
-          style="border-left-width: 0.5px"
-        >
-        </div>
-      </div>
-    </div>
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-lg focus:ring-2 focus:ring-ring focus:outline-none"
@@ -261,5 +225,6 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       </main>
       <Footer />
     </div>
+    <slot name="floating" />
   </body>
 </html>

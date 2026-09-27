@@ -6,6 +6,10 @@ export const badgeVariants = tv({
   variants: {
     variant: {
       default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+      info: "bg-info text-info-foreground [a]:hover:bg-info/80",
+      success: "bg-success text-success-foreground [a]:hover:bg-success/80",
+      warning: "bg-warning text-warning-foreground [a]:hover:bg-warning/80",
+      invert: "bg-invert text-invert-foreground [a]:hover:bg-invert/80",
       secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
       destructive:
         "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",

@@ -10,6 +10,15 @@
 - MDX collections in `apps/web/src/content` own writing, work, and experience records.
 - Svelte components are client islands only when interaction requires them.
 
+## Design system
+
+- Public routes and shared Svelte/Astro components follow the ReUI Sera visual
+  direction through project-owned semantic tokens and component conventions.
+- The design system keeps the existing Astro and Svelte runtime; React-only
+  ReUI registry components are not installed.
+- `DESIGN.md` is the source of truth for color, typography, spacing, component
+  states, motion, surface depth, and accessibility constraints.
+
 ## Deployment contract
 
 - Cloudflare Pages hosts the static Astro output built with Bun. The existing

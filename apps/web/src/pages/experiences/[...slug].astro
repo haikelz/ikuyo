@@ -32,7 +32,7 @@ const slug = sanitizeSlug(item.id);
   seoType="article"
   tags={item.data.stack ?? [item.data.position, "Experience"]}
 >
-  <div class="w-full mx-auto slide-enter-content">
+  <div class="mx-auto w-full max-w-2xl slide-enter-content">
     <BackButton label="back to experiences" client:only="svelte" />
     <article class="w-full max-w-full">
       <header class="mb-14">
@@ -72,7 +72,7 @@ const slug = sanitizeSlug(item.id);
         </ul>
       </section>
       <div
-        class="prose prose-neutral max-w-full w-full dark:prose-invert text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
+        class="prose max-w-full w-full text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
       >
         <Content />
       </div>

@@ -1,33 +1,25 @@
 <script lang="ts">
-  import { buildHierarchy } from "@/helpers/hierarchy";
-  import type { HeadingTocProps } from "@/types";
-  import {
-    Button,
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-  } from "@ikuyo/ui";
-  import { List, X } from "lucide-svelte";
-  import TOCHeading from "./TOCHeading.svelte";
+import { buildHierarchy } from "@/helpers/hierarchy";
+import type { HeadingTocProps } from "@/types";
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
+import { List, X } from "lucide-svelte";
+import TOCHeading from "./TOCHeading.svelte";
 
-  let { headings }: { headings: HeadingTocProps[] } = $props();
-  let isOpen = $state(false);
+let { headings }: { headings: HeadingTocProps[] } = $props();
+let isOpen = $state(false);
 
-  const rootDepth = $derived(
-    headings?.length
-      ? Math.min(...headings.map((heading) => heading.depth))
-      : 2,
-  );
-  const toc = $derived(buildHierarchy(headings, rootDepth));
+const rootDepth = $derived(
+  headings?.length ? Math.min(...headings.map((heading) => heading.depth)) : 2,
+);
+const toc = $derived(buildHierarchy(headings, rootDepth));
 
-  function toggleTOC() {
-    isOpen = !isOpen;
-  }
+function toggleTOC() {
+  isOpen = !isOpen;
+}
 </script>
 
-<aside
-  class="fixed top-28 right-[max(1.5rem,calc((100vw-56rem)/2-15.5rem))] z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-border/70 ps-5 xl:block"
+<nav
+  class="fixed right-[max(1rem,calc(50%-47rem))] top-28 z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-border/70 ps-5 2xl:block"
   aria-label="On this page"
 >
   <p
@@ -40,13 +32,13 @@
       <TOCHeading {heading} />
     {/each}
   </ul>
-</aside>
+</nav>
 
 <Sheet bind:open={isOpen}>
   <Button
     variant="outline"
     size="icon-sm"
-    class="bottom-4 right-4 fixed z-40 rounded-md xl:hidden bg-background {isOpen
+    class="bottom-4 right-4 fixed z-40 rounded-md 2xl:hidden bg-background {isOpen
       ? 'hidden'
       : ''}"
     onclick={toggleTOC}
@@ -57,7 +49,7 @@
   <SheetContent
     side="bottom"
     overlayClass="bg-background/40 backdrop-blur-sm"
-    class="max-h-[min(72svh,36rem)] w-full overflow-x-hidden rounded-none border-t border-border/70 bg-background p-0 shadow-none"
+    class="max-h-[min(72svh,36rem)] w-full overflow-x-hidden rounded-t-2xl border-t border-border bg-card p-0 shadow-lg"
     showCloseButton={false}
   >
     <SheetHeader

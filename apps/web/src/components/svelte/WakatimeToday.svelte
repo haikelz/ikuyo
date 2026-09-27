@@ -6,16 +6,16 @@ import { Clock, Zap } from "lucide-svelte";
 let { data }: { data: WakatimeStatsProps } = $props();
 
 const colors = [
-  "#3b82f6",
-  "#ef4444",
-  "#10b981",
-  "#f59e0b",
-  "#8b5cf6",
-  "#ec4899",
-  "#14b8a6",
-  "#f97316",
-  "#84cc16",
-  "#6366f1",
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+  "var(--chart-6)",
+  "var(--chart-7)",
+  "var(--chart-8)",
+  "var(--chart-9)",
+  "var(--chart-10)",
 ];
 
 function formatDuration(seconds: number) {
@@ -54,7 +54,7 @@ const todayStats = $derived.by(() => {
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
     <Card
-      class="border border-border/70 rounded-none bg-transparent ring-0 gap-0 py-0"
+      class="border border-border rounded-2xl bg-card ring-0 gap-0 py-0"
     >
       <CardHeader class="p-4">
         <div class="flex items-center">
@@ -70,7 +70,7 @@ const todayStats = $derived.by(() => {
     </Card>
 
     <Card
-      class="border border-border/70 bg-transparent rounded-none ring-0 gap-0 py-0"
+      class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
     >
       <CardHeader class="p-4">
         <div class="flex items-center">
@@ -87,7 +87,7 @@ const todayStats = $derived.by(() => {
   </div>
 
   <Card
-    class="border border-border/70 bg-transparent rounded-none ring-0 gap-0 py-0"
+    class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
   >
     <CardContent class="p-4">
       <div class="w-full">

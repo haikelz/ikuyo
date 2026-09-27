@@ -52,15 +52,15 @@ onMount(fetchReactions);
   <button
     on:click={toggleReaction}
     disabled={loading}
-    class="group flex items-center gap-2 px-4 py-2 rounded-full border border-border/60 hover:border-red-400/50 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all disabled:opacity-50"
+    class="group flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/40 hover:bg-accent transition-all disabled:opacity-50"
     aria-label={reacted ? "Unlike" : "Like this post"}
   >
     <Heart
-      class="h-5 w-5 transition-all duration-200 {reacted ? 'text-red-500 fill-red-500 scale-110' : 'text-muted-foreground group-hover:text-red-400'}"
+      class="h-5 w-5 transition-all duration-200 {reacted ? 'text-primary fill-primary scale-110' : 'text-muted-foreground group-hover:text-primary'}"
       fill={reacted ? "currentColor" : "none"}
       strokeWidth={1.5}
     />
-    <span class="text-sm font-medium tabular-nums {reacted ? 'text-red-500' : 'text-muted-foreground group-hover:text-red-400'}">
+    <span class="text-sm font-medium tabular-nums {reacted ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}">
       {love || 0}
     </span>
   </button>

@@ -72,8 +72,8 @@ const palette = $derived({
   line: "var(--foreground)",
   area: "var(--foreground)",
   sma: "var(--muted-foreground)",
-  positive: "#16a34a",
-  negative: "#dc2626",
+  positive: "var(--success-foreground)",
+  negative: "var(--destructive)",
   volume: "var(--muted-foreground)",
 });
 
@@ -509,7 +509,7 @@ const gridColor03 = "var(--border)";
 </script>
 
 {#if isLoadingMarkets}
-  <Alert class="rounded-none">
+  <Alert class="rounded-2xl">
     <Activity class="size-4" />
     <AlertTitle>Memuat Data Market</AlertTitle>
     <AlertDescription
@@ -517,14 +517,14 @@ const gridColor03 = "var(--border)";
     >
   </Alert>
 {:else if marketsFetchError}
-  <Alert variant="destructive" class="rounded-none">
+  <Alert variant="destructive" class="rounded-2xl">
     <AlertTriangle class="size-4" />
     <AlertTitle>Gagal Memuat Data Market</AlertTitle>
     <AlertDescription>{marketsFetchError}</AlertDescription>
   </Alert>
 {:else}
   {#if currentMarket.errorMessage && normalized.length > 0}
-    <Alert variant="destructive" class="mb-4 rounded-none">
+    <Alert variant="destructive" class="mb-4 rounded-2xl">
       <AlertTriangle class="size-4" />
       <AlertTitle>Data Market Tidak Lengkap</AlertTitle>
       <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
@@ -532,7 +532,7 @@ const gridColor03 = "var(--border)";
   {/if}
 
   {#if normalized.length === 0}
-    <Alert class="rounded-none">
+    <Alert class="rounded-2xl">
       <Activity class="size-4" />
       <AlertTitle>Data Market Belum Tersedia</AlertTitle>
       <AlertDescription>
@@ -540,7 +540,7 @@ const gridColor03 = "var(--border)";
       </AlertDescription>
     </Alert>
   {:else}
-    <Card class="border border-border/70 bg-transparent rounded-none">
+    <Card class="border border-border bg-card rounded-2xl">
       <CardHeader class="pb-3">
         <div
           class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
@@ -556,13 +556,13 @@ const gridColor03 = "var(--border)";
           <div class="flex items-center gap-2">
             <Badge
               variant="outline"
-              class="rounded-none border-border bg-transparent font-mono text-foreground"
+              class="rounded-xl border-border bg-background font-mono text-foreground"
             >
               {currentMarket.source}
             </Badge>
             <Badge
               variant="outline"
-              class="rounded-none bg-transparent font-mono text-foreground"
+              class="rounded-xl bg-background font-mono text-foreground"
             >
               {interval}
             </Badge>
@@ -571,12 +571,12 @@ const gridColor03 = "var(--border)";
         <div class="mt-3">
           <Select type="single" bind:value={selectedMarketCode}>
             <SelectTrigger
-              class="w-full rounded-none border-border bg-transparent text-foreground md:w-[260px]"
+              class="w-full rounded-xl border-border bg-background text-foreground md:w-[260px]"
             >
               {currentMarket.label} ({currentMarket.symbol})
             </SelectTrigger>
             <SelectContent
-              class="rounded-none border-border bg-background text-foreground"
+              class="rounded-xl border-border bg-background text-foreground"
             >
               {#each markets as market}
                 <SelectItem
@@ -627,7 +627,7 @@ const gridColor03 = "var(--border)";
               bind:value={interval}
               variant="outline"
               spacing={0}
-              class="rounded-none border border-border bg-transparent p-0"
+              class="rounded-xl border border-border bg-card p-0"
             >
               <ToggleGroupItem value="1M">1M</ToggleGroupItem>
               <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -641,7 +641,7 @@ const gridColor03 = "var(--border)";
               bind:value={mode}
               variant="outline"
               spacing={0}
-              class="rounded-none border border-border bg-transparent p-0"
+              class="rounded-xl border border-border bg-card p-0"
             >
               <ToggleGroupItem value="line">Line</ToggleGroupItem>
               <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -697,7 +697,7 @@ const gridColor03 = "var(--border)";
             <Button
               variant="outline"
               size="sm"
-              class="h-8 rounded-none border-border bg-transparent"
+              class="h-8 rounded-xl border-border bg-card"
               disabled={panOffset >= maxPanOffset}
               onclick={panLeft}
             >
@@ -707,7 +707,7 @@ const gridColor03 = "var(--border)";
             <Button
               variant="outline"
               size="sm"
-              class="h-8 rounded-none border-border bg-transparent"
+              class="h-8 rounded-xl border-border bg-card"
               disabled={panOffset <= 0}
               onclick={panRight}
             >
@@ -720,7 +720,7 @@ const gridColor03 = "var(--border)";
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
+              class="h-8 rounded-xl border-border bg-card text-xs font-medium text-foreground data-[state=on]:bg-accent"
               bind:pressed={showSma20}
             >
               SMA20
@@ -728,7 +728,7 @@ const gridColor03 = "var(--border)";
             <Toggle
               variant="outline"
               size="sm"
-              class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
+              class="h-8 rounded-xl border-border bg-card text-xs font-medium text-foreground data-[state=on]:bg-accent"
               bind:pressed={showVolume}
             >
               Volume
@@ -987,12 +987,12 @@ const gridColor03 = "var(--border)";
               >
                 <Select type="single" bind:value={selectedMarketCode}>
                   <SelectTrigger
-                    class="w-full rounded-none border-border bg-transparent text-foreground md:w-[280px]"
+                    class="w-full rounded-xl border-border bg-card text-foreground md:w-[280px]"
                   >
                     {currentMarket.label} ({currentMarket.symbol})
                   </SelectTrigger>
                   <SelectContent
-                    class="rounded-none border-border bg-background text-foreground"
+                    class="rounded-xl border-border bg-card text-foreground"
                   >
                     {#each markets as market}
                       <SelectItem
@@ -1012,7 +1012,7 @@ const gridColor03 = "var(--border)";
                     bind:value={interval}
                     variant="outline"
                     spacing={0}
-                    class="rounded-none border border-border bg-transparent p-0"
+                    class="rounded-xl border border-border bg-card p-0"
                   >
                     <ToggleGroupItem value="1M">1M</ToggleGroupItem>
                     <ToggleGroupItem value="3M">3M</ToggleGroupItem>
@@ -1026,7 +1026,7 @@ const gridColor03 = "var(--border)";
                     bind:value={mode}
                     variant="outline"
                     spacing={0}
-                    class="rounded-none border border-border bg-transparent p-0"
+                    class="rounded-xl border border-border bg-card p-0"
                   >
                     <ToggleGroupItem value="line">Line</ToggleGroupItem>
                     <ToggleGroupItem value="area">Area</ToggleGroupItem>
@@ -1040,7 +1040,7 @@ const gridColor03 = "var(--border)";
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 rounded-none border-border bg-transparent"
+                    class="h-8 rounded-xl border-border bg-card"
                     disabled={panOffset >= maxPanOffset}
                     onclick={panLeft}
                   >
@@ -1050,7 +1050,7 @@ const gridColor03 = "var(--border)";
                   <Button
                     variant="outline"
                     size="sm"
-                    class="h-8 rounded-none border-border bg-transparent"
+                    class="h-8 rounded-xl border-border bg-card"
                     disabled={panOffset <= 0}
                     onclick={panRight}
                   >
@@ -1065,7 +1065,7 @@ const gridColor03 = "var(--border)";
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
+                    class="h-8 rounded-xl border-border bg-card text-xs font-medium text-foreground data-[state=on]:bg-accent"
                     bind:pressed={showSma20}
                   >
                     SMA20
@@ -1073,7 +1073,7 @@ const gridColor03 = "var(--border)";
                   <Toggle
                     variant="outline"
                     size="sm"
-                    class="h-8 rounded-none border-border bg-transparent text-xs font-medium text-foreground data-[state=on]:bg-muted"
+                    class="h-8 rounded-xl border-border bg-card text-xs font-medium text-foreground data-[state=on]:bg-accent"
                     bind:pressed={showVolume}
                   >
                     Volume
