@@ -5,7 +5,7 @@ import sentry from "@sentry/astro";
 import tailwindcss from "@tailwindcss/vite";
 import compressor from "astro-compressor";
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
+import { unified, type RehypePlugin } from "@astrojs/markdown-remark";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
@@ -25,7 +25,11 @@ export default defineConfig({
         remarkSectionize,
         remarkCodeFilename,
       ],
-      rehypePlugins: [rehypeCodeBlockWrapper, rehypePresetMinify, rehypeSlug],
+      rehypePlugins: [
+        rehypeCodeBlockWrapper,
+        rehypePresetMinify as unknown as RehypePlugin,
+        rehypeSlug,
+      ],
       remarkRehype: {
         footnoteLabel: "Footnotes",
       },
