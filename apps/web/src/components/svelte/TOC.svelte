@@ -1,21 +1,29 @@
 <script lang="ts">
-import { buildHierarchy } from "@/helpers/hierarchy";
-import type { HeadingTocProps } from "@/types";
-import { Button, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
-import { List, X } from "lucide-svelte";
-import TOCHeading from "./TOCHeading.svelte";
+  import { buildHierarchy } from "@/helpers/hierarchy";
+  import type { HeadingTocProps } from "@/types";
+  import {
+    Button,
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+  } from "@ikuyo/ui";
+  import { List, X } from "lucide-svelte";
+  import TOCHeading from "./TOCHeading.svelte";
 
-let { headings }: { headings: HeadingTocProps[] } = $props();
-let isOpen = $state(false);
+  let { headings }: { headings: HeadingTocProps[] } = $props();
+  let isOpen = $state(false);
 
-const rootDepth = $derived(
-  headings?.length ? Math.min(...headings.map((heading) => heading.depth)) : 2,
-);
-const toc = $derived(buildHierarchy(headings, rootDepth));
+  const rootDepth = $derived(
+    headings?.length
+      ? Math.min(...headings.map((heading) => heading.depth))
+      : 2,
+  );
+  const toc = $derived(buildHierarchy(headings, rootDepth));
 
-function toggleTOC() {
-  isOpen = !isOpen;
-}
+  function toggleTOC() {
+    isOpen = !isOpen;
+  }
 </script>
 
 <nav
@@ -34,7 +42,7 @@ function toggleTOC() {
   </ul>
 </nav>
 
-<Sheet bind:open={isOpen}>
+<Sheet bind:open={isOpen} position="right">
   <Button
     variant="outline"
     size="icon-sm"
@@ -47,9 +55,9 @@ function toggleTOC() {
     <List size={21} />
   </Button>
   <SheetContent
-    side="bottom"
+    side="right"
     overlayClass="bg-background/40 backdrop-blur-sm"
-    class="max-h-[min(72svh,36rem)] w-full overflow-x-hidden rounded-t-2xl border-t border-border bg-card p-0 shadow-lg"
+    class="w-full overflow-x-hidden border-l border-border bg-card p-0 shadow-lg"
     showCloseButton={false}
   >
     <SheetHeader

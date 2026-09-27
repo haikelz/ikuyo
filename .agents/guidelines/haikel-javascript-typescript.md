@@ -1,10 +1,11 @@
 # Haikel JavaScript and TypeScript Engineering Profile
 
 This profile records the owner's demonstrated JavaScript and TypeScript working
-style. Load it with `javascript-typescript.md`, then add the applicable framework
-guide. Repository-local rules, contracts, and tooling take precedence.
+style. Load it with `preferences.md` and `javascript-typescript.md`, then add the
+applicable framework guide. Repository-local rules, contracts, and tooling take
+precedence.
 
-The goal is code that is deliberately small, consistently formatted, type-safe at
+The goal is code that is deliberate, consistently formatted, type-safe at
 boundaries, and easy to trace from a route or component to its owning behavior.
 
 ## 1. Non-Negotiable Quality Bar
@@ -29,7 +30,9 @@ boundaries, and easy to trace from a route or component to its owning behavior.
 When a repository uses Biome, its configuration is authoritative. The owner's
 common TypeScript baseline is 2-space indentation, 80-column wrapping, double
 quotes, semicolons, spaces in object braces, parenthesized arrow parameters, and
-trailing commas where the syntax permits them.
+ES5-style trailing commas. Add trailing commas to multiline arrays, objects,
+imports, and exports, but not to function parameters or calls. This specific
+trailing-comma rule takes precedence over the generic language baseline.
 
 ```ts
 export async function getPatient(
@@ -56,16 +59,20 @@ but semantic blank lines remain an engineering decision.
   condition, assignment, or hook mechanically.
 - Separate derived data from side effects and separate side effects from the
   final returned value or rendered branch.
-- In React components, visually group hooks by purpose: inputs and context,
-  local state, remote queries, derived values, callbacks, effects, then render
-  guards and JSX. Do not interleave unrelated hooks and transformations.
+- In React components, visually group code by purpose: props and context, refs
+  and local state, forms, remote queries and mutations, derived values,
+  callbacks, effects, render guards, then JSX. Keep related hooks together and
+  do not interleave unrelated state, transformations, and side effects.
 - In services and route handlers, use the same visible sequence as the backend:
   read input, validate, authorize, execute, translate the result, return.
 - In tests, group arrange, act, and assert sections with one blank line between
   them when the test contains more than a trivial assertion.
-- Expand dense object literals, function calls, and callback bodies when their
-  one-line form hides ownership or makes the surrounding block difficult to
-  scan.
+- Expand object literals, function calls, conditionals, JSX props, and callback
+  bodies when they contain several meaningful values or hide ownership in a
+  one-line form. Prefer one property or logical argument per line in the expanded
+  form.
+- Keep a concise expression on one line only when it remains immediately obvious
+  in context. Do not optimize source for minimum line count.
 - Use one blank line per semantic boundary. Avoid repeated blank lines, blank
   lines immediately inside braces, and whitespace that splits one operation
   from its directly associated error handling.
@@ -88,20 +95,37 @@ export async function updatePatient(
 }
 ```
 
-For broad cleanup, inspect representative routes, services, components, hooks,
-and tests after the formatter runs. A clean formatter result does not by itself
-prove that the code has the intended visual rhythm.
+For broad cleanup, inventory and inspect every handwritten JavaScript,
+TypeScript, and component file in the declared scope after the formatter runs.
+Include routes, services, components, hooks, schemas, and tests; exclude generated
+files explicitly. A clean formatter result does not by itself prove that the
+code has the intended visual rhythm.
 
 - Use `kebab-case` filenames, `PascalCase` component/type/class names, and
   `camelCase` values, functions, hooks, and handlers.
 - Use a specific noun or verb. Avoid vague names such as `data`, `item`,
   `helper`, and `manager` when the domain supplies a better name.
-- Keep imports organized mechanically. Use the repository alias for
+- Keep imports in one mechanically sorted block unless the formatter establishes
+  groups. The preferred order is application-alias imports, third-party package
+  imports, then neighboring relative imports. Use the repository alias for
   cross-feature application imports and relative imports for neighboring files.
 - Use `import type` for type-only imports when supported by the project's module
   configuration.
+- Prefer named function declarations for components, services, handlers, and
+  other named operations. Use arrow functions for callbacks, lexical `this`,
+  atoms or configuration values, and APIs such as `forwardRef` that require an
+  expression.
 - Next route files may default-export because the framework requires it. Reusable
   components SHOULD use named exports.
+
+```ts
+import { Button } from "@/components/ui/button";
+import { updatePatient } from "@/services/patients";
+import type { Patient } from "@/types";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { PatientSummary } from "./patient-summary";
+```
 
 ## 3. Type Boundaries and Data Contracts
 
@@ -132,18 +156,42 @@ type LoginInput = z.infer<typeof loginSchema>;
 
 - Keep App Router `page.tsx` files thin: metadata, layout composition, feature
   entry point, and only the `Suspense` boundary the route requires.
-- Feature components own feature composition. Reusable primitives live in the
-  shared UI area; do not duplicate an existing primitive for cosmetic reasons.
+- Feature components own feature composition. Place feature pages, tables,
+  dialogs, forms, detail views, and charts under one domain-oriented component
+  directory. Reusable primitives live in the shared UI area; do not duplicate an
+  existing primitive for cosmetic reasons.
 - Add `"use client"` only when hooks, browser APIs, interactive event handlers,
   Jotai, or React Query require it. Keep data-independent layout server-rendered.
 - Prefer local `useState` for ephemeral local state, URL state for shareable
   filters and pagination, Jotai for cross-component client UI state, and React
   Query for remote/server state. Do not mirror fetched data into Jotai.
+- Use `nuqs` for typed, shareable query-string state when it is already part of
+  the application. Keep defaults and parsing explicit, and reset pagination when
+  a filter changes the result set.
 - Use React Hook Form, Zod, and the established field primitives for forms. Keep
   schema definitions outside components when they are reusable.
 - Use semantic design tokens and existing Tailwind/shadcn primitives. Do not add
   CSS-in-JS or CSS modules to a Tailwind-based application without a technical
   need.
+
+Preferred ownership for a substantial feature:
+
+```text
+src/
+├── app/<route>/page.tsx
+├── components/<area>/<feature>/
+│   ├── <feature>-page.tsx
+│   ├── <feature>-table.tsx
+│   ├── dialog-create-<feature>.tsx
+│   └── dialog-update-<feature>.tsx
+├── lib/schemas/<feature>.ts
+├── services/<feature>.ts
+└── types/<feature>.ts
+```
+
+Do not create every file in this example preemptively. Add a file only when that
+responsibility exists, and keep route-private code near the route when it is not
+shared by the broader feature.
 
 ## 5. Remote Data and Mutations
 
@@ -227,6 +275,10 @@ For NestJS services, use a controller → service → persistence/model flow.
   dependency fakes and assert success plus meaningful error paths.
 - Every behavior change needs focused success, invalid-input/boundary, and error
   coverage where tests exist. A defect fix SHOULD add a regression test.
+- In a monorepo, keep the shared Biome configuration schema compatible with the
+  installed Biome CLI major version. Validate the shared config from every app
+  that extends it after an upgrade; a config package existing in the workspace
+  does not prove that the active CLI can deserialize it.
 - Before finishing, run the repository formatter, narrow tests, type/lint checks,
   relevant build, and inspect the final diff.
 
@@ -237,6 +289,12 @@ For NestJS services, use a controller → service → persistence/model flow.
 - Do not create a new `QueryClient` on every provider render; initialize it with
   stable provider lifetime.
 - Do not use query keys made only of page/filter values; include the resource.
+- Do not perform ordinary API transport work directly in a component mutation
+  merely because one legacy component does so. Keep transport and envelope
+  handling in the typed service boundary.
+- Do not copy reusable-component default exports when a named export makes
+  imports, refactors, and symbol search clearer. Preserve framework-required
+  route defaults.
 - Do not add controller business logic, oversized catch-all services, raw
   `require` calls, or duplicated middleware registration.
 - Do not treat shallow tests that only assert a provider exists as adequate

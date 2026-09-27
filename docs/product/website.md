@@ -44,6 +44,14 @@
 - The calendar scrolls within its own region at narrow widths without causing
   page-level horizontal overflow.
 
+## Works contract
+
+- Work records use the `company` or `personal` category; existing records
+  default to personal.
+- The homepage shows company projects with a link to the complete Works page.
+- `/works` lists all company projects first, followed by personal projects.
+- Every project card shows its supplied thumbnail or a generated title image.
+
 ## Experience contract
 
 - Every homepage experience summary comes from the `experiences` collection.

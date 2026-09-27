@@ -4,6 +4,9 @@
 
 This document defines a project-neutral operating protocol for repository work by humans and coding agents.
 
+Read `preferences.md` alongside this document for the owner's cross-stack code,
+interface, writing, review, and delivery quality bar.
+
 The engineering harness is a compact, Git-native repository protocol and safe maintenance mechanism.
 It consists of concise instructions, durable documentation, canonical commands, executable checks, and evidence needed to understand and maintain a repository safely.
 

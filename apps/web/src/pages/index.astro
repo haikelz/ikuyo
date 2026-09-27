@@ -1,4 +1,5 @@
 ---
+import WorkRow from "@/components/WorkRow.astro";
 import GitHubContributionGraph from "@/components/svelte/GitHubContributionGraph.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
@@ -12,8 +13,8 @@ const [notesList, worksList, experienceList] = await Promise.all([
 
 const experiences = experienceList.sort((a, b) => a.data.order - b.data.order);
 const featuredWorks = worksList
-  .sort((a, b) => a.data.id - b.data.id)
-  .slice(1, 5);
+  .filter((work) => work.data.category === "company")
+  .sort((a, b) => a.data.id - b.data.id);
 const latestNotes = notesList
   .sort(
     (a, b) =>
@@ -42,7 +43,7 @@ const latestNotes = notesList
           I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
           working across business software, delivery infrastructure, and
           content-driven products with Go and TypeScript. I'm currently going
-          deeper into Go, DevOps, finance, and engineering leadership.
+          deeper into Go, DevOps, and finance.
         </p>
         <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
           <a
@@ -92,10 +93,7 @@ const latestNotes = notesList
       <div class="border-b border-border/70 slide-enter-content">
         {
           experiences.map((experience, index) => (
-            <article class="group grid gap-5 border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10">
-              <div class="font-mono text-xs font-medium tabular-nums text-muted-foreground">
-                {String(index + 1).padStart(2, "0")}
-              </div>
+            <article class="border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10 group">
               <div>
                 <div class="flex w-full flex-col items-start justify-start gap-2 sm:flex-row sm:items-baseline sm:justify-between">
                   <div>
@@ -163,7 +161,7 @@ const latestNotes = notesList
           <h2
             class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
           >
-            Featured Works
+            Company Projects
           </h2>
         </div>
         <a
@@ -175,38 +173,8 @@ const latestNotes = notesList
       </div>
       <div class="border-b border-border/70 slide-enter-content">
         {
-          featuredWorks.map((item, index) => (
-            <article
-              data-cy="featured-work"
-              class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
-            >
-              <span class="font-mono text-xs tabular-nums text-muted-foreground">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
-                  <a
-                    href={`/works/${item.id}`}
-                    class="no-underline! hover:text-muted-foreground transition-colors"
-                  >
-                    {item.data.title}
-                  </a>
-                </h3>
-                <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground text-pretty">
-                  {item.data.description}
-                </p>
-                <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
-                  {item.data.stack.join(" · ")}
-                </p>
-              </div>
-              <a
-                href={`/works/${item.id}`}
-                aria-label={`View ${item.data.title}`}
-                class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
-              >
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
+          featuredWorks.map((item) => (
+            <WorkRow item={item} testId="featured-work" />
           ))
         }
       </div>

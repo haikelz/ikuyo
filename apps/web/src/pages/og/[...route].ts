@@ -12,6 +12,7 @@ const staticPages: Record<string, { title: string }> = {
   notes: { title: "Notes" },
   works: { title: "Works" },
   photos: { title: "Photos" },
+  experiences: { title: "Experiences" },
   uses: { title: "Uses" },
   wakatime: { title: "Wakatime" },
   guestbook: { title: "Guestbook" },
@@ -34,45 +35,60 @@ const experiencesPages = Object.fromEntries(
     .map(({ id, data }) => [`experiences/${id}`, { title: data.company }]),
 );
 
-const tagsPages = Object.fromEntries(uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]));
+const tagsPages = Object.fromEntries(
+  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]),
+);
 
-const pages = { ...staticPages, ...notesPages, ...worksPages, ...experiencesPages, ...tagsPages };
+const pages = {
+  ...staticPages,
+  ...notesPages,
+  ...worksPages,
+  ...experiencesPages,
+  ...tagsPages,
+};
 
 const fontRegular =
   "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
-const fontBold = "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
+const fontBold =
+  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   pages,
-  getImageOptions: (_path, page: (typeof pages)[string]) => ({
-    title: page.title.toUpperCase(),
-    description: "ekel.dev - Product/Devops",
-    bgGradient: [[24, 23, 29]],
-    logo: {
-      path: "./public/images/avatar.png",
-      size: [180, 180],
-      borderRadius: 100,
-    },
-    font: {
-      title: {
+  getImageOptions: (path, page: (typeof pages)[string]) => {
+    const isWorkThumbnail = path.startsWith("works/");
+
+    return {
+      title: page.title.toUpperCase(),
+      description: isWorkThumbnail ? undefined : "ekel.dev - Product/Devops",
+      bgGradient: [[24, 23, 29]],
+      ...(!isWorkThumbnail && {
+        logo: {
+          path: "./public/images/avatar.png",
+          size: [180, 180] as [number, number],
+          borderRadius: 100,
+        },
+      }),
+      font: {
+        title: {
+          color: [255, 255, 255],
+          size: isWorkThumbnail ? 108 : 60,
+          weight: "Bold",
+          lineHeight: 1.1,
+          families: ["Geist Sans"],
+        },
+        description: {
+          color: [160, 160, 160],
+          size: 32,
+          weight: "Normal",
+          families: ["Geist Sans"],
+        },
+      },
+      fonts: [fontRegular, fontBold],
+      border: {
         color: [255, 255, 255],
-        size: 60,
-        weight: "Bold",
-        lineHeight: 1.1,
-        families: ["Geist Sans"],
+        width: 0,
       },
-      description: {
-        color: [160, 160, 160],
-        size: 32,
-        weight: "Normal",
-        families: ["Geist Sans"],
-      },
-    },
-    fonts: [fontRegular, fontBold],
-    border: {
-      color: [255, 255, 255],
-      width: 0,
-    },
-    padding: 60,
-  }),
+      padding: isWorkThumbnail ? 48 : 60,
+    };
+  },
 });

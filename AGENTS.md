@@ -96,7 +96,7 @@ before calling change work complete. Never claim a check passed unless it ran.
 <!-- AI-GUIDELINES:BEGIN -->
 ## AI Engineering Guidelines
 
-Read `.agents/general.md` for every task. Then select the smallest matching context profile below. Do not read every installed companion by default. Repository-local contracts and instructions remain authoritative.
+Read `.agents/general.md` and `.agents/preferences.md` for every task. Then select the smallest matching context profile below. Do not read every installed companion by default. Repository-local contracts and instructions remain authoritative.
 
 - **Repository setup, documentation, planning, or process:** no companion guideline.
 - **JavaScript or TypeScript language/library work:** `.agents/guidelines/javascript-typescript.md` and `.agents/guidelines/haikel-javascript-typescript.md`.
@@ -108,6 +108,7 @@ Read `.agents/general.md` for every task. Then select the smallest matching cont
 
 Match the changed path first, then use only that workspace's applicable profile.
 
+- `graft/apps/web/**`: javascript-typescript, astro, docker.
 - `.moon/cache/schemas/**`: javascript-typescript.
 - `packages/ui/**`: javascript-typescript.
 - `packages/typescript/**`: javascript-typescript.

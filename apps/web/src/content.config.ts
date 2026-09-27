@@ -18,8 +18,9 @@ const worksCollection = defineCollection({
   schema: z.object({
     id: z.number(),
     author: z.string().min(1),
-    thumbnail: z.string().min(1).includes("https"),
+    thumbnail: z.string().url().optional(),
     title: z.string().min(1),
+    category: z.enum(["company", "personal"]).default("personal"),
     stack: z.array(z.string()),
     repo: z.string().optional(),
     preview: z.string().optional(),

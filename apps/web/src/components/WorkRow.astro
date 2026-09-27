@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  item: CollectionEntry<"works">;
+  testId: string;
+};
+
+const { item, testId } = Astro.props;
+const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
+---
+
+<article
+  data-cy={testId}
+  class="grid gap-4 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] items-start sm:gap-6"
+>
+  <img
+    src={thumbnail}
+    alt={`${item.data.title} thumbnail`}
+    width="128"
+    height="72"
+    loading="lazy"
+    decoding="async"
+    class="aspect-video w-32 rounded-md border border-border/70 object-cover"
+  />
+  <div>
+    <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
+      <a
+        href={`/works/${item.id}`}
+        class="no-underline! transition-colors hover:text-muted-foreground"
+      >
+        {item.data.title}
+      </a>
+    </h3>
+    <p
+      class="mb-0 mt-2 max-w-xl text-sm leading-6 text-pretty text-muted-foreground"
+    >
+      {item.data.description}
+    </p>
+    {
+      item.data.stack.length > 0 ? (
+        <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
+          {item.data.stack.join(" · ")}
+        </p>
+      ) : null
+    }
+  </div>
+  <a
+    href={`/works/${item.id}`}
+    aria-label={`View ${item.data.title}`}
+    class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
+  >
+    <span aria-hidden="true">→</span>
+  </a>
+</article>

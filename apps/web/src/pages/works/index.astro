@@ -1,9 +1,26 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import WorkRow from "@/components/WorkRow.astro";
 import { getCollection } from "astro:content";
 
 const worksList = await getCollection("works");
+const projectGroups = [
+  {
+    title: "Company Projects",
+    testId: "company-projects",
+    projects: worksList
+      .filter((work) => work.data.category === "company")
+      .sort((a, b) => a.data.id - b.data.id),
+  },
+  {
+    title: "Personal Projects",
+    testId: "personal-projects",
+    projects: worksList
+      .filter((work) => work.data.category === "personal")
+      .sort((a, b) => a.data.id - b.data.id),
+  },
+];
 ---
 
 <Layout
@@ -18,53 +35,25 @@ const worksList = await getCollection("works");
       "md:text-start",
     ]}
   >
-    <PageHeader title="Works" eyebrow="Selected projects">
-      A collection of projects I've built.
+    <PageHeader title="Works" eyebrow="Company and personal projects">
+      Browse projects I've built with teams and on my own.
     </PageHeader>
     <section
       data-cy="works-list"
       class="w-full mt-10 sm:mt-16 slide-enter-content"
     >
-      <h2 class="sr-only">All works</h2>
-      <div class="border-b border-border/70">
-        {
-          worksList
-            .sort((a, b) => a.data.id - b.data.id)
-            .map((item, index) => (
-              <article
-                data-cy="work-row"
-                class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
-              >
-                <span class="font-mono text-xs tabular-nums text-muted-foreground">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
-                    <a
-                      href={`/works/${item.id}`}
-                      class="no-underline! transition-colors hover:text-muted-foreground"
-                    >
-                      {item.data.title}
-                    </a>
-                  </h3>
-                  <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-pretty text-muted-foreground">
-                    {item.data.description}
-                  </p>
-                  <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
-                    {item.data.stack.join(" · ")}
-                  </p>
-                </div>
-                <a
-                  href={`/works/${item.id}`}
-                  aria-label={`View ${item.data.title}`}
-                  class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
-                >
-                  <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            ))
-        }
-      </div>
+      {projectGroups.map((group) => (
+        <section data-cy={group.testId} class="mb-14 w-full last:mb-0">
+          <h2 class="mb-4 text-xl font-semibold tracking-tight text-foreground">
+            {group.title}
+          </h2>
+          <div class="border-b border-border/70">
+            {group.projects.map((item) => (
+              <WorkRow item={item} testId="work-row" />
+            ))}
+          </div>
+        </section>
+      ))}
     </section>
   </div>
 </Layout>

@@ -1,5 +1,8 @@
 describe("SEO metadata", () => {
   it("publishes canonical social and profile metadata on the homepage", () => {
+    cy.request("/")
+      .its("body")
+      .should("match", /<head>\s*<meta charset=/);
     cy.visit("/");
 
     cy.get('link[rel="canonical"]').should("have.attr", "href", "https://ekel.dev/");

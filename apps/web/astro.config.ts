@@ -5,17 +5,33 @@ import sentry from "@sentry/astro";
 import tailwindcss from "@tailwindcss/vite";
 import compressor from "astro-compressor";
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
 import remarkToc from "remark-toc";
-import { SENTRY_AUTH_TOKEN, SENTRY_DSN, SENTRY_PROJECT } from "./src/utils/env";
+import { SENTRY_AUTH_TOKEN, SENTRY_PROJECT } from "./src/utils/env";
 import { rehypeCodeBlockWrapper } from "./src/utils/rehype";
 import { remarkCodeFilename, remarkReadingTime } from "./src/utils/remark";
 
 export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
+  markdown: {
+    processor: unified({
+      remarkPlugins: [
+        [remarkToc, { heading: "toc" }],
+        remarkReadingTime,
+        remarkSectionize,
+        remarkCodeFilename,
+      ],
+      rehypePlugins: [rehypeCodeBlockWrapper, rehypePresetMinify, rehypeSlug],
+      remarkRehype: {
+        footnoteLabel: "Footnotes",
+      },
+      gfm: true,
+    }),
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -30,17 +46,6 @@ export default defineConfig({
         theme: "github-dark-default",
         transformers: [(await import("./src/utils/shiki.ts")).transformerMetaFilename()],
       },
-      remarkPlugins: [
-        [remarkToc, { heading: "toc" }],
-        remarkReadingTime,
-        remarkSectionize,
-        remarkCodeFilename,
-      ],
-      rehypePlugins: [rehypeCodeBlockWrapper, rehypePresetMinify, rehypeSlug],
-      remarkRehype: {
-        footnoteLabel: "Footnotes",
-      },
-      gfm: true,
       optimize: true,
     }),
     sitemap({
@@ -53,12 +58,9 @@ export default defineConfig({
     }),
     svelte(),
     sentry({
-      dsn: SENTRY_DSN,
-      sourceMapsUploadOptions: {
-        project: SENTRY_PROJECT,
-        authToken: SENTRY_AUTH_TOKEN,
-        telemetry: false,
-      },
+      project: SENTRY_PROJECT,
+      authToken: SENTRY_AUTH_TOKEN,
+      telemetry: false,
     }),
     (await import("@playform/compress")).default(),
   ],
