@@ -40,6 +40,7 @@
     "layerchart": "^2.3.0",
     "lucide-svelte": "^1.0.1",
     "mdast-util-to-string": "^4.0.0",
+    "profanity-kit": "^1.0.1",
     "reading-time": "^1.5.0",
     "rehype-preset-minify": "^7.0.1",
     "rehype-slug": "^6.0.0",

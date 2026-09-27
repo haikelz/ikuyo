@@ -1,7 +1,8 @@
 ---
-import { api } from "@/configs/ky";
-import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import { api } from "@/configs/ky";
+import { hideProfanity } from "@/helpers/profanity";
+import Layout from "@/layouts/Layout.astro";
 import type { GuestbookProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
 import { format } from "date-fns";
@@ -18,6 +19,10 @@ export async function getGuestbook(): Promise<GuestbookProps[]> {
 }
 
 const guestbook = await getGuestbook();
+const freeProfanityGuestbook = guestbook.map((item) => ({
+  ...item,
+  message: hideProfanity(item.message),
+}));
 ---
 
 <Layout
@@ -51,7 +56,7 @@ const guestbook = await getGuestbook();
       {
         guestbook ? (
           <div class="w-full border-b border-border/70">
-            {guestbook
+            {freeProfanityGuestbook
               .sort(
                 (a, b) =>
                   new Date(b.created_at).getTime() -
