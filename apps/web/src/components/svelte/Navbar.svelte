@@ -162,7 +162,7 @@
       <SheetContent
         side="bottom"
         id="mobile-nav-sheet"
-        class="rounded-t-2xl border-border bg-card pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t"
+        class="rounded-t-md border-border bg-card pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 border-t"
         showCloseButton={false}
       >
         <div
@@ -190,7 +190,7 @@
               href={item.path}
               aria-current={active ? "page" : undefined}
               class={cn(
-                "flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-base font-medium no-underline transition-colors",
+                "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
                 active
                   ? "bg-accent text-accent-foreground"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",

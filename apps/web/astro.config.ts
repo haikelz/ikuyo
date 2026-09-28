@@ -1,11 +1,11 @@
+import { unified, type RehypePlugin } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import sentry from "@sentry/astro";
 import tailwindcss from "@tailwindcss/vite";
 import compressor from "astro-compressor";
-import { defineConfig } from "astro/config";
-import { unified, type RehypePlugin } from "@astrojs/markdown-remark";
+import { defineConfig, fontProviders } from "astro/config";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkSectionize from "remark-sectionize";
@@ -17,6 +17,23 @@ import { remarkCodeFilename, remarkReadingTime } from "./src/utils/remark";
 export default defineConfig({
   output: "static",
   site: "https://ekel.dev",
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Geist Sans",
+      cssVariable: "--font-geist-sans",
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Geist Mono",
+      cssVariable: "--font-geist-mono",
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Noto Naskh Arabic",
+      cssVariable: "--font-noto-naskh-arabic",
+    },
+  ],
   markdown: {
     processor: unified({
       remarkPlugins: [
@@ -48,7 +65,9 @@ export default defineConfig({
       syntaxHighlight: "shiki",
       shikiConfig: {
         theme: "github-dark-default",
-        transformers: [(await import("./src/utils/shiki.ts")).transformerMetaFilename()],
+        transformers: [
+          (await import("./src/utils/shiki.ts")).transformerMetaFilename(),
+        ],
       },
       optimize: true,
     }),

@@ -224,7 +224,7 @@ onMount(() => {
     <Badge
       data-cy="open-to-work-badge"
       variant="outline"
-      class="h-7 rounded-xl border-border bg-card px-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground"
+      class="h-7 rounded-md border-border bg-card px-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground"
     >
       <span class="size-1.5 rounded-full bg-success" aria-hidden="true"></span>
       #opentowork
@@ -238,12 +238,12 @@ onMount(() => {
       <Select type="single" bind:value={selectedYear}>
         <SelectTrigger
           data-cy="activity-year-select"
-          class="h-9 w-24 rounded-xl border-border bg-card font-mono text-xs text-foreground"
+          class="h-9 w-24 rounded-md border-border bg-card font-mono text-xs text-foreground"
           aria-label="Select activity year"
         >
           {selectedYear}
         </SelectTrigger>
-        <SelectContent class="rounded-xl border-border bg-popover text-popover-foreground shadow-lg">
+        <SelectContent class="rounded-md border-border bg-popover text-popover-foreground shadow-lg">
           {#each availableYears as year}
             <SelectItem
               value={year}

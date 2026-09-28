@@ -1,102 +1,102 @@
 <script lang="ts">
-import type { WakatimeStatsProps } from "@/types";
-import { Card, CardContent, CardHeader } from "@ikuyo/ui";
-import { BarChart4, Calendar, Clock } from "lucide-svelte";
+  import type { WakatimeStatsProps } from "@/types";
+  import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+  import { BarChart4, Calendar, Clock } from "lucide-svelte";
 
-let { data }: { data: WakatimeStatsProps } = $props();
+  let { data }: { data: WakatimeStatsProps } = $props();
 
-const colors = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-4)",
-  "var(--chart-5)",
-  "var(--chart-6)",
-  "var(--chart-7)",
-  "var(--chart-8)",
-  "var(--chart-9)",
-  "var(--chart-10)",
-];
+  const colors = [
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
+    "var(--chart-6)",
+    "var(--chart-7)",
+    "var(--chart-8)",
+    "var(--chart-9)",
+    "var(--chart-10)",
+  ];
 
-function formatDuration(seconds: number) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  if (hours > 0) {
-    return `${hours}h ${minutes}m`;
+  function formatDuration(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    }
+    return `${minutes}m`;
   }
-  return `${minutes}m`;
-}
 
-const weeklyStats = $derived.by(() => {
-  const preferred = data.languages.filter(
-    (stat) =>
-      stat.name === "TypeScript" ||
-      stat.name === "JavaScript" ||
-      stat.name === "Go" ||
-      stat.name === "Svelte" ||
-      stat.name === "Astro" ||
-      stat.name === "Docker",
-  );
+  const weeklyStats = $derived.by(() => {
+    const preferred = data.languages.filter(
+      (stat) =>
+        stat.name === "TypeScript" ||
+        stat.name === "JavaScript" ||
+        stat.name === "Go" ||
+        stat.name === "Svelte" ||
+        stat.name === "Astro" ||
+        stat.name === "Docker",
+    );
 
-  return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
-});
-
-const chartData = $derived(
-  weeklyStats.map((lang) => ({
-    name: lang.name,
-    percent: Number(lang.percent ?? 0),
-  })),
-);
-
-const chartBars = $derived.by(() => {
-  const width = 1000;
-  const height = 260;
-  const maxY = 100;
-  const left = 48;
-  const right = 16;
-  const bottom = 38;
-  const top = 12;
-  const innerWidth = width - left - right;
-  const innerHeight = height - top - bottom;
-  const count = Math.max(chartData.length, 1);
-  const slotWidth = innerWidth / count;
-  const barWidth = Math.max(14, Math.min(64, slotWidth * 0.64));
-
-  const bars = chartData.map((item, index) => {
-    const x = left + index * slotWidth + (slotWidth - barWidth) / 2;
-    const clamped = Math.max(0, Math.min(maxY, item.percent));
-    const h = (clamped / maxY) * innerHeight;
-    const y = top + innerHeight - h;
-    return {
-      x,
-      y,
-      h,
-      w: barWidth,
-      labelX: left + index * slotWidth + slotWidth / 2,
-      color: colors[index % colors.length],
-      label: item.name,
-      value: clamped,
-    };
+    return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
   });
 
-  const yTicks = [0, 20, 40, 60, 80, 100].map((value) => ({
-    value,
-    y: top + innerHeight - (value / maxY) * innerHeight,
-  }));
+  const chartData = $derived(
+    weeklyStats.map((lang) => ({
+      name: lang.name,
+      percent: Number(lang.percent ?? 0),
+    })),
+  );
 
-  return {
-    width,
-    height,
-    left,
-    right,
-    top,
-    bottom,
-    innerWidth,
-    innerHeight,
-    bars,
-    yTicks,
-  };
-});
+  const chartBars = $derived.by(() => {
+    const width = 1000;
+    const height = 260;
+    const maxY = 100;
+    const left = 48;
+    const right = 16;
+    const bottom = 38;
+    const top = 12;
+    const innerWidth = width - left - right;
+    const innerHeight = height - top - bottom;
+    const count = Math.max(chartData.length, 1);
+    const slotWidth = innerWidth / count;
+    const barWidth = Math.max(14, Math.min(64, slotWidth * 0.64));
+
+    const bars = chartData.map((item, index) => {
+      const x = left + index * slotWidth + (slotWidth - barWidth) / 2;
+      const clamped = Math.max(0, Math.min(maxY, item.percent));
+      const h = (clamped / maxY) * innerHeight;
+      const y = top + innerHeight - h;
+      return {
+        x,
+        y,
+        h,
+        w: barWidth,
+        labelX: left + index * slotWidth + slotWidth / 2,
+        color: colors[index % colors.length],
+        label: item.name,
+        value: clamped,
+      };
+    });
+
+    const yTicks = [0, 20, 40, 60, 80, 100].map((value) => ({
+      value,
+      y: top + innerHeight - (value / maxY) * innerHeight,
+    }));
+
+    return {
+      width,
+      height,
+      left,
+      right,
+      top,
+      bottom,
+      innerWidth,
+      innerHeight,
+      bars,
+      yTicks,
+    };
+  });
 </script>
 
 <div class="mb-8">
@@ -110,9 +110,7 @@ const chartBars = $derived.by(() => {
   </p>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-    <Card
-      class="border border-border rounded-2xl bg-card ring-0 gap-0 py-0"
-    >
+    <Card class="border border-border rounded-md bg-card ring-0 gap-0 py-0">
       <CardHeader class="p-4">
         <div class="flex items-center">
           <Clock class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -126,9 +124,7 @@ const chartBars = $derived.by(() => {
       </CardHeader>
     </Card>
 
-    <Card
-      class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
-    >
+    <Card class="border border-border bg-card rounded-md ring-0 gap-0 py-0">
       <CardHeader class="p-4">
         <div class="flex items-center">
           <Calendar class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -142,9 +138,7 @@ const chartBars = $derived.by(() => {
       </CardHeader>
     </Card>
 
-    <Card
-      class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
-    >
+    <Card class="border border-border bg-card rounded-md ring-0 gap-0 py-0">
       <CardHeader class="p-4">
         <div class="flex items-center">
           <BarChart4 class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -159,9 +153,7 @@ const chartBars = $derived.by(() => {
     </Card>
   </div>
 
-  <Card
-    class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
-  >
+  <Card class="border border-border bg-card rounded-md ring-0 gap-0 py-0">
     <CardContent class="p-4">
       <div class="w-full">
         <div class="h-56">

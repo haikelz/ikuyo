@@ -13,21 +13,21 @@ documented design language without importing React-only registry components.
 Use semantic tokens for all interface colors. Status colors communicate
 information consistently and never carry meaning alone.
 
-| Role | Token | Light | Dark | Usage |
-| --- | --- | --- | --- | --- |
-| Canvas | `--background` | `oklch(0.985 0.004 275)` | `oklch(0.17 0.018 275)` | Page background |
-| Content | `--foreground` | `oklch(0.205 0.018 275)` | `oklch(0.96 0.008 275)` | Primary text |
-| Card | `--card` | `oklch(1 0 0)` | `oklch(0.215 0.018 275)` | Raised content surfaces |
-| Primary | `--primary` | `oklch(0.47 0.17 278)` | `oklch(0.76 0.13 278)` | Main actions and links |
-| Muted | `--muted` | `oklch(0.96 0.008 275)` | `oklch(0.26 0.018 275)` | Quiet surface |
-| Muted text | `--muted-foreground` | `oklch(0.48 0.018 275)` | `oklch(0.7 0.018 275)` | Metadata and secondary copy |
-| Border | `--border` | `oklch(0.9 0.01 275)` | `oklch(1 0.008 275 / 11%)` | Surface and row boundaries |
-| Focus | `--ring` | `oklch(0.55 0.16 278)` | `oklch(0.68 0.12 278)` | Keyboard focus |
-| Info | `--info` | `oklch(0.92 0.04 278)` | `oklch(0.29 0.07 278)` | Informational state |
-| Success | `--success` | `oklch(0.92 0.05 155)` | `oklch(0.29 0.07 155)` | Positive state and gains |
-| Warning | `--warning` | `oklch(0.94 0.06 83)` | `oklch(0.32 0.07 83)` | Caution state |
-| Destructive | `--destructive` | `oklch(0.54 0.2 27)` | `oklch(0.65 0.18 27)` | Errors and losses |
-| Invert | `--invert` | `oklch(0.22 0.018 275)` | `oklch(0.96 0.008 275)` | Inverse emphasis |
+| Role        | Token                | Light                    | Dark                       | Usage                       |
+| ----------- | -------------------- | ------------------------ | -------------------------- | --------------------------- |
+| Canvas      | `--background`       | `oklch(0.985 0.004 275)` | `oklch(0.17 0.018 275)`    | Page background             |
+| Content     | `--foreground`       | `oklch(0.205 0.018 275)` | `oklch(0.96 0.008 275)`    | Primary text                |
+| Card        | `--card`             | `oklch(1 0 0)`           | `oklch(0.215 0.018 275)`   | Raised content surfaces     |
+| Primary     | `--primary`          | `oklch(0.47 0.17 278)`   | `oklch(0.76 0.13 278)`     | Main actions and links      |
+| Muted       | `--muted`            | `oklch(0.96 0.008 275)`  | `oklch(0.26 0.018 275)`    | Quiet surface               |
+| Muted text  | `--muted-foreground` | `oklch(0.48 0.018 275)`  | `oklch(0.7 0.018 275)`     | Metadata and secondary copy |
+| Border      | `--border`           | `oklch(0.9 0.01 275)`    | `oklch(1 0.008 275 / 11%)` | Surface and row boundaries  |
+| Focus       | `--ring`             | `oklch(0.55 0.16 278)`   | `oklch(0.68 0.12 278)`     | Keyboard focus              |
+| Info        | `--info`             | `oklch(0.92 0.04 278)`   | `oklch(0.29 0.07 278)`     | Informational state         |
+| Success     | `--success`          | `oklch(0.92 0.05 155)`   | `oklch(0.29 0.07 155)`     | Positive state and gains    |
+| Warning     | `--warning`          | `oklch(0.94 0.06 83)`    | `oklch(0.32 0.07 83)`      | Caution state               |
+| Destructive | `--destructive`      | `oklch(0.54 0.2 27)`     | `oklch(0.65 0.18 27)`      | Errors and losses           |
+| Invert      | `--invert`           | `oklch(0.22 0.018 275)`  | `oklch(0.96 0.008 275)`    | Inverse emphasis            |
 
 Use the corresponding `*-foreground` tokens for text on semantic surfaces.
 Positive and negative market movement uses `--success` and
@@ -49,9 +49,9 @@ stay theme-aware without implying status.
 
 Use Tailwind's 4px spacing scale. Keep related controls compact with 2–4 spacing
 steps; separate content sections by 10–16 steps. The centered site shell uses
-`max-w-5xl` with 4/6/8 horizontal padding across base/sm/md breakpoints.
+`max-w-3xl` with 4/6/8 horizontal padding across base/sm/md breakpoints.
 Editorial rows and media grids adapt to a single readable column on small
-screens. Notes and Works detail pages use the full `max-w-5xl` shell; other
+screens. Notes and Works detail pages use the full `max-w-3xl` shell; other
 long-form prose may retain a `max-w-3xl` reading measure.
 
 ## 5. Components
@@ -97,7 +97,7 @@ long-form prose may retain a `max-w-3xl` reading measure.
 
 ### Table of contents
 
-- **Structure:** Notes and Works detail pages fill the `max-w-5xl` site shell.
+- **Structure:** Notes and Works detail pages fill the `max-w-3xl` site shell.
   The desktop navigation rail sits outside the shell; keep the existing bottom
   sheet below `2xl`.
 - **States:** section links stay quiet by default and gain clear contrast on

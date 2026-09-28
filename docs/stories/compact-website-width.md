@@ -20,7 +20,7 @@ existing readable measure for long-form writing and full-bleed media.
 
 ## Acceptance Criteria
 
-- Main content shell and desktop navigation share a `max-w-5xl` boundary.
+- Main content shell and desktop navigation share a `max-w-3xl` boundary.
 - Works and notes detail layouts fill the same shell as other public pages,
   with the ToC rendered outside the shell so it does not consume article width.
 - Long-form prose without an adjacent ToC retains its existing reading measure.
@@ -34,13 +34,13 @@ existing readable measure for long-form writing and full-bleed media.
 
 ## Validation
 
-| Layer | Expected proof |
-| --- | --- |
-| Unit | Not applicable; no new logic |
-| Integration | Astro production build |
-| E2E | Responsive route checks |
-| Platform | Browser screenshots at mobile, tablet, and desktop widths |
-| Release | Not applicable |
+| Layer       | Expected proof                                            |
+| ----------- | --------------------------------------------------------- |
+| Unit        | Not applicable; no new logic                              |
+| Integration | Astro production build                                    |
+| E2E         | Responsive route checks                                   |
+| Platform    | Browser screenshots at mobile, tablet, and desktop widths |
+| Release     | Not applicable                                            |
 
 ## Harness Delta
 

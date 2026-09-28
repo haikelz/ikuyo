@@ -2,7 +2,7 @@ import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 
 const codeBlockCopyClass = [
-  "inline-flex size-8 shrink-0 items-center justify-center rounded-4xl border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+  "inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
   "code-block-copy absolute bottom-3 right-3",
 ].join(" ");
 
@@ -29,7 +29,9 @@ function getLanguageFromClass(classNames: string[] | string): string | null {
       ? classNames.split(/\s+/)
       : [];
   const langClass = classes.find(
-    (c) => typeof c === "string" && (c.startsWith("language-") || c.includes("language-")),
+    (c) =>
+      typeof c === "string" &&
+      (c.startsWith("language-") || c.includes("language-")),
   );
   if (langClass) {
     const match = langClass.match(/language-([a-z0-9+-]+)/i);
@@ -73,7 +75,8 @@ export function rehypeCodeBlockWrapper() {
       const preProps = node.properties || {};
       const codeClassNames = codeProps.className ?? [];
       const preClassNames = preProps.className ?? [];
-      const meta = codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
+      const meta =
+        codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
       const dataFilename =
         preProps["data-filename"] ??
         preProps.dataFilename ??
@@ -122,7 +125,7 @@ export function rehypeCodeBlockWrapper() {
                       "text-muted-foreground",
                       "border-b",
                       "border-border",
-                      "rounded-t-2xl",
+                      "rounded-t-md",
                     ],
                   },
                   label,

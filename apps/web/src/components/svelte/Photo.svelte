@@ -1,67 +1,73 @@
 <script lang="ts">
-import { XIcon } from "lucide-svelte";
-import { onMount } from "svelte";
+  import { XIcon } from "lucide-svelte";
+  import { onMount } from "svelte";
 
-let { src, alt, title } = $props<{
-  src: string;
-  alt?: string;
-  title?: string;
-}>();
+  let { src, alt, title } = $props<{
+    src: string;
+    alt?: string;
+    title?: string;
+  }>();
 
-let selectedImage = $state<string | null>(null);
-let imageLoaded = $state(false);
-let triggerElement: HTMLButtonElement | null = null;
-let dialogElement = $state<HTMLDialogElement | null>(null);
+  let selectedImage = $state<string | null>(null);
+  let imageLoaded = $state(false);
+  let triggerElement: HTMLButtonElement | null = null;
+  let dialogElement = $state<HTMLDialogElement | null>(null);
 
-function optimizeUrl(url: string, width: number, quality = 85) {
-  if (url.includes("imagekit.io")) {
-    const baseUrl = url.split("?")[0];
-    return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
+  function optimizeUrl(url: string, width: number, quality = 85) {
+    if (url.includes("imagekit.io")) {
+      const baseUrl = url.split("?")[0];
+      return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
+    }
+    return url;
   }
-  return url;
-}
 
-function getPlaceholderUrl(url: string, size = 40) {
-  return optimizeUrl(url, size, 20);
-}
-
-function openLightbox(event: MouseEvent & { currentTarget: HTMLButtonElement }) {
-  triggerElement = event.currentTarget;
-  selectedImage = src;
-}
-
-function closeLightbox() {
-  if (dialogElement?.open) dialogElement.close();
-  selectedImage = null;
-  requestAnimationFrame(() => triggerElement?.focus());
-}
-
-function showModal(node: HTMLDialogElement) {
-  node.showModal();
-  return {
-    destroy() {
-      if (node.open) node.close();
-    },
-  };
-}
-
-onMount(() => {
-  if (!document.documentElement.style.getPropertyValue("--scrollbar-width")) {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+  function getPlaceholderUrl(url: string, size = 40) {
+    return optimizeUrl(url, size, 20);
   }
-});
+
+  function openLightbox(
+    event: MouseEvent & { currentTarget: HTMLButtonElement },
+  ) {
+    triggerElement = event.currentTarget;
+    selectedImage = src;
+  }
+
+  function closeLightbox() {
+    if (dialogElement?.open) dialogElement.close();
+    selectedImage = null;
+    requestAnimationFrame(() => triggerElement?.focus());
+  }
+
+  function showModal(node: HTMLDialogElement) {
+    node.showModal();
+    return {
+      destroy() {
+        if (node.open) node.close();
+      },
+    };
+  }
+
+  onMount(() => {
+    if (!document.documentElement.style.getPropertyValue("--scrollbar-width")) {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty(
+        "--scrollbar-width",
+        `${scrollbarWidth}px`,
+      );
+    }
+  });
 </script>
 
 <div class="photo-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden rounded-2xl cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
+    class="overflow-hidden rounded-md cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
     onclick={openLightbox}
     aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
     <div
-      class="photo-stack relative w-full overflow-hidden rounded-2xl bg-muted transition-transform duration-500 group-hover:scale-[1.02] grid"
+      class="photo-stack relative w-full overflow-hidden rounded-md bg-muted transition-transform duration-500 group-hover:scale-[1.02] grid"
     >
       <img
         src={getPlaceholderUrl(src, 200)}

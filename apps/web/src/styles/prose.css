@@ -35,7 +35,7 @@
 
 /* Code block wrapper with filename and copy button */
 .prose .code-block-wrapper {
-  @apply my-6 rounded-2xl border border-border overflow-hidden bg-card;
+  @apply my-6 rounded-md! border border-border overflow-hidden bg-card;
 }
 
 .prose .code-block-wrapper .code-block-content {
@@ -51,11 +51,11 @@
 }
 
 .prose .code-block-wrapper:has(.code-block-filename) pre {
-  @apply rounded-none rounded-b-2xl;
+  @apply rounded-none!;
 }
 
 .prose .code-block-wrapper:not(:has(.code-block-filename)) pre {
-  @apply rounded-2xl;
+  @apply rounded-md!;
 }
 
 .prose .code-block-wrapper .code-block-filename {
@@ -79,7 +79,7 @@
 }
 
 .prose img {
-  @apply w-full rounded-xl;
+  @apply w-full rounded-md;
 }
 
 .prose video {
@@ -91,5 +91,5 @@
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
-  @apply border-l-[0.25em] border-solid border-primary/40 bg-muted/50 rounded-r-xl;
+  @apply border-l-[0.25em] border-solid border-primary/40 bg-muted/50;
 }

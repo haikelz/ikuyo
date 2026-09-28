@@ -3,11 +3,10 @@ import Footer from "@/components/Footer.astro";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
 import { PUBLIC_GOATCOUNTER_SRC } from "@/utils/env";
-import "@fontsource/geist-mono";
-import "@fontsource/geist-sans";
-import "@fontsource/noto-naskh-arabic";
+// import "@fontsource/noto-naskh-arabic";
 import "../index.css";
 import { ClientRouter } from "astro:transitions";
+import { Font } from "astro:assets";
 
 type Props = {
   title: string;
@@ -211,6 +210,9 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
     <ClientRouter />
+    <Font cssVariable="--font-geist-sans" preload />
+    <Font cssVariable="--font-geist-mono" preload />
+    <Font cssVariable="--font-noto-naskh-arabic" preload />
   </head>
   <body
     class="w-full flex flex-col justify-start items-start antialiased"

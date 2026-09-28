@@ -1,45 +1,45 @@
 <script lang="ts">
-import type { WakatimeStatsProps } from "@/types";
-import { Card, CardContent, CardHeader } from "@ikuyo/ui";
-import { Clock, Zap } from "lucide-svelte";
+  import type { WakatimeStatsProps } from "@/types";
+  import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+  import { Clock, Zap } from "lucide-svelte";
 
-let { data }: { data: WakatimeStatsProps } = $props();
+  let { data }: { data: WakatimeStatsProps } = $props();
 
-const colors = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-4)",
-  "var(--chart-5)",
-  "var(--chart-6)",
-  "var(--chart-7)",
-  "var(--chart-8)",
-  "var(--chart-9)",
-  "var(--chart-10)",
-];
+  const colors = [
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
+    "var(--chart-6)",
+    "var(--chart-7)",
+    "var(--chart-8)",
+    "var(--chart-9)",
+    "var(--chart-10)",
+  ];
 
-function formatDuration(seconds: number) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  if (hours > 0) {
-    return `${hours}h ${minutes}m`;
+  function formatDuration(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    }
+    return `${minutes}m`;
   }
-  return `${minutes}m`;
-}
 
-const todayStats = $derived.by(() => {
-  const preferred = data.languages.filter(
-    (stat) =>
-      stat.name === "TypeScript" ||
-      stat.name === "JavaScript" ||
-      stat.name === "Go" ||
-      stat.name === "Svelte" ||
-      stat.name === "Astro" ||
-      stat.name === "Docker",
-  );
+  const todayStats = $derived.by(() => {
+    const preferred = data.languages.filter(
+      (stat) =>
+        stat.name === "TypeScript" ||
+        stat.name === "JavaScript" ||
+        stat.name === "Go" ||
+        stat.name === "Svelte" ||
+        stat.name === "Astro" ||
+        stat.name === "Docker",
+    );
 
-  return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
-});
+    return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
+  });
 </script>
 
 <div class="mb-8">
@@ -48,14 +48,10 @@ const todayStats = $derived.by(() => {
   >
     Today
   </h2>
-  <p class="mb-4 text-sm text-muted-foreground">
-    Coding activity for today.
-  </p>
+  <p class="mb-4 text-sm text-muted-foreground">Coding activity for today.</p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-    <Card
-      class="border border-border rounded-2xl bg-card ring-0 gap-0 py-0"
-    >
+    <Card class="border border-border rounded-md bg-card ring-0 gap-0 py-0">
       <CardHeader class="p-4">
         <div class="flex items-center">
           <Zap class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -69,9 +65,7 @@ const todayStats = $derived.by(() => {
       </CardHeader>
     </Card>
 
-    <Card
-      class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
-    >
+    <Card class="border border-border bg-card rounded-md ring-0 gap-0 py-0">
       <CardHeader class="p-4">
         <div class="flex items-center">
           <Clock class="w-8 h-8 mr-3 text-muted-foreground" />
@@ -86,9 +80,7 @@ const todayStats = $derived.by(() => {
     </Card>
   </div>
 
-  <Card
-    class="border border-border bg-card rounded-2xl ring-0 gap-0 py-0"
-  >
+  <Card class="border border-border bg-card rounded-md ring-0 gap-0 py-0">
     <CardContent class="p-4">
       <div class="w-full">
         <div class="space-y-5">

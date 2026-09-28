@@ -17,7 +17,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
   type === "notes" ? (
     <div
       class:list={[
-        "group flex w-full flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground sm:p-8",
+        "group flex w-full flex-col rounded-md border border-border bg-card p-6 text-card-foreground sm:p-8",
       ]}
     >
       <div class="relative z-10">
@@ -53,13 +53,11 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
     <div
       class:list={[
         "flex w-full flex-col relative",
-        "group rounded-2xl border border-border bg-card text-card-foreground",
+        "group rounded-md border border-border bg-card text-card-foreground",
       ]}
     >
       <div class="flex w-full flex-col p-6 sm:p-8 relative z-10">
-        <p
-          class="mb-4 mt-0 font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground"
-        >
+        <p class="mb-4 mt-0 font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
           Project
         </p>
         <a

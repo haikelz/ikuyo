@@ -1,22 +1,22 @@
 <script lang="ts">
-import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
-import { Progress as ProgressPrimitive } from "bits-ui";
+  import { Progress as ProgressPrimitive } from "bits-ui";
+  import { cn, type WithoutChildrenOrChild } from "../../../lib/utils";
 
-let {
-  ref = $bindable(null),
-  class: className,
-  max = 100,
-  value,
-  ...restProps
-}: WithoutChildrenOrChild<ProgressPrimitive.RootProps> = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    max = 100,
+    value,
+    ...restProps
+  }: WithoutChildrenOrChild<ProgressPrimitive.RootProps> = $props();
 </script>
 
 <ProgressPrimitive.Root
   bind:ref
   data-slot="progress"
   class={cn(
-    "bg-muted h-3 rounded-4xl relative flex w-full items-center overflow-x-hidden",
-    className
+    "bg-muted h-3 rounded-md relative flex w-full items-center overflow-x-hidden",
+    className,
   )}
   {value}
   {max}
