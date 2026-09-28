@@ -20,8 +20,8 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "Geist Sans",
-      cssVariable: "--font-geist-sans",
+      name: "Plus Jakarta Sans",
+      cssVariable: "--font-plus-jakarta-sans",
     },
     {
       provider: fontProviders.fontsource(),

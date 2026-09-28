@@ -15,6 +15,49 @@
   --tw-prose-pre-bg: var(--muted);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
+  font-size: var(--text-base);
+  line-height: 2rem;
+  text-align: justify;
+  @apply max-w-none text-justify;
+}
+
+.prose :where(h1, h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  text-align: left;
+}
+
+.prose :where(h1):not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--text-3xl);
+  line-height: 2rem;
+  text-align: left;
+}
+
+.prose :where(h2):not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--text-2xl);
+  line-height: 2rem;
+  text-align: left;
+}
+
+.prose :where(h3):not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--text-xl);
+  line-height: 2rem;
+  text-align: left;
+}
+
+.prose :where(h4):not(:where(.not-prose, .not-prose *)) {
+  font-size: var(--text-lg);
+  line-height: 2rem;
+  text-align: left;
+}
+
+.prose :where(p, li):not(:where(.not-prose, .not-prose *)) {
+  line-height: 2rem;
+}
+
+.prose :where(p):not(:where(.not-prose, .not-prose *)) {
+  margin-block: 2rem;
+  text-wrap: pretty;
 }
 
 .prose code:not(:has(span)) {

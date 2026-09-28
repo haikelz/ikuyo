@@ -1,16 +1,16 @@
 <script lang="ts">
-import { XIcon } from "lucide-svelte";
-import { twMerge } from "tailwind-merge";
+  import { XIcon } from "lucide-svelte";
+  import { twMerge } from "tailwind-merge";
 
-const title = "Free Palestine 🇵🇸";
-const description = `Stand for humanity!`;
-const linkTo = "https://twitter.com/search?q=%23PalestineLivesMatter";
+  const title = "Free Palestine 🇵🇸";
+  const description = `Stand for humanity!`;
+  const linkTo = "https://twitter.com/search?q=%23PalestineLivesMatter";
 
-let isVisible = $state(true);
+  let isVisible = $state(true);
 
-function closeBanner() {
-  isVisible = false;
-}
+  function closeBanner() {
+    isVisible = false;
+  }
 </script>
 
 {#if isVisible}
@@ -23,7 +23,7 @@ function closeBanner() {
     <div class="flex justify-between w-full items-center">
       <p
         class={twMerge(
-          "mx-auto text-sm leading-4 sm:leading-6",
+          "mx-auto text-sm leading-4 sm:leading-8",
           "text-muted-foreground",
         )}
       >

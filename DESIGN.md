@@ -37,13 +37,15 @@ stay theme-aware without implying status.
 
 ## 3. Typography
 
-- Primary: Geist Sans; mono: Geist Mono; Arabic display content: Noto Naskh Arabic.
-- Display: `text-4xl` through `text-6xl`, semibold or bold, tight tracking.
-- Page title: `text-3xl` through `text-5xl`, semibold, tight tracking.
-- Section title: `text-xl` through `text-3xl`, semibold.
-- Body: `text-base` with `leading-7`; lead text may use `text-lg` or `text-xl`.
-- Metadata and tags: `text-xs` or `text-sm`, medium, muted foreground.
+- Primary: Plus Jakarta Sans; mono: Geist Mono; Arabic display content: Noto Naskh Arabic.
+- Display and page titles: `text-3xl` through `text-5xl`, semibold, balanced wrapping, and tight tracking.
+- Section titles: `text-xl` through `text-3xl`, semibold, with tighter leading than body copy.
+- Body: `text-base` (17px) with a 1.75 line-height; supporting text uses 1.6 or more.
+- Long-form prose uses 2rem leading and 1.5em paragraph spacing, matching the homepage's open reading rhythm.
+- Lead text: `text-lg` or `text-xl` with 2rem leading.
+- Metadata and tags: `text-xs` or `text-sm`, medium, muted foreground; small uppercase labels use positive tracking.
 - Use mono for dates, indexes, code, and compact technical labels only.
+- Long-form prose keeps its intentional page alignment and existing Notes and Works content width.
 
 ## 4. Spacing & Layout
 

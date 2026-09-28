@@ -1,19 +1,21 @@
 ---
 import PageHeader from "@/components/PageHeader.astro";
-import Layout from "@/layouts/Layout.astro"; 
+import Layout from "@/layouts/Layout.astro";
 
 const tools = [
   {
     id: 1,
     name: "Transit",
     url: "https://transit.ekel.dev",
-    description: "Jakarta public transport preview. Browse schedules, plan routes, and monitor live status for KRL, TransJakarta, MRT, and LRT.",
+    description:
+      "Jakarta public transport preview. Browse schedules, plan routes, and monitor live status for KRL, TransJakarta, MRT, and LRT.",
   },
   {
     id: 2,
-    name: "Puasa Sunnah API" ,
+    name: "Puasa Sunnah API",
     url: "https://puasasunnah.ekel.dev",
-    description: "API for classifying and scheduling voluntary fasting days in the Islamic calendar.",
+    description:
+      "API for classifying and scheduling voluntary fasting days in the Islamic calendar.",
   },
   {
     id: 3,
@@ -25,25 +27,29 @@ const tools = [
     id: 4,
     name: "AI Guideline",
     url: "https://github.com/haikelz/ai-guideline",
-    description: "My engineering rules for coding agents. Covers JS, TS, Go, frontend, backend, databases, infra, and deployment.",
+    description:
+      "My engineering rules for coding agents. Covers JS, TS, Go, frontend, backend, databases, infra, and deployment.",
   },
   {
     id: 5,
     name: "Jdwshlt",
     url: "https://jdwshlt.ekel.dev",
-    description: "Islamic companion app for prayer times, Al-Qur'an, hadith, Asmaul Husna, and sunnah fasting schedules.",
+    description:
+      "Islamic companion app for prayer times, Al-Qur'an, hadith, Asmaul Husna, and sunnah fasting schedules.",
   },
   {
     id: 6,
     name: "Fam",
     url: "https://fam.ekel.dev",
-    description: "Add a LinkedIn Open to Work or Hiring frame to your profile photo — entirely in the browser. No uploads, just an 800×800 PNG.",
+    description:
+      "Add a LinkedIn Open to Work or Hiring frame to your profile photo — entirely in the browser. No uploads, just an 800×800 PNG.",
   },
   {
     id: 7,
     name: "Rata",
     url: "https://rata.ekel.dev",
-    description: "Stock transaction calculator for Indonesian equities. Estimates average price, position size, and profit/loss before you submit a trade.",
+    description:
+      "Stock transaction calculator for Indonesian equities. Estimates average price, position size, and profit/loss before you submit a trade.",
   },
 ];
 ---
@@ -71,14 +77,18 @@ const tools = [
                 <a
                   href={tool.url}
                   target={tool.url.startsWith("http") ? "_blank" : undefined}
-                  rel={tool.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  rel={
+                    tool.url.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   aria-label={`${tool.name} (opens in new tab)`}
                   class="no-underline! hover:text-muted-foreground transition-colors"
                 >
                   {tool.name}
                 </a>
               </h2>
-              <p class="m-0 text-sm leading-6 text-muted-foreground text-pretty">
+              <p class="m-0 text-sm leading-8 text-muted-foreground text-pretty">
                 {tool.description}
               </p>
             </article>

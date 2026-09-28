@@ -42,7 +42,7 @@ const slug = sanitizeSlug(item.id);
           Case study
         </p>
         <h1
-          class="mt-0 mb-4 text-3xl sm:text-4xl tracking-tighter font-semibold text-foreground leading-tight text-balance"
+          class="mt-0 mb-4 text-3xl sm:text-4xl tracking-tight font-semibold text-foreground leading-tight text-balance"
         >
           {item.data.company}
         </h1>
@@ -66,11 +66,11 @@ const slug = sanitizeSlug(item.id);
         <ul class="m-0 list-none p-0" role="list">
           {
             item.data.highlights.map((highlight, index) => (
-              <li class="grid gap-3 border-t border-border/70 py-5 sm:grid-cols-[3rem_1fr] sm:gap-5">
-                <span class="font-mono text-xs tabular-nums text-muted-foreground">
+              <li class="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 border-t border-border/70 py-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-x-5">
+                <span class="self-start pt-1 font-mono text-xs tabular-nums text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p class="m-0 text-sm leading-6 text-foreground text-pretty">
+                <p class="m-0 min-w-0 text-sm leading-8 text-foreground text-pretty">
                   {highlight}
                 </p>
               </li>
@@ -79,7 +79,7 @@ const slug = sanitizeSlug(item.id);
         </ul>
       </section>
       <div
-        class="prose max-w-full w-full text-justify prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
+        class="prose max-w-full w-full prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
       >
         <Content />
       </div>

@@ -100,7 +100,7 @@
           <img
             src={getPlaceholderUrl(image)}
             alt=""
-            class="photo-stack-img w-full h-full object-cover m-0! p-0! border-none"
+            class="photo-stack-img w-full h-full m-0! p-0! border-none"
           />
           <img
             src={optimizeUrl(image, 800)}

@@ -1,6 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { format } from "date-fns";
 
@@ -55,7 +55,7 @@ const notesList = await getCollection("notes");
                       {item.data.title}
                     </a>
                   </h3>
-                  <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-pretty text-muted-foreground">
+                  <p class="mb-0 mt-2 max-w-xl text-sm leading-8 text-pretty text-muted-foreground">
                     {item.data.description}
                   </p>
                   <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">

@@ -210,7 +210,7 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
     <ClientRouter />
-    <Font cssVariable="--font-geist-sans" preload />
+    <Font cssVariable="--font-plus-jakarta-sans" preload />
     <Font cssVariable="--font-geist-mono" preload />
     <Font cssVariable="--font-noto-naskh-arabic" preload />
   </head>
@@ -218,6 +218,24 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".")
     class="w-full flex flex-col justify-start items-start antialiased"
     transition:animate="initial"
   >
+    <div
+      class="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-0"
+      aria-hidden="true"
+    >
+      <div class="mx-auto max-w-3xl h-full relative">
+        <div
+          class="absolute left-0 top-0 bottom-0 border-l border-dashed border-border/70"
+          style="border-left-width: 1px"
+        >
+        </div>
+
+        <div
+          class="absolute right-0 top-0 bottom-0 border-l border-dashed border-border/70"
+          style="border-left-width: 1px"
+        >
+        </div>
+      </div>
+    </div>
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-lg focus:ring-2 focus:ring-ring focus:outline-none"

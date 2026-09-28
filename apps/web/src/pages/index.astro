@@ -38,7 +38,7 @@ const latestNotes = notesList
       <GitHubContributionGraph username="haikelz" client:load />
       <div class="mt-7 w-full max-w-full">
         <p
-          class="max-w-full text-lg sm:text-xl text-muted-foreground leading-8 text-pretty text-justify"
+          class="max-w-full text-lg text-justify text-muted-foreground leading-8 text-pretty"
         >
           I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
           working across business software, delivery infrastructure, and
@@ -51,7 +51,7 @@ const latestNotes = notesList
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn (opens in new tab)"
-            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
             >LinkedIn</a
           >
           <a
@@ -59,7 +59,7 @@ const latestNotes = notesList
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub (opens in new tab)"
-            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
             >GitHub</a
           >
           <a
@@ -67,7 +67,7 @@ const latestNotes = notesList
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitLab (opens in new tab)"
-            class="text-foreground font-medium hover:text-muted-foreground transition-colors"
+            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
             >GitLab</a
           >
         </div>
@@ -92,7 +92,7 @@ const latestNotes = notesList
       </div>
       <div class="border-b border-border/70 slide-enter-content">
         {
-          experiences.map((experience, index) => (
+          experiences.map((experience) => (
             <article class="border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10 group">
               <div>
                 <div class="flex w-full flex-col items-start justify-start gap-2 sm:flex-row sm:items-baseline sm:justify-between">
@@ -125,8 +125,8 @@ const latestNotes = notesList
                 >
                   {experience.data.highlights.map((highlight) => (
                     <li data-cy="experience-highlight" class="relative pl-6">
-                      <span class="absolute left-0 top-2.5 h-px w-3 bg-muted-foreground/50" />
-                      <p class="my-0 text-sm leading-6 text-justify text-pretty">
+                      <span class="absolute left-0 top-4 h-px w-2 bg-muted-foreground/50" />
+                      <p class="my-0 text-sm leading-8 text-pretty text-justify">
                         {highlight}
                       </p>
                     </li>
@@ -179,7 +179,6 @@ const latestNotes = notesList
         }
       </div>
     </section>
-
     <section data-cy="featured-notes" class="mt-16 sm:mt-24 mb-0 w-full">
       <div class="mb-8 flex items-end justify-between gap-4">
         <div>
@@ -220,7 +219,7 @@ const latestNotes = notesList
                     {item.data.title}
                   </a>
                 </h3>
-                <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground text-pretty">
+                <p class="mb-0 mt-2 max-w-xl text-sm leading-8 text-muted-foreground text-pretty">
                   {item.data.description}
                 </p>
               </div>

@@ -67,12 +67,28 @@ const colors = [
     token: "text-muted-foreground",
     swatch: "bg-muted-foreground",
   },
-  { name: "Border", token: "border-border/70", swatch: "border-2 border-border" },
+  {
+    name: "Border",
+    token: "border-border/70",
+    swatch: "border-2 border-border",
+  },
   { name: "Focus ring", token: "ring-ring", swatch: "border-2 border-ring" },
-  { name: "Primary", token: "bg-primary text-primary-foreground", swatch: "bg-primary" },
+  {
+    name: "Primary",
+    token: "bg-primary text-primary-foreground",
+    swatch: "bg-primary",
+  },
   { name: "Info", token: "bg-info text-info-foreground", swatch: "bg-info" },
-  { name: "Success", token: "bg-success text-success-foreground", swatch: "bg-success" },
-  { name: "Warning", token: "bg-warning text-warning-foreground", swatch: "bg-warning" },
+  {
+    name: "Success",
+    token: "bg-success text-success-foreground",
+    swatch: "bg-success",
+  },
+  {
+    name: "Warning",
+    token: "bg-warning text-warning-foreground",
+    swatch: "bg-warning",
+  },
   {
     name: "Destructive",
     token: "bg-destructive text-destructive-foreground",
@@ -92,7 +108,11 @@ const colors = [
   url="https://ekel.dev/design-system"
 >
   <div class="mx-auto w-full slide-enter-content">
-    <PageHeader title="Design System" eyebrow="Living interface guideline" className="mb-12 sm:mb-16">
+    <PageHeader
+      title="Design System"
+      eyebrow="Living interface guideline"
+      className="mb-12 sm:mb-16"
+    >
       A practical reference for the ReUI Sera visual language implemented with
       this site's native Astro and Svelte components.
     </PageHeader>
@@ -125,16 +145,26 @@ const colors = [
       </aside>
 
       <div class="min-w-0">
-        <section id="principles" class="scroll-mt-28 border-t border-border/70 pt-8">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="principles"
+          class="scroll-mt-28 border-t border-border/70 pt-8"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Direction
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Design principles
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
-            The system is intentionally restrained. Use these principles to decide
-            what belongs before reaching for a component or utility class.
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
+            The system is intentionally restrained. Use these principles to
+            decide what belongs before reaching for a component or utility
+            class.
           </p>
 
           <div class="border-b border-border/70">
@@ -147,7 +177,7 @@ const colors = [
                   <h3 class="m-0 text-base font-semibold tracking-tight text-foreground">
                     {principle.title}
                   </h3>
-                  <p class="m-0 text-sm leading-6 text-muted-foreground text-pretty">
+                  <p class="m-0 text-sm leading-8 text-muted-foreground text-pretty">
                     {principle.description}
                   </p>
                 </article>
@@ -156,14 +186,23 @@ const colors = [
           </div>
         </section>
 
-        <section id="foundations" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="foundations"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Foundations
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Color and typography
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Use semantic tokens so light and dark themes stay equivalent. Indigo
             anchors actions; info, success, warning, and destructive roles
             communicate status consistently.
@@ -178,10 +217,17 @@ const colors = [
                     index % 2 === 0 ? "sm:border-e sm:pe-5" : "sm:ps-5",
                   ]}
                 >
-                  <span class:list={["size-8 bg-transparent", color.swatch]} aria-hidden="true" />
+                  <span
+                    class:list={["size-8 bg-transparent", color.swatch]}
+                    aria-hidden="true"
+                  />
                   <div>
-                    <h3 class="m-0 text-sm font-medium text-foreground">{color.name}</h3>
-                    <code class="mt-1 block text-xs text-muted-foreground">{color.token}</code>
+                    <h3 class="m-0 text-sm font-medium text-foreground">
+                      {color.name}
+                    </h3>
+                    <code class="mt-1 block text-xs text-muted-foreground">
+                      {color.token}
+                    </code>
                   </div>
                 </div>
               ))
@@ -190,87 +236,148 @@ const colors = [
 
           <div class="mt-10 space-y-8">
             <div>
-              <p class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              <p
+                class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+              >
                 Display / Geist Sans
               </p>
-              <p class="m-0 text-3xl font-bold tracking-tighter text-foreground sm:text-4xl">
+              <p
+                class="m-0 text-3xl font-bold tracking-tighter text-foreground sm:text-4xl"
+              >
                 Clear stories, quiet interface.
               </p>
             </div>
             <div>
-              <p class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              <p
+                class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+              >
                 Body / Geist Sans
               </p>
               <p class="m-0 max-w-2xl text-base leading-7 text-foreground">
                 Body copy uses a comfortable line height and a readable measure.
-                Supporting text steps back through muted foreground, not reduced size alone.
+                Supporting text steps back through muted foreground, not reduced
+                size alone.
               </p>
             </div>
             <div>
-              <p class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              <p
+                class="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+              >
                 Metadata / Geist Mono
               </p>
-              <p class="m-0 font-mono text-xs tabular-nums text-muted-foreground">
+              <p
+                class="m-0 font-mono text-xs tabular-nums text-muted-foreground"
+              >
                 03 · 2026.08.22 · TYPESCRIPT / GO / ASTRO
               </p>
             </div>
           </div>
         </section>
 
-        <section id="spacing" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="spacing"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Rhythm
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Spacing and measure
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Keep local groups compact and make section changes unmistakable.
-            Responsive spacing should preserve hierarchy rather than merely shrink it.
+            Responsive spacing should preserve hierarchy rather than merely
+            shrink it.
           </p>
 
-          <ul class="m-0 list-none border-b border-border/70 p-0 text-sm" role="list">
-            <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
-              <span class="font-medium text-foreground">Page header to content</span>
-              <code class="text-xs text-muted-foreground">mt-10 / sm:mt-16</code>
-              <span class="leading-6 text-muted-foreground">Use the smaller gap when the next section continues the introduction.</span>
+          <ul
+            class="m-0 list-none border-b border-border/70 p-0 text-sm"
+            role="list"
+          >
+            <li
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5"
+            >
+              <span class="font-medium text-foreground"
+                >Page header to content</span
+              >
+              <code class="text-xs text-muted-foreground">mt-10 / sm:mt-16</code
+              >
+              <span class="leading-8 text-muted-foreground"
+                >Use the smaller gap when the next section continues the
+                introduction.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
+            <li
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5"
+            >
               <span class="font-medium text-foreground">Major sections</span>
-              <code class="text-xs text-muted-foreground">mt-16 / sm:mt-24</code>
-              <span class="leading-6 text-muted-foreground">A major topic change needs more space than an internal group.</span>
+              <code class="text-xs text-muted-foreground">mt-16 / sm:mt-24</code
+              >
+              <span class="leading-8 text-muted-foreground"
+                >A major topic change needs more space than an internal group.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
+            <li
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5"
+            >
               <span class="font-medium text-foreground">Editorial rows</span>
               <code class="text-xs text-muted-foreground">py-6 to py-10</code>
-              <span class="leading-6 text-muted-foreground">Scale with content density; use cards when grouping discrete items.</span>
+              <span class="leading-8 text-muted-foreground"
+                >Scale with content density; use cards when grouping discrete
+                items.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5">
+            <li
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[9rem_8rem_1fr] sm:gap-5"
+            >
               <span class="font-medium text-foreground">Reading measure</span>
-              <code class="text-xs text-muted-foreground">max-w-2xl / max-w-3xl</code>
-              <span class="leading-6 text-muted-foreground">Keep prose readable even when the route shell is wider.</span>
+              <code class="text-xs text-muted-foreground"
+                >max-w-2xl / max-w-3xl</code
+              >
+              <span class="leading-8 text-muted-foreground"
+                >Keep prose readable even when the route shell is wider.</span
+              >
             </li>
           </ul>
         </section>
 
-        <section id="page-headers" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="page-headers"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Pattern 01
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Page headers
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Public indexes and utilities start with an eyebrow, one clear h1,
-            and a concise description. Use <code>PageHeader.astro</code> instead
-            of rebuilding this hierarchy per route.
+            and a concise description. Use <code>PageHeader.astro</code> instead of
+            rebuilding this hierarchy per route.
           </p>
 
           <div class="border-y border-border/70 py-8">
-            <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            <p
+              class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+            >
               Selected projects
             </p>
-            <h3 class="mb-4 mt-0 text-3xl font-bold tracking-tighter text-foreground sm:text-4xl">
+            <h3
+              class="mb-4 mt-0 text-3xl font-bold tracking-tighter text-foreground sm:text-4xl"
+            >
               Works
             </h3>
             <p class="m-0 max-w-2xl text-lg leading-8 text-muted-foreground">
@@ -279,175 +386,352 @@ const colors = [
           </div>
         </section>
 
-        <section id="editorial-rows" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="editorial-rows"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Pattern 02
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Editorial rows
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Use ruled rows for works, notes, guestbook entries, experience
             highlights, and other scan-heavy collections. Keep metadata leading,
             content central, and the action trailing.
           </p>
 
           <div class="border-b border-border/70">
-            <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
-              <time class="font-mono text-xs tabular-nums text-muted-foreground">2026.08.22</time>
+            <article
+              class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+            >
+              <time class="font-mono text-xs tabular-nums text-muted-foreground"
+                >2026.08.22</time
+              >
               <div>
-                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">An editorial entry</h3>
-                <p class="mb-0 mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
-                  The description explains the destination without turning the row into a card.
+                <h3
+                  class="m-0 text-lg font-semibold tracking-tight text-foreground"
+                >
+                  An editorial entry
+                </h3>
+                <p
+                  class="mb-0 mt-2 max-w-xl text-sm leading-8 text-muted-foreground"
+                >
+                  The description explains the destination without turning the
+                  row into a card.
                 </p>
-                <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">ASTRO · SVELTE · GO</p>
+                <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
+                  ASTRO · SVELTE · GO
+                </p>
               </div>
-              <span class="hidden text-muted-foreground sm:block" aria-hidden="true">→</span>
+              <span
+                class="hidden text-muted-foreground sm:block"
+                aria-hidden="true">→</span
+              >
             </article>
           </div>
         </section>
 
-        <section id="structured-content" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="structured-content"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Pattern 03
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Structured content
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             When labels matter as much as values, use a description list or a
             numbered section grid. This keeps utility pages readable without
             forcing their content into cards.
           </p>
 
           <dl class="m-0 border-b border-border/70">
-            <div class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
-              <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Label</dt>
-              <dd class="m-0 leading-7 text-foreground">A concise value with enough room to wrap naturally.</dd>
+            <div
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8"
+            >
+              <dt
+                class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+              >
+                Label
+              </dt>
+              <dd class="m-0 leading-7 text-foreground">
+                A concise value with enough room to wrap naturally.
+              </dd>
             </div>
-            <div class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8">
-              <dt class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Another label</dt>
-              <dd class="m-0 leading-7 text-foreground">Related content follows the same alignment edge.</dd>
+            <div
+              class="grid gap-2 border-t border-border/70 py-5 sm:grid-cols-[10rem_1fr] sm:gap-8"
+            >
+              <dt
+                class="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+              >
+                Another label
+              </dt>
+              <dd class="m-0 leading-7 text-foreground">
+                Related content follows the same alignment edge.
+              </dd>
             </div>
           </dl>
         </section>
 
-        <section id="long-form-content" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="long-form-content"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Pattern 04
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Long-form content
           </h2>
-          <p class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Notes, works, and experience stories keep their authored reading
             flow. Constrain line length when a table of contents shares the
             desktop canvas, but do not convert prose into dashboard sections.
           </p>
           <ul class="m-0 list-none border-b border-border/70 p-0" role="list">
-            <li class="border-t border-border/70 py-4 text-sm leading-6 text-foreground">Use semantic <code>article</code>, heading order, and meaningful link text.</li>
-            <li class="border-t border-border/70 py-4 text-sm leading-6 text-foreground">Keep code blocks, images, and videos inside the prose flow.</li>
-            <li class="border-t border-border/70 py-4 text-sm leading-6 text-foreground">Offer a desktop table of contents and a keyboard-accessible mobile sheet when headings justify it.</li>
+            <li
+              class="border-t border-border/70 py-4 text-sm leading-8 text-foreground"
+            >
+              Use semantic <code>article</code>, heading order, and meaningful
+              link text.
+            </li>
+            <li
+              class="border-t border-border/70 py-4 text-sm leading-8 text-foreground"
+            >
+              Keep code blocks, images, and videos inside the prose flow.
+            </li>
+            <li
+              class="border-t border-border/70 py-4 text-sm leading-8 text-foreground"
+            >
+              Offer a desktop table of contents and a keyboard-accessible mobile
+              sheet when headings justify it.
+            </li>
           </ul>
         </section>
 
-        <section id="media-and-data" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="media-and-data"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Pattern 05
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Media and data
           </h2>
-          <p class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-8 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Galleries and charts retain the structure their content needs. Bring
             them into the system through rounded surfaces, semantic color,
             readable metadata, and restrained interaction.
           </p>
-          <div class="grid gap-px border border-border/70 bg-border/70 sm:grid-cols-3">
+          <div
+            class="grid gap-px border border-border/70 bg-border/70 sm:grid-cols-3"
+          >
             <div class="bg-background p-5">
-              <p class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Gallery</p>
-              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Images lead; controls stay visible and keyboard reachable.</p>
+              <p
+                class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+              >
+                Gallery
+              </p>
+              <p class="mb-0 mt-3 text-sm leading-8 text-foreground">
+                Images lead; controls stay visible and keyboard reachable.
+              </p>
             </div>
             <div class="bg-background p-5">
-              <p class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Chart</p>
-              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Use semantic colors for market direction and status.</p>
+              <p
+                class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+              >
+                Chart
+              </p>
+              <p class="mb-0 mt-3 text-sm leading-8 text-foreground">
+                Use semantic colors for market direction and status.
+              </p>
             </div>
             <div class="bg-background p-5">
-              <p class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">Controls</p>
-              <p class="mb-0 mt-3 text-sm leading-6 text-foreground">Prefer shared UI primitives with consistent rounded corners and clear focus.</p>
+              <p
+                class="m-0 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+              >
+                Controls
+              </p>
+              <p class="mb-0 mt-3 text-sm leading-8 text-foreground">
+                Prefer shared UI primitives with consistent rounded corners and
+                clear focus.
+              </p>
             </div>
           </div>
         </section>
 
-        <section id="responsive-behavior" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="responsive-behavior"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Quality
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Responsive behavior
           </h2>
-          <p class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
+          <p
+            class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
             Mobile keeps the same reading order and hierarchy. Columns collapse
-            only when their content no longer fits, and text never depends on a fixed height.
+            only when their content no longer fits, and text never depends on a
+            fixed height.
           </p>
           <div class="grid border-y border-border/70 sm:grid-cols-3">
-            <div class="border-b border-border/70 py-5 sm:border-e sm:border-b-0 sm:pe-5">
+            <div
+              class="border-b border-border/70 py-5 sm:border-e sm:border-b-0 sm:pe-5"
+            >
               <p class="m-0 font-mono text-xs text-muted-foreground">375 PX</p>
-              <p class="mb-0 mt-2 text-sm text-foreground">Single-column reading flow</p>
+              <p class="mb-0 mt-2 text-sm text-foreground">
+                Single-column reading flow
+              </p>
             </div>
-            <div class="border-b border-border/70 py-5 sm:border-e sm:border-b-0 sm:px-5">
+            <div
+              class="border-b border-border/70 py-5 sm:border-e sm:border-b-0 sm:px-5"
+            >
               <p class="m-0 font-mono text-xs text-muted-foreground">768 PX</p>
-              <p class="mb-0 mt-2 text-sm text-foreground">Expanded rows and media grids</p>
+              <p class="mb-0 mt-2 text-sm text-foreground">
+                Expanded rows and media grids
+              </p>
             </div>
             <div class="py-5 sm:ps-5">
               <p class="m-0 font-mono text-xs text-muted-foreground">1280 PX</p>
-              <p class="mb-0 mt-2 text-sm text-foreground">Sidebar and full editorial grid</p>
+              <p class="mb-0 mt-2 text-sm text-foreground">
+                Sidebar and full editorial grid
+              </p>
             </div>
           </div>
         </section>
 
-        <section id="accessibility" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="accessibility"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Quality
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Accessibility
           </h2>
-          <p class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
-            Accessibility is part of the component contract, not a finishing pass.
+          <p
+            class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
+            Accessibility is part of the component contract, not a finishing
+            pass.
           </p>
           <ul class="m-0 list-none border-b border-border/70 p-0" role="list">
-            <li class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]">
-              <span class="font-mono text-xs text-muted-foreground" aria-hidden="true">01</span>
-              <span class="text-sm leading-6 text-foreground">Use one h1, ordered headings, semantic landmarks, and descriptive links.</span>
+            <li
+              class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]"
+            >
+              <span
+                class="font-mono text-xs text-muted-foreground"
+                aria-hidden="true">01</span
+              >
+              <span class="text-sm leading-8 text-foreground"
+                >Use one h1, ordered headings, semantic landmarks, and
+                descriptive links.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]">
-              <span class="font-mono text-xs text-muted-foreground" aria-hidden="true">02</span>
-              <span class="text-sm leading-6 text-foreground">Keep controls keyboard reachable with visible focus and an accessible name.</span>
+            <li
+              class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]"
+            >
+              <span
+                class="font-mono text-xs text-muted-foreground"
+                aria-hidden="true">02</span
+              >
+              <span class="text-sm leading-8 text-foreground"
+                >Keep controls keyboard reachable with visible focus and an
+                accessible name.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]">
-              <span class="font-mono text-xs text-muted-foreground" aria-hidden="true">03</span>
-              <span class="text-sm leading-6 text-foreground">Preserve contrast in both themes and never communicate meaning through color alone.</span>
+            <li
+              class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]"
+            >
+              <span
+                class="font-mono text-xs text-muted-foreground"
+                aria-hidden="true">03</span
+              >
+              <span class="text-sm leading-8 text-foreground"
+                >Preserve contrast in both themes and never communicate meaning
+                through color alone.</span
+              >
             </li>
-            <li class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]">
-              <span class="font-mono text-xs text-muted-foreground" aria-hidden="true">04</span>
-              <span class="text-sm leading-6 text-foreground">Respect reduced motion and restore focus when dialogs or sheets close.</span>
+            <li
+              class="grid gap-2 border-t border-border/70 py-4 sm:grid-cols-[2rem_1fr]"
+            >
+              <span
+                class="font-mono text-xs text-muted-foreground"
+                aria-hidden="true">04</span
+              >
+              <span class="text-sm leading-8 text-foreground"
+                >Respect reduced motion and restore focus when dialogs or sheets
+                close.</span
+              >
             </li>
           </ul>
         </section>
 
-        <section id="page-template" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <section
+          id="page-template"
+          class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24"
+        >
+          <p
+            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          >
             Implementation
           </p>
-          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2
+            class="mb-3 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          >
             Page template
           </h2>
-          <p class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty">
-            Start with the shared shell and header. Choose a content pattern based
-            on the information—not because another route happens to use it.
+          <p
+            class="mb-6 mt-0 max-w-2xl leading-7 text-muted-foreground text-pretty"
+          >
+            Start with the shared shell and header. Choose a content pattern
+            based on the information—not because another route happens to use
+            it.
           </p>
-          <pre tabindex="0" class="max-w-full overflow-x-auto whitespace-pre-wrap break-words border border-border/70 bg-muted p-4 font-mono text-xs leading-relaxed text-foreground sm:whitespace-pre sm:break-normal"><code>&lt;Layout title="Page" description="..." url="https://ekel.dev/page"&gt;
+          <pre
+            tabindex="0"
+            class="max-w-full overflow-x-auto whitespace-pre-wrap break-words border border-border/70 bg-muted p-4 font-mono text-xs leading-relaxed text-foreground sm:whitespace-pre sm:break-normal"><code>&lt;Layout title="Page" description="..." url="https://ekel.dev/page"&gt;
   &lt;div class="mx-auto w-full"&gt;
     &lt;PageHeader title="Page" eyebrow="Section label"&gt;
       A concise description of this page.
@@ -461,7 +745,7 @@ const colors = [
         </section>
 
         <footer class="mt-16 border-t border-border/70 pt-8 sm:mt-24">
-          <p class="m-0 text-sm leading-6 text-muted-foreground">
+          <p class="m-0 text-sm leading-8 text-muted-foreground">
             This is a living reference. When the interface changes, update the
             guideline and the implementation together.
           </p>
