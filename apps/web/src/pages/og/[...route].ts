@@ -19,6 +19,8 @@ const staticPages: Record<string, { title: string }> = {
   now: { title: "Now" },
   tags: { title: "Tags" },
   ihsg: { title: "Stock Market Index" },
+  tools: { title: "Tools" },
+  "design-system": { title: "Design System" },
 };
 
 const notesPages = Object.fromEntries(
@@ -48,9 +50,9 @@ const pages = {
 };
 
 const fontRegular =
-  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff";
+  "../../node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-400-normal.woff";
 const fontBold =
-  "../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-700-normal.woff";
+  "../../node_modules/@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff";
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   pages,
@@ -74,13 +76,13 @@ export const { getStaticPaths, GET } = await OGImageRoute({
           size: isWorkThumbnail ? 108 : 60,
           weight: "Bold",
           lineHeight: 1.1,
-          families: ["Geist Sans"],
+          families: ["Plus Jakarta Sans"],
         },
         description: {
           color: [160, 160, 160],
           size: 32,
           weight: "Normal",
-          families: ["Geist Sans"],
+          families: ["Plus Jakarta Sans"],
         },
       },
       fonts: [fontRegular, fontBold],
