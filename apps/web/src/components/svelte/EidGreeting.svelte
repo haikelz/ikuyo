@@ -28,7 +28,7 @@ const c = $derived(content[lang]);
 </script>
 
 <div class="mx-auto flex w-full flex-col items-start justify-start">
-  <section class="mt-8 w-full border-b border-border pb-8 slide-enter-content">
+  <section class="mt-8 w-full border-b border-border pb-8">
     <div class="flex w-full flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <p class="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
@@ -58,7 +58,7 @@ const c = $derived(content[lang]);
     </div>
   </section>
 
-  <section class="mt-0 w-full border-b border-border py-8 slide-enter-content">
+  <section class="mt-0 w-full border-b border-border py-8">
     <p
       class="text-right text-3xl sm:text-4xl leading-loose tracking-wide font-medium text-foreground"
       style="font-family: 'Noto Naskh Arabic', serif;"
@@ -72,7 +72,7 @@ const c = $derived(content[lang]);
     </p>
   </section>
 
-  <section class="w-full border-b border-border py-8 slide-enter-content">
+  <section class="w-full border-b border-border py-8">
     <p
       class="text-foreground text-base sm:text-lg leading-7 sm:leading-relaxed"
     >
@@ -85,7 +85,7 @@ const c = $derived(content[lang]);
     </p>
   </section>
 
-  <section class="w-full py-6 slide-enter-content">
+  <section class="w-full py-6">
     <p class="font-mono text-sm text-muted-foreground">
       — Haikel
     </p>

@@ -122,11 +122,11 @@
 }
 
 .prose img {
-  @apply w-full rounded-md;
+  @apply w-full;
 }
 
 .prose video {
-  @apply w-full drop-shadow-xs;
+  @apply w-full;
 }
 
 .prose a {

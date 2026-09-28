@@ -113,9 +113,10 @@ long-form prose may retain a `max-w-3xl` reading measure.
 ## 6. Motion & Interaction
 
 Motion communicates navigation, open/closed state, selection, or progress. Use
-the existing Astro view transitions and short transform/opacity transitions for
-control feedback. Respect `prefers-reduced-motion`; avoid decorative motion.
-Focus rings remain visible in both color modes.
+a brief opacity cross-fade for Astro route transitions; do not slide or stagger
+page content on entry. Keep transform/opacity transitions short for control
+feedback. Respect `prefers-reduced-motion`; avoid decorative motion. Focus rings
+remain visible in both color modes.
 
 ## 7. Depth & Surface
 

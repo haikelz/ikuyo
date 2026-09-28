@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@source "../../../packages/ui/src/**/*.{svelte,ts}";
 @import "./styles/theme.css";
 @import "./styles/base.css";
 @import "./styles/utilities.css";
 @import "./styles/prose.css";
 @import "./styles/data-variants.css";
+@import "./styles/animations.css";
+@source "../../../packages/ui/src/**/*.{svelte,ts}";

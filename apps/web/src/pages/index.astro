@@ -33,7 +33,7 @@ const latestNotes = notesList
   seoType="profile"
 >
   <div class="relative mx-auto flex w-full flex-col items-start justify-start">
-    <section class="w-full slide-enter-content mt-8 sm:mt-12">
+    <section class="w-full mt-8 sm:mt-12">
       <h1 data-cy="name" class="sr-only">Haikel Ilham Hakim</h1>
       <GitHubContributionGraph username="haikelz" client:load />
       <div class="mt-7 w-full max-w-full">
@@ -76,7 +76,7 @@ const latestNotes = notesList
 
     <section
       data-cy="experience"
-      class="w-full slide-enter-content mt-16 sm:mt-24"
+      class="w-full mt-16 sm:mt-24"
     >
       <div class="mb-8">
         <p
@@ -90,7 +90,7 @@ const latestNotes = notesList
           Experience
         </h2>
       </div>
-      <div class="border-b border-border/70 slide-enter-content">
+      <div class="border-b border-border/70">
         {
           experiences.map((experience) => (
             <article class="border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10 group">
@@ -149,7 +149,7 @@ const latestNotes = notesList
 
     <section
       data-cy="featured-works"
-      class="mt-16 sm:mt-24 w-full slide-enter-content"
+      class="mt-16 sm:mt-24 w-full"
     >
       <div class="mb-8 flex items-end justify-between gap-4">
         <div>
@@ -171,7 +171,7 @@ const latestNotes = notesList
           View all <span aria-hidden="true">→</span>
         </a>
       </div>
-      <div class="border-b border-border/70 slide-enter-content">
+      <div class="border-b border-border/70">
         {
           featuredWorks.map((item) => (
             <WorkRow item={item} testId="featured-work" />

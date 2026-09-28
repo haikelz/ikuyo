@@ -27,7 +27,7 @@ const [allTime, weekly] = await Promise.all([fetchStats(), fetchStats("last_7_da
     <PageHeader title="Wakatime" eyebrow="Coding activity">
       Coding activity and statistics.
     </PageHeader>
-    <section class="w-full mt-10 sm:mt-16 slide-enter-content">
+    <section class="w-full mt-10 sm:mt-16">
       <WakatimeStats client:only="svelte" allTime={allTime} weekly={weekly} />
     </section>
   </div>

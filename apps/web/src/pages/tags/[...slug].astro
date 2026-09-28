@@ -37,14 +37,14 @@ const currentPath = Astro.url.pathname.split("/")[2];
   url={`https://ekel.dev/tags/${currentPath}`}
   ogImage={`tags/${currentPath}.png`}
 >
-  <div class="w-full mx-auto slide-enter-content">
+  <div class="w-full mx-auto">
     <PageHeader title={`#${currentPath}`} eyebrow="Topic archive">
       Notes tagged with {currentPath}.
     </PageHeader>
 
     <section class="w-full mt-10 sm:mt-16">
       <h2 class="sr-only">Notes tagged with {currentPath}</h2>
-      <div class="w-full border-b border-border/70 slide-enter-content">
+      <div class="w-full border-b border-border/70">
         {
           notes
             .filter((item) => item.data.tags.includes(currentPath))

@@ -32,7 +32,7 @@ const slug = sanitizeSlug(item.id);
   seoType="article"
   tags={item.data.stack ?? [item.data.position, "Experience"]}
 >
-  <div class="mx-auto w-full slide-enter-content">
+  <div class="mx-auto w-full">
     <BackButton label="back to experiences" client:only="svelte" />
     <article class="w-full max-w-full">
       <header class="mb-14">

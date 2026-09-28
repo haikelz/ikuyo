@@ -39,7 +39,7 @@ const slug = sanitizeSlug(item.id);
   publishedTime={item.data.created_at.toISOString()}
   tags={item.data.tags}
 >
-  <div class="mx-auto w-full min-w-0 slide-enter-content">
+  <div class="mx-auto w-full min-w-0">
     <BackButton label="back to notes" client:only="svelte" />
     <article>
       <header class="mb-12">

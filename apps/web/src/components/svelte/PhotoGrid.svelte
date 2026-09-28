@@ -92,11 +92,11 @@
     {#each images as image, i}
       <button
         type="button"
-        class="photo-item group relative aspect-4/3 cursor-zoom-in overflow-hidden bg-muted"
+        class="photo-item group relative aspect-4/3 cursor-zoom-in bg-muted"
         onclick={(event) => openLightbox(image, event.currentTarget)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
-        <div class="photo-stack absolute inset-0">
+        <div class="photo-stack">
           <img
             src={getPlaceholderUrl(image)}
             alt=""
