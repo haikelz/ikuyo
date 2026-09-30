@@ -13,10 +13,8 @@ const staticPages: Record<string, { title: string }> = {
   works: { title: "Works" },
   photos: { title: "Photos" },
   experiences: { title: "Experiences" },
-  uses: { title: "Uses" },
   wakatime: { title: "Wakatime" },
   guestbook: { title: "Guestbook" },
-  now: { title: "Now" },
   tags: { title: "Tags" },
   ihsg: { title: "Stock Market Index" },
   tools: { title: "Tools" },
@@ -57,23 +55,19 @@ const fontBold =
 export const { getStaticPaths, GET } = await OGImageRoute({
   pages,
   getImageOptions: (path, page: (typeof pages)[string]) => {
-    const isWorkThumbnail = path.startsWith("works/");
-
     return {
       title: page.title.toUpperCase(),
-      description: isWorkThumbnail ? undefined : "ekel.dev - Product/Devops",
+      description: "ekel.dev - Product/Devops",
       bgGradient: [[24, 23, 29]],
-      ...(!isWorkThumbnail && {
-        logo: {
-          path: "./public/images/avatar.png",
-          size: [180, 180] as [number, number],
-          borderRadius: 100,
-        },
-      }),
+      logo: {
+        path: "./public/images/avatar.png",
+        size: [180, 180] as [number, number],
+        borderRadius: 100,
+      },
       font: {
         title: {
           color: [255, 255, 255],
-          size: isWorkThumbnail ? 108 : 60,
+          size: 60,
           weight: "Bold",
           lineHeight: 1.1,
           families: ["Plus Jakarta Sans"],
@@ -90,7 +84,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         color: [255, 255, 255],
         width: 0,
       },
-      padding: isWorkThumbnail ? 48 : 60,
+      padding: 60,
     };
   },
 });
