@@ -27,7 +27,7 @@
 </script>
 
 <nav
-  class="fixed right-[max(1rem,calc(50%-47rem))] top-28 z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-border/70 ps-5 2xl:block"
+  class="fixed right-[max(1rem,calc(50%-47rem))] top-28 z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-dashed border-border/70 ps-5 2xl:block"
   aria-label="On this page"
 >
   <p
