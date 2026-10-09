@@ -70,3 +70,11 @@
 - The dialog lists Fullstack Developer, Backend Developer, Frontend Developer, Devops Engineer, Software Engineer, and AI Engineer, followed by the supplied 20 technology labels.
 - Follow ReUI's scrollable dialog composition through the existing shared Svelte Dialog primitives; do not add a React runtime.
 - Content scrolls on short screens while the title and close control remain visible. Escape and the close button dismiss the dialog and restore trigger focus.
+
+## ReUI reading and portfolio patterns
+
+- ToC preserves its desktop rail and mobile sheet; the current heading is highlighted and marked with `aria-current="location"`. Scrolling does not rewrite the URL.
+- Homepage experiences use a static timeline, preserving every authored highlight, date and case-study link.
+- Tools use static decorative outline Icon Tiles; titles and descriptions remain the accessible content.
+- Guestbook and market statuses use the shared semantic Alert variants. A refresh failure retains previously loaded messages.
+- MDX code retains build-time syntax highlighting with filename/language, Copy and Wrap controls. Snippets longer than 16 lines can expand/collapse; copying always includes full source. Without JavaScript, the full code remains readable.

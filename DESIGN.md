@@ -163,3 +163,11 @@ remain unboxed within that panel; do not
 add duplicate page frames. Navigation, footer and floating controls stay outside
 the reading surface. Live component examples at `/design-system#frame` are the
 intentional exception to nested-frame avoidance. Frame needs no hydration.
+
+## 10. ReUI content patterns
+
+- Scrollspy: quiet ToC links gain primary text and semibold weight for the active heading. Preserve the existing navigation position and fragment links; expose `aria-current="location"`.
+- Timeline: homepage experiences use a fine 1px connector and small outlined indicators. Keep every highlight visible; never turn the career history into a stepper or carousel.
+- Alert: info for loading/unavailable data, warning for stale or partial data, destructive for failed requests. Use status semantics for nonurgent updates.
+- Code Block: static syntax highlighting with a compact filename/language toolbar and visible Copy/Wrap buttons. Long snippets have an explicit expand action; do not ship a client-side highlighter.
+- Icon Tile: the native `@ikuyo/ui` outline tile is 40px with an 18px glyph. Mark decorative tiles hidden from assistive technology and retain text labels. No hydration is needed for Tools.
