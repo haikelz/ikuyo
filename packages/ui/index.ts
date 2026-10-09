@@ -82,3 +82,4 @@ export {
   type WithoutChildren,
   type WithoutChildrenOrChild,
 } from "./src/lib/utils";
+export { default as IconTile } from "./src/components/ui/icon-tile/icon-tile.svelte";

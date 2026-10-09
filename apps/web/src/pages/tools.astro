@@ -1,6 +1,10 @@
 ---
 import PageHeader from "@/components/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
+import { IconTile } from "@ikuyo/ui";
+import { TrainFront, Moon, BookOpen, Code, Clock, Image, Calculator } from "lucide-svelte";
+
+const toolIcons = [TrainFront, Moon, BookOpen, Code, Clock, Image, Calculator];
 
 const tools = [
   {
@@ -68,11 +72,13 @@ const tools = [
     <section class="mt-10 w-full sm:mt-16">
       <div class="border-b border-border/70">
         {
-          tools.map((tool) => (
-            <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-1 sm:items-baseline sm:gap-6">
-              <span class="font-mono text-xs tabular-nums text-muted-foreground">
-                {String(tool.id).padStart(2, "0")}
-              </span>
+          tools.map((tool, index) => {
+            const ToolIcon = toolIcons[index];
+            return (
+            <article class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-t border-border/70 py-6">
+              <IconTile aria-hidden="true" class="row-span-2">
+                <ToolIcon />
+              </IconTile>
               <h2 class="m-0 text-lg w-full font-semibold tracking-tight text-foreground">
                 <a
                   href={tool.url}
@@ -92,7 +98,8 @@ const tools = [
                 {tool.description}
               </p>
             </article>
-          ))
+            );
+          })
         }
       </div>
     </section>
