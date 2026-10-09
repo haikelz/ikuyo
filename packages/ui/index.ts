@@ -40,6 +40,7 @@ export {
   DialogTrigger,
 } from "./src/components/ui/dialog";
 export { Input } from "./src/components/ui/input";
+export { Frame, FramePanel, FrameHeader, FrameFooter, FrameTitle, FrameDescription } from "./src/components/ui/frame";
 export { Progress } from "./src/components/ui/progress";
 export { Select, SelectContent, SelectItem, SelectTrigger } from "./src/components/ui/select";
 export { Separator } from "./src/components/ui/separator";

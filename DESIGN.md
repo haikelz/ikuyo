@@ -140,3 +140,26 @@ shadows as a substitute for hierarchy.
 The component implementation follows ReUI's Sera styling in Svelte rather than
 using the official React registry components. This keeps the existing Astro and
 Svelte architecture while preserving ReUI's semantic tokens and visual rules.
+
+## 9. Frame
+
+Import the native Svelte Frame family from `@ikuyo/ui`. FramePanel holds content;
+FrameHeader and FrameFooter may sit inside a panel or in the outer chrome.
+FrameTitle is a neutral container: supply a real heading at the appropriate level.
+FrameDescription uses muted text. The implementation adapts ReUI's Frame registry
+without React or additional dependencies.
+
+- `variant`: default border or ghost without an outer border.
+- `spacing`: sm (12px horizontal), default (16px), lg (20px).
+- `stacked`: connect adjacent panels with shared borders and square inner corners.
+- `dense`: remove outer padding; retain panel content padding.
+- `--frame-radius`: outer radius; inner panel radius subtracts the inset and border.
+
+Every public HTML page inherits one static Frame and FramePanel from Layout.
+Below 768px the page Frame and panel use display: contents, without borders,
+background or padding; the outer page gutter is the only mobile inset. From
+768px the shared panel has 24px horizontal padding. Editorial rows and prose
+remain unboxed within that panel; do not
+add duplicate page frames. Navigation, footer and floating controls stay outside
+the reading surface. Live component examples at `/design-system#frame` are the
+intentional exception to nested-frame avoidance. Frame needs no hydration.

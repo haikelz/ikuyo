@@ -102,7 +102,7 @@
 >
   <div
     class={cn(
-      "flex w-full max-w-3xl min-h-16 items-center justify-between px-4 md:px-8",
+      "flex w-full max-w-4xl min-h-16 items-center justify-between px-4 md:px-8",
     )}
   >
     <a

@@ -16,6 +16,10 @@
   direction through project-owned semantic tokens and component conventions.
 - The design system keeps the existing Astro and Svelte runtime; React-only
   ReUI registry components are not installed.
+- Every public HTML route uses the native Svelte Frame through the shared Astro
+  Layout. The static page panel contains existing content without per-row frames.
+- Below 768px page Frame chrome and padding are removed so mobile content uses
+  only the page gutter. Tablet and desktop retain the framed surface.
 - `DESIGN.md` is the source of truth for color, typography, spacing, component
   states, motion, surface depth, and accessibility constraints.
 
@@ -59,3 +63,10 @@
 - The homepage retains the company, role, date range, and highlights; the detail page renders the same facts plus editable MDX narrative.
 - Undisclosed employers stay undisclosed in all public content.
 - Experience pages are content pages, not notes: they do not render a reaction control or make backend requests.
+
+## Availability dialog
+
+- The homepage `#opentowork` badge is a keyboard-accessible button opening job preferences independently of activity API availability.
+- The dialog lists Fullstack Developer, Backend Developer, Frontend Developer, Devops Engineer, Software Engineer, and AI Engineer, followed by the supplied 20 technology labels.
+- Follow ReUI's scrollable dialog composition through the existing shared Svelte Dialog primitives; do not add a React runtime.
+- Content scrolls on short screens while the title and close control remain visible. Escape and the close button dismiss the dialog and restore trigger focus.

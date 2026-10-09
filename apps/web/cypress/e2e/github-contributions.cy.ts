@@ -132,4 +132,57 @@ describe("Homepage GitHub contributions", () => {
     cy.contains("Activity is temporarily unavailable.").should("be.visible");
     cy.get('[data-cy="contribution-graph"]').should("not.exist");
   });
+
+  it("opens job preferences with keyboard even when activity is unavailable", () => {
+    interceptContributions({ contributions: "invalid" });
+    cy.visit("/");
+    cy.wait("@contributions");
+    cy.get('[data-cy="open-to-work-badge"]').focus().type("{enter}");
+    cy.get('[role="dialog"]').should("be.visible").within(() => {
+      cy.contains("Open to work").should("be.visible");
+      for (const role of ["Fullstack Developer", "Backend Developer", "Frontend Developer", "Devops Engineer", "Software Engineer", "AI Engineer"]) {
+        cy.contains("li", role).should("be.visible");
+      }
+      for (const stack of ["Next JS", "Javascript", "Typescript", "Golang", "Echo", "Fiber", "Gorm", "PostgreSQL", "MySQL", "Node JS", "Express JS", "Nest JS", "Hono JS", "Astro", "Svelte", "React", "CI/CD", "Docker", "Linux", "Kubernetes"]) {
+        cy.contains("li", stack).should("exist");
+      }
+    });
+    for (const width of [1280, 768, 375]) {
+      const height = width === 375 ? 640 : 720;
+      cy.viewport(width, height);
+      cy.get('[role="dialog"]').should(($dialog) => {
+        const rect = $dialog[0].getBoundingClientRect();
+        expect(rect.left).to.be.at.least(0);
+        expect(rect.right).to.be.at.most(width);
+        expect(rect.top).to.be.at.least(0);
+        expect(rect.bottom).to.be.at.most(height);
+        expect($dialog[0].scrollWidth).to.eq($dialog[0].clientWidth);
+      });
+      cy.screenshot(`job-preferences/dialog-${width}`, { capture: "viewport" });
+    }
+    cy.viewport(375, 480);
+    cy.get('[role="dialog"]').contains("button", "Close").click();
+    cy.get('[role="dialog"]').should("not.exist");
+    cy.get('[data-cy="open-to-work-badge"]').click();
+    cy.get('[role="dialog"]').should(($dialog) => {
+      expect($dialog[0].getBoundingClientRect().bottom).to.be.at.most(480);
+    });
+    cy.get('[data-cy="job-preferences-body"]').should(($body) => {
+      expect($body[0].scrollHeight).to.be.greaterThan($body[0].clientHeight);
+    });
+    cy.get('[data-cy="job-preferences-body"]').invoke("css", "scroll-behavior", "auto").scrollTo("bottom");
+    cy.get('[role="dialog"]').contains("li", "Kubernetes").should(($item) => {
+      const item = $item[0].getBoundingClientRect();
+      const body = $item[0].closest('[data-cy="job-preferences-body"]')!.getBoundingClientRect();
+      expect(item.top).to.be.at.least(body.top);
+      expect(item.bottom).to.be.at.most(body.bottom);
+    });
+    cy.get('[role="dialog"]').contains("button", "Close").should("be.visible");
+    cy.screenshot("job-preferences/dialog-mobile-scrolled", { capture: "viewport" });
+    cy.get('[role="dialog"] button').filter(':contains("Close")').focus().type("{esc}");
+    cy.get('[role="dialog"]').should("not.exist");
+    cy.get('[data-cy="open-to-work-badge"]').should("be.focused").click();
+    cy.get('[role="dialog"]').contains("button", "Close").click();
+    cy.get('[role="dialog"]').should("not.exist");
+  });
 });

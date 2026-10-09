@@ -1,5 +1,6 @@
 ---
 import PageHeader from "@/components/PageHeader.astro";
+import FrameExamples from "@/components/svelte/FrameExamples.svelte";
 import Layout from "@/layouts/Layout.astro";
 
 const navigation = [
@@ -17,6 +18,7 @@ const navigation = [
       ["Page headers", "page-headers"],
       ["Editorial rows", "editorial-rows"],
       ["Structured content", "structured-content"],
+      ["Frame", "frame"],
       ["Long-form content", "long-form-content"],
       ["Media and data", "media-and-data"],
     ],
@@ -744,6 +746,21 @@ const colors = [
 &lt;/Layout&gt;</code></pre>
         </section>
 
+        <section id="frame" class="mt-16 scroll-mt-28 border-t border-border/70 pt-8 sm:mt-24">
+          <h2 class="mb-3 mt-0 text-2xl font-bold tracking-tight sm:text-3xl">Frame</h2>
+          <p class="mb-6 leading-7 text-muted-foreground">
+            A native Svelte adaptation of <a href="https://reui.io/docs/components/base/frame" target="_blank" rel="noopener noreferrer">ReUI Frame</a>.
+            Import the Frame family from @ikuyo/ui. Use default or ghost surfaces,
+            sm/default/lg spacing, stacked panels, and dense outer padding.
+            Set --frame-radius to customize concentric corners. Render headings
+            inside FrameTitle to preserve the page’s heading hierarchy.
+            Layout already supplies one static page Frame on every route. Keep
+            lists and prose inside it without adding duplicate page containers.
+            Below 768px the page Frame is unboxed and adds no padding, leaving
+            more room for mobile content. Component examples below remain framed.
+          </p>
+          <FrameExamples />
+        </section>
         <footer class="mt-16 border-t border-border/70 pt-8 sm:mt-24">
           <p class="m-0 text-sm leading-8 text-muted-foreground">
             This is a living reference. When the interface changes, update the
