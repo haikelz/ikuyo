@@ -95,10 +95,12 @@ const latestNotes = notesList
           Experience
         </h2>
       </div>
-      <div class="border-b border-border/70">
+      <div data-slot="timeline" class="w-full">
         {
           experiences.map((experience) => (
-            <article class="border-t border-border/70 py-8 sm:grid-cols-[5rem_1fr] sm:py-10 group">
+            <article data-slot="timeline-item" class="relative pb-10 ps-6 sm:pb-12 sm:ps-8 group last:pb-0">
+              <span data-slot="timeline-indicator" aria-hidden="true" class="absolute start-0 top-2 z-10 size-2.5 rounded-full border border-primary bg-card" />
+              <span data-slot="timeline-separator" aria-hidden="true" class="absolute start-[4px] top-4 bottom-0 w-px bg-border group-last:hidden" />
               <div>
                 <div class="flex w-full flex-col items-start justify-start gap-2 sm:flex-row sm:items-baseline sm:justify-between">
                   <div>
