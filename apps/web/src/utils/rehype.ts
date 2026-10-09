@@ -2,8 +2,8 @@ import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 
 const codeBlockCopyClass = [
-  "inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-secondary text-secondary-foreground shadow-xs transition-all hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
-  "code-block-copy absolute bottom-3 right-3",
+  "inline-flex min-h-9 shrink-0 items-center justify-center rounded-md border border-border bg-card px-2.5 text-xs text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring",
+  "code-block-copy",
 ].join(" ");
 
 /**
@@ -94,7 +94,10 @@ export function rehypeCodeBlockWrapper() {
         findLanguageInNode(node);
 
       const filename = dataFilename ?? parseFilenameFromMeta(meta);
-      const label = filename ?? language ?? null;
+      const label = filename ?? language ?? "Code";
+      let lineCount = 1;
+      visit(codeNode, "text", (text: any) => { lineCount += (text.value.match(/\n/g) ?? []).length; });
+      const collapsible = lineCount > 16;
 
       const wrapper = h(
         "div",
@@ -110,69 +113,14 @@ export function rehypeCodeBlockWrapper() {
           ],
         },
         [
-          ...(label
-            ? [
-                h(
-                  "div",
-                  {
-                    className: [
-                      "code-block-filename",
-                      "px-4",
-                      "py-2",
-                      "text-sm",
-                      "font-medium",
-                      "bg-muted",
-                      "text-muted-foreground",
-                      "border-b",
-                      "border-border",
-                      "rounded-t-md",
-                    ],
-                  },
-                  label,
-                ),
-              ]
-            : []),
-          h("div", { className: ["code-block-content", "relative", "group"] }, [
-            node,
-            h(
-              "button",
-              {
-                type: "button",
-                className: codeBlockCopyClass.split(/\s+/).filter(Boolean),
-                "aria-label": "Copy code",
-                "data-copy-button": "true",
-              },
-              [
-                h(
-                  "svg",
-                  {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    width: "16",
-                    height: "16",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round",
-                  },
-                  [
-                    h("rect", {
-                      x: "9",
-                      y: "9",
-                      width: "13",
-                      height: "13",
-                      rx: "2",
-                      ry: "2",
-                    }),
-                    h("path", {
-                      d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1",
-                    }),
-                  ],
-                ),
-              ],
-            ),
+          h("div", { className: ["code-block-header", "flex", "flex-wrap", "items-center", "gap-2", "border-b", "border-border", "bg-muted/40", "px-3", "py-2"] }, [
+            h("span", { className: ["code-block-filename", "min-w-0", "flex-1", "break-all", "font-mono", "text-xs", "text-muted-foreground"] }, label),
+            ...(filename && language ? [h("span", { className: ["font-mono", "text-xs", "text-muted-foreground"] }, language)] : []),
+            h("button", { type: "button", className: codeBlockCopyClass.split(/\s+/), "data-wrap-button": "true", "aria-label": "Wrap code", "aria-pressed": "false" }, "Wrap"),
+            h("button", { type: "button", className: codeBlockCopyClass.split(/\s+/), "data-copy-button": "true", "aria-label": "Copy code" }, "Copy"),
           ]),
+          h("div", { className: ["code-block-content"], "data-collapsed": collapsible ? "true" : "false", tabIndex: 0, role: "region", "aria-label": `${label} code` }, [node]),
+          ...(collapsible ? [h("button", { type: "button", className: ["code-block-expand", "w-full", "border-t", "border-border", "bg-muted/40", "py-2", "text-xs", "text-foreground", "hover:bg-muted", "focus-visible:outline-2", "focus-visible:outline-ring"], "data-expand-button": "true", "aria-expanded": "false" }, "Show full code")] : []),
         ].filter(Boolean),
       );
 

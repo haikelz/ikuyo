@@ -2,9 +2,11 @@
 import { onMount } from "svelte";
 
 onMount(() => {
-  function handleCopyClick(e: MouseEvent) {
+  document.documentElement.setAttribute("data-code-toolbar-ready", "true");
+  const timers = new Set<ReturnType<typeof setTimeout>>();
+  async function handleCopyClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
-    const button = target.closest("[data-copy-button]");
+    const button = target.closest<HTMLButtonElement>("[data-copy-button], [data-wrap-button], [data-expand-button]");
     if (!button) return;
 
     const wrapper = button.closest(".code-block-wrapper");
@@ -13,22 +15,43 @@ onMount(() => {
     const codeEl = wrapper.querySelector("pre code");
     if (!codeEl) return;
 
-    const text = codeEl.textContent ?? "";
-    navigator.clipboard.writeText(text).then(() => {
-      const originalHtml = button.innerHTML;
-      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    if (button.hasAttribute("data-wrap-button")) {
+      const wrapped = button.getAttribute("aria-pressed") !== "true";
+      wrapper.setAttribute("data-wrap", String(wrapped));
+      button.setAttribute("aria-pressed", String(wrapped));
+      return;
+    }
+    if (button.hasAttribute("data-expand-button")) {
+      const expanded = button.getAttribute("aria-expanded") !== "true";
+      wrapper.querySelector(".code-block-content")?.setAttribute("data-collapsed", String(!expanded));
+      button.setAttribute("aria-expanded", String(expanded));
+      button.textContent = expanded ? "Collapse code" : "Show full code";
+      return;
+    }
+    button.disabled = true;
+    try {
+      await navigator.clipboard.writeText(codeEl.textContent ?? "");
+      button.textContent = "Copied!";
       button.setAttribute("aria-label", "Copied!");
-      setTimeout(() => {
-        button.innerHTML = originalHtml;
-        button.setAttribute("aria-label", "Copy code");
-      }, 2000);
-    });
+    } catch {
+      button.textContent = "Try again";
+      button.setAttribute("aria-label", "Copy failed. Try again");
+    }
+    button.disabled = false;
+    const timer = setTimeout(() => {
+      button.textContent = "Copy";
+      button.setAttribute("aria-label", "Copy code");
+      timers.delete(timer);
+    }, 2000);
+    timers.add(timer);
   }
 
   document.addEventListener("click", handleCopyClick);
 
   return () => {
     document.removeEventListener("click", handleCopyClick);
+    document.documentElement.removeAttribute("data-code-toolbar-ready");
+    for (const timer of timers) clearTimeout(timer);
   };
 });
 </script>

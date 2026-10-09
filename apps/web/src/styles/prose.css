@@ -82,7 +82,17 @@
 }
 
 .prose .code-block-wrapper .code-block-content {
-  @apply p-0;
+  @apply p-0 overflow-auto;
+}
+
+html[data-code-toolbar-ready] .prose .code-block-content[data-collapsed="true"] {
+  max-height: 24rem;
+}
+
+.prose .code-block-wrapper[data-wrap="true"] pre code,
+.prose .code-block-wrapper[data-wrap="true"] pre code .line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .prose .code-block-wrapper pre {
@@ -102,15 +112,11 @@
 }
 
 .prose .code-block-wrapper .code-block-filename {
-  @apply bg-muted px-4 py-2 text-muted-foreground font-mono;
+  @apply text-muted-foreground font-mono;
 }
 
 .prose .code-block-wrapper .code-block-copy {
-  @apply opacity-70 transition-opacity duration-200 rounded-md!;
-}
-
-.prose .code-block-wrapper .code-block-content:hover .code-block-copy {
-  @apply opacity-100;
+  @apply rounded-md!;
 }
 
 .prose hr {
