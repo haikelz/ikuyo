@@ -9,10 +9,36 @@
     SheetTitle,
   } from "@ikuyo/ui";
   import { List, X } from "lucide-svelte";
+  import { onMount } from "svelte";
   import TOCHeading from "./TOCHeading.svelte";
 
   let { headings }: { headings: HeadingTocProps[] } = $props();
   let isOpen = $state(false);
+  let activeSlug = $state("");
+
+  onMount(() => {
+    const sections = headings.map((heading) => document.getElementById(heading.slug)).filter((element): element is HTMLElement => element !== null);
+    let frame = 0;
+    function update() {
+      frame = 0;
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= 128) current = section;
+      }
+      activeSlug = current?.id ?? "";
+    }
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  });
 
   const rootDepth = $derived(
     headings?.length
@@ -37,7 +63,7 @@
   </p>
   <ul class="m-0 space-y-1 p-0" role="list">
     {#each toc as heading}
-      <TOCHeading {heading} />
+      <TOCHeading {heading} {activeSlug} />
     {/each}
   </ul>
 </nav>
@@ -86,7 +112,7 @@
         role="list"
       >
         {#each toc as heading}
-          <TOCHeading {heading} onNavigate={() => (isOpen = false)} />
+          <TOCHeading {heading} {activeSlug} onNavigate={() => (isOpen = false)} />
         {/each}
       </ul>
     </div>
