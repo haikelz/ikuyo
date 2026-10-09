@@ -569,7 +569,7 @@
 </script>
 
 {#if isLoadingMarkets}
-  <Alert class="rounded-md">
+  <Alert role="status" variant="info" class="rounded-md">
     <Activity class="size-4" />
     <AlertTitle>Memuat Data Market</AlertTitle>
     <AlertDescription
@@ -584,7 +584,7 @@
   </Alert>
 {:else}
   {#if currentMarket.errorMessage && normalized.length > 0}
-    <Alert variant="destructive" class="mb-4 rounded-md">
+    <Alert role="status" variant="warning" class="mb-4 rounded-md">
       <AlertTriangle class="size-4" />
       <AlertTitle>Data Market Tidak Lengkap</AlertTitle>
       <AlertDescription>{currentMarket.errorMessage}</AlertDescription>
@@ -592,7 +592,7 @@
   {/if}
 
   {#if normalized.length === 0}
-    <Alert class="rounded-md">
+    <Alert role="status" variant="info" class="rounded-md">
       <Activity class="size-4" />
       <AlertTitle>Data Market Belum Tersedia</AlertTitle>
       <AlertDescription>

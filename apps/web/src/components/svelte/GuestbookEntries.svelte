@@ -2,6 +2,8 @@
   import { api } from "@/configs/ky";
   import { hideProfanity } from "@/helpers/profanity";
   import type { GuestbookProps } from "@/types";
+  import { Alert, AlertDescription, AlertTitle } from "@ikuyo/ui";
+  import { AlertTriangle, Info, MessageSquare } from "lucide-svelte";
   import { format } from "date-fns";
   import { onMount } from "svelte";
 
@@ -48,15 +50,31 @@
 </script>
 
 {#if loading}
-  <p role="status" class="font-medium text-muted-foreground">Loading messages…</p>
+  <Alert role="status" variant="info">
+    <MessageSquare aria-hidden="true" />
+    <AlertTitle>Loading messages…</AlertTitle>
+    <AlertDescription>Fetching the latest guestbook entries.</AlertDescription>
+  </Alert>
 {:else if error && entries.length === 0}
-  <p role="alert" class="font-medium text-muted-foreground">Could not load messages. Please try again later.</p>
+  <Alert variant="destructive">
+    <AlertTriangle aria-hidden="true" />
+    <AlertTitle>Could not load messages</AlertTitle>
+    <AlertDescription>Please try again later.</AlertDescription>
+  </Alert>
 {:else}
   {#if error}
-    <p role="status" class="mb-4 text-sm text-muted-foreground">Could not refresh messages. Showing the last loaded entries.</p>
+    <Alert role="status" variant="warning" class="mb-4">
+      <AlertTriangle aria-hidden="true" />
+      <AlertTitle>Could not refresh messages.</AlertTitle>
+      <AlertDescription>Showing the last loaded entries.</AlertDescription>
+    </Alert>
   {/if}
   {#if entries.length === 0}
-    <p class="font-medium text-muted-foreground">There is no message right now!</p>
+    <Alert role="status">
+      <Info aria-hidden="true" />
+      <AlertTitle>There is no message right now!</AlertTitle>
+      <AlertDescription>Be the first to leave a message.</AlertDescription>
+    </Alert>
   {:else}
     <div class="w-full border-b border-border/70">
       {#each entries as item (item.id)}
