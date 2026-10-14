@@ -2,54 +2,80 @@
 import PageHeader from "@/components/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
 import { IconTile } from "@ikuyo/ui";
-import { TrainFront, Moon, BookOpen, Code, Clock, Image, Calculator } from "lucide-svelte";
+import {
+  BookOpen,
+  Calculator,
+  Clock,
+  Code,
+  Image,
+  LayoutDashboard,
+  Moon,
+  TrainFront,
+} from "lucide-svelte";
 
-const toolIcons = [TrainFront, Moon, BookOpen, Code, Clock, Image, Calculator];
+const toolIcons = [
+  LayoutDashboard,
+  TrainFront,
+  Moon,
+  BookOpen,
+  Code,
+  Clock,
+  Image,
+  Calculator,
+];
 
 const tools = [
   {
     id: 1,
+    name: "gtcd",
+    url: "https://github.com/haikelz/gtcd",
+    description:
+      "gtcd is a custom frontend dashboard for your GoatCounter analytics instance. It connects to your GoatCounter server via its REST API and provides an alternative, modern web UI.",
+  },
+  {
+    id: 2,
     name: "Transit",
     url: "https://transit.ekel.dev",
     description:
       "Jakarta public transport preview. Browse schedules, plan routes, and monitor live status for KRL, TransJakarta, MRT, and LRT.",
   },
   {
-    id: 2,
+    id: 3,
     name: "Puasa Sunnah API",
     url: "https://puasasunnah.ekel.dev",
     description:
       "API for classifying and scheduling voluntary fasting days in the Islamic calendar.",
   },
   {
-    id: 3,
+    id: 4,
     name: "Asmaul Husna API",
     url: "https://asmaul-husna-api.vercel.app",
     description: "RESTful API to get the list of Asma'ul Husna.",
   },
   {
-    id: 4,
+    id: 5,
+
     name: "AI Guideline",
     url: "https://github.com/haikelz/ai-guideline",
     description:
       "My engineering rules for coding agents. Covers JS, TS, Go, frontend, backend, databases, infra, and deployment.",
   },
   {
-    id: 5,
+    id: 6,
     name: "Jdwshlt",
     url: "https://jdwshlt.ekel.dev",
     description:
       "Islamic companion app for prayer times, Al-Qur'an, hadith, Asmaul Husna, and sunnah fasting schedules.",
   },
   {
-    id: 6,
+    id: 7,
     name: "Fam",
     url: "https://fam.ekel.dev",
     description:
       "Add a LinkedIn Open to Work or Hiring frame to your profile photo — entirely in the browser. No uploads, just an 800×800 PNG.",
   },
   {
-    id: 7,
+    id: 8,
     name: "Rata",
     url: "https://rata.ekel.dev",
     description:
@@ -60,7 +86,7 @@ const tools = [
 
 <Layout
   title="Tools"
-  description="Services and SaaS projects I've built."
+  description="Explore my desk gear in 3D and the tools and apps I've built."
   url="https://ekel.dev/tools"
   ogImage="tools.png"
 >
@@ -75,29 +101,29 @@ const tools = [
           tools.map((tool, index) => {
             const ToolIcon = toolIcons[index];
             return (
-            <article class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-t border-border/70 py-6">
-              <IconTile aria-hidden="true" class="row-span-2">
-                <ToolIcon />
-              </IconTile>
-              <h2 class="m-0 text-lg w-full font-semibold tracking-tight text-foreground">
-                <a
-                  href={tool.url}
-                  target={tool.url.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    tool.url.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  aria-label={`${tool.name} (opens in new tab)`}
-                  class="no-underline! hover:text-muted-foreground transition-colors"
-                >
-                  {tool.name}
-                </a>
-              </h2>
-              <p class="m-0 text-sm leading-8 text-muted-foreground text-pretty">
-                {tool.description}
-              </p>
-            </article>
+              <article class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-t border-border/70 py-6">
+                <IconTile aria-hidden="true" class="row-span-2">
+                  <ToolIcon />
+                </IconTile>
+                <h3 class="m-0 text-lg w-full font-semibold tracking-tight text-foreground">
+                  <a
+                    href={tool.url}
+                    target={tool.url.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      tool.url.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    aria-label={`${tool.name} (opens in new tab)`}
+                    class="no-underline! hover:text-muted-foreground transition-colors"
+                  >
+                    {tool.name}
+                  </a>
+                </h3>
+                <p class="m-0 text-sm leading-8 text-muted-foreground text-pretty">
+                  {tool.description}
+                </p>
+              </article>
             );
           })
         }

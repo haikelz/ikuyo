@@ -1,108 +1,87 @@
 # Docker Coding-Agent Guideline
 
-This document defines container-specific rules for coding agents that create,
-modify, review, or verify Docker build and deployment artifacts. Apply it with
-the relevant language, framework, database, security, and repository guidance;
-do not duplicate application logic or framework policy in container files.
+Precedence follows `general.md` §2. This document covers Dockerfiles, build
+contexts, Compose files, and container deployment for the owner's services.
 
-The terms **MUST**, **SHOULD**, and **AVOID** are normative. Requirements and
-repository-local instructions take precedence. Existing weak practices are not
-precedent: preserve required compatibility while correcting unsafe patterns
-within the task's scope.
+The terms **MUST**, **SHOULD**, and **AVOID** are normative. Existing weak
+practices are not precedent: preserve required compatibility while correcting
+unsafe patterns within the task's scope.
 
 ## 1. Discovery and Scope
 
 Before editing, the agent **MUST**:
 
-1. Read applicable instructions, Dockerfiles, `.dockerignore`, Compose files,
-   build scripts, CI workflows, deployment manifests, lockfiles, runtime version
-   files, and application health and shutdown code. Never open populated secret
-   files merely to inspect configuration.
-2. Identify every build context, Dockerfile location, target stage, build
-   platform, runtime platform, registry, orchestrator, and release owner affected.
-3. Determine the real build output, runtime command, required assets, writable
-   paths, listening port, shutdown grace period, and liveness/readiness/startup
-   semantics from code and build output rather than assumptions.
-4. Determine whether the image is a web process, worker, migration job, static
-   binary, development environment, or multi-purpose image. Prefer one process
-   role and one lifecycle per image.
-5. Inspect existing language and framework guidance and keep dependency,
-   generation, migration, and application concerns in their owning layer.
-6. Check the working tree and make the smallest complete change. The agent MUST
-   NOT rewrite unrelated container files or silently change deployment contracts.
+1. Read Dockerfiles, `.dockerignore`, Compose files, CI workflows, lockfiles,
+   runtime version files, and the application's health and shutdown code. Never
+   open populated secret files to inspect configuration.
+2. Identify every build context, target stage, platform, registry, and deploy
+   target affected, and determine the real build output, runtime command,
+   writable paths, port, and probe semantics from code rather than assumptions.
+3. Prefer one process role and one lifecycle per image: web process, worker,
+   migration job, or static binary.
+4. Make the smallest complete change. Do not rewrite unrelated container files or
+   silently change deployment contracts such as user, port, entry point, image
+   name, or health endpoint. Report compatibility assumptions and checks that
+   could not run.
 
-The agent **SHOULD** trace all image consumers before changing the user, port,
-entry point, filesystem layout, architecture, or health endpoints. It **MUST**
-report compatibility assumptions and checks that could not be run.
-
-## 2. OCI Image Principles
+## 2. Image Principles
 
 - An image **MUST** be reproducible from reviewed source, a lockfile, pinned
   inputs, and a declared build command. Mutable state belongs outside the image.
-- Images **MUST** be immutable deployment artifacts. The same digest **MUST** be
-  promoted between environments; an environment-specific rebuild is prohibited.
-- Runtime images **MUST** contain only the executable application, required
-  production dependencies, certificates, time-zone data when needed, and
-  explicitly declared assets.
-- Build tools, tests, source maps not needed at runtime, package caches, shells,
-  and development dependencies **SHOULD** remain in earlier stages.
-- Each image **SHOULD** have one operational responsibility and the smallest
-  practical attack surface. Minimal does not mean unusable: required TLS roots,
-  native libraries, and diagnostics policy must be deliberate.
+- The image built for a commit **MUST** be the artifact deployed for that commit.
+  Do not rebuild the same revision separately per environment.
+- Runtime images **MUST** contain only the executable application, production
+  dependencies, certificates, time-zone data when needed, and declared assets.
+  Build tools, tests, caches, and development dependencies stay in earlier
+  stages.
 - Layers **MUST NOT** contain secrets, private package credentials, local
-  configuration, VCS history, or deleted secret material from an earlier layer.
-- Images **MUST NOT** download code, packages, or executable plugins at startup.
+  configuration, VCS history, or secret material deleted in a later layer.
+- Images **MUST NOT** download code, packages, or plugins at startup.
 
-## 3. Immutable Inputs and Pinning
+## 3. Pinning
 
-- `FROM` images **MUST** use an approved, supported image and **SHOULD** be pinned
-  by digest, retaining a readable tag: `FROM node:<NODE_VERSION>@sha256:<DIGEST>`.
-- Floating tags such as `latest`, unqualified major tags, and mutable deployment
-  tags **MUST NOT** be the only identity. Automated digest updates **SHOULD** be
-  reviewed and tested through normal dependency-update workflows.
-- Language dependencies **MUST** use the repository lockfile and immutable or
-  frozen install mode. The selected package manager and version **MUST** match
-  repository policy.
-- Operating-system packages **MUST** be explicit and version-pinned where the
-  base repository supports reliable pins. Repository snapshots or digest-pinned
-  bases **SHOULD** be used when package versions otherwise disappear.
-- Package metadata refresh and installation **MUST** occur in one layer, and
-  package-manager caches **MUST** be removed unless a BuildKit cache mount owns
-  them. Recommended packages **MUST** be disabled unless required.
-- Agents **MUST NOT** run an unverified remote script through a shell. Downloaded
-  tools **MUST** have a pinned version and verified checksum or signature.
-- Pinning **MUST** include toolchain helpers such as Corepack package-manager
-  versions, code generators, and native build tools; global unpinned installs are
-  prohibited.
+- `FROM` images **MUST** use a supported version tag and **SHOULD** add a digest:
+  `FROM oven/bun:<BUN_VERSION>-alpine@sha256:<DIGEST>`. Floating tags such as
+  `latest`, `alpine`, or a bare major (`bun:1`) **MUST NOT** be the only identity.
+- Language dependencies **MUST** install from the repository lockfile in frozen
+  mode with the package manager version the repository pins.
+- Operating-system packages **MUST** be explicit and installed in one layer with
+  caches removed or owned by a BuildKit cache mount. Do not install tools that
+  nothing in the image calls.
+- Downloaded tools **MUST** have a pinned version and a verified checksum or
+  signature. Never pipe an unverified remote script into a shell.
+- Toolchain helpers **MUST** be pinned too. Node 25 and later no longer ship
+  Corepack, so install the exact package-manager version
+  (`npm install --global pnpm@<PNPM_VERSION>`). On Node 24 and earlier, Corepack
+  MAY activate the `packageManager` version from `package.json`.
 
-## 4. Dockerfile Syntax and Multi-Stage Structure
+## 4. Dockerfile Structure
 
-- New Dockerfiles **MUST** begin with a current syntax directive when BuildKit
-  features are used, for example `# syntax=docker/dockerfile:1.7`.
-- Instructions **MUST** be ordered for correctness and useful caching: stable
-  dependency metadata first, dependency installation, source, build, then the
-  minimal runtime stage.
-- Stages **MUST** have descriptive lowercase names such as `deps`, `build`, and
-  `runtime`. `COPY --from` **SHOULD** name a stage, not use a numeric index.
-- `WORKDIR` **MUST** be absolute. `COPY` sources **MUST** be narrow and explicit.
-- JSON/exec form **MUST** be used for runtime `ENTRYPOINT` and `CMD`.
-- Related shell commands **SHOULD** use `set -eux` or an equivalent failure-safe
-  shell mode where supported. Long opaque `RUN` scripts **SHOULD** move to a
-  reviewed repository script only when reuse or readability justifies it.
-- Build arguments **MUST NOT** carry secrets. `ARG` is visible in image history
-  and build metadata. Runtime configuration **MUST NOT** be baked into the image.
-- A stage **MUST NOT** copy an entire previous filesystem merely for convenience.
+- Start every Dockerfile with `# syntax=docker/dockerfile:1`.
+- Order instructions for correctness and caching: dependency manifests,
+  dependency installation, source, build, then a minimal runtime stage.
+- Name stages in lowercase (`deps`, `build`, `runtime`) and reference them by
+  name in `COPY --from`.
+- `WORKDIR` **MUST** be absolute. `COPY` sources **SHOULD** be narrow; `COPY . .`
+  is acceptable in a build stage only after `.dockerignore` proves the context
+  narrow.
+- Use exec form for runtime `ENTRYPOINT` and `CMD`.
+- `ARG` and `ENV` **MUST NOT** carry secrets; both are visible in image history
+  and build logs. Runtime configuration **MUST NOT** be baked into the image.
+- Copy runtime files with final ownership. Avoid a later recursive `chown`
+  layer.
 
-Concise generic pattern:
+Generic pnpm pattern:
 
 ```dockerfile
-# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1
 ARG NODE_IMAGE=node:<NODE_VERSION>-slim@sha256:<NODE_IMAGE_DIGEST>
 
 FROM ${NODE_IMAGE} AS deps
 WORKDIR /app
-RUN corepack enable
-COPY package.json pnpm-lock.yaml ./
+RUN npm install --global pnpm@<PNPM_VERSION> && \
+    pnpm config set store-dir /pnpm/store
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
@@ -123,508 +102,361 @@ EXPOSE 3000
 CMD ["node", "dist/main.js"]
 ```
 
-Placeholders **MUST** be replaced with reviewed values. Base-specific account
-commands must be adapted rather than copied blindly.
+Replace placeholders with reviewed values and adapt account commands to the
+base image.
 
-## 5. BuildKit Caches, Secrets, and SSH
+## 5. BuildKit Caches and Secrets
 
-- BuildKit cache mounts **SHOULD** cache package downloads, compiler caches, and
-  module caches, not final mutable dependency trees shared across platforms.
-- Cache IDs **SHOULD** include the package manager and platform when cross-build
-  collisions are possible. CI cache export/import **MUST** use a trusted scope.
-- Private registry tokens, license files, and signing material needed during a
-  build **MUST** use `RUN --mount=type=secret`; commands **MUST** read the mounted
-  file and **MUST NOT** echo or copy it.
-- Private Git access **MUST** use `RUN --mount=type=ssh` with known-host
-  verification. Disabling host-key checks is prohibited.
-- Secret and SSH mounts **MUST** be limited to the single instruction requiring
-  them. Their absence **SHOULD** fail clearly.
-- Build logs, cache exports, attestations, and error messages **MUST NOT** expose
-  secret values.
+- Use BuildKit cache mounts for package downloads and compiler caches, not for
+  final dependency trees. Include the platform in cache IDs when cross-builds can
+  collide.
+- Build-time secrets such as registry tokens or CMS tokens **MUST** use
+  `RUN --mount=type=secret`, read only by the single instruction that needs them,
+  and never echoed or copied into a layer. Never pass them as `ARG`.
+- Private Git access **MUST** use `RUN --mount=type=ssh` with host-key
+  verification.
 
 ```dockerfile
-RUN --mount=type=secret,id=registry_config,target=/root/.config/example/config \
-    --mount=type=cache,id=package-cache,target=/var/cache/example \
-    <PACKAGE_INSTALL_COMMAND>
+RUN --mount=type=secret,id=cms_token,env=CMS_TOKEN \
+    bun run build
 ```
 
 ## 6. Build Context and `.dockerignore`
 
-- Every build context **MUST** have an effective `.dockerignore` reviewed from
-  that context root. An ignore file beside a Dockerfile outside the context does
-  not protect the context unless the builder uses it explicitly.
-- The context **MUST** exclude `.git`, local environment files, credentials,
-  private keys, editor state, logs, coverage, caches, test artifacts, local
-  databases, package stores, and build output that the image rebuilds.
-- Ignore rules **MUST** account for nested workspaces and exception rules. The
-  agent **MUST** verify that required manifests, lockfiles, source, migrations,
-  and public assets remain included.
-- `COPY . .` is acceptable only in a controlled build stage after the context is
-  proven narrow. Explicit copies are preferred for security-sensitive builds.
-- Excluding a file from the final image is insufficient; sensitive data **MUST**
-  never enter the build context.
+- Every build context **MUST** have a `.dockerignore` at the context root. A
+  missing file means `COPY . .` sends the local `.env` into the builder.
+- The context **MUST** exclude `.git`, `.env` and `.env.*` (keep `.env.example`
+  only if the build reads it), credentials, private keys, editor state, logs,
+  coverage, caches, local databases, `node_modules`, and build output the image
+  rebuilds.
+- Verify that required manifests, lockfiles, source, migrations, and public
+  assets stay included after exception rules and nested workspaces.
 
-## 7. Node.js and pnpm
+## 7. Node.js, pnpm, and Bun
 
-- Node.js major and pnpm version **MUST** be supported, repository-pinned, and
-  consistent across local development, CI, and the image.
-- Corepack **SHOULD** activate the exact `packageManager` version. An unpinned
-  latest pnpm global install **MUST NOT** be used.
-- Dependency installation **MUST** use `pnpm-lock.yaml` and
-  `pnpm install --frozen-lockfile`. Workspace manifests and configuration needed
-  for resolution **MUST** be copied before installation.
-- pnpm store caching **SHOULD** use a BuildKit cache mount. A host `node_modules`
-  directory **MUST NOT** enter the image.
-- Production images **MUST** include only production dependencies or a pnpm
-  deploy output. Pruning **MUST** happen after building when build tooling is a
-  development dependency.
-- Native modules **MUST** be built for the runtime OS, libc, CPU architecture,
-  and Node ABI. Dependencies built on a different host **MUST NOT** be copied in.
-- `NODE_ENV=production` **MUST** be set in the runtime image, not before a build
-  that requires development dependencies.
+- The runtime and package-manager versions **MUST** match across local
+  development, CI, and the image.
+- Copy every workspace manifest and lockfile before installing so the install
+  layer caches independently of source changes. A host `node_modules` **MUST
+  NOT** enter the image.
+- Production images include only production dependencies or a deploy output.
+  Prune after building when build tooling is a development dependency.
+- Build native modules for the runtime OS, libc, architecture, and ABI. Never
+  copy native artifacts built on another platform.
+- Set `NODE_ENV=production` in the runtime stage, not before a build that needs
+  development dependencies.
+
+### Bun
+
+- Use a pinned `oven/bun:<BUN_VERSION>-alpine` or `-slim` tag, plus a digest
+  when the repository pins digests.
+- Install with `bun install --frozen-lockfile` and cache downloads with
+  `--mount=type=cache,target=/root/.bun/install/cache`.
+- In `oven/bun` images, `node` is a symlink to `bun`, so `CMD ["node",
+  "server.js"]` runs under Bun. Use a Node runtime image when the server must run
+  on Node.
+- Run as the image's non-root `bun` user or an explicit numeric UID.
+
+```dockerfile
+# syntax=docker/dockerfile:1
+ARG BUN_IMAGE=oven/bun:<BUN_VERSION>-alpine
+
+FROM ${BUN_IMAGE} AS deps
+WORKDIR /app
+COPY package.json bun.lock ./
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile
+
+FROM deps AS build
+COPY . .
+RUN bun run build
+```
 
 ## 8. Next.js Standalone Images
 
-- Next.js container deployments **SHOULD** use `output: "standalone"` when it is
-  compatible with the application and workspace.
-- The runtime **MUST** copy the generated standalone tree, `.next/static`, and
-  required `public` assets to the paths expected by the standalone server.
-- Monorepo output paths **MUST** be discovered from actual build output;
-  hard-coded assumptions about a root `.next` directory are prohibited.
-- Runtime environment variables **MUST** remain runtime values. Any public
-  browser variable is build-time embedded and **MUST** contain no secret.
-- The server **MUST** bind to `0.0.0.0`, receive the platform port, run as a
-  non-root user, and own only the paths it must write.
+- Use `output: "standalone"` when it is compatible with the application.
+- The runtime **MUST** copy the standalone tree, `.next/static`, and `public` to
+  the paths the standalone server expects. In a monorepo, discover the paths from
+  the actual build output.
+- `NEXT_PUBLIC_*` values are embedded at build time and **MUST** contain no
+  secret. Every build arg a Compose file passes **MUST** have a matching `ARG`
+  that the build reads; remove args nothing reads.
+- The server **MUST** bind `HOSTNAME=0.0.0.0`, read `PORT`, and run as non-root.
+- When the application needs webpack (for example a PWA plugin), build with
+  `next build --webpack`; Next.js 16 defaults to Turbopack.
 
 ```dockerfile
-FROM <PINNED_NODE_IMAGE> AS runtime
+FROM ${NODE_IMAGE} AS runtime
 ENV NODE_ENV=production HOSTNAME=0.0.0.0 PORT=3000
 WORKDIR /app
-COPY --from=build --chown=10001:10001 /workspace/<APP>/.next/standalone ./
-COPY --from=build --chown=10001:10001 /workspace/<APP>/.next/static \
-  ./<APP>/.next/static
-COPY --from=build --chown=10001:10001 /workspace/<APP>/public ./<APP>/public
+COPY --from=build --chown=10001:10001 /app/.next/standalone ./
+COPY --from=build --chown=10001:10001 /app/.next/static ./.next/static
+COPY --from=build --chown=10001:10001 /app/public ./public
 USER 10001:10001
 EXPOSE 3000
-CMD ["node", "<APP>/server.js"]
+CMD ["node", "server.js"]
 ```
 
 ## 9. NestJS and Prisma Images
 
-- The build **MUST** generate the Prisma client deterministically before
-  compiling code that imports it.
-- Prisma binary targets and native engines **MUST** match the runtime operating
-  system, architecture, libc, and OpenSSL ABI. Alpine and glibc images **MUST NOT**
-  be interchanged without proving engine compatibility.
-- The runtime **MUST** include the generated Prisma client, required engine or
-  WebAssembly artifacts, schema when operational tools need it, compiled output,
-  production dependencies, certificates, and declared assets.
-- Production dependency pruning **MUST NOT** remove generated Prisma artifacts or
-  packages loaded dynamically at runtime. The final image **MUST** be smoke-tested
-  by loading the client and starting the compiled entry point.
-- `start:prod` and `CMD` **MUST** target the actual emitted file; guessed paths
-  such as `dist/main.js` are prohibited when the compiler emits elsewhere.
-- Migration tooling **SHOULD** run in a dedicated release/job image or target.
-  Application replicas **MUST NOT** race to run migrations at startup.
+- Generate the Prisma client before compiling code that imports it.
+- Prisma engines **MUST** match the runtime OS, architecture, libc, and OpenSSL.
+  Do not swap Alpine and glibc images without proving engine compatibility.
+- The runtime **MUST** include the generated client, required engine artifacts,
+  compiled output, and production dependencies. Pruning **MUST NOT** remove
+  generated Prisma artifacts. Smoke-test the final image by starting it.
+- `CMD` **MUST** target the file the compiler actually emits.
+- Migrations run as a separate one-shot job (§17), never at application startup.
 
-## 10. Static Go and Distroless Images
+## 10. Go and Distroless Images
 
-- Go builds **SHOULD** set an explicit target OS/architecture and use
-  `CGO_ENABLED=0` only when every dependency supports a truly static build.
-- Build metadata **SHOULD** be reproducible (`-trimpath`, controlled version
-  injection, and no host paths). The binary **MUST** be built from the pinned
-  module graph using verified module downloads.
-- A static binary **SHOULD** run in `scratch` or a digest-pinned distroless static
-  image. TLS clients **MUST** have CA certificates; applications using local time
-  zones **MUST** include the required zone data.
-- A CGO binary **MUST** use a compatible runtime libc and native libraries. It
-  **MUST NOT** be placed in `scratch` merely to reduce size.
-- Distroless images have no shell. Probes **MUST** use HTTP/TCP/gRPC or a purpose-
-  built binary, not shell commands. Debugging **SHOULD** use ephemeral containers
-  or a separately controlled debug image, never a shell added to production.
+- Build on the build platform and cross-compile for the target:
+  `FROM --platform=$BUILDPLATFORM` with `ARG TARGETOS TARGETARCH`.
+- Use `CGO_ENABLED=0` only when every dependency supports a static build, and
+  `-trimpath` for reproducible paths.
+- Run a static binary in a pinned distroless static image or `scratch`. Include
+  CA certificates for TLS clients and zone data when the application uses local
+  time zones. A CGO binary needs a compatible libc image.
+- Distroless images have no shell and no `wget` or `curl`. Never copy an Alpine
+  `wget` into distroless; it cannot load its musl libraries. Build a tiny Go
+  healthcheck binary from `cmd/healthcheck` and use it as the probe.
+- Do not `--chown` the binary to the runtime user; application files stay
+  non-writable.
 
 ```dockerfile
-# syntax=docker/dockerfile:1.7
-FROM <PINNED_GO_IMAGE> AS build
-ARG TARGETARCH
+# syntax=docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM golang:<GO_VERSION>@sha256:<DIGEST> AS build
+ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
-RUN --mount=type=cache,id=gomod,target=/go/pkg/mod go mod download
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
 COPY . .
-RUN --mount=type=cache,id=gobuild,target=/root/.cache/go-build \
-    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} \
-    go build -trimpath -o /out/service ./cmd/<SERVICE>
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
+    go build -trimpath -o /out/app ./cmd/app && \
+    CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
+    go build -trimpath -o /out/healthcheck ./cmd/healthcheck
 
-FROM <PINNED_DISTROLESS_STATIC_IMAGE>
-COPY --from=build --chown=65532:65532 /out/service /service
+FROM gcr.io/distroless/static-debian12:nonroot@sha256:<DIGEST> AS runtime
+COPY --from=build /out/app /app
+COPY --from=build /out/healthcheck /healthcheck
 USER 65532:65532
 EXPOSE 8080
-ENTRYPOINT ["/service"]
+ENTRYPOINT ["/app"]
 ```
 
-## 11. Runtime Identity and Filesystem Security
+```go
+package main
 
-- The runtime process **MUST** run as a dedicated non-root numeric UID/GID. The
-  values **SHOULD** be stable and compatible with Kubernetes security contexts
-  and mounted-volume ownership.
-- Files **MUST** be copied with final ownership; recursive `chown` in a later
-  layer **SHOULD** be avoided. Application files **SHOULD** be non-writable.
-- Production workloads **SHOULD** use a read-only root filesystem. Required
-  writable locations **MUST** be explicit `tmpfs`, `emptyDir`, or persistent
-  mounts with size and lifecycle policy.
-- Containers **MUST** drop all Linux capabilities and add back only a documented
-  minimum. Binding privileged ports by adding `NET_BIND_SERVICE` **SHOULD** be
-  avoided; use an unprivileged container port.
-- Privilege escalation **MUST** be disabled. The runtime **SHOULD** use the
-  platform default seccomp profile or a tested stricter profile; `unconfined` is
-  prohibited without a documented exceptional need.
-- Setuid/setgid binaries and package managers **SHOULD** be absent from runtime
-  images. Docker socket mounts and privileged mode are prohibited for ordinary
-  applications.
+import (
+	"net/http"
+	"os"
+	"time"
+)
 
-## 12. Process Contract, Signals, Ports, and Shutdown
+func main() {
+	client := http.Client{
+		Timeout: 2 * time.Second,
+	}
 
-- The application process **SHOULD** be PID 1 and **MUST** receive signals
-  directly. Exec-form `ENTRYPOINT`/`CMD` is required; shell wrappers **MUST** use
-  `exec` after necessary setup.
-- Use `ENTRYPOINT` for a fixed executable and `CMD` for default arguments, or use
-  `CMD` alone for an overridable application command. Their override contract
-  **MUST** be intentional and documented.
-- An init process **SHOULD** be supplied by the orchestrator when orphan reaping
-  is needed. Bundling an init is acceptable only when portability requires it.
-- The process **MUST** handle `SIGTERM`, stop accepting work, drain bounded work,
-  close resources, and exit before the orchestrator's grace period. It **MUST**
-  not rely only on `SIGKILL`.
-- `STOPSIGNAL` **SHOULD** remain `SIGTERM` unless the runtime has a proven
-  different contract.
-- Services **MUST** listen on `0.0.0.0` or the required pod interface, not only
-  loopback. Ports **MUST** be configurable and unprivileged.
-- `EXPOSE` documents an intended container port; it does not publish or secure
-  it. Published host ports **MUST** be limited to those actually needed.
+	res, err := client.Get("http://127.0.0.1:" + os.Getenv("APP_PORT") + "/healthz")
+	if err != nil || res.StatusCode != http.StatusOK {
+		os.Exit(1)
+	}
+}
+```
 
-## 13. Health Probes and Single Ownership
+## 11. Runtime Identity and Filesystem
 
-- Liveness **MUST** answer whether the process can continue. It **MUST NOT** fail
-  merely because a database or optional upstream is unavailable.
-- Readiness **MUST** answer whether the instance can receive traffic. Mandatory
-  dependency checks **MUST** be bounded and must not amplify outages.
-- Startup probes **SHOULD** protect legitimately slow initialization without
-  weakening steady-state liveness thresholds.
-- Probe endpoints **MUST** be cheap, unauthenticated only within the intended
-  network boundary, and free of secrets or internal error details.
-- Probe intervals, timeouts, failure thresholds, and shutdown grace periods
-  **MUST** agree with measured startup and recovery behavior.
-- The orchestrator **SHOULD** own probes. A Dockerfile `HEALTHCHECK` **SHOULD NOT**
-  duplicate Kubernetes or another orchestrator's probes because divergent checks
-  create two sources of truth. Add one only when standalone Docker portability
-  requires it; then designate a single authoritative definition and generate or
-  test the other against it.
+- The process **MUST** run as a dedicated non-root numeric UID/GID. Set `USER`
+  in the image instead of starting as root and dropping privileges in an
+  entrypoint; named volumes inherit the ownership of the image directory.
+- Production containers **SHOULD** use a read-only root filesystem with explicit
+  `tmpfs` or volume mounts for writable paths.
+- Drop all capabilities and add back only a documented minimum. Use an
+  unprivileged container port. Disable privilege escalation.
+- Never mount the Docker socket or run privileged for an ordinary application.
+
+## 12. Process, Signals, and Shutdown
+
+- The application **SHOULD** be PID 1 and **MUST** receive signals directly.
+  Shell wrappers **MUST** `exec` the final command.
+- The process **MUST** handle `SIGTERM`: stop accepting work, drain bounded work,
+  close resources, and exit within the stop grace period.
+- Listen on `0.0.0.0` with a configurable, unprivileged port. `EXPOSE` documents
+  a port; it neither publishes nor secures it.
+
+## 13. Health Probes
+
+- Liveness answers whether the process can continue and **MUST NOT** fail only
+  because a database or optional upstream is down. Readiness answers whether the
+  instance can take traffic, with bounded dependency checks.
+- Probe endpoints are cheap and expose no secrets or internal errors.
+- Keep one probe owner. Under Compose and Dokploy, the Compose `healthcheck` is
+  the source of truth; do not also define a Dockerfile `HEALTHCHECK`. Under
+  Kubernetes, the pod probes own it.
 
 ## 14. Configuration and Secrets
 
-- Images **MUST** be environment-neutral. Runtime configuration **MUST** be
-  injected through environment variables, mounted files, or a platform config
-  provider and validated by the application at startup.
-- Secrets **MUST** use the platform secret mechanism and least-privilege access.
-  File mounts are preferred when rotation or avoidance of environment exposure
-  matters.
-- Secrets **MUST NOT** appear in Dockerfiles, Compose files, image labels, build
-  arguments, command-line arguments, logs, examples, or committed `.env` files.
-- Examples **MUST** use unmistakable placeholders such as `<DATABASE_PASSWORD>`.
-- Config and secret rotation behavior **SHOULD** be defined. The application must
-  either reload safely or be rolled out deliberately.
-- Docker Compose `env_file` is configuration convenience, not secret storage.
+- Images are environment-neutral. Inject configuration at runtime through
+  environment variables or mounted files, validated once at startup.
+- Mount credential files (service-account JSON, keys) under `/run/secrets/` and
+  point the environment variable at that absolute path. Do not mount them under
+  `/root`, which a non-root user cannot read, and do not use relative paths.
+- Secrets **MUST NOT** appear in Dockerfiles, Compose YAML, labels, build args,
+  command-line arguments, logs, examples, or committed `.env` files. Compose
+  `env_file` is configuration convenience, not secret storage.
+- Examples use unmistakable placeholders such as `<DATABASE_PASSWORD>`. Never
+  ship working default credentials such as `admin`/`admin` or `${VAR:-redis}`.
 
-## 15. Compose: Development and Production
+## 15. Compose
 
-- Development and production Compose concerns **MUST** be separated with
-  explicit files or profiles. Development bind mounts, source watchers, debug
-  ports, and permissive commands **MUST NOT** leak into production.
-- Services **MUST NOT** set `container_name`; generated project-scoped names allow
-  scaling, parallel stacks, and collision-free CI.
-- Networks **SHOULD** be private and purpose-specific. Only ingress-facing ports
-  **SHOULD** be published; internal services communicate by service DNS name.
-- Named volumes **SHOULD** hold local development state. Bind mounts **MUST** have
-  deliberate paths, permissions, and read-only flags where possible.
-- `depends_on` expresses startup ordering, not application readiness. A health
-  condition may improve local sequencing, but applications **MUST** still retry
-  transient dependency startup with bounded backoff.
-- Production deployments **MUST NOT** rely on Compose `deploy` fields unless the
-  selected runtime demonstrably enforces them. Resource limits **MUST** be set in
-  the syntax honored by that runtime.
-- Compose configuration **MUST** be rendered and reviewed with
-  `docker compose config` before use.
+- Omit the obsolete top-level `version:` key.
+- Separate development and production with explicit files. Development bind
+  mounts, source watchers, and debug ports **MUST NOT** reach production; a
+  source bind mount over a production image hides its build output.
+- Do not set `container_name` in single-stack Compose. Reach other services by
+  service name. The Dokploy exception is in §16.
+- Do not publish database, cache, queue, or monitoring ports. When local access
+  is required, bind to `127.0.0.1:<HOST_PORT>:<PORT>`, never `0.0.0.0`.
+- Redis **MUST** require authentication. Load `requirepass` from a mounted secret
+  config file (`redis-server /run/secrets/redis.conf`); an unread
+  `REDIS_PASSWORD` variable does nothing. Healthchecks pass the password through
+  `REDISCLI_AUTH`, never `-a` on the command line.
+- `depends_on` orders startup only. Applications still retry dependencies with
+  bounded backoff.
+- Render and review with `docker compose config` before use.
+
+## 16. Single-Host Dokploy Profile
+
+This is the default deployment profile for the owner's services unless the
+repository declares another platform.
+
+- Keep the repository's file split, typically `docker-compose.yaml` for local
+  work, `docker-compose.dokploy.yaml` for production, and
+  `docker-compose.dokploy-dev.yaml` for development. Database and cache stacks
+  live in their own files under `database/<engine>/`.
+- CI builds once per commit and pushes `<registry>/<app>:<commit-sha>`, plus an
+  optional `main` or `dev` alias. Compose deploys the immutable SHA tag through a
+  variable; rollback redeploys a previous SHA. A mutable alias with
+  `pull_policy: always` is not the deployment identity.
+- Stacks share the external `dokploy-network`. Expose a cross-stack DNS name with
+  a network `aliases:` entry. Set `container_name` only when another stack must
+  reach a fixed name and an alias cannot serve.
+- Dokploy routes ingress through its proxy labels. Do not publish application
+  ports on the host.
+- The Compose `healthcheck` is the single probe (§13).
 
 ```yaml
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: runtime
+    image: ghcr.io/<owner>/<app>:${IMAGE_TAG:?set IMAGE_TAG to the commit SHA}
     environment:
-      APP_PORT: "3000"
-      DATABASE_URL_FILE: /run/secrets/database_url
-    secrets:
-      - database_url
-    ports:
-      - "127.0.0.1:<HOST_PORT>:3000"
-    read_only: true
-    tmpfs:
-      - /tmp:size=64m,mode=1777
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-    depends_on:
-      database:
-        condition: service_healthy
-    restart: unless-stopped
-
-  database:
-    image: <PINNED_DATABASE_IMAGE>
-    environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/database_password
-    secrets:
-      - database_password
+      APP_PORT: "8080"
+      DB_HOST: app-postgres
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/service-account.json
     volumes:
-      - database-data:/var/lib/postgresql/data
-    networks:
-      - default
+      - ./secrets/service-account.json:/run/secrets/service-account.json:ro
     healthcheck:
-      test: ["CMD-SHELL", "<DATABASE_READY_COMMAND>"]
+      test: ["CMD", "/healthcheck"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
+```
+
+```yaml
+services:
+  postgres:
+    image: postgres:<SUPPORTED_MAJOR>-alpine
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./secrets/postgres_password:/run/secrets/postgres_password:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 3s
       retries: 10
-
-secrets:
-  database_url:
-    file: <LOCAL_FAKE_DATABASE_URL_FILE>
-  database_password:
-    file: <LOCAL_FAKE_DATABASE_PASSWORD_FILE>
+    networks:
+      dokploy-network:
+        aliases:
+          - app-postgres
 
 volumes:
-  database-data:
+  postgres-data:
+
+networks:
+  dokploy-network:
+    external: true
 ```
 
-This example is for controlled local use. Production secrets and databases
-**MUST** use the target platform's mechanisms.
+## 17. Migrations and State
 
-## 16. Migrations, Databases, and State
+- Applications **MUST NOT** run schema migrations at startup. Run migrations as a
+  one-shot command or job (for example a `migrate` service with
+  `restart: "no"`) from the same image tag before the rollout.
+- Schema changes **MUST** tolerate old and new application versions running
+  together. Destructive changes use expand, backfill, and contract phases.
+- Containerized databases **MUST** use durable named volumes with backup and
+  restore procedures, and a supported major version.
+- Application containers are disposable. Uploads, sessions, and job state
+  **MUST NOT** live in the container layer. Never remove persistent volumes in a
+  routine deploy.
 
-- Database migrations **MUST** be a controlled release step or one-shot job with
-  observable success, timeout, and failure behavior. They **MUST NOT** run in
-  every web replica.
-- A migration job **MUST** use the same application release digest and compatible
-  migration artifacts as the rollout. It **MUST** be idempotent where the tool
-  supports retries and prevent unsafe concurrent execution.
-- Schema changes **MUST** support overlapping old and new application versions
-  during rolling deployment. Destructive changes require expand, backfill, and
-  contract phases.
-- Databases, queues, and object storage **SHOULD** be external managed services in
-  production. If containerized, their data **MUST** use durable storage with
-  backup, restore, upgrade, and corruption-recovery procedures.
-- Application containers **MUST** be disposable. Sessions, uploads, generated
-  files, and job state **MUST NOT** depend on the writable container layer.
-- Volume deletion **MUST** be an explicit destructive action; routine deployment
-  commands **MUST NOT** remove persistent volumes.
+## 18. Logs, Resources, and Monitoring
 
-## 17. Logs, Resources, and Monitoring
+- Log structured events to stdout/stderr. Do not write log files inside the
+  container or to host bind mounts.
+- Set realistic memory and CPU limits in the syntax the runtime enforces.
+- Monitoring stacks **MUST** use pinned images, authentication, private
+  networks, and no default credentials. Never publish Prometheus with
+  `--web.enable-lifecycle`, and never mount `/` or the Docker socket into an
+  exporter without a reviewed need.
 
-- Containers **MUST** log structured application events to stdout/stderr. They
-  **MUST NOT** write unmanaged rotating log files inside the image filesystem.
-- Secret and personal-data redaction remains the application's responsibility.
-  Log drivers and collectors **MUST** have bounded storage and backpressure policy.
-- Workloads **MUST** declare realistic CPU and memory requests/limits in the
-  orchestrator. Compose development limits **SHOULD** approximate production
-  constraints when testing resource behavior.
-- Applications **MUST** behave predictably under CPU throttling and memory limits;
-  heap sizes, worker concurrency, and graceful shutdown **SHOULD** be tuned.
-- Monitoring stacks **MUST** use pinned images, authentication, least-privilege
-  networks, durable storage where needed, and explicit retention/resource limits.
-- Metrics exporters **MUST NOT** mount the Docker socket or host root filesystem
-  unless that access is essential, read-only where possible, and risk-reviewed.
-- Monitoring configuration **SHOULD** remain separate from application Compose
-  configuration. Dashboard/provisioning changes **SHOULD** be version-controlled;
-  credentials and live data **MUST NOT** be.
+## 19. Additional Release Platforms
 
-## 18. Multi-Architecture Builds
+Apply these only when the repository declares the platform or policy.
 
-- Supported platforms **MUST** be explicit, typically `linux/amd64` and/or
-  `linux/arm64`. Build and target platform arguments **MUST** be used correctly;
-  build tools run on `BUILDPLATFORM`, artifacts target `TARGETOS/TARGETARCH`.
-- Native Node modules, Prisma engines, and CGO binaries **MUST** be produced and
-  tested for each target. Copying host-native artifacts into another architecture
-  is prohibited.
-- A manifest list **MUST** reference equivalent application versions and metadata
-  across architectures. Every published platform image **MUST** pass a smoke test.
-- Emulation **SHOULD** be limited because it can hide runtime differences and be
-  slow. Native builders are preferred for native-heavy builds.
-- Architecture-specific base digests **MUST** resolve under the declared manifest
-  and remain covered by provenance and scanning.
+- **Multi-architecture:** declare the platforms, build tools on `BUILDPLATFORM`,
+  produce native artifacts per `TARGETARCH`, and smoke-test every published
+  platform. Single-host deployments build only their host architecture.
+- **Digest promotion:** when policy requires it, push once, record the digest,
+  and deploy by digest instead of tag.
+- **SBOM, provenance, signing, scanning:** attach SBOM and provenance to the
+  digest, sign with protected or keyless keys, and scan the final image for every
+  platform before release.
+- **Kubernetes:** the image must work with a numeric non-root security context, a
+  read-only root filesystem, dropped capabilities, injected configuration, and
+  pod probes. Readiness turns false before shutdown; `preStop` delays do not
+  replace signal handling.
 
-## 19. Metadata, SBOM, Provenance, and Scanning
+## 20. Verification
 
-- Published images **MUST** carry OCI labels for source identifier, revision,
-  version, creation time, licenses when known, and description. Labels **MUST NOT**
-  expose credentials, internal paths, or mutable environment data.
-- CI **SHOULD** generate an SPDX or CycloneDX SBOM and attach it to the image
-  digest. Provenance attestations **SHOULD** identify the builder and immutable
-  inputs without leaking secret parameters.
-- Images **MUST** be scanned for operating-system and language vulnerabilities
-  before release and continuously after publication. Policy **MUST** define
-  severity, exploitability exceptions, owners, and remediation deadlines.
-- Scanners **MUST** scan the final image for every platform, not only a build
-  stage or source tree. Secret scanning **SHOULD** cover both context and layers.
-- Image signatures **SHOULD** be keyless or use protected signing keys, bound to
-  the digest, and verified by deployment policy.
-- A scan result is not proof of safety. Minimal privileges, trusted inputs,
-  patching, and runtime controls remain required.
-
-## 20. CI Build, Push, and Deploy Policy
-
-- CI **MUST** build with BuildKit from a reviewed commit in a clean context using
-  immutable dependency inputs. Registry credentials **MUST** be short-lived and
-  scoped to required repositories/actions.
-- Pull requests **SHOULD** build and test without pushing a release tag. Trusted
-  release workflows **MUST** push once, capture the resulting digest, attach
-  metadata/attestations, and promote that digest.
-- Tags are discovery aliases only. Deployment manifests **MUST** reference an
-  immutable digest; mutable tags such as `main`, `stable`, or semantic versions
-  **MUST NOT** be the deployment identity.
-- CI **MUST NOT** rebuild the same revision independently for each environment.
-  Rollback **MUST** select a previously verified digest.
-- Remote caches **MUST** be scoped to prevent untrusted branches from poisoning
-  privileged release builds. Secret-bearing layers must never be cached.
-- Before push, CI **MUST** run relevant application tests, container build checks,
-  final-image scans, and a non-root smoke start. Failed gates **MUST** block
-  release unless an auditable exception policy applies.
-
-## 21. Kubernetes Interoperability and Rollouts
-
-- Images **MUST** work with arbitrary pod names, injected configuration, service
-  DNS, a read-only root filesystem, dropped capabilities, and a numeric non-root
-  security context.
-- Images **SHOULD NOT** require Docker-specific APIs, Compose ordering, host
-  networking, fixed host paths, or access to the Docker socket.
-- Container ports, probes, lifecycle hooks, resource settings, and termination
-  grace periods **MUST** agree with application behavior.
-- Readiness **MUST** turn false before shutdown work that makes the instance
-  unable to serve. A `preStop` delay **MUST NOT** substitute for correct signal
-  handling and endpoint draining.
-- Rollouts **MUST** account for startup duration, surge/unavailable settings,
-  connection draining, queue consumers, scheduled jobs, and schema compatibility.
-- Single-replica services **MUST** explicitly accept downtime or use a rollout
-  strategy that can schedule overlap within available resources.
-- A deployment **MUST NOT** use `:latest`, rely on image pull timing, or mutate an
-  existing image tag to trigger rollout. The desired digest and revision metadata
-  must change explicitly.
-
-## 22. Testing and Verification
-
-The agent **MUST** adapt commands to repository scripts and available tools. A
-complete container change normally verifies:
+Adapt commands to repository scripts and available tools:
 
 ```bash
 docker buildx build --check -f <DOCKERFILE> <CONTEXT>
 docker buildx build --load -t <LOCAL_TEST_TAG> -f <DOCKERFILE> <CONTEXT>
 docker image inspect <LOCAL_TEST_TAG>
 docker run --rm --read-only --cap-drop=ALL \
-  --security-opt=no-new-privileges --user <UID>:<GID> \
-  --tmpfs /tmp:rw,noexec,nosuid,size=64m <LOCAL_TEST_TAG>
+  --security-opt=no-new-privileges --tmpfs /tmp:size=64m <LOCAL_TEST_TAG>
 docker compose -f <COMPOSE_FILE> config --quiet
-<IMAGE_SCANNER> image <LOCAL_TEST_TAG>
 ```
 
-- Dockerfiles **MUST** pass the configured linter and BuildKit validation.
-- The final image **MUST** be inspected for user, command, entry point, exposed
-  ports, labels, architecture, unexpected files, and size regressions.
-- The image **MUST** start with only documented runtime configuration, bind the
-  intended interface/port, become ready, serve a smoke request or perform its job,
-  and terminate cleanly on `SIGTERM` within the grace period.
-- Verification **MUST** prove required writable paths work under the intended
-  read-only filesystem and numeric user. It **MUST** confirm the process cannot
-  write application files or gain forbidden capabilities.
-- Dependency failure tests **SHOULD** distinguish liveness from readiness.
-- Multi-stage builds **SHOULD** be checked for absent build tools, source,
-  credentials, caches, and development dependencies in the final image.
-- Multi-architecture images **MUST** be built and smoke-tested on every supported
-  target before release.
-- Compose tests **SHOULD** recreate from an empty disposable project and verify
-  persistence separately. Test cleanup **MUST NOT** remove unrelated volumes.
-- The agent **MUST** inspect the final diff and report exact commands, results,
-  skipped checks, and remaining risk. It **MUST NOT** claim a check passed when it
-  did not run.
-
-## 23. Completion Checklist
-
-Before declaring Docker work complete, the agent **MUST** confirm:
-
-### Discovery and artifact
-
-- [ ] Build contexts, consumers, versions, platforms, outputs, commands, ports,
-      probes, writable paths, and rollout constraints were identified.
-- [ ] Base images and toolchains are approved and immutably pinned.
-- [ ] The build is lockfile-frozen, multi-stage, reproducible, and minimal.
-- [ ] The final image contains every required runtime artifact and no build-only
-      dependencies, source secrets, caches, or local configuration.
-
-### Security and runtime
-
-- [ ] Build context, cache, secret mounts, SSH mounts, and logs cannot leak
-      credentials.
-- [ ] The process runs as a stable numeric non-root UID/GID with a read-only root
-      filesystem, explicit writable mounts, dropped capabilities, no privilege
-      escalation, and an enforced seccomp profile.
-- [ ] Exec-form process startup, PID 1 behavior, signal handling, draining, port
-      binding, and graceful termination were verified.
-- [ ] Liveness, readiness, and startup semantics are distinct and have one probe
-      owner.
-
-### Delivery and operations
-
-- [ ] Compose development features are separated from production configuration;
-      networks, ports, volumes, resources, and dependency behavior are explicit.
-- [ ] Migrations are a controlled one-shot release action and schema changes are
-      safe during overlapping rollouts.
-- [ ] Logs use stdout/stderr; state is external; resources, retention, backup,
-      restore, and monitoring implications were considered.
-- [ ] Each supported architecture was built and tested.
-- [ ] OCI labels, SBOM, provenance, signatures, and vulnerability policy are
-      satisfied for the release.
-- [ ] CI pushes once, records the digest, and deployments promote that digest.
-- [ ] Kubernetes security contexts, probes, resources, and rollout timing agree
-      with the image contract.
-- [ ] Lint, build, inspect, scan, smoke, health, and shutdown checks ran, or each
-      omission and its risk was reported.
-
-## 24. Prohibited Anti-Patterns
-
-The agent **MUST NOT** introduce or preserve as a model:
-
-- floating base images or deployment by mutable tag;
-- unpinned package-manager/tool downloads or unverified remote install scripts;
-- secrets in `ARG`, `ENV`, Compose YAML, layers, labels, logs, examples, or build
-  context;
-- copied host `node_modules`, Go binaries, Prisma engines, or native modules from
-  the wrong platform;
-- one-stage production images containing compilers, source, tests, caches, or
-  development dependencies;
-- root execution, privileged containers, Docker socket mounts, broad host mounts,
-  `seccomp=unconfined`, `--cap-add=ALL`, or enabled privilege escalation;
-- writable application trees or persistent state in the container layer;
-- shell-form runtime commands, wrappers that fail to `exec`, or ignored signals;
-- fixed container names, hostnames, IP addresses, or dependence on startup order;
-- published database/monitoring ports without a demonstrated access need;
-- `depends_on` treated as readiness or retries replaced by arbitrary sleeps;
-- migrations run by every replica, development migration creation in production,
-  or destructive schema changes incompatible with rolling versions;
-- a Dockerfile `HEALTHCHECK` that conflicts with orchestrator probes;
-- liveness checks that restart healthy processes during dependency outages;
-- downloading application code at startup or rebuilding per environment;
-- deployment from an unscanned, unsigned when policy requires signing, or
-  untraceable image;
-- Compose development mounts, debug ports, fake convenience credentials, or
-  permissive security settings promoted to production;
-- claims of reproducibility, security, portability, or successful verification
-  unsupported by executed checks and inspected evidence.
+- Inspect the final image for user, entry point, ports, unexpected files, and
+  size regressions.
+- Start the image with only documented configuration, confirm the healthcheck
+  passes, serve a smoke request, and confirm clean exit on `SIGTERM`.
+- Confirm required writable paths work as the non-root user and that build tools,
+  source, credentials, and caches are absent from the final stage.
+- Report exact commands, results, skipped checks, and remaining risk. Never claim
+  a check passed when it did not run.

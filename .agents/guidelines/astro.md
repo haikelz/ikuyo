@@ -1,15 +1,17 @@
 # Astro Coding-Agent Guideline
 
-This document is the Astro-specific companion to the JavaScript and TypeScript
-coding-agent guideline. The language guideline remains authoritative for type
-safety, module design, validation, errors, security, dependencies, and general
-verification. This document adds rules for Astro rendering, routing, content,
-islands, integrations, web quality, and static deployment.
+This guide covers Astro rendering, routing, content, islands, integrations, and
+static deployment. Precedence follows `general.md` §2. Where
+`haikel-javascript-typescript.md` disagrees with this guide, the profile wins,
+except for the two Astro exceptions below.
 
-The terms **MUST**, **SHOULD**, and **AVOID** are normative. Repository-local
-contracts and instructions take precedence. Do not copy a weak local pattern
-into new code merely for consistency; preserve required compatibility while
-improving the code within the task's scope.
+Astro exceptions to the profile:
+
+- Astro repositories keep Biome with `lineWidth: 100`, double quotes, and
+  semicolons instead of the Prettier 80-column default.
+- In `.astro` files, declare props as `type Props = { readonly ... }` so
+  `Astro.props` infers them. The `<Component>Props` naming applies to TSX and
+  Svelte components.
 
 ## 1. Discover the Actual Application
 
@@ -72,7 +74,7 @@ justifies a runtime server or serverless adapter.
 - Runtime deployment **MUST** handle signals, shutdown, health, writable paths,
   and scaling semantics required by its adapter.
 
-### Hybrid and route overrides
+### Mixed prerendered and on-demand routes
 
 - Route-level prerendering choices **MUST** be explicit and supported by the
   installed version and output mode.
@@ -160,8 +162,8 @@ template. Keep that boundary visible.
 ### Template
 
 - Prefer semantic HTML and Astro components for static content.
-- Props **MUST** have explicit types. Optional props **MUST** have deliberate
-  defaults or explicit absent-state rendering.
+- Props **MUST** have explicit types through `type Props`. Optional props
+  **MUST** have deliberate defaults or explicit absent-state rendering.
 - Slots SHOULD represent meaningful composition points, not hidden control
   channels.
 - Inline scripts and styles SHOULD be used only when their ownership is local
@@ -182,8 +184,10 @@ file.
 - Public environment values **MUST** use the version-appropriate public prefix
   and be safe to expose. A public prefix is an exposure declaration, not only a
   naming convention.
-- Required environment values **MUST** be parsed and validated once at the
-  boundary. Unchecked type assertions are not validation.
+- Declare environment variables in `env.schema` with `envField` in the Astro
+  config and import them from `astro:env/server` or `astro:env/client`.
+  Declare secrets with `access: "secret"` and read them only from
+  `astro:env/server`. Casting `import.meta.env.X as string` is not validation.
 - Optional integrations such as analytics SHOULD disable themselves cleanly
   when optional configuration is absent.
 - Server-only modules SHOULD use a naming or directory convention that makes
@@ -255,10 +259,27 @@ Each hydrated framework component is a separate application root.
 
 ## 9. Content Collections and Authored Content
 
-Content collections are executable content contracts.
+Content collections are executable content contracts. Define them in
+`src/content.config.ts` with a loader and a schema:
 
-- Every collection **MUST** have a loader and schema appropriate to the installed
-  Astro content API.
+```ts
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+import { defineCollection } from "astro:content";
+
+const notes = defineCollection({
+  loader: glob({ base: "./src/content/notes", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    createdAt: z.date(),
+    tags: z.array(z.string().min(1)),
+    title: z.string().min(1),
+  }),
+});
+
+export const collections = { notes };
+```
+
+- Every collection **MUST** have a loader and schema.
 - Schemas **MUST** validate semantics, not merely primitive shape:
   - URLs require URL and protocol rules.
   - Dates require a parseable representation and timezone policy.
@@ -405,55 +426,24 @@ Additional requirements:
   do not distort images with fill behavior.
 - Decorative images **MUST** use empty alternative text. Informative images
   **MUST** have meaningful alternatives.
-- Fonts SHOULD be self-hosted when practical, subset to used scripts, loaded in
-  efficient formats, and assigned a fallback that minimizes layout shift.
+- Load fonts through the Fonts API: declare them in the config `fonts` array
+  with a provider such as `fontProviders.fontsource()` and a `cssVariable`,
+  then render `<Font cssVariable="..." />` from `astro:assets` in the layout.
+  Preload only the fonts used above the fold.
 - `public` files **MUST** have content matching their extension and declared MIME
   type.
 - Large media, duplicate images, and unused font weights SHOULD be identified
   before adding new assets.
 
-## 15. Styling, Tailwind, and Design Tokens
+## 15. Styling and Accessibility
 
-- Use the repository's established styling system. Do not introduce a second
-  styling architecture for one component.
-- Global CSS SHOULD own reset, semantic tokens, typography defaults, and
-  intentionally global utilities.
-- Astro scoped styles SHOULD own component-local static styling.
-- Framework component styles SHOULD follow that framework's established local
-  convention.
-- Tailwind source scanning **MUST** include shared workspace UI packages when
-  they contain class usage.
-- Dynamic utility-class construction **MUST** be compatible with the installed
-  Tailwind extraction model; use explicit maps for finite variants.
-- Colors, spacing, radii, and typography SHOULD use semantic design tokens
-  rather than repeated arbitrary values.
-- Responsive behavior **MUST** be designed for content needs rather than copied
-  from default breakpoints without inspection.
-- Global smooth scrolling and non-essential animation **MUST** be disabled under
-  `prefers-reduced-motion: reduce`.
-- Dark mode, forced colors, increased contrast, and print behavior SHOULD be
-  supported when the product requires them.
+- Use the repository's styling system and semantic tokens. Tailwind source
+  scanning **MUST** include shared workspace UI packages, and finite variants
+  use explicit class maps instead of constructed class names.
+- Follow `preferences.md` for interface and accessibility quality. Content and
+  navigation SHOULD remain usable when hydration is delayed or fails.
 
-## 16. Accessibility and Progressive Enhancement
-
-- Pages **MUST** use valid landmarks, a logical heading hierarchy, one primary
-  main landmark, and a skip link when navigation precedes substantial content.
-- Interactive controls **MUST** use native elements when available.
-- All controls **MUST** have accessible names, visible focus, keyboard behavior,
-  and sufficient target size.
-- Disclosures, menus, tabs, dialogs, and comboboxes **MUST** implement the
-  complete interaction pattern, not only ARIA attributes.
-- Dialogs **MUST** manage initial focus, focus containment where required,
-  Escape/cancel, labeling, and focus restoration.
-- Client-side status changes SHOULD use an appropriate live region without
-  causing repetitive announcements.
-- Content and navigation SHOULD remain understandable when hydration is delayed
-  or fails.
-- Motion **MUST NOT** be the only way to communicate state.
-- Responsive tests **MUST** check zoom, narrow widths, long localized text, and
-  overflow—not only three common device widths.
-
-## 17. Rich Content and Security
+## 16. Rich Content and Security
 
 Astro escapes normal template expressions, but `set:html` and rich-content
 renderers bypass that protection.
@@ -474,7 +464,7 @@ renderers bypass that protection.
 - Source maps and monitoring uploads **MUST NOT** expose source or secrets
   publicly by accident.
 
-## 18. Errors, Not Found, and Failure Semantics
+## 17. Errors, Not Found, and Failure Semantics
 
 - Provide intentional `404` and `500` experiences where supported by the output
   and adapter.
@@ -490,7 +480,7 @@ renderers bypass that protection.
 - Empty states **MUST** distinguish a legitimate empty dataset from a failed
   fetch when that distinction changes user decisions.
 
-## 19. Performance, Caching, and Compression
+## 18. Performance, Caching, and Compression
 
 - The first performance strategy is less client JavaScript. Measure island
   count, bundle weight, and hydration timing before adding optimization layers.
@@ -498,11 +488,10 @@ renderers bypass that protection.
   framework component already exists.
 - Fetch independent build-time data concurrently when doing so respects service
   limits and deterministic failure behavior.
-- Avoid duplicate compression integrations. Know whether HTML, assets, gzip,
-  Brotli, or Zstandard files are produced and which layer serves them.
-- Generating precompressed files is useful only when the production server or
-  CDN negotiates `Accept-Encoding`, sets `Content-Encoding`, and varies caches
-  correctly.
+- Use one compression path. Do not add precompression integrations such as
+  `astro-compressor` unless the production server or CDN negotiates
+  `Accept-Encoding`, serves the `.br`/`.gz` files with `Content-Encoding`, and
+  varies caches correctly.
 - Hashed assets SHOULD receive long-lived immutable caching.
 - HTML caching **MUST** match deployment freshness and rollback behavior.
 - Public content without fingerprinted paths SHOULD use shorter or revalidated
@@ -512,7 +501,7 @@ renderers bypass that protection.
 - Lighthouse or synthetic budgets SHOULD cover representative route classes and
   enforce thresholds rather than collect unused reports.
 
-## 20. Testing and Verification
+## 19. Testing and Verification
 
 Verification MUST follow the repository's package manager and declared scripts.
 At minimum, run the smallest applicable set of:
@@ -544,31 +533,13 @@ Tests SHOULD exercise the built artifact. A development server does not prove
 that static files, adapter output, environment replacement, custom errors,
 headers, or compression work in production.
 
-Build and check commands SHOULD be non-mutating. Formatting source as an
-implicit build step obscures diffs and makes CI behavior surprising.
+Build and check commands SHOULD be non-mutating. Do not run a writing formatter
+as part of a build script.
 
-## 21. Monorepos and Tooling
+## 20. Docker and Static Serving
 
-- Use the detected package manager and lockfile. Do not mix Bun, pnpm, npm, or
-  Yarn commands within one repository without an explicit migration.
-- Run commands from the workspace location expected by existing scripts.
-- Build orchestration inputs and outputs **MUST** include content, public assets,
-  shared packages, environment declarations, generated types, and Astro output.
-- Task caches **MUST NOT** store secrets or reuse environment-dependent output
-  under incomplete cache keys.
-- Shared UI packages SHOULD have their own type-check and test targets when they
-  contain behavior.
-- Linters and formatters **MUST** actually include `.astro`, framework component,
-  CSS, and configuration files intended to be governed. Passing while excluding
-  most application code is weak proof.
-- Runtime versions in package metadata, version files, CI, and containers SHOULD
-  agree and be pinned to an intentional update policy.
-- Documentation **MUST** be updated when output mode, framework major version,
-  route ownership, content source, or verification commands change.
-
-## 22. Docker and Static Serving
-
-Apply the Docker companion guideline in addition to this section.
+Apply `docker.md` in addition to this section. Use the repository's package
+manager in Docker; for Bun see `docker.md`.
 
 - Static sites SHOULD use a multi-stage build and copy only the generated output
   plus required runtime files into the final image.
@@ -589,61 +560,7 @@ Apply the Docker companion guideline in addition to this section.
   - explicit read, header, write, and idle timeouts;
   - graceful shutdown;
   - a lightweight health endpoint or health subcommand.
-- Health checks SHOULD have one source of truth or a test that prevents
-  Dockerfile, Compose, and orchestrator definitions from drifting.
+- Define the health check in one place. Under Compose or Dokploy, the compose
+  `healthcheck` owns it and the Dockerfile omits `HEALTHCHECK`.
 - Container verification **MUST** request a real route, a hashed asset, the
   health endpoint, a missing route, and each supported content encoding.
-
-## 23. Coding-Agent Workflow
-
-### Before editing
-
-1. Classify the rendering and hydration phase of the requested behavior.
-2. Identify the route, layout, component, content, data, and deployment owners.
-3. Inspect public URL, metadata, locale, accessibility, and caching contracts.
-4. Reproduce defects against the relevant development or built environment.
-5. Check the worktree and preserve unrelated changes.
-
-### While editing
-
-1. Keep the change in the narrowest owning modules.
-2. Preserve static rendering unless interaction or request-time behavior truly
-   requires another boundary.
-3. Update schemas, callers, localized surfaces, metadata, tests, and deployment
-   behavior affected by a contract change.
-4. Do not edit generated `.astro`, build, type, or content artifacts manually.
-5. Do not add dependencies for behavior Astro, the UI integration, or the web
-   platform already provides clearly.
-
-### Before finishing
-
-1. Run focused checks, `astro check`, relevant tests, and the production build.
-2. Inspect generated output or the production adapter for changed routes.
-3. Verify hydration, no-JavaScript behavior, keyboard access, metadata, locale,
-   statuses, and responsive layout as applicable.
-4. Inspect the final diff for accidental client bundles, secrets, generated
-   output, broad formatting, and unrelated edits.
-5. Report exact checks and anything not verified.
-
-## 24. Prohibited Anti-Patterns
-
-An agent **MUST NOT**:
-
-- Hydrate an entire page because one control needs browser state.
-- Use `client:only` as the default integration strategy.
-- Expect context or framework stores to cross independent islands.
-- Access browser globals in Astro frontmatter.
-- Expose a secret through a public environment variable, hydration prop, source
-  map, build argument, or generated page;
-- Use `set:html` with unsanitized external content;
-- Silently convert malformed CMS data into an indistinguishable empty dataset;
-- Omit locale from CMS filters, cache keys, links, canonicals, or alternate URLs;
-- Duplicate route, sitemap, feed, or metadata sources of truth without need;
-- Claim a form succeeded when no mutation occurred;
-- Use hidden crawler-only content to compensate for an empty client-only page;
-- Generate compressed assets that production cannot serve;
-- Return a homepage with status 200 for every unknown static route;
-- Make a production build mutate source files;
-- Consider a development-server test proof of production deployment behavior;
-- Weaken type, content, accessibility, or security checks merely to make a build
-  pass.

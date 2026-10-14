@@ -78,3 +78,15 @@
 - Tools use static decorative outline Icon Tiles; titles and descriptions remain the accessible content.
 - Guestbook and market statuses use the shared semantic Alert variants. A refresh failure retains previously loaded messages.
 - MDX code retains build-time syntax highlighting with filename/language, Copy and Wrap controls. Snippets longer than 16 lines can expand/collapse; copying always includes full source. Without JavaScript, the full code remains readable.
+
+## Tools desk gear
+
+- `/tools` also presents interactive 3D models of the owner's blue FiiO
+  SNOWSKY ECHO MINI and NOIR Timeless82 V1, reconstructed from supplied photos.
+- The keyboard keeps the photographed keycap arrangement and removed caps;
+  the player keeps its photographed screen and front branding.
+- Pointer/touch rotation and zoom have native keyboard-accessible alternatives,
+  including a top view and reset. Models do not animate automatically.
+- Optional WebGL viewers hydrate when visible and render only on changes.
+  Device names, descriptions, and existing app links stay readable if graphics
+  or JavaScript are unavailable.

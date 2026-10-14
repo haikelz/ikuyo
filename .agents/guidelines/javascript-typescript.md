@@ -1,8 +1,8 @@
 # JavaScript and TypeScript Coding-Agent Guideline
 
-This document defines a standalone language-level baseline for writing and
-changing JavaScript and TypeScript. Local repository instructions and existing
-tool configuration take precedence where they are more specific.
+This document is the language-level baseline for JavaScript and TypeScript.
+Precedence follows `general.md` §2. Where `haikel-javascript-typescript.md`
+disagrees with this guide, the profile wins.
 
 The terms **MUST**, **SHOULD**, and **AVOID** are normative.
 
@@ -19,90 +19,42 @@ The terms **MUST**, **SHOULD**, and **AVOID** are normative.
   MUST NOT narrate syntax or preserve dead code.
 - An optimization MUST be supported by measurement or a known constraint.
 
-## 2. Coding-Agent Workflow
-
-### 2.1 Before Editing
-
-The agent MUST:
-
-1. Read all applicable instruction files.
-2. Inspect `package.json`, the lockfile, compiler configuration, formatter and
-   linter configuration, test configuration, and relevant source files.
-3. Identify the package manager and supported runtime versions.
-4. Find the module that owns the behavior and inspect its callers, tests,
-   exported types, and boundary adapters.
-5. Reproduce a reported defect or establish the failing path before claiming a
-   root cause.
-6. Separate verified facts from assumptions.
-7. Check the working tree and preserve unrelated user changes.
-
-### 2.2 While Editing
-
-- The agent MUST follow established repository conventions when they do not
-  conflict with correctness or this document.
-- The agent MUST update every affected caller, test, and contract when changing
-  a signature or exported value.
-- The agent SHOULD add or change tests with the implementation.
-- The agent MUST NOT reformat unrelated files, perform speculative refactors,
-  or replace tooling without a requirement.
-- Generated files MUST be produced by their generator, not hand-edited.
-- Suppressions MUST be narrow, justified, and placed at the smallest possible
-  scope.
-
-### 2.3 Before Finishing
-
-The agent MUST:
-
-1. Format changed files with the repository's formatter.
-2. Run focused tests, static analysis, and type-checking.
-3. Run broader tests and the package build when the change can affect package
-   integration or emitted output.
-4. Inspect the final diff for accidental API changes, debug output, secrets,
-   generated artifacts, and unrelated edits.
-5. Report the exact checks run, their results, and anything not verified.
-
-## 3. JavaScript Versus TypeScript
+## 2. JavaScript Versus TypeScript
 
 - New application and library source SHOULD use TypeScript when the repository
   supports it.
 - Existing JavaScript MUST NOT be converted wholesale merely because one file
   needs a change.
-- JavaScript is appropriate for small scripts, configuration files required to
-  be JavaScript, and repositories intentionally maintained as JavaScript.
-- JavaScript MUST use the same runtime-validation, error-handling, testing, and
-  module-design standards as TypeScript.
-- Typed JavaScript SHOULD use checked JSDoc where migrating to TypeScript is not
-  practical.
-- File extensions MUST reflect actual syntax and runtime behavior:
-  - `.ts` for TypeScript without JSX syntax.
-  - `.tsx` only when JSX syntax is present.
-  - `.js`, `.mjs`, or `.cjs` according to the repository's module mode.
-  - `.d.ts` only for declarations, ambient types, or deliberate type shims.
-- The agent MUST NOT introduce TypeScript syntax into files executed directly
-  as JavaScript.
+- JavaScript files follow the same validation, error, testing, and module rules
+  as TypeScript. Use checked JSDoc where migration is not practical.
+- Use `.tsx` only when JSX is present, and `.d.ts` only for declarations or
+  deliberate type shims.
 - A package MUST use one deliberate module system. Mixed module systems require
   an explicit interoperability boundary.
 
-## 4. Compiler and Language Strictness
+## 3. Compiler and Language Strictness
 
-New TypeScript configurations MUST enable `strict`. They SHOULD also enable the
-strictest options compatible with the runtime and package design, including:
+New TypeScript configurations MUST enable `strict`, which already includes
+`noImplicitAny`, `strictNullChecks`, and `useUnknownInCatchVariables`. Add
+stricter options such as `noUncheckedIndexedAccess` only when the repository
+adopts them deliberately.
 
 ```json
 {
   "compilerOptions": {
-    "strict": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "useUnknownInCatchVariables": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true
+    "strict": true
   }
 }
 ```
+
+- TypeScript 7 removed `baseUrl`; map aliases with `paths` alone. TypeScript 7
+  ships no compiler JavaScript API, so tools that import `typescript` need a
+  compatible TypeScript 5 package beside it.
 
 - Existing strictness MUST NOT be weakened to make an error disappear.
 - Compiler targets and libraries MUST match supported runtimes.
@@ -114,15 +66,14 @@ strictest options compatible with the runtime and package design, including:
 - `skipLibCheck` SHOULD be treated as a compatibility or performance choice,
   not proof that dependency declarations are correct.
 
-## 5. Naming, Files, and Symbols
+## 4. Naming, Files, and Symbols
 
 Follow repository convention. If no convention exists, use:
 
 - Files and directories: `kebab-case`.
 - Variables, functions, and methods: `camelCase`.
-- Classes, type aliases, interfaces, and enums: `PascalCase`.
-- Immutable module-level constants: `UPPER_SNAKE_CASE` only when they are true
-  constants; otherwise use `camelCase`.
+- Classes, type aliases, and enums: `PascalCase`.
+- Module-level constants: `UPPER_SNAKE_CASE`.
 - Boolean values: names beginning with `is`, `has`, `can`, `should`, or another
   clear predicate.
 - Identifiers: `id`, `userId`, and `requestId`; preserve external casing only at
@@ -143,10 +94,9 @@ Additional rules:
   MUST NOT hide cycles or export private implementation details.
 - File names MUST NOT differ only by letter case.
 
-## 6. Values, Variables, and Immutability
+## 5. Values, Variables, and Immutability
 
-- Use `const` by default. Use `let` only when reassignment is necessary. Never
-  use `var`.
+- Use `const` by default and `let` only for reassignment.
 - Prefer immutable transformations and new values over hidden mutation.
 - Inputs MUST NOT be mutated unless mutation is the explicit documented
   contract.
@@ -155,20 +105,16 @@ Additional rules:
 - Use `readonly` for data that consumers must not mutate. Deep immutability MUST
   be modeled deliberately; `readonly` is shallow.
 - Use `as const` for stable literal values when narrow inference is intended.
-- Equality checks MUST use `===` and `!==`, except for the deliberate
-  `value == null` check when both `null` and `undefined` are intended.
 - Nullish fallback MUST use `??` when valid values include `0`, `false`, or an
-  empty string.
-- Optional chaining SHOULD be used for genuinely optional traversal. It MUST
-  NOT conceal a violated invariant.
-- Numbers MUST be checked with `Number.isFinite`, `Number.isNaN`, or
-  `Number.isInteger` as appropriate.
+  empty string. Optional chaining MUST NOT conceal a violated invariant.
 - Money, measurements, and timestamps MUST have explicit units and precision.
 - Dates crossing a serialized boundary MUST be strings or numbers with a
   documented format; they are not `Date` instances until parsed.
 
-## 7. Types and Inference
+## 6. Types and Inference
 
+- Use `type` aliases for object shapes, unions, and props. Use `interface` only
+  when a library requires declaration merging.
 - Type external and untrusted values as `unknown` until validated.
 - Allow inference for local values when it is precise and obvious.
 - Exported functions SHOULD declare return types when the annotation protects a
@@ -190,12 +136,10 @@ Additional rules:
 - Utility and mapped types SHOULD model real relationships. Deeply nested type
   transformations that obscure the resulting shape SHOULD be replaced with a
   named explicit type.
-- Wrapper object types such as `String`, `Number`, and `Boolean` MUST NOT be
-  used. Use `string`, `number`, and `boolean`.
 - `object`, `{}`, and `Function` SHOULD NOT be used as vague stand-ins for an
   unknown shape or callable signature.
 
-## 8. Unions, Generics, and Exhaustiveness
+## 7. Unions, Generics, and Exhaustiveness
 
 - Finite states MUST use literal unions or an equivalent closed representation.
 - Distinct state shapes SHOULD use discriminated unions.
@@ -229,7 +173,7 @@ function assertNever(value: never): never {
 - Numeric enums SHOULD be avoided because reverse mappings and arbitrary
   numeric values are often undesirable. Prefer literal values and unions.
 
-## 9. Functions and Control Flow
+## 8. Functions and Control Flow
 
 - A function MUST have one coherent responsibility and a clear contract.
 - Prefer pure functions for transformations and isolate side effects at named
@@ -245,9 +189,8 @@ function assertNever(value: never): never {
   clearer data model.
 - Every code path MUST return a value consistent with the declared contract.
 - Callbacks SHOULD be named when the name clarifies intent or aids diagnostics.
-- Arrow functions SHOULD be used for callbacks and lexical `this`. Function
-  declarations SHOULD be used for named operations when hoisting and stack
-  readability are useful.
+- Declare components, hooks, services, and handlers with `function`. Use arrow
+  functions for inline callbacks, option objects, and lexical `this`.
 - `this`-dependent methods MUST NOT be passed unbound.
 - Classes SHOULD be used only when identity, encapsulated mutable state, or
   polymorphic behavior justifies them. Prefer functions and plain objects for
@@ -255,31 +198,22 @@ function assertNever(value: never): never {
 - Recursion MUST have an explicit termination condition and SHOULD account for
   runtime stack limits.
 
-## 10. Objects and Collections
+## 9. Objects and Collections
 
 - Prefer plain objects for records and `Map` for dynamic keys or non-string
   keys. Prefer `Set` for membership and uniqueness.
 - Own-property checks MUST use `Object.hasOwn` or an equivalent safe operation.
 - Objects with untrusted keys MUST NOT be indexed without validation. Consider
   `Map` or a null-prototype object where prototype keys are a risk.
-- Array methods SHOULD be used when they express the operation clearly. A loop
-  is preferable when it improves control flow, avoids repeated work, or permits
-  early exit.
-- `for...in` MUST NOT be used for arrays.
-- Sorting MUST use an explicit comparator for numbers and structured values.
-  Code MUST NOT assume `sort()` is numerically ordered.
-- Callers MUST NOT depend on object property order unless the language contract
-  and API explicitly make that order meaningful.
-- Spreading is shallow. Code MUST NOT treat object or array spread as a deep
-  clone.
+- Use a loop instead of array methods when it improves control flow, avoids
+  repeated work, or permits early exit.
 - Large collections SHOULD avoid repeated full scans in nested loops when an
   indexed structure gives clearer and bounded behavior.
-- Sparse arrays SHOULD be avoided.
 - Serialization MUST account for unsupported or transformed values such as
   `undefined`, `bigint`, non-finite numbers, symbols, functions, maps, sets,
   cycles, and date objects.
 
-## 11. Asynchronous Code, Promises, and Cancellation
+## 10. Asynchronous Code, Promises, and Cancellation
 
 - Every promise MUST be awaited, returned, deliberately aggregated, or
   explicitly marked and handled as detached work.
@@ -308,7 +242,7 @@ function assertNever(value: never): never {
 - Asynchronous event handlers MUST surface failures through an established
   error path.
 
-## 12. Errors
+## 11. Errors
 
 - Throw `Error` instances, not strings, numbers, or plain objects.
 - Error messages MUST state what failed and include safe operational context.
@@ -326,7 +260,7 @@ function assertNever(value: never): never {
 - Errors MUST NOT be swallowed. Intentional suppression requires a comment and,
   where operationally relevant, structured reporting.
 
-## 13. Runtime Validation Boundaries
+## 12. Runtime Validation Boundaries
 
 Static types do not validate runtime values. Validation MUST occur where
 untrusted data enters the trusted core, including:
@@ -356,7 +290,7 @@ Boundary validation MUST:
   duplicated schemas and types MUST be kept synchronized by tests or generation.
 - Validation MUST NOT execute untrusted code or permit prototype pollution.
 
-## 14. Modules and Dependency Design
+## 13. Modules and Dependency Design
 
 - Modules MUST have explicit responsibilities and narrow public surfaces.
 - High-level policy SHOULD depend on small contracts, not concrete I/O details.
@@ -379,7 +313,7 @@ Boundary validation MUST:
 - Public exports MUST be intentional. Internal symbols SHOULD remain private to
   their module or package.
 
-## 15. Configuration and Secrets
+## 14. Configuration and Secrets
 
 - Configuration MUST be read through one explicit boundary and validated before
   dependent work begins.
@@ -400,7 +334,7 @@ Boundary validation MUST:
 - Example files SHOULD contain placeholders such as `<SERVICE_TOKEN>`, never
   realistic credentials.
 
-## 16. Logging and Diagnostics
+## 15. Logging and Diagnostics
 
 - Application logging SHOULD use the repository's structured logger.
 - Log records SHOULD include an event name, outcome, duration when useful, and
@@ -419,7 +353,7 @@ Boundary validation MUST:
 - High-volume paths SHOULD avoid per-item logs unless sampling or debug-level
   controls exist.
 
-## 17. Testing
+## 16. Testing
 
 - Tests MUST verify observable behavior, contracts, and invariants.
 - Every defect fix SHOULD include a test that fails without the fix.
@@ -442,7 +376,7 @@ Boundary validation MUST:
 - Coverage numbers MUST NOT replace meaningful assertions.
 - Empty existence tests are prohibited as the only coverage for behavior.
 
-## 18. Packages and Dependencies
+## 17. Packages and Dependencies
 
 - Use the package manager selected by the existing lockfile.
 - A change MUST NOT create or replace a lockfile with another package manager.
@@ -466,7 +400,7 @@ Boundary validation MUST:
 - Unused dependencies MUST be removed together with their imports and
   configuration.
 
-## 19. Formatting and Static Analysis
+## 18. Formatting and Static Analysis
 
 - Repository formatter output is authoritative. Manual alignment MUST NOT fight
   the formatter.
@@ -478,74 +412,8 @@ Boundary validation MUST:
 - Linter warnings MUST be treated according to repository policy and MUST NOT be
   silenced without a reason.
 - Auto-fix MAY be used on changed files during editing. Final verification MUST
-  include a non-mutating check.
+  include a non-mutating check. Verification commands live in
+  `haikel-javascript-typescript.md` §8.
 - Formatting and linting MUST NOT rewrite unrelated files.
 - Ignore files SHOULD exclude generated output, not source that is inconvenient
   to check.
-
-## 20. Verification Commands
-
-Use scripts already declared by the repository. The names below are explicit
-placeholders, not commands to copy unchanged:
-
-```bash
-<PACKAGE_MANAGER> run <FORMAT_CHECK_SCRIPT>
-<PACKAGE_MANAGER> run <LINT_SCRIPT>
-<PACKAGE_MANAGER> run <TYPECHECK_SCRIPT>
-<PACKAGE_MANAGER> run <FOCUSED_TEST_SCRIPT> -- <TEST_PATH_OR_PATTERN>
-<PACKAGE_MANAGER> run <FULL_TEST_SCRIPT>
-<PACKAGE_MANAGER> run <BUILD_SCRIPT>
-```
-
-When no scripts exist, invoke installed local tools through the selected package
-manager rather than relying on unpinned global installations:
-
-```bash
-<PACKAGE_MANAGER_EXEC> <FORMATTER> --check <CHANGED_PATHS>
-<PACKAGE_MANAGER_EXEC> <LINTER> <CHANGED_PATHS>
-<PACKAGE_MANAGER_EXEC> tsc --noEmit --project <TSCONFIG_PATH>
-<PACKAGE_MANAGER_EXEC> <TEST_RUNNER> <TEST_PATH_OR_PATTERN>
-```
-
-- Commands MUST be adapted to actual repository scripts and paths.
-- Type-checking MUST use the intended project configuration, not an accidental
-  default.
-- A successful type-check does not replace tests, and passing tests do not
-  replace static analysis.
-- Build verification is required when changing exports, module resolution,
-  compiler settings, declaration output, packaging, or runtime entry points.
-- The agent MUST distinguish new failures from verified pre-existing failures.
-- Verification output MUST NOT be falsified or summarized as passing when a
-  command was not run.
-
-## 21. Prohibited Anti-Patterns
-
-The agent MUST NOT introduce:
-
-- `var`, implicit globals, or accidental module-level mutable state;
-- pervasive `any`, double assertions, blanket suppression directives, or
-  non-null assertions used to bypass proof;
-- weakened compiler strictness to accommodate incorrect code;
-- types that claim unvalidated runtime data is trusted;
-- transport strings typed as `Date` or serialized values typed as runtime class
-  instances;
-- models with every field optional when only specific states are valid;
-- mutation of caller-owned input without an explicit contract;
-- floating promises, swallowed rejections, or fire-and-forget work without
-  ownership;
-- unbounded retries, unbounded concurrency, or arbitrary delay-based
-  synchronization;
-- empty catch blocks or errors thrown as non-`Error` values;
-- branching on error-message text;
-- hidden import-time I/O or configuration-dependent side effects;
-- circular imports, convenience barrel cycles, or dependency deep imports;
-- hard-coded secrets, realistic credentials in examples, or secrets in logs;
-- raw untrusted keys assigned into normal objects without validation;
-- unsafe parsing that relies on truthiness or unchecked coercion;
-- unstable tests, live-service tests in the default suite, arbitrary sleeps, or
-  assertions that only prove a symbol exists;
-- dependencies added for trivial functionality already available locally;
-- unrelated lockfile churn, generated output, debug logs, dead code, or
-  commented-out implementations;
-- formatter or linter changes made solely to hide a new violation;
-- claims of successful verification for checks that did not run.

@@ -1,9 +1,9 @@
 # Owner Engineering and Product Quality Profile
 
 This document records Haikel's cross-stack working preferences. Read it with
-`general.md` for every task. Language, framework, and repository-local rules add
-technical detail, but they MUST NOT weaken this quality bar unless a stronger
-contract requires a different outcome.
+`general.md` for every task. Precedence follows `general.md` §2: repository-local
+instructions and the language owner profiles (`haikel-*.md`) win over this file,
+and this file wins over framework and base language guidelines.
 
 ## 1. Definition of Done
 
@@ -59,15 +59,15 @@ Shorter code is not automatically cleaner code.
   idioms compact when expansion would add no clarity.
 - Constructors should show their dependency mapping explicitly. Avoid compressed
   constructor returns and hidden initialization work.
-- Keep imports in the repository's mechanical order. In Go, prefer standard
-  library, module-local, then third-party groups when no repository rule
-  overrides this profile. In TypeScript, preserve the configured import
-  ordering and separate types when tooling supports it.
+- Keep imports in the order the language owner profile defines (`haikel-go.md`,
+  `haikel-javascript-typescript.md`).
 - Avoid vague names, one-use wrappers, generic helpers, and abstractions that
   merely relocate code. A new name should expose ownership, remove meaningful
   duplication, or simplify a real boundary.
 - Comments explain a constraint, invariant, external requirement, or surprising
   decision. They do not narrate syntax or preserve dead code.
+- Code comments, identifiers, logs, and internal error messages are English.
+  User-facing text follows the product language.
 
 ## 3. Function and File Rhythm
 
@@ -77,15 +77,10 @@ Every function should have an obvious reading path.
   before the normal path begins.
 - Keep declarations close to their first use, but separate setup from execution
   when they are different concerns.
-- In handlers, prefer the visible sequence: authenticate, parse, normalize,
-  validate, authorize, execute, translate, respond.
-- In repositories, prefer the visible sequence: begin or acquire, query, scan,
-  classify errors, map domain values, write audit/outbox state, commit, return.
+- Handler, repository, and component phase order is defined in the language
+  owner profiles. Follow those sequences instead of inventing a local one.
 - In workers, make ownership, bounded iteration, cancellation, retry decisions,
   persistence, and completion visible as separate phases.
-- In React components, group inputs/context, local state, remote state, derived
-  values, callbacks, effects, render guards, and JSX. Do not interleave unrelated
-  hooks and transformations.
 - In tests, group arrange, act, and assert when the scenario is nontrivial. Keep
   the setup for one case together and make the behavioral assertion easy to find.
 - Split a file only when the resulting files have clear responsibilities. Do not
@@ -121,9 +116,9 @@ templates.
 - Use one coherent design system across the full product surface. Reuse its
   tokens and real components instead of recreating approximate versions with
   arbitrary utility classes.
-- When DaisyUI is the selected system, use DaisyUI component semantics and theme
-  tokens consistently. Do not keep only the dependency while hand-building a
-  conflicting visual language.
+- Use the selected component library's semantics and theme tokens consistently
+  (for example HeroUI or shadcn). Do not keep only the dependency while
+  hand-building a conflicting visual language.
 - Establish hierarchy through typography, measure, spacing, alignment, and
   contrast before adding decoration.
 - Avoid generic dashboard patterns such as decorative grid backgrounds,
@@ -189,7 +184,8 @@ Writing should sound natural, specific, and useful in Indonesian or English.
 
 ## 8. Git and Delivery Preferences
 
-- Keep commits atomic and use Conventional Commits when commits are requested.
+- Commit when the repository instructions say to; otherwise commit only when
+  asked. Keep commits atomic and use Conventional Commits.
 - Stage only files owned by the task. Preserve unrelated user and agent changes.
 - Separate behavior changes, mechanical generation, and broad cleanup when that
   separation makes review materially clearer.
