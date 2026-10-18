@@ -6,7 +6,9 @@ onMount(() => {
   const timers = new Set<ReturnType<typeof setTimeout>>();
   async function handleCopyClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
-    const button = target.closest<HTMLButtonElement>("[data-copy-button], [data-wrap-button], [data-expand-button]");
+    const button = target.closest<HTMLButtonElement>(
+      "[data-copy-button], [data-wrap-button], [data-expand-button]",
+    );
     if (!button) return;
 
     const wrapper = button.closest(".code-block-wrapper");
@@ -23,7 +25,9 @@ onMount(() => {
     }
     if (button.hasAttribute("data-expand-button")) {
       const expanded = button.getAttribute("aria-expanded") !== "true";
-      wrapper.querySelector(".code-block-content")?.setAttribute("data-collapsed", String(!expanded));
+      wrapper
+        .querySelector(".code-block-content")
+        ?.setAttribute("data-collapsed", String(!expanded));
       button.setAttribute("aria-expanded", String(expanded));
       button.textContent = expanded ? "Collapse code" : "Show full code";
       return;

@@ -1,36 +1,34 @@
 <script lang="ts">
-  import { PlayIcon, XIcon } from "lucide-svelte";
+import { PlayIcon, XIcon } from "lucide-svelte";
 
-  let { src, title } = $props<{
-    src: string;
-    title?: string;
-  }>();
+let { src, title } = $props<{
+  src: string;
+  title?: string;
+}>();
 
-  let selectedVideo = $state<string | null>(null);
-  let triggerElement: HTMLButtonElement | null = null;
-  let dialogElement = $state<HTMLDialogElement | null>(null);
+let selectedVideo = $state<string | null>(null);
+let triggerElement: HTMLButtonElement | null = null;
+let dialogElement = $state<HTMLDialogElement | null>(null);
 
-  function openLightbox(
-    event: MouseEvent & { currentTarget: HTMLButtonElement },
-  ) {
-    triggerElement = event.currentTarget;
-    selectedVideo = src;
-  }
+function openLightbox(event: MouseEvent & { currentTarget: HTMLButtonElement }) {
+  triggerElement = event.currentTarget;
+  selectedVideo = src;
+}
 
-  function closeLightbox() {
-    if (dialogElement?.open) dialogElement.close();
-    selectedVideo = null;
-    requestAnimationFrame(() => triggerElement?.focus());
-  }
+function closeLightbox() {
+  if (dialogElement?.open) dialogElement.close();
+  selectedVideo = null;
+  requestAnimationFrame(() => triggerElement?.focus());
+}
 
-  function showModal(node: HTMLDialogElement) {
-    node.showModal();
-    return {
-      destroy() {
-        if (node.open) node.close();
-      },
-    };
-  }
+function showModal(node: HTMLDialogElement) {
+  node.showModal();
+  return {
+    destroy() {
+      if (node.open) node.close();
+    },
+  };
+}
 </script>
 
 <div class="video-container my-8 w-full group">

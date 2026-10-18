@@ -1,18 +1,18 @@
 <script lang="ts">
-  import type { HeadingNodeTocProps } from "@/types";
-  import TOCHeading from "./TOCHeading.svelte";
+import type { HeadingNodeTocProps } from "@/types";
+import TOCHeading from "./TOCHeading.svelte";
 
-  const {
-    heading,
-    nested = false,
-    onNavigate,
-    activeSlug,
-  }: {
-    heading: HeadingNodeTocProps;
-    nested?: boolean;
-    onNavigate?: () => void;
-    activeSlug: string;
-  } = $props();
+const {
+  heading,
+  nested = false,
+  onNavigate,
+  activeSlug,
+}: {
+  heading: HeadingNodeTocProps;
+  nested?: boolean;
+  onNavigate?: () => void;
+  activeSlug: string;
+} = $props();
 </script>
 
 <li class="list-none!">

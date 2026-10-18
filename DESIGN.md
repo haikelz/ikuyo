@@ -50,11 +50,12 @@ stay theme-aware without implying status.
 ## 4. Spacing & Layout
 
 Use Tailwind's 4px spacing scale. Keep related controls compact with 2–4 spacing
-steps; separate content sections by 10–16 steps. The centered site shell uses
-`max-w-3xl` with 4/6/8 horizontal padding across base/sm/md breakpoints.
-Editorial rows and media grids adapt to a single readable column on small
-screens. Notes and Works detail pages use the full `max-w-3xl` shell; other
-long-form prose may retain a `max-w-3xl` reading measure.
+steps; separate content sections by 10–16 steps. The shared Layout defaults to
+a centered `max-w-4xl` page Frame with 4/6/8 horizontal gutters across
+base/sm/md breakpoints. Notes and Works detail pages use that shell with
+full-width prose. Constrain individual prose sections inside the Frame when a
+shorter reading measure helps. Editorial rows and media grids adapt to a single
+readable column on small screens.
 
 ## 5. Components
 

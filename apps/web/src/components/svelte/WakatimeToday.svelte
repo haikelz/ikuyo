@@ -1,45 +1,45 @@
 <script lang="ts">
-  import type { WakatimeStatsProps } from "@/types";
-  import { Card, CardContent, CardHeader } from "@ikuyo/ui";
-  import { Clock, Zap } from "lucide-svelte";
+import type { WakatimeStatsProps } from "@/types";
+import { Card, CardContent, CardHeader } from "@ikuyo/ui";
+import { Clock, Zap } from "lucide-svelte";
 
-  let { data }: { data: WakatimeStatsProps } = $props();
+let { data }: { data: WakatimeStatsProps } = $props();
 
-  const colors = [
-    "var(--chart-1)",
-    "var(--chart-2)",
-    "var(--chart-3)",
-    "var(--chart-4)",
-    "var(--chart-5)",
-    "var(--chart-6)",
-    "var(--chart-7)",
-    "var(--chart-8)",
-    "var(--chart-9)",
-    "var(--chart-10)",
-  ];
+const colors = [
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
+  "var(--chart-6)",
+  "var(--chart-7)",
+  "var(--chart-8)",
+  "var(--chart-9)",
+  "var(--chart-10)",
+];
 
-  function formatDuration(seconds: number) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    return `${minutes}m`;
+function formatDuration(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
   }
+  return `${minutes}m`;
+}
 
-  const todayStats = $derived.by(() => {
-    const preferred = data.languages.filter(
-      (stat) =>
-        stat.name === "TypeScript" ||
-        stat.name === "JavaScript" ||
-        stat.name === "Go" ||
-        stat.name === "Svelte" ||
-        stat.name === "Astro" ||
-        stat.name === "Docker",
-    );
+const todayStats = $derived.by(() => {
+  const preferred = data.languages.filter(
+    (stat) =>
+      stat.name === "TypeScript" ||
+      stat.name === "JavaScript" ||
+      stat.name === "Go" ||
+      stat.name === "Svelte" ||
+      stat.name === "Astro" ||
+      stat.name === "Docker",
+  );
 
-    return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
-  });
+  return preferred.length > 0 ? preferred : data.languages.slice(0, 6);
+});
 </script>
 
 <div class="mb-8">

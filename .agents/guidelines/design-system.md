@@ -1,13 +1,33 @@
 # Frontend Design System Guideline
 
-Precedence follows `general.md` §2. This guide defines the owner's interface
-system: ReUI on shadcn `base-nova`, Tailwind CSS v4, oklch tokens, and the Geist
-type family. It applies to React applications (Next.js, Astro islands) and to
-Svelte applications that port ReUI by hand. A project that standardizes on
-another component library, such as HeroUI, follows that library instead.
+Precedence follows `general.md` §2. Use a repository's `DESIGN.md` and accepted
+decisions before the new-project ReUI defaults below. A project that
+standardizes on another component library follows that library instead.
 
-Read `preferences.md` §5 for general interface quality. This file owns the
-concrete system.
+Read `preferences.md` §5 for general interface quality.
+
+## Ikuyo: current ReUI Sera implementation
+
+For this repository, `DESIGN.md` owns the visual contract and `/design-system`
+shows the current page patterns. Check `apps/web/src/styles/theme.css` and
+`base.css` for implemented tokens and typography, and `Layout.astro` plus
+`@ikuyo/ui` for component behavior. Reconcile drift at those sources rather
+than copying the generic examples below.
+
+- Keep Astro pages static and hydrate Svelte only for interaction. The shared
+  UI is native Svelte; ReUI's React registry is a design reference, not a
+  runtime or component source to install here.
+- Use Plus Jakarta Sans for text, Geist Mono for technical labels, and the
+  semantic indigo, status, and dark-mode tokens already defined in the site.
+  Tracked uppercase mono eyebrows and larger editorial headings are intentional.
+- `Layout` supplies one Frame and FramePanel per page, unboxed below 768px.
+  Compose `PageHeader.astro`, ruled editorial rows, prose, media, and the
+  existing reading/status patterns inside that shell rather than adding an app
+  sidebar or another page-level container.
+
+The numbered sections are defaults for other ReUI projects. Their base-nova
+setup, neutral sample palette, Geist Sans scale, and dashboard shell do not
+describe Ikuyo. Follow this repository's design contract for those choices.
 
 ## 1. Foundation
 

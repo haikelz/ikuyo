@@ -50,7 +50,7 @@ without human confirmation.
 
 ## Repository map
 
-- `apps/web`: static Astro 6 site with Svelte 5 islands and Tailwind CSS 4.
+- `apps/web`: static Astro site with Svelte 5 islands and Tailwind CSS 4.
 - `apps/web/src/pages`: file-based routes and static path composition.
 - `apps/web/src/content.config.ts`: typed Astro collection schemas.
 - `apps/web/src/content`: MDX records for notes, works, and experiences.
@@ -65,7 +65,8 @@ without human confirmation.
 ## Engineering rules
 
 - Use Bun and Moon only; do not introduce npm, pnpm, or Yarn workflows.
-- Preserve the Geist, monochrome, border-led system in `DESIGN.md`.
+- For UI work, follow the ReUI Sera contract in `DESIGN.md` and its living
+  examples at `/design-system`; keep the existing Astro and Svelte stack.
 - Add public content through the typed collection in
   `apps/web/src/content.config.ts`; never duplicate collection records in page
   source.

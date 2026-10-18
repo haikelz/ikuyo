@@ -1,82 +1,70 @@
 <script lang="ts">
-  import { Button } from "@ikuyo/ui";
-  import {
-    ChevronDown,
-    ChevronUp,
-    Minus,
-    Plus,
-    RotateCcw,
-    RotateCw,
-  } from "lucide-svelte";
-  import { onMount } from "svelte";
-  import type {
-    GearKind,
-    GearViewer,
-    ModelView,
-    ViewCommand,
-  } from "./gear/gear-viewer";
+import { Button } from "@ikuyo/ui";
+import { ChevronDown, ChevronUp, Minus, Plus, RotateCcw, RotateCw } from "lucide-svelte";
+import { onMount } from "svelte";
+import type { GearKind, GearViewer, ModelView, ViewCommand } from "./gear-viewer";
 
-  let {
-    kind,
-    name,
-    screenSrc,
-  }: {
-    kind: GearKind;
-    name: string;
-    screenSrc?: string;
-  } = $props();
+let {
+  kind,
+  name,
+  screenSrc,
+}: {
+  kind: GearKind;
+  name: string;
+  screenSrc?: string;
+} = $props();
 
-  let canvas: HTMLCanvasElement;
-  let status = $state<"idle" | "loading" | "ready" | "unavailable">("idle");
-  let view = $state<ModelView>("default");
-  let viewer: GearViewer | undefined;
-  const directions = [
-    { command: "left", label: "Rotate left", icon: RotateCcw },
-    { command: "right", label: "Rotate right", icon: RotateCw },
-    { command: "up", label: "Tilt up", icon: ChevronUp },
-    { command: "down", label: "Tilt down", icon: ChevronDown },
-    { command: "in", label: "Zoom in", icon: Plus },
-    { command: "out", label: "Zoom out", icon: Minus },
-  ] satisfies { command: ViewCommand; label: string; icon: typeof Plus }[];
+let canvas: HTMLCanvasElement;
+let status = $state<"idle" | "loading" | "ready" | "unavailable">("idle");
+let view = $state<ModelView>("default");
+let viewer: GearViewer | undefined;
+const directions = [
+  { command: "left", label: "Rotate left", icon: RotateCcw },
+  { command: "right", label: "Rotate right", icon: RotateCw },
+  { command: "up", label: "Tilt up", icon: ChevronUp },
+  { command: "down", label: "Tilt down", icon: ChevronDown },
+  { command: "in", label: "Zoom in", icon: Plus },
+  { command: "out", label: "Zoom out", icon: Minus },
+] satisfies { command: ViewCommand; label: string; icon: typeof Plus }[];
 
-  onMount(() => {
-    status = "loading";
-    let unmounted = false;
+onMount(() => {
+  status = "loading";
+  let unmounted = false;
 
-    async function initialize() {
-      try {
-        const { createGearViewer } = await import("./gear/gear-viewer");
-        if (unmounted) return;
-        const activeViewer = await createGearViewer(
-          canvas,
-          kind,
-          screenSrc,
-          (nextView) => {
-            view = nextView;
-          },
-          () => {
-            status = "unavailable";
-          },
-        );
-        if (unmounted) {
-          activeViewer.dispose();
-          return;
-        }
-        viewer = activeViewer;
-        status = "ready";
-      } catch (error) {
-        if (unmounted) return;
-        console.error(`Unable to display the ${name} 3D model.`, error);
-        status = "unavailable";
+  async function initialize() {
+    try {
+      const { createGearViewer } = await import("./gear-viewer");
+      if (unmounted) return;
+      const activeViewer = await createGearViewer(
+        canvas,
+        kind,
+        screenSrc,
+        (nextView) => {
+          view = nextView;
+        },
+        () => {
+          status = "unavailable";
+        },
+      );
+      if (unmounted) {
+        activeViewer.dispose();
+        return;
       }
+      viewer = activeViewer;
+      status = "ready";
+    } catch (error) {
+      if (unmounted) return;
+      console.error(`Unable to display the ${name} 3D model.`, error);
+      status = "unavailable";
     }
+  }
 
-    void initialize();
-    return () => {
-      unmounted = true;
-      viewer?.dispose();
-    };
-  });
+  void initialize();
+  return () => {
+    unmounted = true;
+    viewer?.dispose();
+  };
+});
 </script>
 
 <figure

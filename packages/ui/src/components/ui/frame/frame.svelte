@@ -1,17 +1,22 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements";
-  import { cn, type WithElementRef } from "../../../lib/utils";
+import type { HTMLAttributes } from "svelte/elements";
+import { cn, type WithElementRef } from "../../../lib/utils";
 
-  let {
-    ref = $bindable(null), class: className, children,
-    variant = "default", spacing = "default", stacked = false, dense = false,
-    ...restProps
-  }: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
-    variant?: "default" | "ghost";
-    spacing?: "sm" | "default" | "lg";
-    stacked?: boolean;
-    dense?: boolean;
-  } = $props();
+let {
+  ref = $bindable(null),
+  class: className,
+  children,
+  variant = "default",
+  spacing = "default",
+  stacked = false,
+  dense = false,
+  ...restProps
+}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
+  variant?: "default" | "ghost";
+  spacing?: "sm" | "default" | "lg";
+  stacked?: boolean;
+  dense?: boolean;
+} = $props();
 </script>
 
 <div bind:this={ref} {...restProps} data-slot="frame" data-spacing={spacing}

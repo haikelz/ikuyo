@@ -138,15 +138,45 @@ describe("Homepage GitHub contributions", () => {
     cy.visit("/");
     cy.wait("@contributions");
     cy.get('[data-cy="open-to-work-badge"]').focus().type("{enter}");
-    cy.get('[role="dialog"]').should("be.visible").within(() => {
-      cy.contains("Open to work").should("be.visible");
-      for (const role of ["Fullstack Developer", "Backend Developer", "Frontend Developer", "Devops Engineer", "Software Engineer", "AI Engineer"]) {
-        cy.contains("li", role).should("be.visible");
-      }
-      for (const stack of ["Next JS", "Javascript", "Typescript", "Golang", "Echo", "Fiber", "Gorm", "PostgreSQL", "MySQL", "Node JS", "Express JS", "Nest JS", "Hono JS", "Astro", "Svelte", "React", "CI/CD", "Docker", "Linux", "Kubernetes"]) {
-        cy.contains("li", stack).should("exist");
-      }
-    });
+    cy.get('[role="dialog"]')
+      .should("be.visible")
+      .within(() => {
+        cy.contains("Open to work").should("be.visible");
+        for (const role of [
+          "Fullstack Developer",
+          "Backend Developer",
+          "Frontend Developer",
+          "Devops Engineer",
+          "Software Engineer",
+          "AI Engineer",
+        ]) {
+          cy.contains("li", role).should("be.visible");
+        }
+        for (const stack of [
+          "Next JS",
+          "Javascript",
+          "Typescript",
+          "Golang",
+          "Echo",
+          "Fiber",
+          "Gorm",
+          "PostgreSQL",
+          "MySQL",
+          "Node JS",
+          "Express JS",
+          "Nest JS",
+          "Hono JS",
+          "Astro",
+          "Svelte",
+          "React",
+          "CI/CD",
+          "Docker",
+          "Linux",
+          "Kubernetes",
+        ]) {
+          cy.contains("li", stack).should("exist");
+        }
+      });
     for (const width of [1280, 768, 375]) {
       const height = width === 375 ? 640 : 720;
       cy.viewport(width, height);
@@ -170,13 +200,17 @@ describe("Homepage GitHub contributions", () => {
     cy.get('[data-cy="job-preferences-body"]').should(($body) => {
       expect($body[0].scrollHeight).to.be.greaterThan($body[0].clientHeight);
     });
-    cy.get('[data-cy="job-preferences-body"]').invoke("css", "scroll-behavior", "auto").scrollTo("bottom");
-    cy.get('[role="dialog"]').contains("li", "Kubernetes").should(($item) => {
-      const item = $item[0].getBoundingClientRect();
-      const body = $item[0].closest('[data-cy="job-preferences-body"]')!.getBoundingClientRect();
-      expect(item.top).to.be.at.least(body.top);
-      expect(item.bottom).to.be.at.most(body.bottom);
-    });
+    cy.get('[data-cy="job-preferences-body"]')
+      .invoke("css", "scroll-behavior", "auto")
+      .scrollTo("bottom");
+    cy.get('[role="dialog"]')
+      .contains("li", "Kubernetes")
+      .should(($item) => {
+        const item = $item[0].getBoundingClientRect();
+        const body = $item[0].closest('[data-cy="job-preferences-body"]')!.getBoundingClientRect();
+        expect(item.top).to.be.at.least(body.top);
+        expect(item.bottom).to.be.at.most(body.bottom);
+      });
     cy.get('[role="dialog"]').contains("button", "Close").should("be.visible");
     cy.screenshot("job-preferences/dialog-mobile-scrolled", { capture: "viewport" });
     cy.get('[role="dialog"] button').filter(':contains("Close")').focus().type("{esc}");

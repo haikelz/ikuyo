@@ -1,0 +1,52 @@
+---
+id: 0
+author: Haikel
+title: gtcd
+category: personal
+stack:
+  - sveltekit
+  - svelte
+  - typescript
+  - tailwind
+  - redis
+  - docker
+  - kubernetes
+repo: https://github.com/haikelz/gtcd
+description: A self-hosted SvelteKit dashboard for GoatCounter, with analytics reports, custom administration, scheduled email summaries, and scoped sharing.
+---
+
+## About the project
+
+gtcd is a custom dashboard for [GoatCounter](https://www.goatcounter.com/), a lightweight, privacy-friendly web analytics platform. GoatCounter still collects and stores the analytics. gtcd provides a separate interface for reading those reports, managing settings, and sharing selected results.
+
+I built it with SvelteKit and Svelte 5, keeping the stock GoatCounter build unchanged. That boundary matters: the project is an alternative frontend, not a fork of the tracking engine. The dashboard talks to GoatCounter through the SvelteKit server, so the API key stays out of the browser.
+
+## Reading the analytics
+
+The overview brings together traffic totals, time-series charts, and top content. Separate reports cover pages, referrers, browsers, operating systems, devices, locations, languages, and campaigns. Page and browser reports support more detailed breakdowns rather than stopping at the overview.
+
+Date ranges and number formatting follow the account's GoatCounter preferences, including its timezone. Saved views retain frequently used filters and periods, while the overview layout lets each person choose which widgets to display. Charts also have table representations for readers who prefer the underlying numbers.
+
+The interface uses Tailwind CSS v4 and shadcn-svelte components adapted from ReUI, with Frame-based report sections, light and dark themes, and responsive navigation. Both English and Bahasa Indonesia are supported.
+
+## Administration and sharing
+
+The custom administration screens cover users, API tokens, two-factor authentication, imports, pages, preferences, and email reports. They work through the existing GoatCounter interfaces rather than requiring a modified server build. Site settings and exports are also available from the dashboard; export formats depend on what the connected GoatCounter version supports.
+
+For sharing, gtcd can create independently named, read-only report links. Each link has a maximum date range, a choice of visible metrics, and an expiration setting, including no expiration. Links can be rotated or revoked separately. The server checks those permissions before fetching and returning report data, so hiding a section is not just a visual restriction.
+
+Scheduled email summaries and traffic alerts provide another way to follow a site without opening the dashboard. Summaries can run daily, weekly, every two weeks, or monthly. Traffic alerts compare completed days against a configured threshold and minimum baseline.
+
+## Performance and reliability
+
+GoatCounter limits API traffic, so the dashboard cannot treat every widget as an independent, unrestricted request. Outbound calls are paced, rate-limit responses use backoff with jitter, and identical requests share in-flight work and a short-lived cache. Redis shares cached results across application replicas.
+
+On the Pages report, current results render while the previous-period comparison loads separately. Pagination uses short, server-side cursors with expiry and bounds instead of growing URLs containing every previously seen page ID.
+
+Redis also stores saved layouts, share grants, subscriptions, and email delivery checkpoints. These writes fail explicitly when storage is unavailable; a temporary in-memory fallback must not pretend that a revoked link or changed subscription was saved. Scheduled delivery uses renewable worker leases and persisted retry attempts to coordinate replicas. Email remains at-least-once: a crash after SMTP accepts a message but before its success checkpoint can still cause a duplicate.
+
+An administrator-only diagnostics page shows dependency observations, cache and upstream request counters, and aggregate delivery status. Docker Compose and Kubernetes configurations support self-hosting, with persistent Redis storage and documented upgrade and recovery steps.
+
+## Source
+
+The [gtcd repository](https://github.com/haikelz/gtcd) contains the application, setup instructions, deployment configuration, and tests. GoatCounter remains responsible for tracking and storing visits; gtcd focuses on the dashboard and the workflows around that data.

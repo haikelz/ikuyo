@@ -1,57 +1,53 @@
 <script lang="ts">
-  import { XIcon } from "lucide-svelte";
-  import { onMount } from "svelte";
+import { XIcon } from "lucide-svelte";
+import { onMount } from "svelte";
 
-  let { images = [], masonry = false } = $props<{
-    images: string[];
-    masonry?: boolean;
-  }>();
+let { images = [], masonry = false } = $props<{
+  images: string[];
+  masonry?: boolean;
+}>();
 
-  let selectedImage = $state<string | null>(null);
-  let loaded = $state<Record<number, boolean>>({});
-  let triggerElement: HTMLButtonElement | null = null;
-  let dialogElement = $state<HTMLDialogElement | null>(null);
+let selectedImage = $state<string | null>(null);
+let loaded = $state<Record<number, boolean>>({});
+let triggerElement: HTMLButtonElement | null = null;
+let dialogElement = $state<HTMLDialogElement | null>(null);
 
-  function optimizeUrl(url: string, width: number, quality = 85) {
-    if (url.includes("imagekit.io")) {
-      const baseUrl = url.split("?")[0];
-      return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
-    }
-    return url;
+function optimizeUrl(url: string, width: number, quality = 85) {
+  if (url.includes("imagekit.io")) {
+    const baseUrl = url.split("?")[0];
+    return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
   }
+  return url;
+}
 
-  function getPlaceholderUrl(url: string, size = 40) {
-    return optimizeUrl(url, size, 20);
-  }
+function getPlaceholderUrl(url: string, size = 40) {
+  return optimizeUrl(url, size, 20);
+}
 
-  function openLightbox(photo: string, trigger: HTMLButtonElement) {
-    triggerElement = trigger;
-    selectedImage = photo;
-  }
+function openLightbox(photo: string, trigger: HTMLButtonElement) {
+  triggerElement = trigger;
+  selectedImage = photo;
+}
 
-  function closeLightbox() {
-    if (dialogElement?.open) dialogElement.close();
-    selectedImage = null;
-    requestAnimationFrame(() => triggerElement?.focus());
-  }
+function closeLightbox() {
+  if (dialogElement?.open) dialogElement.close();
+  selectedImage = null;
+  requestAnimationFrame(() => triggerElement?.focus());
+}
 
-  function showModal(node: HTMLDialogElement) {
-    node.showModal();
-    return {
-      destroy() {
-        if (node.open) node.close();
-      },
-    };
-  }
+function showModal(node: HTMLDialogElement) {
+  node.showModal();
+  return {
+    destroy() {
+      if (node.open) node.close();
+    },
+  };
+}
 
-  onMount(() => {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-width",
-      `${scrollbarWidth}px`,
-    );
-  });
+onMount(() => {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+});
 </script>
 
 {#if masonry}

@@ -16,11 +16,7 @@ const featuredWorks = worksList
   .filter((work) => work.data.category === "company")
   .sort((a, b) => a.data.id - b.data.id);
 const latestNotes = notesList
-  .sort(
-    (a, b) =>
-      new Date(b.data.created_at).getTime() -
-      new Date(a.data.created_at).getTime(),
-  )
+  .sort((a, b) => new Date(b.data.created_at).getTime() - new Date(a.data.created_at).getTime())
   .slice(0, 4);
 ---
 

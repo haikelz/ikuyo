@@ -29,9 +29,7 @@ function getLanguageFromClass(classNames: string[] | string): string | null {
       ? classNames.split(/\s+/)
       : [];
   const langClass = classes.find(
-    (c) =>
-      typeof c === "string" &&
-      (c.startsWith("language-") || c.includes("language-")),
+    (c) => typeof c === "string" && (c.startsWith("language-") || c.includes("language-")),
   );
   if (langClass) {
     const match = langClass.match(/language-([a-z0-9+-]+)/i);
@@ -75,8 +73,7 @@ export function rehypeCodeBlockWrapper() {
       const preProps = node.properties || {};
       const codeClassNames = codeProps.className ?? [];
       const preClassNames = preProps.className ?? [];
-      const meta =
-        codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
+      const meta = codeProps.meta ?? codeProps.dataMeta ?? codeProps["data-meta"] ?? null;
       const dataFilename =
         preProps["data-filename"] ??
         preProps.dataFilename ??
@@ -96,7 +93,9 @@ export function rehypeCodeBlockWrapper() {
       const filename = dataFilename ?? parseFilenameFromMeta(meta);
       const label = filename ?? language ?? "Code";
       let lineCount = 1;
-      visit(codeNode, "text", (text: any) => { lineCount += (text.value.match(/\n/g) ?? []).length; });
+      visit(codeNode, "text", (text: any) => {
+        lineCount += (text.value.match(/\n/g) ?? []).length;
+      });
       const collapsible = lineCount > 16;
 
       const wrapper = h(
@@ -113,14 +112,107 @@ export function rehypeCodeBlockWrapper() {
           ],
         },
         [
-          h("div", { className: ["code-block-header", "flex", "flex-wrap", "items-center", "gap-2", "border-b", "border-border", "bg-muted/40", "px-3", "py-2"] }, [
-            h("span", { className: ["code-block-filename", "min-w-0", "flex-1", "break-all", "font-mono", "text-xs", "text-muted-foreground"] }, label),
-            ...(filename && language ? [h("span", { className: ["font-mono", "text-xs", "text-muted-foreground"] }, language)] : []),
-            h("button", { type: "button", className: codeBlockCopyClass.split(/\s+/), "data-wrap-button": "true", "aria-label": "Wrap code", "aria-pressed": "false" }, "Wrap"),
-            h("button", { type: "button", className: codeBlockCopyClass.split(/\s+/), "data-copy-button": "true", "aria-label": "Copy code" }, "Copy"),
-          ]),
-          h("div", { className: ["code-block-content"], "data-collapsed": collapsible ? "true" : "false", tabIndex: 0, role: "region", "aria-label": `${label} code` }, [node]),
-          ...(collapsible ? [h("button", { type: "button", className: ["code-block-expand", "w-full", "border-t", "border-border", "bg-muted/40", "py-2", "text-xs", "text-foreground", "hover:bg-muted", "focus-visible:outline-2", "focus-visible:outline-ring"], "data-expand-button": "true", "aria-expanded": "false" }, "Show full code")] : []),
+          h(
+            "div",
+            {
+              className: [
+                "code-block-header",
+                "flex",
+                "flex-wrap",
+                "items-center",
+                "gap-2",
+                "border-b",
+                "border-border",
+                "bg-muted/40",
+                "px-3",
+                "py-2",
+              ],
+            },
+            [
+              h(
+                "span",
+                {
+                  className: [
+                    "code-block-filename",
+                    "min-w-0",
+                    "flex-1",
+                    "break-all",
+                    "font-mono",
+                    "text-xs",
+                    "text-muted-foreground",
+                  ],
+                },
+                label,
+              ),
+              ...(filename && language
+                ? [
+                    h(
+                      "span",
+                      { className: ["font-mono", "text-xs", "text-muted-foreground"] },
+                      language,
+                    ),
+                  ]
+                : []),
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: codeBlockCopyClass.split(/\s+/),
+                  "data-wrap-button": "true",
+                  "aria-label": "Wrap code",
+                  "aria-pressed": "false",
+                },
+                "Wrap",
+              ),
+              h(
+                "button",
+                {
+                  type: "button",
+                  className: codeBlockCopyClass.split(/\s+/),
+                  "data-copy-button": "true",
+                  "aria-label": "Copy code",
+                },
+                "Copy",
+              ),
+            ],
+          ),
+          h(
+            "div",
+            {
+              className: ["code-block-content"],
+              "data-collapsed": collapsible ? "true" : "false",
+              tabIndex: 0,
+              role: "region",
+              "aria-label": `${label} code`,
+            },
+            [node],
+          ),
+          ...(collapsible
+            ? [
+                h(
+                  "button",
+                  {
+                    type: "button",
+                    className: [
+                      "code-block-expand",
+                      "w-full",
+                      "border-t",
+                      "border-border",
+                      "bg-muted/40",
+                      "py-2",
+                      "text-xs",
+                      "text-foreground",
+                      "hover:bg-muted",
+                      "focus-visible:outline-2",
+                      "focus-visible:outline-ring",
+                    ],
+                    "data-expand-button": "true",
+                    "aria-expanded": "false",
+                  },
+                  "Show full code",
+                ),
+              ]
+            : []),
         ].filter(Boolean),
       );
 

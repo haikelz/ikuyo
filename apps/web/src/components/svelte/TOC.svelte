@@ -1,55 +1,49 @@
 <script lang="ts">
-  import { buildHierarchy } from "@/helpers/hierarchy";
-  import type { HeadingTocProps } from "@/types";
-  import {
-    Button,
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-  } from "@ikuyo/ui";
-  import { List, X } from "lucide-svelte";
-  import { onMount } from "svelte";
-  import TOCHeading from "./TOCHeading.svelte";
+import { buildHierarchy } from "@/helpers/hierarchy";
+import type { HeadingTocProps } from "@/types";
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle } from "@ikuyo/ui";
+import { List, X } from "lucide-svelte";
+import { onMount } from "svelte";
+import TOCHeading from "./TOCHeading.svelte";
 
-  let { headings }: { headings: HeadingTocProps[] } = $props();
-  let isOpen = $state(false);
-  let activeSlug = $state("");
+let { headings }: { headings: HeadingTocProps[] } = $props();
+let isOpen = $state(false);
+let activeSlug = $state("");
 
-  onMount(() => {
-    const sections = headings.map((heading) => document.getElementById(heading.slug)).filter((element): element is HTMLElement => element !== null);
-    let frame = 0;
-    function update() {
-      frame = 0;
-      let current = sections[0];
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= 128) current = section;
-      }
-      activeSlug = current?.id ?? "";
+onMount(() => {
+  const sections = headings
+    .map((heading) => document.getElementById(heading.slug))
+    .filter((element): element is HTMLElement => element !== null);
+  let frame = 0;
+  function update() {
+    frame = 0;
+    let current = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 128) current = section;
     }
-    function schedule() {
-      if (!frame) frame = requestAnimationFrame(update);
-    }
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-    };
-  });
-
-  const rootDepth = $derived(
-    headings?.length
-      ? Math.min(...headings.map((heading) => heading.depth))
-      : 2,
-  );
-  const toc = $derived(buildHierarchy(headings, rootDepth));
-
-  function toggleTOC() {
-    isOpen = !isOpen;
+    activeSlug = current?.id ?? "";
   }
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+  update();
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  return () => {
+    cancelAnimationFrame(frame);
+    window.removeEventListener("scroll", schedule);
+    window.removeEventListener("resize", schedule);
+  };
+});
+
+const rootDepth = $derived(
+  headings?.length ? Math.min(...headings.map((heading) => heading.depth)) : 2,
+);
+const toc = $derived(buildHierarchy(headings, rootDepth));
+
+function toggleTOC() {
+  isOpen = !isOpen;
+}
 </script>
 
 <nav

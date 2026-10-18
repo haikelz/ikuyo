@@ -1,18 +1,48 @@
 <script lang="ts">
 import {
-  badgeVariants, Dialog, DialogContent, DialogDescription, DialogHeader,
-  DialogTitle, DialogTrigger, Select, SelectContent, SelectItem, SelectTrigger,
+  badgeVariants,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
 } from "@ikuyo/ui";
 import { onMount } from "svelte";
 
 const jobPreferences = [
-  "Fullstack Developer", "Backend Developer", "Frontend Developer",
-  "Devops Engineer", "Software Engineer", "AI Engineer",
+  "Fullstack Developer",
+  "Backend Developer",
+  "Frontend Developer",
+  "Devops Engineer",
+  "Software Engineer",
+  "AI Engineer",
 ];
 const techStack = [
-  "Next JS", "Javascript", "Typescript", "Golang", "Echo", "Fiber", "Gorm",
-  "PostgreSQL", "MySQL", "Node JS", "Express JS", "Nest JS", "Hono JS",
-  "Astro", "Svelte", "React", "CI/CD", "Docker", "Linux", "Kubernetes",
+  "Next JS",
+  "Javascript",
+  "Typescript",
+  "Golang",
+  "Echo",
+  "Fiber",
+  "Gorm",
+  "PostgreSQL",
+  "MySQL",
+  "Node JS",
+  "Express JS",
+  "Nest JS",
+  "Hono JS",
+  "Astro",
+  "Svelte",
+  "React",
+  "CI/CD",
+  "Docker",
+  "Linux",
+  "Kubernetes",
 ];
 
 type ContributionDay = {

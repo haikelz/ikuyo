@@ -35,9 +35,7 @@ const experiencesPages = Object.fromEntries(
     .map(({ id, data }) => [`experiences/${id}`, { title: data.company }]),
 );
 
-const tagsPages = Object.fromEntries(
-  uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]),
-);
+const tagsPages = Object.fromEntries(uniqueTags.map((tag) => [`tags/${tag}`, { title: tag }]));
 
 const pages = {
   ...staticPages,
