@@ -12,9 +12,24 @@ const [notesList, worksList, experienceList] = await Promise.all([
 ]);
 
 const experiences = experienceList.sort((a, b) => a.data.order - b.data.order);
-const featuredWorks = worksList
-  .filter((work) => work.data.category === "company")
-  .sort((a, b) => a.data.id - b.data.id);
+const featuredProjectGroups = [
+  {
+    title: "Company Projects",
+    testId: "featured-works",
+    projects: worksList
+      .filter((work) => work.data.category === "company")
+      .sort((a, b) => a.data.id - b.data.id)
+      .slice(0, 3),
+  },
+  {
+    title: "Personal Projects",
+    testId: "featured-personal-works",
+    projects: worksList
+      .filter((work) => work.data.category === "personal")
+      .sort((a, b) => a.data.id - b.data.id)
+      .slice(0, 3),
+  },
+];
 const latestNotes = notesList
   .sort((a, b) => new Date(b.data.created_at).getTime() - new Date(a.data.created_at).getTime())
   .slice(0, 4);
@@ -150,35 +165,30 @@ const latestNotes = notesList
       </div>
     </section>
 
-    <section data-cy="featured-works" class="mt-16 sm:mt-24 w-full">
-      <div class="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <p
-            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
-          >
-            Selected projects
-          </p>
-          <h2
-            class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-          >
-            Company Projects
-          </h2>
-        </div>
-        <a
-          href="/works"
-          class="shrink-0 text-sm text-muted-foreground hover:text-foreground"
-        >
-          View all <span aria-hidden="true">→</span>
-        </a>
-      </div>
-      <div class="border-b border-border/70">
-        {
-          featuredWorks.map((item) => (
-            <WorkRow item={item} testId="featured-work" />
-          ))
-        }
-      </div>
-    </section>
+    {
+      featuredProjectGroups.map((group) => (
+        <section data-cy={group.testId} class="mt-16 sm:mt-24 w-full">
+          <div class="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                Selected projects
+              </p>
+              <h2 class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+                {group.title}
+              </h2>
+            </div>
+            <a href="/works" class="shrink-0 text-sm text-muted-foreground hover:text-foreground">
+              View all <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="border-b border-border/70">
+            {group.projects.map((item) => (
+              <WorkRow item={item} testId="featured-work" />
+            ))}
+          </div>
+        </section>
+      ))
+    }
     <section data-cy="featured-notes" class="mt-16 sm:mt-24 mb-0 w-full">
       <div class="mb-8 flex items-end justify-between gap-4">
         <div>

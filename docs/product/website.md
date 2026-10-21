@@ -52,7 +52,8 @@
 
 - Work records use the `company` or `personal` category; existing records
   default to personal.
-- The homepage shows company projects with a link to the complete Works page.
+- The homepage previews the first three company projects and the first three
+  personal projects in Works order, with links to their details and `/works`.
 - `/works` lists all company projects first, followed by personal projects.
 - Every project card shows its supplied thumbnail or a generated title image.
 
