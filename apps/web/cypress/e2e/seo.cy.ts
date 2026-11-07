@@ -34,6 +34,24 @@ describe("SEO metadata", () => {
       .should("match", /^https:\/\/ekel\.dev\/notes\//);
   });
 
+  it("publishes an installable web app manifest", () => {
+    cy.visit("/");
+    cy.get('link[rel="apple-touch-icon"]').should("have.attr", "href", "/icon-192.png");
+    cy.get('link[rel="manifest"]')
+      .invoke("attr", "href")
+      .then((href) => cy.request(String(href)))
+      .its("body")
+      .then((body) => {
+        const manifest = typeof body === "string" ? JSON.parse(body) : body;
+        expect(manifest).to.include({ start_url: "/", display: "standalone" });
+        const sizes = manifest.icons.map((icon: { sizes: string }) => icon.sizes);
+        expect(sizes).to.include.members(["192x192", "512x512"]);
+        for (const icon of manifest.icons) {
+          cy.request(icon.src).its("headers.content-type").should("eq", "image/png");
+        }
+      });
+  });
+
   it("prevents error pages from being indexed", () => {
     cy.visit({ url: "/404", failOnStatusCode: false });
     cy.get('meta[name="robots"]').should("have.attr", "content", "noindex, nofollow");

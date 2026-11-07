@@ -34,6 +34,14 @@
 - GitHub Actions and Wrangler own static asset deployments; the workflow remains
   manual until its first production deployment is verified.
 
+## Installable app
+
+- Every public HTML route links a web app manifest, so Chromium browsers can
+  install the site as a standalone app and iOS can add it to the home screen.
+- App icons reuse the favicon's は glyph; the maskable icon keeps it inside the
+  safe zone.
+- The site registers no service worker; pages always load from the network.
+
 ## Homepage activity contract
 
 - The homepage presents Haikel's public GitHub contribution calendar in place
