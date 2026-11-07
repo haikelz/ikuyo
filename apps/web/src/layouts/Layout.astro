@@ -65,7 +65,12 @@ const personSchema = {
 };
 
 const pageSchema = {
-  "@type": seoType === "profile" ? "ProfilePage" : seoType === "article" ? "Article" : "WebPage",
+  "@type":
+    seoType === "profile"
+      ? "ProfilePage"
+      : seoType === "article" && publishedTime
+        ? "Article"
+        : "WebPage",
   "@id": `${canonicalUrl.href}#page`,
   url: canonicalUrl.href,
   name: pageTitle,
