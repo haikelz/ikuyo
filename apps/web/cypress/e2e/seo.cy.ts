@@ -31,7 +31,7 @@ describe("SEO metadata", () => {
     cy.get('meta[property="article:published_time"]').should("have.attr", "content");
     cy.get('link[rel="canonical"]')
       .invoke("attr", "href")
-      .should("match", /^https:\/\/ekel\.dev\/notes\//);
+      .should("match", /^https:\/\/ekel\.dev\/notes\/[^/]+\/$/);
   });
 
   it("points crawlers at the generated sitemap index", () => {

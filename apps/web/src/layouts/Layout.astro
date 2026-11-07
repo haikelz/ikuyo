@@ -37,6 +37,8 @@ const {
 const currentPath = Astro.url.pathname;
 const siteUrl = Astro.site ?? new URL("https://ekel.dev");
 const canonicalUrl = new URL(url || currentPath, siteUrl);
+// Pages are served as directories; the slashless form answers with a 308.
+if (!noindex && !canonicalUrl.pathname.endsWith("/")) canonicalUrl.pathname += "/";
 const resolvedOgImage = new URL(`/og/${ogImage ?? "home.png"}`, siteUrl);
 const pageTitle = currentPath === "/" ? title : `${title} — Haikel Ilham Hakim`;
 const robots = noindex
