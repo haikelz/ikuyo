@@ -34,6 +34,14 @@ describe("SEO metadata", () => {
       .should("match", /^https:\/\/ekel\.dev\/notes\//);
   });
 
+  it("points crawlers at the generated sitemap index", () => {
+    cy.request("/robots.txt")
+      .its("body")
+      .should("contain", "Sitemap: https://ekel.dev/sitemap-index.xml");
+    cy.visit("/");
+    cy.get('link[rel="sitemap"]').should("have.attr", "href", "/sitemap-index.xml");
+  });
+
   it("publishes an installable web app manifest", () => {
     cy.visit("/");
     cy.get('link[rel="apple-touch-icon"]').should("have.attr", "href", "/icon-192.png");
