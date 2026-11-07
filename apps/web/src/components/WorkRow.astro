@@ -26,7 +26,7 @@ const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
   <div>
     <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
       <a
-        href={`/works/${item.id}`}
+        href={`/works/${item.id}/`}
         class="no-underline! transition-colors hover:text-muted-foreground"
       >
         {item.data.title}
@@ -46,7 +46,7 @@ const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
     }
   </div>
   <a
-    href={`/works/${item.id}`}
+    href={`/works/${item.id}/`}
     aria-label={`View ${item.data.title}`}
     class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
   >

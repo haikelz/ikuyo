@@ -19,7 +19,7 @@ describe("Experience pages", () => {
   it("shows every authored highlight on the homepage", () => {
     cy.visit("/");
 
-    cy.get('a[data-cy="experience-link"][href="/experiences/undisclosed-1"]')
+    cy.get('a[data-cy="experience-link"][href="/experiences/undisclosed-1/"]')
       .closest("article")
       .find('[data-cy="experience-highlight"]')
       .should("have.length", 4);

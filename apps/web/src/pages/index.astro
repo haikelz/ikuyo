@@ -121,7 +121,7 @@ const latestNotes = notesList
                       ) : (
                         <a
                           data-cy="experience-link"
-                          href={`/experiences/${experience.id}`}
+                          href={`/experiences/${experience.id}/`}
                           class="text-foreground no-underline! hover:text-muted-foreground transition-colors"
                         >
                           {experience.data.company}
@@ -152,7 +152,7 @@ const latestNotes = notesList
                 </ul>
                 {experience.data.hasDetail === false ? null : (
                   <a
-                    href={`/experiences/${experience.id}`}
+                    href={`/experiences/${experience.id}/`}
                     class="mt-6 inline-flex min-h-8 items-center text-sm font-semibold text-foreground decoration-border transition-colors hover:text-muted-foreground"
                   >
                     Read Case Study <span aria-hidden="true">&nbsp;→</span>
@@ -177,7 +177,7 @@ const latestNotes = notesList
                 {group.title}
               </h2>
             </div>
-            <a href="/works" class="shrink-0 text-sm text-muted-foreground hover:text-foreground">
+            <a href="/works/" class="shrink-0 text-sm text-muted-foreground hover:text-foreground">
               View all <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -204,7 +204,7 @@ const latestNotes = notesList
           </h2>
         </div>
         <a
-          href="/notes"
+          href="/notes/"
           class="shrink-0 text-sm text-muted-foreground hover:text-foreground"
         >
           View all <span aria-hidden="true">→</span>
@@ -223,7 +223,7 @@ const latestNotes = notesList
               <div>
                 <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
                   <a
-                    href={`/notes/${item.id}`}
+                    href={`/notes/${item.id}/`}
                     class="no-underline! hover:text-muted-foreground transition-colors"
                   >
                     {item.data.title}
@@ -234,7 +234,7 @@ const latestNotes = notesList
                 </p>
               </div>
               <a
-                href={`/notes/${item.id}`}
+                href={`/notes/${item.id}/`}
                 aria-label={`Read ${item.data.title}`}
                 class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
               >

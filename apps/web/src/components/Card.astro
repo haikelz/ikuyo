@@ -27,7 +27,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
           </span>
         ) : null}
         <a
-          href={`/notes/${slug}`}
+          href={`/notes/${slug}/`}
           class:list={["mt-3 block cursor-pointer no-underline!"]}
         >
           <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-semibold tracking-tight text-card-foreground transition-colors group-hover:text-primary">
@@ -41,7 +41,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
           {tags.map((item) => (
             <a
               class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              href={`/tags/${item}`}
+              href={`/tags/${item}/`}
             >
               <span>#{item}</span>
             </a>
@@ -61,7 +61,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
           Project
         </p>
         <a
-          href={`/works/${slug}`}
+          href={`/works/${slug}/`}
           class:list={["cursor-pointer block", "no-underline!"]}
         >
           <h3 class="mb-0 mt-0 line-clamp-2 text-2xl font-semibold tracking-tight text-card-foreground transition-colors group-hover:text-primary">
@@ -75,7 +75,7 @@ const { title, description, slug, createdAt, type, tags } = Astro.props;
           {tags.map((item) => (
             <a
               class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              href={`/tags/${item}`}
+              href={`/tags/${item}/`}
             >
               <span>#{item}</span>
             </a>

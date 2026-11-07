@@ -49,7 +49,7 @@ const notesList = await getCollection("notes");
                 <div>
                   <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
                     <a
-                      href={`/notes/${item.id}`}
+                      href={`/notes/${item.id}/`}
                       class="no-underline! transition-colors hover:text-muted-foreground"
                     >
                       {item.data.title}
@@ -63,7 +63,7 @@ const notesList = await getCollection("notes");
                   </p>
                 </div>
                 <a
-                  href={`/notes/${item.id}`}
+                  href={`/notes/${item.id}/`}
                   aria-label={`Read ${item.data.title}`}
                   class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
                 >

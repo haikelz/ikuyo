@@ -56,7 +56,7 @@ describe("Project classification", () => {
           .should("contain", title)
           .and("not.contain", excluded)
           .within(() => {
-            cy.get('a[href="/works"]').should("contain", "View all");
+            cy.get('a[href="/works/"]').should("contain", "View all");
             cy.get('[data-cy="featured-work"]')
               .should("have.length", 3)
               .each(($project) => {

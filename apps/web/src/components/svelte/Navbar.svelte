@@ -119,7 +119,7 @@ onMount(() => {
       {#each navList as item}
         <a
           data-cy={`${item.path.slice(1)}-btn`}
-          href={item.path}
+          href={`${item.path}/`}
           aria-label={item.label}
           aria-current={currentPath.includes(item.path) ? "page" : undefined}
           class={cn(
@@ -180,7 +180,7 @@ onMount(() => {
             {@const active = currentPath.includes(item.path)}
             <a
               data-cy={`${item.path.slice(1)}-btn`}
-              href={item.path}
+              href={`${item.path}/`}
               aria-current={active ? "page" : undefined}
               class={cn(
                 "flex min-h-12 items-center gap-3 rounded-md px-3 py-2.5 text-base font-medium no-underline transition-colors",
