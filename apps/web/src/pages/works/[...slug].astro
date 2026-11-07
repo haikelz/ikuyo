@@ -19,6 +19,8 @@ const { item } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(item);
 
 const slug = sanitizeSlug(item.id);
+// Tag pages exist only for note tags; other stack items stay plain text.
+const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.data.tags));
 ---
 
 <ReadingIndicator client:only="svelte" />
@@ -84,14 +86,18 @@ const slug = sanitizeSlug(item.id);
           </p>
           <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
             {
-              item.data.stack.map((tag) => (
-                <a
-                  href={`/tags/${tag}/`}
-                  class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  #{tag}
-                </a>
-              ))
+              item.data.stack.map((tag) =>
+                noteTags.has(tag) ? (
+                  <a
+                    href={`/tags/${tag}/`}
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    #{tag}
+                  </a>
+                ) : (
+                  <span class="text-xs text-muted-foreground">#{tag}</span>
+                ),
+              )
             }
           </div>
         </div>
