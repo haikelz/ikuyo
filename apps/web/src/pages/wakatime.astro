@@ -5,16 +5,23 @@ import { api } from "@/configs/ky";
 import Layout from "@/layouts/Layout.astro";
 import type { WakatimeStatsProps } from "@/types";
 import { BACKEND_API_URL } from "@/utils/env";
+import { Alert, AlertDescription, AlertTitle } from "@ikuyo/ui";
+import { AlertTriangle } from "lucide-svelte";
 
 async function fetchStats(range?: string): Promise<WakatimeStatsProps> {
   const url = range
     ? `${BACKEND_API_URL}/api/v1/wakatime/stats?range=${range}`
     : `${BACKEND_API_URL}/api/v1/wakatime/stats`;
-  const response = await api.get(url).json<{ data: WakatimeStatsProps }>();
+  // Cold all-time stats can take several seconds while WakaTime recalculates them.
+  const response = await api.get(url, { timeout: 30_000 }).json<{ data: WakatimeStatsProps }>();
   return response.data;
 }
 
-const [allTime, weekly] = await Promise.all([fetchStats(), fetchStats("last_7_days")]);
+// A backend outage must not fail the whole static build; the page says so instead.
+const stats = await Promise.all([fetchStats(), fetchStats("last_7_days")]).catch((error) => {
+  console.warn(`[wakatime] stats unavailable at build: ${error}`);
+  return null;
+});
 ---
 
 <Layout
@@ -28,7 +35,20 @@ const [allTime, weekly] = await Promise.all([fetchStats(), fetchStats("last_7_da
       Coding activity and statistics.
     </PageHeader>
     <section class="w-full mt-10 sm:mt-16">
-      <WakatimeStats client:only="svelte" allTime={allTime} weekly={weekly} />
+      {
+        stats ? (
+          <WakatimeStats client:only="svelte" allTime={stats[0]} weekly={stats[1]} />
+        ) : (
+          <Alert role="status" variant="warning" class="rounded-md">
+            <AlertTriangle class="size-4" />
+            <AlertTitle>Coding stats are unavailable</AlertTitle>
+            <AlertDescription>
+              The stats service did not respond when this page was built. They return with the
+              next deploy.
+            </AlertDescription>
+          </Alert>
+        )
+      }
     </section>
   </div>
 </Layout>
