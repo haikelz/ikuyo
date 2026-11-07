@@ -29,11 +29,20 @@ export async function getStaticPaths() {
 }
 
 const currentPath = Astro.url.pathname.split("/")[2];
+const taggedNotes = notes
+  .filter((item) => item.data.tags.includes(currentPath))
+  .sort((a, b) => new Date(b.data.created_at).getTime() - new Date(a.data.created_at).getTime());
+// Unique per tag: name its notes, cut near the 160-character search snippet.
+const fullDescription = `Notes by Haikel Ilham Hakim tagged ${currentPath}: ${taggedNotes.map((item) => item.data.title).join(", ")}.`;
+const description =
+  fullDescription.length <= 160
+    ? fullDescription
+    : `${fullDescription.slice(0, 159).replace(/[\s,]+\S*$/, "")}…`;
 ---
 
 <Layout
   title={`Notes with tag ${currentPath}`}
-  description="Notes with tag"
+  description={description}
   url={`https://ekel.dev/tags/${currentPath}`}
   ogImage={`tags/${currentPath}.png`}
 >
@@ -46,14 +55,7 @@ const currentPath = Astro.url.pathname.split("/")[2];
       <h2 class="sr-only">Notes tagged with {currentPath}</h2>
       <div class="w-full border-b border-border/70">
         {
-          notes
-            .filter((item) => item.data.tags.includes(currentPath))
-            .sort(
-              (a, b) =>
-                new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
-            )
-            .map((item) => (
+          taggedNotes.map((item) => (
               <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
                 <time
                   datetime={item.data.created_at.toISOString()}
