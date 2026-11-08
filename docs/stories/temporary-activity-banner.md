@@ -22,9 +22,9 @@ closes the homepage card.
 
 - The `#opentowork` badge sits above the intro paragraph and still opens the
   job preferences dialog by keyboard and pointer.
-- The banner is cropped to the characters (650x195) and sits centred, resting
-  on the card's inner bottom edge from 768px. Below
-  768px, where the page frame is removed, it ends the page content.
+- The banner is cropped to the characters (650x195). From 768px it sits
+  right-aligned at up to 320px wide, resting on the card's inner bottom edge.
+  Below 768px, where the page frame is removed, it is hidden.
 - No page-level horizontal overflow at 375, 768, or 1280px.
 - `GitHubContributionGraph` keeps working with the shared `OpenToWorkBadge`,
   so the calendar can return without rebuilding the badge.
@@ -78,3 +78,7 @@ None.
 - Owner follow-up: the banner displays at medium width (`max-w-md`, 448px).
   Measured render: 448x134 at 768 and 1280px, 337x101 at 375px. The spec
   passed again, 2 passed and 6 skipped.
+- Owner follow-up: the owner hid the banner below 768px and right-aligned it
+  at `max-w-xs`; the layout test now expects it hidden on mobile and aligned
+  with the intro's right edge. github-contributions 2 passed and 6 skipped,
+  collection-lists 8/8 with the new gtcd ImageKit thumbnail.
