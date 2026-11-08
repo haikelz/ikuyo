@@ -55,6 +55,11 @@
   an honest fallback state.
 - The calendar scrolls within its own region at narrow widths without causing
   page-level horizontal overflow.
+- Temporary: the calendar is off the homepage. The `#opentowork` badge sits at
+  the top of the intro, and `/images/banner.png`, cropped to the characters,
+  sits centred on the card's bottom edge from 768px and ends the page below
+  that. To restore, render `GitHubContributionGraph`
+  (which includes the badge) in place of `OpenToWorkBadge` and drop the banner.
 
 ## Works contract
 

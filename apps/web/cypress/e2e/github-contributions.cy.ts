@@ -22,7 +22,50 @@ function interceptContributions(response: unknown = contributionResponse) {
 }
 
 describe("Homepage GitHub contributions", () => {
-  it("shows a calendar skeleton while contribution data loads", () => {
+  // Calendar-only tests below are skipped while the homepage shows the temporary banner
+  // instead of the calendar; un-skip them when the calendar returns.
+  it("puts the open-to-work badge above the intro and the banner at the card's bottom", () => {
+    cy.visit("/");
+    // Instant scrolling so screenshots capture the scrolled position.
+    cy.get("html").invoke("css", "scroll-behavior", "auto");
+    cy.get('[data-cy="github-contributions"]').should("not.exist");
+
+    for (const width of [375, 768, 1280]) {
+      cy.viewport(width, 900);
+      cy.scrollTo("top");
+      cy.get('[data-cy="open-to-work-badge"]')
+        .should("be.visible")
+        .then(($badge) => {
+          cy.contains("p", "a Product Engineer").then(($intro) => {
+            const badge = $badge[0].getBoundingClientRect();
+            expect(badge.bottom).to.be.at.most($intro[0].getBoundingClientRect().top);
+          });
+        });
+      cy.screenshot(`home-badge-${width}`, { capture: "viewport" });
+      cy.get('[data-cy="home-banner"]')
+        .scrollIntoView()
+        .should("be.visible")
+        .and(($banner) => {
+          const banner = $banner[0] as HTMLImageElement;
+          const rect = banner.getBoundingClientRect();
+          expect(banner.naturalWidth).to.be.greaterThan(0);
+          expect(rect.right).to.be.at.most(width);
+          if (width >= 768) {
+            // The card keeps its frame from 768px; the banner rests on its inner bottom edge.
+            const panel = banner.closest('[data-cy="page-frame-panel"]')!.getBoundingClientRect();
+            expect(panel.bottom - 1 - rect.bottom).to.be.closeTo(0, 1);
+            const panelCenter = (panel.left + panel.right) / 2;
+            expect((rect.left + rect.right) / 2).to.be.closeTo(panelCenter, 1);
+          }
+        });
+      cy.document().then((document) => {
+        expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
+      });
+      cy.screenshot(`home-banner-${width}`, { capture: "viewport" });
+    }
+  });
+
+  it.skip("shows a calendar skeleton while contribution data loads", () => {
     cy.intercept("GET", "https://github-contributions-api.jogruber.de/v4/haikelz?y=all", {
       statusCode: 200,
       body: contributionResponse,
@@ -46,7 +89,7 @@ describe("Homepage GitHub contributions", () => {
     cy.get('[data-cy="contribution-loading"]').should("not.exist");
   });
 
-  it("replaces the hero statement with the parsed contribution calendar", () => {
+  it.skip("replaces the hero statement with the parsed contribution calendar", () => {
     interceptContributions();
     cy.viewport(1280, 900);
 
@@ -78,7 +121,7 @@ describe("Homepage GitHub contributions", () => {
     cy.screenshot("github-activity/home-desktop-tooltip", { capture: "viewport" });
   });
 
-  it("switches the calendar data by year", () => {
+  it.skip("switches the calendar data by year", () => {
     interceptContributions();
 
     cy.visit("/");
@@ -91,7 +134,7 @@ describe("Homepage GitHub contributions", () => {
     cy.get('[data-cy="contribution-tooltip"]').should("contain.text", "2025");
   });
 
-  it("aligns the year select with the open-to-work badge", () => {
+  it.skip("aligns the year select with the open-to-work badge", () => {
     interceptContributions();
 
     cy.visit("/");
@@ -107,7 +150,7 @@ describe("Homepage GitHub contributions", () => {
       .should("be.visible");
   });
 
-  it("contains horizontal graph overflow without overflowing the mobile page", () => {
+  it.skip("contains horizontal graph overflow without overflowing the mobile page", () => {
     interceptContributions();
     cy.viewport(375, 812);
 
@@ -123,7 +166,7 @@ describe("Homepage GitHub contributions", () => {
     cy.screenshot("github-activity/home-mobile", { capture: "viewport" });
   });
 
-  it("shows an unavailable state for an invalid provider response", () => {
+  it.skip("shows an unavailable state for an invalid provider response", () => {
     interceptContributions({ total: { "2026": 42 }, contributions: "invalid" });
 
     cy.visit("/");
@@ -134,9 +177,9 @@ describe("Homepage GitHub contributions", () => {
   });
 
   it("opens job preferences with keyboard even when activity is unavailable", () => {
-    interceptContributions({ contributions: "invalid" });
     cy.visit("/");
-    cy.wait("@contributions");
+    // Astro drops the ssr attribute once the badge island has hydrated.
+    cy.get('astro-island[component-url*="OpenToWorkBadge"]').should("not.have.attr", "ssr");
     cy.get('[data-cy="open-to-work-badge"]').focus().type("{enter}");
     cy.get('[role="dialog"]')
       .should("be.visible")
