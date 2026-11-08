@@ -42,22 +42,27 @@ describe("Homepage GitHub contributions", () => {
           });
         });
       cy.screenshot(`home-badge-${width}`, { capture: "viewport" });
-      cy.get('[data-cy="home-banner"]')
-        .scrollIntoView()
-        .should("be.visible")
-        .and(($banner) => {
-          const banner = $banner[0] as HTMLImageElement;
-          const rect = banner.getBoundingClientRect();
-          expect(banner.naturalWidth).to.be.greaterThan(0);
-          expect(rect.right).to.be.at.most(width);
-          if (width >= 768) {
-            // The card keeps its frame from 768px; the banner rests on its inner bottom edge.
+      if (width < 768) {
+        // Below 768px there is no card frame, so the banner stays hidden.
+        cy.get('[data-cy="home-banner"]').should("not.be.visible");
+      } else {
+        cy.get('[data-cy="home-banner"]')
+          .scrollIntoView()
+          .should("be.visible")
+          .and(($banner) => {
+            const banner = $banner[0] as HTMLImageElement;
+            const rect = banner.getBoundingClientRect();
             const panel = banner.closest('[data-cy="page-frame-panel"]')!.getBoundingClientRect();
+            const intro = Array.from(banner.ownerDocument.querySelectorAll("p")).find((p) =>
+              p.textContent?.includes("a Product Engineer"),
+            )!;
+            expect(banner.naturalWidth).to.be.greaterThan(0);
+            expect(rect.width).to.be.at.most(320);
+            // Right-aligned with the content and resting on the card's inner bottom edge.
+            expect(rect.right).to.be.closeTo(intro.getBoundingClientRect().right, 1);
             expect(panel.bottom - 1 - rect.bottom).to.be.closeTo(0, 1);
-            const panelCenter = (panel.left + panel.right) / 2;
-            expect((rect.left + rect.right) / 2).to.be.closeTo(panelCenter, 1);
-          }
-        });
+          });
+      }
       cy.document().then((document) => {
         expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
       });

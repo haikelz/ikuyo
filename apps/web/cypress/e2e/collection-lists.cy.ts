@@ -105,7 +105,11 @@ describe("Project classification", () => {
       .closest('[data-cy="work-row"]')
       .find("img")
       .scrollIntoView()
-      .should("have.attr", "src", "/og/works/gtcd.png")
+      .should(
+        "have.attr",
+        "src",
+        "https://ik.imagekit.io/haikelz/works/gtcd/og.png?updatedAt=1794009783507",
+      )
       .and(($image) => expect(($image[0] as HTMLImageElement).naturalWidth).to.be.greaterThan(0));
   });
 });
