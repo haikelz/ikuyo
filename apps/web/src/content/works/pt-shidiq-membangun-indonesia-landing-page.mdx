@@ -1,0 +1,37 @@
+---
+id: 1
+author: Haikel
+title: PT Shidiq Membangun Indonesia Landing Page
+category: company
+thumbnail: https://ik.imagekit.io/haikelz/works/pt-shidiq-membangun-indonesia-company-profile/og-default.png
+stack:
+  - Astro
+  - React
+  - Tailwind CSS
+  - Directus
+  - PostgreSQL
+  - Go
+  - Docker
+  - GitHub Actions
+preview: https://shidiqcorp.id
+description: "The bilingual company website of PT Shidiq Membangun Indonesia, moved from WordPress to Astro, with a Directus CMS that redeploys the site after every edit."
+---
+
+## About the project
+
+[Shidiq Corporation](https://shidiqcorp.id/) is the company website of PT Shidiq Membangun Indonesia. It presents the company's products, solutions, industries, insights, and portfolio, with Indonesian as the default language and English under `/en/`. The previous site ran on WordPress. I ported the new design into code and rebuilt the site as a static Astro site whose content the company's admins manage in Directus.
+
+## My responsibilities
+
+- Ported the new design into Astro pages with React islands and Tailwind CSS, in Indonesian and English.
+- Migrated the site from WordPress to a static Astro build that fetches insights, portfolio projects, and contact data from Directus at build time and validates them with Zod.
+- Set up Directus 11 on PostgreSQL 16 as the CMS, chosen over Strapi for its simpler editor and flat API responses, with a seed script that creates the collections and is safe to rerun.
+- Connected publishing to deployment: when an admin creates, edits, or deletes a blog post, product, portfolio project, or contact detail, a Directus Flow sends a GitHub `repository_dispatch`. GitHub Actions then type-checks and builds the site, pushes a Docker image to GHCR, and deploys it through the Dokploy API.
+- Served the built site from a small Go file server on a VPS behind Cloudflare.
+- Generated a 1200×630 social image for every page with Satori and sharp, and added a build-time SEO check that fails on missing canonicals, sitemap gaps, missing social images, or broken internal links.
+
+Admins now publish a post or add a project in Directus, and the live site updates without a developer in the loop.
+
+## Stack
+
+Astro, React, Tailwind CSS, Directus, PostgreSQL, Go, Docker, and GitHub Actions.
