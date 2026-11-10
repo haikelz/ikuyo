@@ -10,7 +10,7 @@ normal
 
 ## Product Contract
 
-The homepage previews the first three company and personal projects in the same order as the complete Works page, with a path to each project and the full list.
+The homepage lists every company project and previews the first three personal projects in the same order as the complete Works page, with a path to each project and the full list.
 
 ## Relevant Product Docs
 
@@ -19,7 +19,7 @@ The homepage previews the first three company and personal projects in the same 
 
 ## Acceptance Criteria
 
-- The homepage presents separate Company Projects and Personal Projects sections with at most three collection-backed projects each.
+- The homepage presents separate Company Projects and Personal Projects sections: every company project, and at most three personal projects.
 - Both sections use the existing WorkRow presentation, thumbnails, project detail links, and a View all link to `/works`.
 - `/works` continues to show all projects grouped by category.
 - The new section is readable without horizontal overflow at mobile, tablet, and desktop widths.
@@ -52,3 +52,6 @@ No Harness policy changes. Existing backlog #1 tracks guestbook API availability
 - `bunx cypress run --spec cypress/e2e/collection-lists.cy.ts` (from `apps/web`) — 6 passed, 2 failed. Both Project classification tests passed, including a click from the personal preview into its detail page; the failures are unrelated guestbook-row assertions at 375px and 1280px without a local guestbook API.
 - Rendered homepage inspected at 375px, 768px, and 1280px in dark mode, plus 1280px in light mode. All six rows and thumbnails were visible without horizontal overflow; screenshots are under `.amp/in/artifacts/home-personal-*.png` and `.amp/in/artifacts/home-projects-*.png`.
 - ReUI C1–C4 scans had no findings; the Impeccable detector returned `[]`.
+- Owner follow-up: the homepage now lists every company project; personal
+  projects keep a three-item preview. The collection-lists homepage test checks
+  each group against its Works order with its own limit.
