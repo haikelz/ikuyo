@@ -23,7 +23,7 @@ describe("Editorial collection lists", () => {
 });
 
 describe("Project classification", () => {
-  it("previews the first three projects in each Works category on the homepage", () => {
+  it("lists every company project and previews three personal projects on the homepage", () => {
     cy.visit("/works");
     cy.document().then((document) => {
       const previews = [
@@ -32,12 +32,14 @@ describe("Project classification", () => {
           featured: "featured-works",
           title: "Company Projects",
           excluded: "gtcd",
+          limit: undefined,
         },
         {
           works: "personal-projects",
           featured: "featured-personal-works",
           title: "Personal Projects",
           excluded: "AhsanXpress",
+          limit: 3,
         },
       ].map((category) => ({
         ...category,
@@ -46,7 +48,7 @@ describe("Project classification", () => {
             `[data-cy="${category.works}"] [data-cy="work-row"] h3 a`,
           ),
         )
-          .slice(0, 3)
+          .slice(0, category.limit)
           .map((link) => link.getAttribute("href")),
       }));
 
@@ -58,7 +60,7 @@ describe("Project classification", () => {
           .within(() => {
             cy.get('a[href="/works/"]').should("contain", "View all");
             cy.get('[data-cy="featured-work"]')
-              .should("have.length", 3)
+              .should("have.length", hrefs.length)
               .each(($project) => {
                 cy.wrap($project).find("img").should("have.attr", "alt");
               });

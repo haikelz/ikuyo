@@ -18,8 +18,7 @@ const featuredProjectGroups = [
     testId: "featured-works",
     projects: worksList
       .filter((work) => work.data.category === "company")
-      .sort((a, b) => a.data.id - b.data.id)
-      .slice(0, 3),
+      .sort((a, b) => a.data.id - b.data.id),
   },
   {
     title: "Personal Projects",
