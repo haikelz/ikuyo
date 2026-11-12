@@ -39,6 +39,12 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./src/components/ui/dialog";
+export {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./src/components/ui/dropdown-menu";
 export { Input } from "./src/components/ui/input";
 export {
   Frame,
