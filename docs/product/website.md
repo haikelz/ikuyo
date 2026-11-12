@@ -52,6 +52,10 @@
 
 ## Homepage activity contract
 
+- The intro shows the owner's GitHub profile picture above the description on
+  phones and to its right from `sm`, separated by a 24px or 40px gap; the
+  description is left-aligned on phones and justified from `sm`.
+
 - The homepage presents Haikel's public GitHub contribution calendar in place
   of the former hero statement.
 - Contribution data loads after hydration so provider downtime cannot block a

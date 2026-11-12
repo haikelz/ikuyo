@@ -46,40 +46,50 @@ const latestNotes = notesList
     <section class="w-full mt-8 sm:mt-12">
       <h1 data-cy="name" class="sr-only">Haikel Ilham Hakim</h1>
       <OpenToWorkBadge client:load />
-      <div class="mt-7 w-full max-w-full">
-        <p
-          class="max-w-full text-lg text-justify text-muted-foreground leading-8 text-pretty"
-        >
-          I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
-          working across business software, delivery infrastructure, and
-          content-driven products with Go and TypeScript. I'm currently going
-          deeper into Go, DevOps, and finance.
-        </p>
-        <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
-          <a
-            href="https://www.linkedin.com/in/haikel/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn (opens in new tab)"
-            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
-            >LinkedIn</a
+      <div class="mt-7 flex w-full max-w-full flex-col gap-6 sm:flex-row-reverse sm:items-start sm:gap-10">
+        <img
+          data-cy="profile-picture"
+          src="https://avatars.githubusercontent.com/u/77146709?v=4&s=256"
+          alt="Haikel Ilham Hakim"
+          width="128"
+          height="128"
+          class="size-24 shrink-0 rounded-xl border border-border object-cover sm:size-32"
+        />
+        <div class="min-w-0 flex-1">
+          <p
+            class="max-w-full text-lg text-justify text-muted-foreground leading-8 text-pretty"
           >
-          <a
-            href="https://github.com/haikelz"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub (opens in new tab)"
-            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
-            >GitHub</a
-          >
-          <a
-            href="https://gitlab.com/haikelz"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitLab (opens in new tab)"
-            class="text-foreground font-bold hover:text-muted-foreground transition-colors"
-            >GitLab</a
-          >
+            I'm Haikel (<span lang="ja">ハイケル</span>), a Product Engineer
+            working across business software, delivery infrastructure, and
+            content-driven products with Go and TypeScript. I'm currently going
+            deeper into Go, DevOps, and finance.
+          </p>
+          <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
+            <a
+              href="https://www.linkedin.com/in/haikel/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn (opens in new tab)"
+              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              >LinkedIn</a
+            >
+            <a
+              href="https://github.com/haikelz"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub (opens in new tab)"
+              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              >GitHub</a
+            >
+            <a
+              href="https://gitlab.com/haikelz"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitLab (opens in new tab)"
+              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              >GitLab</a
+            >
+          </div>
         </div>
       </div>
     </section>
