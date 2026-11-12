@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@ikuyo/ui";
+import { buttonVariants, Select, SelectContent, SelectItem, SelectTrigger } from "@ikuyo/ui";
 import { LaptopMinimal, Moon, Sun } from "lucide-svelte";
 import { onMount } from "svelte";
 
@@ -55,60 +55,61 @@ $: if (mounted) {
 </script>
 
 <div class="flex items-center">
-  <Select
-    type="single"
-    bind:value={theme}
-  >
+  <Select type="single" bind:value={theme}>
     <SelectTrigger
-      class="w-auto border-border/70 bg-transparent px-2 text-foreground"
+      class={buttonVariants({
+        variant: "outline",
+        size: "icon-sm",
+        class: "rounded-md! bg-background p-0 [&>svg:last-child]:hidden",
+      })}
       aria-label="Theme mode"
       data-cy="theme-toggle"
     >
       {#if theme === "light"}
-        <Sun size={16} />
+        <Sun size={21} />
       {:else if theme === "dark"}
-        <Moon size={16} />
+        <Moon size={21} />
       {:else}
-        <LaptopMinimal size={16} />
+        <LaptopMinimal size={21} />
       {/if}
     </SelectTrigger>
     <SelectContent class="border-border/70 bg-background text-foreground">
       <SelectItem
-      value="light"
-      label="Light"
-      aria-label="Use light theme"
-      class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
-      data-cy="theme-light"
-    >
-      <div class="flex items-center gap-2">
-        <Sun size={16} />
-        <span>Light</span>
-      </div>
-    </SelectItem>
-    <SelectItem
-      value="dark"
-      label="Dark"
-      aria-label="Use dark theme"
-      class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
-      data-cy="theme-dark"
-    >
-      <div class="flex items-center gap-2">
-        <Moon size={16} />
-        <span>Dark</span>
-      </div>
-    </SelectItem>
-    <SelectItem
-      value="system"
-      label="System"
-      aria-label="Use system theme"
-      class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
-      data-cy="theme-system"
-    >
-      <div class="flex items-center gap-2">
-        <LaptopMinimal size={16} />
-        <span>System</span>
-      </div>
-    </SelectItem>
-  </SelectContent>
+        value="light"
+        label="Light"
+        aria-label="Use light theme"
+        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        data-cy="theme-light"
+      >
+        <div class="flex items-center gap-2">
+          <Sun size={16} />
+          <span>Light</span>
+        </div>
+      </SelectItem>
+      <SelectItem
+        value="dark"
+        label="Dark"
+        aria-label="Use dark theme"
+        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        data-cy="theme-dark"
+      >
+        <div class="flex items-center gap-2">
+          <Moon size={16} />
+          <span>Dark</span>
+        </div>
+      </SelectItem>
+      <SelectItem
+        value="system"
+        label="System"
+        aria-label="Use system theme"
+        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        data-cy="theme-system"
+      >
+        <div class="flex items-center gap-2">
+          <LaptopMinimal size={16} />
+          <span>System</span>
+        </div>
+      </SelectItem>
+    </SelectContent>
   </Select>
 </div>

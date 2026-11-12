@@ -224,10 +224,10 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       >Skip to content</a
     >
     <CodeBlockCopy client:only="svelte" />
-    <Navbar currentPath={currentPath} client:only="svelte" />
+    <Navbar currentPath={currentPath} client:load />
     <div
       class:list={[
-        "container mx-auto w-full! px-4 sm:px-6 md:px-8 pt-24 relative",
+        "container mx-auto w-full! px-4 sm:px-6 md:px-8 pt-20 relative",
         className,
       ]}
     >

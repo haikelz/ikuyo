@@ -78,6 +78,7 @@ describe("Keyboard interactions", () => {
 
   it("announces current navigation and theme state", () => {
     cy.visit("/works");
+    cy.get('[data-cy="nav-menu-btn"]').click();
     cy.get('a[href="/works/"]').filter(":visible").should("have.attr", "aria-current", "page");
     cy.get('button[aria-label^="Switch to"]').first().should("have.attr", "aria-pressed");
   });

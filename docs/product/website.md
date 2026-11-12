@@ -42,6 +42,14 @@
   safe zone.
 - The site registers no service worker; pages always load from the network.
 
+## Navigation
+
+- Navigation lives in a minimal top-right menu on every viewport: a theme
+  toggle and a menu button whose dropdown lists Home, Works, Notes, Tags,
+  Photos, and Guestbook with icons and labels.
+- The menu uses the shared `DropdownMenu`; its items render when it opens, so
+  crawlers reach pages through the sitemap and in-page links.
+
 ## Homepage activity contract
 
 - The homepage presents Haikel's public GitHub contribution calendar in place

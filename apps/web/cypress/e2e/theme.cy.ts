@@ -18,6 +18,8 @@ describe("Theme toggle", () => {
         });
       },
     });
+    // The navbar is server-rendered; its theme control works once the island hydrates.
+    cy.get('astro-island[component-url*="Navbar"]').should("not.have.attr", "ssr");
   }
 
   it("uses system light mode when no saved theme exists", () => {

@@ -98,6 +98,26 @@ readable column on small screens.
 - **States:** quiet borders divide rows; linked titles use the primary accent.
 - **Accessibility:** retain semantic lists, headings, and descriptive links.
 
+### Navigation menu
+
+- **Structure:** two 32px outline icon buttons fixed at the top right, above
+  the safe area, styled like the ToC button (`Button` outline `icon-sm`,
+  `rounded-md`, `bg-background`): the theme toggle and a menu button. The menu
+  button opens the shared `DropdownMenu` (the shadcn dropdown pattern ReUI
+  builds on, ported to bits-ui) listing Home, Works, Notes, Tags, Photos, and
+  Guestbook with icon and label. No top bar, bottom bar, or menu sheet.
+- **Surface:** popover tokens, a fine border, and a restrained shadow; no blur.
+- **States:** the accent background marks the keyboard or pointer highlight;
+  the current page shows full-strength text, a primary dot, and
+  `aria-current="page"`.
+- **Motion:** the controls hide on scroll down and return on scroll up with a
+  200ms transform; reduced motion removes the transition. The menu uses the
+  shared fade and zoom used by Select.
+- **Accessibility:** a labelled `nav` and menu button; the dropdown provides
+  arrow-key navigation, Escape, outside-click dismissal, and focus return. The
+  panel and items suppress the site-wide focus outline because the highlight
+  marks focus; buttons pin their radius with `!` so their outline follows it.
+
 ### Table of contents
 
 - **Structure:** Notes and Works detail pages fill the `max-w-3xl` site shell.
