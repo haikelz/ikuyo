@@ -40,7 +40,7 @@ const canonicalUrl = new URL(url || currentPath, siteUrl);
 // Pages are served as directories; the slashless form answers with a 308.
 if (!noindex && !canonicalUrl.pathname.endsWith("/")) canonicalUrl.pathname += "/";
 const resolvedOgImage = new URL(`/og/${ogImage ?? "home.png"}`, siteUrl);
-const titleSuffix = " — Haikel Ilham Hakim";
+const titleSuffix = " — Haikel (海克尔)";
 // Search results cut titles near 60 characters; keep the page's own words.
 const pageTitle =
   currentPath === "/" || title.length + titleSuffix.length > 60 ? title : `${title}${titleSuffix}`;
@@ -51,11 +51,11 @@ const robots = noindex
 const personSchema = {
   "@type": "Person",
   "@id": `${siteUrl.href}#person`,
-  name: "Haikel Ilham Hakim",
-  alternateName: ["Haikel", "Ekel"],
+  name: "Haikel (海克尔)",
+  alternateName: ["Haikel", "Ekel", "Kel", "海克尔"],
   url: siteUrl.href,
   image: new URL("/images/avatar.png", siteUrl).href,
-  jobTitle: "Software Developer",
+  jobTitle: "Product Engineer",
   homeLocation: {
     "@type": "Country",
     name: "Indonesia",
