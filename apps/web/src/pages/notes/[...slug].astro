@@ -44,22 +44,22 @@ const slug = sanitizeSlug(item.id);
     <article>
       <header class="mb-12">
         <p
-          class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          class="mb-3 mt-8 text-sm font-medium text-muted-foreground"
         >
           Technical note
         </p>
         <h1
-          class="mt-0 mb-6 text-3xl sm:text-4xl md:text-5xl tracking-tight font-semibold text-foreground text-balance"
+          class="mt-0 mb-6 text-2xl sm:text-[1.75rem] leading-tight tracking-tight font-semibold text-foreground"
         >
           {item.data.title}
         </h1>
-        <div class="border-y border-border/70 py-4">
+        <div class="border-y border-border py-4">
           <p class="text-sm text-muted-foreground mb-0 space-x">
             {item.data.author}, {format(item.data.created_at, "LLLL d yyyy")} - {
               remarkPluginFrontmatter.minutesRead
             }
           </p>
-          <div class="flex items-center gap-3 mt-3 flex-wrap font-mono">
+          <div class="flex items-center gap-3 mt-3 flex-wrap tabular-nums">
             {
               item.data.tags.map((tag) => (
                 <a
@@ -79,12 +79,12 @@ const slug = sanitizeSlug(item.id);
         </p>
       </header>
       <div
-        class="prose max-w-none prose-code:text-sm prose-pre:bg-muted text-justify prose-pre:border prose-pre:border-border/40"
+        class="prose max-w-none prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border"
       >
         <Content />
       </div>
     </article>
-    <div class="mt-12 pt-6 border-t border-border/50">
+    <div class="mt-12 pt-6 border-t border-border">
       <ReactionButton
         slug={slug}
         apiUrl={BACKEND_API_URL}

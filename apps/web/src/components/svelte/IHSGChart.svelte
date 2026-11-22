@@ -498,7 +498,7 @@ const volumePlot = $derived.by(() => {
 });
 
 const axisClasses = {
-  tickLabel: "fill-muted-foreground stroke-transparent font-mono text-[10px]",
+  tickLabel: "fill-muted-foreground stroke-transparent tabular-nums text-[10px]",
   tick: "stroke-foreground/8",
   rule: "stroke-foreground/12",
 };
@@ -557,13 +557,13 @@ const gridColor03 = "var(--border)";
           <div class="flex items-center gap-2">
             <Badge
               variant="outline"
-              class="rounded-md border-border bg-background font-mono text-foreground"
+              class="rounded-md border-border bg-background tabular-nums text-foreground"
             >
               {currentMarket.source}
             </Badge>
             <Badge
               variant="outline"
-              class="rounded-md bg-background font-mono text-foreground"
+              class="rounded-md bg-background tabular-nums text-foreground"
             >
               {interval}
             </Badge>
@@ -656,7 +656,7 @@ const gridColor03 = "var(--border)";
         >
           <div class="border-r border-b border-border p-3 lg:border-b-0">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               Open
             </p>
@@ -666,7 +666,7 @@ const gridColor03 = "var(--border)";
           </div>
           <div class="border-b border-border p-3 md:border-r lg:border-b-0">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               High
             </p>
@@ -676,7 +676,7 @@ const gridColor03 = "var(--border)";
           </div>
           <div class="border-r border-b border-border p-3 lg:border-b-0">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               Low
             </p>
@@ -686,7 +686,7 @@ const gridColor03 = "var(--border)";
           </div>
           <div class="border-b border-border p-3 md:border-r lg:border-b-0">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               Range Chg
             </p>
@@ -699,7 +699,7 @@ const gridColor03 = "var(--border)";
           </div>
           <div class="border-r border-border p-3">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               Range L/H
             </p>
@@ -711,7 +711,7 @@ const gridColor03 = "var(--border)";
           </div>
           <div class="p-3">
             <p
-              class="font-mono text-xs uppercase tracking-wide text-muted-foreground"
+              class="text-xs text-muted-foreground font-medium"
             >
               Avg Vol
             </p>
@@ -893,11 +893,11 @@ const gridColor03 = "var(--border)";
           >
             {#if hoveredPoint}
               <div
-                class="absolute top-0 bottom-0 border-l border-dashed border-border/60 pointer-events-none"
+                class="absolute top-0 bottom-0 border-l border-dashed border-border pointer-events-none"
                 style={`left: ${hoverX}px;`}
               ></div>
               <div
-                class="absolute left-0 right-0 border-t border-dashed border-border/70 pointer-events-none"
+                class="absolute left-0 right-0 border-t border-dashed border-border pointer-events-none"
                 style={`top: ${hoverY}px;`}
               ></div>
               <div
@@ -906,7 +906,7 @@ const gridColor03 = "var(--border)";
               ></div>
 
               <div
-                class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 font-mono text-[11px] text-foreground"
+                class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 tabular-nums text-[11px] text-foreground"
                 style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
               >
                 <p class="mb-1 text-muted-foreground">
@@ -998,7 +998,7 @@ const gridColor03 = "var(--border)";
       >
         <div class="flex h-full min-h-0 w-full flex-col">
           <DialogHeader
-            class="px-4 py-3 border-b border-border/70 bg-background"
+            class="px-4 py-3 border-b border-border bg-background"
           >
             <DialogTitle class="text-base md:text-lg">
               {currentMarket.title} ({currentMarket.symbol}) - Fullscreen
@@ -1238,11 +1238,11 @@ const gridColor03 = "var(--border)";
               >
                 {#if hoveredPoint}
                   <div
-                    class="absolute top-0 bottom-0 border-l border-dashed border-border/60 pointer-events-none"
+                    class="absolute top-0 bottom-0 border-l border-dashed border-border pointer-events-none"
                     style={`left: ${hoverX}px;`}
                   ></div>
                   <div
-                    class="absolute left-0 right-0 border-t border-dashed border-border/70 pointer-events-none"
+                    class="absolute left-0 right-0 border-t border-dashed border-border pointer-events-none"
                     style={`top: ${hoverY}px;`}
                   ></div>
                   <div
@@ -1251,7 +1251,7 @@ const gridColor03 = "var(--border)";
                   ></div>
 
                   <div
-                    class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 font-mono text-[11px] text-foreground"
+                    class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 tabular-nums text-[11px] text-foreground"
                     style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
                   >
                     <p class="mb-1 text-muted-foreground">

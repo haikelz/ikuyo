@@ -47,11 +47,11 @@ function toggleTOC() {
 </script>
 
 <nav
-  class="fixed right-[max(1rem,calc(50%-47rem))] top-28 z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-dashed border-border/70 ps-5 2xl:block"
+  class="fixed right-[max(1rem,calc(50%-47rem))] top-28 z-10 hidden max-h-[calc(100dvh-8rem)] w-56 overflow-y-auto border-s border-dashed border-border ps-5 2xl:block"
   aria-label="On this page"
 >
   <p
-    class="mb-4 mt-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground"
+    class="mb-4 mt-0 text-xs font-medium text-muted-foreground"
   >
     On this page
   </p>
@@ -81,7 +81,7 @@ function toggleTOC() {
     showCloseButton={false}
   >
     <SheetHeader
-      class="mx-auto w-full max-w-2xl space-y-0 border-b border-border/70 px-4 py-4 sm:px-6"
+      class="mx-auto w-full max-w-2xl space-y-0 border-b border-border px-4 py-4 sm:px-6"
     >
       <div class="flex items-center justify-between space-x-4">
         <SheetTitle

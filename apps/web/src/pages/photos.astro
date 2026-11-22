@@ -20,7 +20,7 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
     <PageHeader title="Photos" eyebrow="Photography" className="mb-10 sm:mb-16">
       A selection of photographs from my camera roll.
     </PageHeader>
-    <section class="w-full border-t border-border/70 pt-4">
+    <section class="w-full border-t border-border pt-4">
       <h2 class="sr-only">Photo gallery</h2>
       <PhotosPage client:only="svelte" photos={photos} />
     </section>

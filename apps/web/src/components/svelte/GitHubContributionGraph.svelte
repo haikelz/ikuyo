@@ -37,7 +37,7 @@ const dateFormatter = new Intl.DateTimeFormat("en", {
 });
 
 const levelClasses = [
-  "border-border/70 bg-muted",
+  "border-border bg-muted",
   "border-foreground/10 bg-foreground/20",
   "border-foreground/15 bg-foreground/40",
   "border-foreground/20 bg-foreground/65",
@@ -225,14 +225,14 @@ onMount(() => {
     <OpenToWorkBadge />
     {#if isLoading}
       <span
-        class="h-9 w-24 border border-border/70 bg-muted motion-safe:animate-pulse"
+        class="h-9 w-24 border border-border bg-muted motion-safe:animate-pulse"
         aria-hidden="true"
       ></span>
     {:else if data}
       <Select type="single" bind:value={selectedYear}>
         <SelectTrigger
           data-cy="activity-year-select"
-          class="h-9 w-24 rounded-md border-border bg-card font-mono text-xs text-foreground"
+          class="h-9 w-24 rounded-md border-border bg-card tabular-nums text-xs text-foreground"
           aria-label="Select activity year"
         >
           {selectedYear}
@@ -242,7 +242,7 @@ onMount(() => {
             <SelectItem
               value={year}
               label={year}
-              class="font-mono focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+              class="tabular-nums focus:bg-muted/50 data-[highlighted]:bg-muted/50"
             >
               {year}
             </SelectItem>
@@ -252,13 +252,13 @@ onMount(() => {
     {/if}
   </div>
 
-  <div class="border-y border-border/70 py-6 sm:py-7">
+  <div class="border-y border-border py-6 sm:py-7">
   {#if isLoading}
     <div
       role="status"
       data-cy="contribution-loading"
       aria-label="Loading activity calendar"
-      class="w-full overflow-hidden border border-border/70 p-4 motion-safe:animate-pulse"
+      class="w-full overflow-hidden border border-border p-4 motion-safe:animate-pulse"
     >
       <span class="sr-only">Loading activity calendar.</span>
       <div class="mb-3 ml-9 h-2.5 w-24 bg-muted" aria-hidden="true"></div>
@@ -286,14 +286,14 @@ onMount(() => {
   {:else if errorMessage || !data}
     <div
       role="status"
-      class="flex min-h-32 items-center border border-border/70 px-4 py-6 text-sm text-muted-foreground"
+      class="flex min-h-32 items-center border border-border px-4 py-6 text-sm text-muted-foreground"
     >
       {errorMessage ?? "Activity is temporarily unavailable."}
     </div>
   {:else}
     <div
       data-cy="contribution-scroll"
-      class="min-w-0 w-full overflow-x-auto overscroll-x-contain border border-border/70 p-4 focus-visible:outline-2"
+      class="min-w-0 w-full overflow-x-auto overscroll-x-contain border border-border p-4 focus-visible:outline-2"
       tabindex="0"
       aria-label="Activity calendar. Scroll horizontally to see the complete graph."
     >
@@ -306,7 +306,7 @@ onMount(() => {
           <div class="grid grid-cols-[1.75rem_1fr] gap-x-2">
             <div aria-hidden="true"></div>
             <div
-              class="month-grid mb-2 grid h-4 gap-x-[3px] font-mono text-[10px] leading-none text-muted-foreground"
+              class="month-grid mb-2 grid h-4 gap-x-[3px] tabular-nums text-[10px] leading-none text-muted-foreground"
               style={`--week-count: ${weeks.length};`}
               aria-hidden="true"
             >
@@ -316,7 +316,7 @@ onMount(() => {
             </div>
 
             <div
-              class="grid grid-rows-7 gap-y-[3px] font-mono text-[9px] leading-[10px] text-muted-foreground"
+              class="grid grid-rows-7 gap-y-[3px] tabular-nums text-[9px] leading-[10px] text-muted-foreground"
               aria-hidden="true"
             >
               <span></span>
@@ -351,7 +351,7 @@ onMount(() => {
           {#if hoveredDay}
             <div
               data-cy="contribution-tooltip"
-              class={`pointer-events-none absolute z-20 min-w-44 -translate-x-1/2 border border-foreground bg-foreground px-2.5 py-2 text-center font-mono text-[10px] leading-4 text-background ${
+              class={`pointer-events-none absolute z-20 min-w-44 -translate-x-1/2 border border-foreground bg-foreground px-2.5 py-2 text-center tabular-nums text-[10px] leading-4 text-background ${
                 tooltipBelow ? "" : "-translate-y-full"
               }`}
               style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
@@ -364,7 +364,7 @@ onMount(() => {
     </div>
 
     <div class="mt-3 flex items-center justify-end gap-4">
-      <div class="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground" aria-label="Activity intensity from less to more">
+      <div class="flex items-center gap-1.5 tabular-nums text-[10px] text-muted-foreground" aria-label="Activity intensity from less to more">
         <span>Less</span>
         {#each levelClasses as levelClass}
           <span class={`size-2.5 border ${levelClass}`} aria-hidden="true"></span>

@@ -60,7 +60,7 @@ $: if (mounted) {
       class={buttonVariants({
         variant: "ghost",
         size: "icon-sm",
-        class: "rounded-full! p-0 text-muted-foreground hover:text-foreground [&>svg:last-child]:hidden",
+        class: "p-0 [&>svg:last-child]:hidden",
       })}
       aria-label="Theme mode"
       data-cy="theme-toggle"
@@ -73,12 +73,12 @@ $: if (mounted) {
         <LaptopMinimal size={18} />
       {/if}
     </SelectTrigger>
-    <SelectContent class="border-border/70 bg-background text-foreground">
+    <SelectContent class="border-border bg-popover text-popover-foreground shadow-panel">
       <SelectItem
         value="light"
         label="Light"
         aria-label="Use light theme"
-        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        class="focus:bg-accent data-[highlighted]:bg-accent"
         data-cy="theme-light"
       >
         <div class="flex items-center gap-2">
@@ -90,7 +90,7 @@ $: if (mounted) {
         value="dark"
         label="Dark"
         aria-label="Use dark theme"
-        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        class="focus:bg-accent data-[highlighted]:bg-accent"
         data-cy="theme-dark"
       >
         <div class="flex items-center gap-2">
@@ -102,7 +102,7 @@ $: if (mounted) {
         value="system"
         label="System"
         aria-label="Use system theme"
-        class="focus:bg-muted/50 data-[highlighted]:bg-muted/50"
+        class="focus:bg-accent data-[highlighted]:bg-accent"
         data-cy="theme-system"
       >
         <div class="flex items-center gap-2">

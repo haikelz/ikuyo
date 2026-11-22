@@ -31,7 +31,7 @@ const c = $derived(content[lang]);
   <section class="mt-8 w-full border-b border-border pb-8">
     <div class="flex w-full flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <p class="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        <p class="mb-3 text-xs text-muted-foreground font-medium">
           Eid / 1446 H
         </p>
         <p class="mb-1 text-sm text-muted-foreground">
@@ -86,7 +86,7 @@ const c = $derived(content[lang]);
   </section>
 
   <section class="w-full py-6">
-    <p class="font-mono text-sm text-muted-foreground">
+    <p class="tabular-nums text-sm text-muted-foreground">
       — Haikel
     </p>
   </section>

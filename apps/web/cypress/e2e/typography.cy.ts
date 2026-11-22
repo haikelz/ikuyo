@@ -20,9 +20,9 @@ const pages = [
 ];
 
 const viewports = [
-  { name: "mobile", width: 375, height: 812, headingSize: "32px" },
-  { name: "tablet", width: 768, height: 1024, headingSize: "48px" },
-  { name: "desktop", width: 1280, height: 900, headingSize: "48px" },
+  { name: "mobile", width: 375, height: 812, headingSize: "24px" },
+  { name: "tablet", width: 768, height: 1024, headingSize: "28px" },
+  { name: "desktop", width: 1280, height: 900, headingSize: "28px" },
 ];
 
 describe("Site typography", () => {
@@ -43,15 +43,11 @@ describe("Site typography", () => {
 
           expect(fontFamily).to.contain("Plus Jakarta Sans");
           expect(plusJakartaFace?.status).to.eq("loaded");
-          expect(getComputedStyle(document.body).fontSize).to.eq("17px");
-          expect(getComputedStyle(document.body).lineHeight).to.eq("29.75px");
+          expect(getComputedStyle(document.body).fontSize).to.eq("14px");
+          expect(getComputedStyle(document.body).lineHeight).to.eq("21px");
           if (page.prose) {
             expect(getComputedStyle(document.querySelector("h1")!).fontSize).to.eq(
-              page.name === "experience-detail"
-                ? viewport.name === "mobile"
-                  ? "32px"
-                  : "40px"
-                : viewport.headingSize,
+              viewport.headingSize,
             );
           }
           expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
@@ -60,8 +56,8 @@ describe("Site typography", () => {
             const prose = document.querySelector(".prose");
 
             expect(prose).not.to.be.null;
-            expect(getComputedStyle(prose!).fontSize).to.eq("17px");
-            expect(getComputedStyle(prose!).lineHeight).to.eq("32px");
+            expect(getComputedStyle(prose!).fontSize).to.eq("16px");
+            expect(getComputedStyle(prose!).lineHeight).to.eq("28px");
           }
 
           if (page.name === "experience-detail") {

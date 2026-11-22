@@ -30,7 +30,7 @@ const {
   </a>
   {#if heading.subheadings && heading.subheadings.length > 0}
     <ul
-      class="mb-1 ms-0 mt-0 space-y-0 border-s border-dashed border-border/70 ps-3 list-none!"
+      class="mb-1 ms-0 mt-0 space-y-0 border-s border-dashed border-border ps-3 list-none!"
       role="list"
     >
       {#each heading.subheadings as sub}

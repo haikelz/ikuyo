@@ -37,12 +37,12 @@ const slug = sanitizeSlug(item.id);
     <article class="w-full max-w-full">
       <header class="mb-14">
         <p
-          class="mb-3 mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
+          class="mb-3 mt-8 text-sm font-medium text-muted-foreground"
         >
           Case study
         </p>
         <h1
-          class="mt-0 mb-4 text-3xl sm:text-4xl tracking-tight font-semibold text-foreground leading-tight text-balance"
+          class="mt-0 mb-4 text-2xl sm:text-[1.75rem] leading-tight tracking-tight font-semibold text-foreground"
         >
           {item.data.company}
         </h1>
@@ -52,25 +52,25 @@ const slug = sanitizeSlug(item.id);
         >
           {item.data.position}
         </p>
-        <div class="mt-6 border-y border-border/70 py-4">
-          <p class="mb-0 font-mono text-xs text-muted-foreground tabular-nums">
+        <div class="mt-6 border-y border-border py-4">
+          <p class="mb-0 text-xs text-muted-foreground tabular-nums">
             {item.data.startDate} &mdash; {item.data.endDate}
           </p>
         </div>
       </header>
       <section
         data-cy="experience-highlights"
-        class="mb-14 border-b border-border/70"
+        class="mb-14 border-b border-border"
       >
         <h2 class="sr-only">Highlights</h2>
         <ul class="m-0 list-none p-0" role="list">
           {
             item.data.highlights.map((highlight, index) => (
-              <li class="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 border-t border-border/70 py-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-x-5">
-                <span class="self-start pt-1 font-mono text-xs tabular-nums text-muted-foreground">
+              <li class="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 border-t border-border py-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-x-5">
+                <span class="self-start pt-1 text-xs tabular-nums text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p class="m-0 min-w-0 text-sm leading-8 text-foreground text-pretty">
+                <p class="m-0 min-w-0 leading-relaxed text-foreground text-pretty">
                   {highlight}
                 </p>
               </li>
@@ -79,7 +79,7 @@ const slug = sanitizeSlug(item.id);
         </ul>
       </section>
       <div
-        class="prose max-w-full w-full prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border/40 prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
+        class="prose max-w-full w-full prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
       >
         <Content />
       </div>

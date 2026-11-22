@@ -57,11 +57,10 @@ onMount(() => {
 });
 </script>
 
-<!-- Controls pin their radius with `!` because the site-wide :focus-visible rule inherits the parent radius. -->
 <nav
   aria-label="Primary"
   class={cn(
-    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-fit max-w-[calc(100%-2rem)] items-center gap-1 rounded-full border border-border/60 bg-background/60 pr-1 shadow-sm backdrop-blur-md backdrop-saturate-150 transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-fit max-w-[calc(100%-2rem)] items-center gap-1 rounded-lg border border-border bg-background/85 pr-1 shadow-panel backdrop-blur-[12px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >
@@ -79,10 +78,10 @@ onMount(() => {
           href={item.path === "/" ? "/" : `${item.path}/`}
           aria-current={active ? "page" : undefined}
           class={cn(
-            "block rounded-full! px-3 py-1.5 text-sm whitespace-nowrap font-medium! no-underline! transition-colors",
+            "block rounded-md px-2.5 py-1.5 text-sm font-medium whitespace-nowrap no-underline transition-colors",
             active
-              ? "bg-accent text-accent-foreground"
-              : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+              ? "bg-secondary text-foreground"
+              : "text-muted-foreground hover:bg-accent hover:text-foreground",
           )}
         >
           {item.label}

@@ -45,30 +45,30 @@ const techStack = [
   <DialogTrigger
     data-cy="open-to-work-badge"
     aria-label="Open job preferences"
-    class={badgeVariants({ variant: "outline", class: "min-h-10 cursor-pointer rounded-md border-border bg-card px-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground hover:bg-muted focus-visible:outline-none" })}
+    class={badgeVariants({ variant: "outline", class: "h-8 cursor-pointer border-border bg-card px-3 text-xs font-medium text-foreground shadow-xs hover:bg-accent focus-visible:ring-0" })}
   >
-    <span class="size-1.5 rounded-full bg-success" aria-hidden="true"></span>
+    <span class="size-1.5 rounded-full bg-success-foreground" aria-hidden="true"></span>
     #opentowork
   </DialogTrigger>
-  <DialogContent data-cy="job-preferences-dialog" class="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] gap-6 border border-border bg-card p-5 sm:max-w-lg sm:p-6">
+  <DialogContent data-cy="job-preferences-dialog" class="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] gap-6 rounded-lg border border-border bg-popover p-5 shadow-panel sm:max-w-lg sm:p-6">
     <DialogHeader class="pr-10">
-      <DialogTitle class="text-xl font-semibold leading-tight tracking-tight">Open to work</DialogTitle>
+      <DialogTitle class="text-base font-semibold leading-tight tracking-tight">Open to work</DialogTitle>
       <DialogDescription>My preferred roles and the technologies I work with.</DialogDescription>
     </DialogHeader>
     <div data-cy="job-preferences-body" class="min-h-0 space-y-6 overflow-y-auto overscroll-contain">
       <section aria-labelledby="preferred-roles-title">
-        <h2 id="preferred-roles-title" class="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">Job preferences</h2>
+        <h2 id="preferred-roles-title" class="mb-3 text-xs text-muted-foreground font-medium">Job preferences</h2>
         <ul class="flex flex-wrap gap-2">
           {#each jobPreferences as role}
-            <li class="rounded-md border border-border bg-muted/40 px-2.5 py-1 font-mono text-xs leading-5 text-foreground">{role}</li>
+            <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{role}</li>
           {/each}
         </ul>
       </section>
       <section aria-labelledby="tech-stack-title">
-        <h2 id="tech-stack-title" class="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">Tech stack</h2>
+        <h2 id="tech-stack-title" class="mb-3 text-xs text-muted-foreground font-medium">Tech stack</h2>
         <ul class="flex flex-wrap gap-2">
           {#each techStack as technology}
-            <li class="rounded-md border border-border bg-muted/40 px-2.5 py-1 font-mono text-xs leading-5 text-foreground">{technology}</li>
+            <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{technology}</li>
           {/each}
         </ul>
       </section>
