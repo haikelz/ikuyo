@@ -4,7 +4,7 @@ Date: 2026-09-27
 
 ## Status
 
-Accepted
+Superseded by `0013-guestbook-design-system.md`
 
 ## Context
 

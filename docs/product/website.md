@@ -12,14 +12,13 @@
 
 ## Design system
 
-- Public routes and shared Svelte/Astro components follow the ReUI Sera visual
-  direction through project-owned semantic tokens and component conventions.
-- The design system keeps the existing Astro and Svelte runtime; React-only
-  ReUI registry components are not installed.
-- Every public HTML route uses the native Svelte Frame through the shared Astro
-  Layout. The static page panel contains existing content without per-row frames.
-- Below 768px page Frame chrome and padding are removed so mobile content uses
-  only the page gutter. Tablet and desktop retain the framed surface.
+- Public routes and shared Svelte/Astro components follow the guestbook design
+  system from `guestbook.ekel.dev`: its slate and indigo tokens, 14px
+  interface text, 48rem column, and bordered list panels.
+- The design system keeps the existing Astro and Svelte runtime; the
+  guestbook's React and HeroUI components are not installed.
+- Pages render straight into the shared Layout's column with no page frame.
+  Lists of records render in `Panel` components; prose stays outside panels.
 - `DESIGN.md` is the source of truth for color, typography, spacing, component
   states, motion, surface depth, and accessibility constraints.
 
@@ -104,13 +103,13 @@
 
 - The homepage `#opentowork` badge is a keyboard-accessible button opening job preferences independently of activity API availability.
 - The dialog lists Fullstack Developer, Backend Developer, Frontend Developer, Devops Engineer, Software Engineer, and AI Engineer, followed by the supplied 20 technology labels.
-- Follow ReUI's scrollable dialog composition through the existing shared Svelte Dialog primitives; do not add a React runtime.
+- Keep the scrollable dialog composition on the existing shared Svelte Dialog primitives; do not add a React runtime.
 - Content scrolls on short screens while the title and close control remain visible. Escape and the close button dismiss the dialog and restore trigger focus.
 
-## ReUI reading and portfolio patterns
+## Reading and portfolio patterns
 
 - ToC preserves its desktop rail and mobile sheet; the current heading is highlighted and marked with `aria-current="location"`. Scrolling does not rewrite the URL.
-- Homepage experiences use a static timeline, preserving every authored highlight, date and case-study link.
+- Homepage experiences render as rows in an Experience panel, preserving every authored highlight, date and case-study link.
 - Tools use static decorative outline Icon Tiles; titles and descriptions remain the accessible content.
 - Guestbook and market statuses use the shared semantic Alert variants. A refresh failure retains previously loaded messages.
 - MDX code retains build-time syntax highlighting with filename/language, Copy and Wrap controls. Snippets longer than 16 lines can expand/collapse; copying always includes full source. Without JavaScript, the full code remains readable.

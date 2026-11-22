@@ -65,8 +65,8 @@ without human confirmation.
 ## Engineering rules
 
 - Use Bun and Moon only; do not introduce npm, pnpm, or Yarn workflows.
-- For UI work, follow the ReUI Sera contract in `DESIGN.md` and its living
-  examples at `/design-system`; keep the existing Astro and Svelte stack.
+- For UI work, follow the guestbook design system contract in `DESIGN.md`;
+  keep the existing Astro and Svelte stack.
 - Add public content through the typed collection in
   `apps/web/src/content.config.ts`; never duplicate collection records in page
   source.
