@@ -1,3 +1,7 @@
+// Options float beside the fixed navbar; scrolling the page to reach them makes the list re-anchor
+// under Cypress, so it reads as "animating". Visitors cannot scroll while the list is open.
+const optionClick = { scrollBehavior: false } as const;
+
 describe("Theme toggle", () => {
   function visitWithSystemTheme(matchesDark: boolean) {
     cy.visit("/", {
@@ -37,7 +41,7 @@ describe("Theme toggle", () => {
   it("switches to light mode explicitly", () => {
     visitWithSystemTheme(true);
     cy.get('[data-cy="theme-toggle"]:visible').first().click();
-    cy.get('[data-cy="theme-light"]').click();
+    cy.get('[data-cy="theme-light"]').click(optionClick);
     cy.get("html").should("not.have.class", "dark");
     cy.window().its("localStorage.theme").should("eq", "light");
   });
@@ -45,7 +49,7 @@ describe("Theme toggle", () => {
   it("switches to dark mode explicitly", () => {
     visitWithSystemTheme(false);
     cy.get('[data-cy="theme-toggle"]:visible').first().click();
-    cy.get('[data-cy="theme-dark"]').click();
+    cy.get('[data-cy="theme-dark"]').click(optionClick);
     cy.get("html").should("have.class", "dark");
     cy.window().its("localStorage.theme").should("eq", "dark");
   });
@@ -53,7 +57,7 @@ describe("Theme toggle", () => {
   it("persists the selected theme across page navigation", () => {
     visitWithSystemTheme(true);
     cy.get('[data-cy="theme-toggle"]:visible').first().click();
-    cy.get('[data-cy="theme-light"]').click();
+    cy.get('[data-cy="theme-light"]').click(optionClick);
     cy.visit("/notes");
     cy.get("html").should("not.have.class", "dark");
     cy.window().its("localStorage.theme").should("eq", "light");
@@ -62,9 +66,9 @@ describe("Theme toggle", () => {
   it("returns to system mode explicitly", () => {
     visitWithSystemTheme(true);
     cy.get('[data-cy="theme-toggle"]:visible').first().click();
-    cy.get('[data-cy="theme-light"]').click();
+    cy.get('[data-cy="theme-light"]').click(optionClick);
     cy.get('[data-cy="theme-toggle"]').first().click({ force: true });
-    cy.get('[data-cy="theme-system"]').click();
+    cy.get('[data-cy="theme-system"]').click(optionClick);
     cy.get("html").should("have.class", "dark");
     cy.window().its("localStorage.theme").should("eq", "system");
   });
