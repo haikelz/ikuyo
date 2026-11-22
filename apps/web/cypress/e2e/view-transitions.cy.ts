@@ -4,7 +4,7 @@ describe("Astro view transitions", () => {
     cy.visit("/");
 
     cy.get('[data-cy="works-btn"]').click();
-    cy.location("pathname").should("eq", "/works");
+    cy.location("pathname").should("eq", "/works/");
 
     cy.get('link[rel="stylesheet"]').then(($links) => {
       const stylesheet = Array.from($links, (link) => (link as HTMLLinkElement).href).find((href) =>

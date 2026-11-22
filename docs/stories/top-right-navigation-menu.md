@@ -2,7 +2,7 @@
 
 ## Status
 
-implemented
+retired: replaced by `glass-topbar-and-about-page`
 
 ## Lane
 
