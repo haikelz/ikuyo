@@ -98,25 +98,29 @@ readable column on small screens.
 - **States:** quiet borders divide rows; linked titles use the primary accent.
 - **Accessibility:** retain semantic lists, headings, and descriptive links.
 
-### Navigation menu
+### Navigation bar
 
-- **Structure:** two 32px outline icon buttons fixed at the top right, above
-  the safe area, styled like the ToC button (`Button` outline `icon-sm`,
-  `rounded-md`, `bg-background`): the theme toggle and a menu button. The menu
-  button opens the shared `DropdownMenu` (the shadcn dropdown pattern ReUI
-  builds on, ported to bits-ui) listing Home, Works, Notes, Tags, Photos, and
-  Guestbook with icon and label. No top bar, bottom bar, or menu sheet.
-- **Surface:** popover tokens, a fine border, and a restrained shadow; no blur.
-- **States:** the accent background marks the keyboard or pointer highlight;
-  the current page shows full-strength text, a primary dot, and
+- **Structure:** one glass bar, fixed at the top center above the safe area and
+  as wide as its content (`w-fit`, never wider than the viewport less 2rem).
+  It holds text links to Home, About, Works, Notes, Tags, Photos, and
+  Guestbook, a hairline divider, and the theme toggle as a 32px ghost icon
+  button. No icons on links, no dropdown, no bottom bar.
+- **Surface:** the one exception to the no-blur rule: `bg-background/60`,
+  `backdrop-blur-md`, a fine `border-border/60` edge, `shadow-sm`, and a
+  pill radius. Page content stays legible through it in both color modes.
+- **States:** links rest in muted text and gain a soft accent fill on hover;
+  the current page shows an accent pill, full-strength text, and
   `aria-current="page"`.
-- **Motion:** the controls hide on scroll down and return on scroll up with a
-  200ms transform; reduced motion removes the transition. The menu uses the
-  shared fade and zoom used by Select.
-- **Accessibility:** a labelled `nav` and menu button; the dropdown provides
-  arrow-key navigation, Escape, outside-click dismissal, and focus return. The
-  panel and items suppress the site-wide focus outline because the highlight
-  marks focus; buttons pin their radius with `!` so their outline follows it.
+- **Narrow screens:** when the labels do not fit, the link strip scrolls
+  sideways inside the bar with its scrollbar hidden; the clipped label at the
+  edge signals more links, and the current page's link starts in view.
+- **Motion:** the bar hides on scroll down and returns on scroll up with a
+  200ms transform; reduced motion removes the transition. Hover uses
+  `transition-colors` only.
+- **Accessibility:** a labelled `nav` holding a real list of links. The strip
+  keeps 4px of padding so the global focus outline and its offset stay inside
+  the scroll clip; controls pin their radius with `!` so the outline follows
+  the pill.
 
 ### Table of contents
 
@@ -144,7 +148,8 @@ remain visible in both color modes.
 Use three surface levels: page canvas, card, and popover. Fine borders define
 their edges; a restrained shadow may lift an interactive card or overlay. Keep
 editorial rows unboxed. Do not use glass blur, decorative grid backdrops, or
-shadows as a substitute for hierarchy.
+shadows as a substitute for hierarchy. The navigation bar is the one surface
+that uses blur, so it reads as floating over the page it navigates.
 
 ## 8. Accessibility Constraints & Accepted Debt
 

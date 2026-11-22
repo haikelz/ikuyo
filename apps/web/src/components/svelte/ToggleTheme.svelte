@@ -58,19 +58,19 @@ $: if (mounted) {
   <Select type="single" bind:value={theme}>
     <SelectTrigger
       class={buttonVariants({
-        variant: "outline",
+        variant: "ghost",
         size: "icon-sm",
-        class: "rounded-md! bg-background p-0 [&>svg:last-child]:hidden",
+        class: "rounded-full! p-0 text-muted-foreground hover:text-foreground [&>svg:last-child]:hidden",
       })}
       aria-label="Theme mode"
       data-cy="theme-toggle"
     >
       {#if theme === "light"}
-        <Sun size={21} />
+        <Sun size={18} />
       {:else if theme === "dark"}
-        <Moon size={21} />
+        <Moon size={18} />
       {:else}
-        <LaptopMinimal size={21} />
+        <LaptopMinimal size={18} />
       {/if}
     </SelectTrigger>
     <SelectContent class="border-border/70 bg-background text-foreground">

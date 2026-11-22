@@ -1,74 +1,24 @@
 <script lang="ts">
-import {
-  Button,
-  cn,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@ikuyo/ui";
-import {
-  AlbumIcon,
-  HashIcon,
-  HouseIcon,
-  ImagesIcon,
-  ListIcon,
-  MenuIcon,
-  NotepadTextIcon,
-} from "lucide-svelte";
+import { cn } from "@ikuyo/ui";
 import { onMount } from "svelte";
 import ToggleTheme from "./ToggleTheme.svelte";
 
 let { currentPath } = $props();
 
 const navList = [
-  {
-    id: 0,
-    icon: HouseIcon,
-    path: "/",
-    label: "Home",
-    cy: "home-btn",
-  },
-  {
-    id: 1,
-    icon: ListIcon,
-    path: "/works",
-    label: "Works",
-    cy: "works-btn",
-  },
-  {
-    id: 2,
-    icon: NotepadTextIcon,
-    path: "/notes",
-    label: "Notes",
-    cy: "notes-btn",
-  },
-  {
-    id: 3,
-    icon: HashIcon,
-    path: "/tags",
-    label: "Tags",
-    cy: "tags-btn",
-  },
-  {
-    id: 4,
-    icon: ImagesIcon,
-    path: "/photos",
-    label: "Photos",
-    cy: "photos-btn",
-  },
-  {
-    id: 5,
-    icon: AlbumIcon,
-    path: "/guestbook",
-    label: "Guestbook",
-    cy: "guestbook-btn",
-  },
+  { id: 0, path: "/", label: "Home", cy: "home-btn" },
+  { id: 1, path: "/about", label: "About", cy: "about-btn" },
+  { id: 2, path: "/works", label: "Works", cy: "works-btn" },
+  { id: 3, path: "/notes", label: "Notes", cy: "notes-btn" },
+  { id: 4, path: "/tags", label: "Tags", cy: "tags-btn" },
+  { id: 5, path: "/photos", label: "Photos", cy: "photos-btn" },
+  { id: 6, path: "/guestbook", label: "Guestbook", cy: "guestbook-btn" },
 ];
 
 const isActive = (path: string) =>
   path === "/" ? currentPath === "/" : currentPath.includes(path);
 
+let list: HTMLUListElement;
 let isVisible = $state(true);
 let lastScrollY = $state(0);
 let ticking = $state(false);
@@ -95,6 +45,10 @@ function handleScroll() {
 }
 
 onMount(() => {
+  // On narrow screens the links scroll inside the bar; start with the current page centred.
+  const active = list.querySelector<HTMLElement>('[aria-current="page"]');
+  if (active) list.scrollLeft = active.offsetLeft - (list.clientWidth - active.offsetWidth) / 2;
+
   window.addEventListener("scroll", handleScroll, { passive: true });
 
   return () => {
@@ -107,53 +61,35 @@ onMount(() => {
 <nav
   aria-label="Primary"
   class={cn(
-    "fixed top-[max(1rem,env(safe-area-inset-top))] right-4 z-50 flex items-center gap-2 transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-fit max-w-[calc(100%-2rem)] items-center gap-1 rounded-full border border-border/60 bg-background/60 pr-1 shadow-sm backdrop-blur-md backdrop-saturate-150 transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >
-  <ToggleTheme />
-  <DropdownMenu>
-    <DropdownMenuTrigger>
-      {#snippet child({ props })}
-        <Button
-          {...props}
-          type="button"
-          variant="outline"
-          size="icon-sm"
-          data-cy="nav-menu-btn"
-          aria-label="Open navigation menu"
-          class="rounded-md! bg-background"
+  <!-- ponytail: the clipped label at the bar's edge is the only scroll hint; add an edge fade if visitors miss it. -->
+  <!-- The p-1 leaves room for the 2px focus outline and its 2px offset inside the scroll clip. -->
+  <ul
+    bind:this={list}
+    class="relative m-0 flex min-w-0 list-none items-center gap-0.5 overflow-x-auto overscroll-x-contain p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    {#each navList as item}
+      {@const active = isActive(item.path)}
+      <li>
+        <a
+          data-cy={item.cy}
+          href={item.path === "/" ? "/" : `${item.path}/`}
+          aria-current={active ? "page" : undefined}
+          class={cn(
+            "block rounded-full! px-3 py-1.5 text-sm whitespace-nowrap font-medium! no-underline! transition-colors",
+            active
+              ? "bg-accent text-accent-foreground"
+              : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+          )}
         >
-          <MenuIcon size={21} aria-hidden="true" />
-        </Button>
-      {/snippet}
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" sideOffset={8} class="w-52">
-      {#each navList as item}
-        {@const active = isActive(item.path)}
-        <DropdownMenuItem>
-          {#snippet child({ props })}
-            <a
-              {...props}
-              data-cy={item.cy}
-              href={item.path === "/" ? "/" : `${item.path}/`}
-              aria-current={active ? "page" : undefined}
-              class={cn(
-                props.class as string,
-                "rounded-md! font-medium! no-underline!",
-                // The accent background marks keyboard and pointer focus; the dot marks the current page.
-                active ? "text-foreground" : "text-muted-foreground",
-              )}
-            >
-              <item.icon size={16} aria-hidden="true" />
-              <span>{item.label}</span>
-              {#if active}
-                <span class="ml-auto size-1.5 rounded-full bg-primary" aria-hidden="true"></span>
-              {/if}
-            </a>
-          {/snippet}
-        </DropdownMenuItem>
-      {/each}
-    </DropdownMenuContent>
-  </DropdownMenu>
+          {item.label}
+        </a>
+      </li>
+    {/each}
+  </ul>
+  <span class="h-5 w-px shrink-0 bg-border" aria-hidden="true"></span>
+  <ToggleTheme />
 </nav>

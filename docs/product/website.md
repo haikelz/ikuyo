@@ -44,11 +44,12 @@
 
 ## Navigation
 
-- Navigation lives in a minimal top-right menu on every viewport: a theme
-  toggle and a menu button whose dropdown lists Home, Works, Notes, Tags,
-  Photos, and Guestbook with icons and labels.
-- The menu uses the shared `DropdownMenu`; its items render when it opens, so
-  crawlers reach pages through the sitemap and in-page links.
+- Navigation is a glass top bar, centered at the top of every viewport and as
+  wide as its content: text links to Home, About, Works, Notes, Tags, Photos,
+  and Guestbook, then the theme toggle.
+- The links render in static HTML. On screens too narrow for every label, the
+  links scroll sideways inside the bar, and the current page's link starts in
+  view.
 
 ## About page
 
