@@ -10,31 +10,6 @@
   --font-sans: var(--font-plus-jakarta-sans);
   --font-mono: var(--font-geist-mono);
   --font-arabic: var(--font-noto-naskh-arabic);
-  --text-xs: 0.75rem;
-  --text-xs--line-height: 1.4;
-  --text-sm: 0.875rem;
-  --text-sm--line-height: 1.6;
-  --text-base: 1.0625rem;
-  --text-base--line-height: 1.75;
-  --text-lg: 1.1875rem;
-  --text-lg--line-height: 1.65;
-  --text-xl: 1.375rem;
-  --text-xl--line-height: 1.35;
-  --text-2xl: 1.625rem;
-  --text-2xl--line-height: 1.25;
-  --text-3xl: 2rem;
-  --text-3xl--line-height: 1.15;
-  --text-4xl: 2.5rem;
-  --text-4xl--line-height: 1.08;
-  --text-5xl: 3rem;
-  --text-5xl--line-height: 1.05;
-  --text-6xl: 3.75rem;
-  --text-6xl--line-height: 1;
-  --leading-6: 1.625rem;
-  --leading-7: 1.875rem;
-  --leading-relaxed: 1.75;
-  --tracking-tighter: -0.045em;
-  --tracking-tight: -0.025em;
 }
 
 @layer base {
@@ -46,17 +21,42 @@
     border-color: var(--color-gray-200, currentColor);
   }
   * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply antialiased bg-background text-foreground;
-    font-size: var(--text-base);
-    line-height: 1.75;
-    font-kerning: normal;
-    font-optical-sizing: auto;
+    @apply border-border;
   }
   html {
     @apply font-sans;
+    scrollbar-width: thin;
+    scrollbar-color: var(--input) transparent;
+  }
+  /* Interface text is 14px, as on the guestbook; reading text opts into 16px. */
+  body {
+    @apply antialiased bg-background text-foreground;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    font-kerning: normal;
+    font-optical-sizing: auto;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  a {
+    @apply underline decoration-current/35 underline-offset-4;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+  input,
+  textarea {
+    caret-color: var(--primary);
+  }
+  time {
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -76,34 +76,17 @@ body:has(.lightbox-active) {
   padding-right: var(--scrollbar-width, 0px);
 }
 
-nav {
-  @apply border-border;
-}
-
-a {
-  @apply underline decoration-border/30 underline-offset-2 font-bold;
-}
-
 a[target="_blank"]::after {
   content: " ↗";
   font-size: 0.75em;
   opacity: 0.5;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-background;
-}
-
+/* Safari ignores `scrollbar-color`; these keep its scrollbar as thin. */
 ::-webkit-scrollbar {
-  @apply bg-background w-1.5 h-1.5;
+  @apply w-1.5 h-1.5 bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full;
-}
-
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-  border-radius: inherit;
+  @apply bg-input rounded-full;
 }

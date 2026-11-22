@@ -56,7 +56,7 @@ onMount(() => {
 <div class="photo-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden cursor-zoom-in relative block w-full p-0 outline-none bg-muted"
+    class="overflow-hidden cursor-zoom-in relative block w-full p-0 bg-muted"
     onclick={openLightbox}
     aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
@@ -105,7 +105,7 @@ onMount(() => {
   >
     <button
       type="button"
-      class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
+      class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();

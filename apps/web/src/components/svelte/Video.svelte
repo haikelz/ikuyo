@@ -34,7 +34,7 @@ function showModal(node: HTMLDialogElement) {
 <div class="video-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden bg-muted cursor-pointer relative block w-full p-0 border border-border outline-none hover:border-primary/40 transition-colors"
+    class="overflow-hidden bg-muted cursor-pointer relative block w-full p-0 border border-border hover:border-primary/40 transition-colors"
     onclick={openLightbox}
     aria-label={`Play ${title ?? "video"} in a dialog`}
   >
@@ -53,7 +53,7 @@ function showModal(node: HTMLDialogElement) {
         class="absolute inset-0 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-300"
       >
         <div
-          class="p-4 rounded-md bg-background/80 border border-border/70 text-foreground"
+          class="p-4 rounded-md bg-background/80 border border-border text-foreground"
         >
           <PlayIcon size={28} fill="currentColor" />
         </div>
@@ -80,7 +80,7 @@ function showModal(node: HTMLDialogElement) {
   >
     <button
       type="button"
-      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer outline-none"
+      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
       onclick={(e) => {
         e.stopPropagation();
         closeLightbox();
