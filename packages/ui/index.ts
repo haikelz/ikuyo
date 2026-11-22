@@ -39,7 +39,6 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./src/components/ui/dialog";
-export { Input } from "./src/components/ui/input";
 export { Progress } from "./src/components/ui/progress";
 export { Select, SelectContent, SelectItem, SelectTrigger } from "./src/components/ui/select";
 export { Separator } from "./src/components/ui/separator";
@@ -66,14 +65,6 @@ export {
   ToggleGroup,
   ToggleGroupItem,
 } from "./src/components/ui/toggle-group";
-export { Textarea } from "./src/components/ui/textarea";
-export {
-  Tooltip,
-  TooltipContent,
-  TooltipPortal,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./src/components/ui/tooltip";
 export {
   cn,
   type WithElementRef,
