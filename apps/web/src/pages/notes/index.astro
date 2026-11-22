@@ -1,8 +1,9 @@
 ---
+import NoteRow from "@/components/NoteRow.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import Panel from "@/components/Panel.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { format } from "date-fns";
 
 const notesList = await getCollection("notes");
 ---
@@ -22,57 +23,14 @@ const notesList = await getCollection("notes");
     <PageHeader title="Notes" eyebrow="Recent writing">
       Sometimes I write about technical stuff.
     </PageHeader>
-    <section
-      data-cy="notes-list"
-      class="w-full mt-10 sm:mt-16"
-    >
-      <h2 class="sr-only">All notes</h2>
-      <div class="border-b border-border/70">
+    <section data-cy="notes-list" class="w-full">
+      <Panel title="All notes" count={notesList.length}>
         {
           notesList
-            .sort(
-              (a, b) =>
-                new Date(b.data.created_at).getTime() -
-                new Date(a.data.created_at).getTime(),
-            )
-            .map((item) => (
-              <article
-                data-cy="note-row"
-                class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
-              >
-                <time
-                  datetime={item.data.created_at.toISOString()}
-                  class="font-mono text-xs tabular-nums text-muted-foreground"
-                >
-                  {format(item.data.created_at, "yyyy.MM.dd")}
-                </time>
-                <div>
-                  <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
-                    <a
-                      href={`/notes/${item.id}/`}
-                      class="no-underline! transition-colors hover:text-muted-foreground"
-                    >
-                      {item.data.title}
-                    </a>
-                  </h3>
-                  <p class="mb-0 mt-2 max-w-xl text-sm leading-8 text-pretty text-muted-foreground">
-                    {item.data.description}
-                  </p>
-                  <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
-                    {item.data.tags.join(" · ")}
-                  </p>
-                </div>
-                <a
-                  href={`/notes/${item.id}/`}
-                  aria-label={`Read ${item.data.title}`}
-                  class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
-                >
-                  <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            ))
+            .sort((a, b) => b.data.created_at.getTime() - a.data.created_at.getTime())
+            .map((item) => <NoteRow item={item} testId="note-row" />)
         }
-      </div>
+      </Panel>
     </section>
   </div>
 </Layout>

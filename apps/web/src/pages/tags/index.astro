@@ -33,18 +33,15 @@ const tags = [
     <PageHeader title="Tags" eyebrow="Topics">
       Select specific notes based on the list of tags below.
     </PageHeader>
-    <section
-      data-cy="tags-list"
-      class="w-full mt-10 sm:mt-16"
-    >
+    <section data-cy="tags-list" class="w-full">
       <div class="flex w-full flex-wrap items-center justify-start gap-2">
         {
           tags.map((item) => (
             <a
               href={`/tags/${item}/`}
-              class="border border-border/70 px-3 py-2 rounded-md font-mono text-xs text-muted-foreground no-underline! transition-colors hover:border-foreground/30 hover:text-foreground"
+              class="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground no-underline shadow-xs transition-colors hover:bg-accent hover:text-foreground"
             >
-              <span>#{item}</span>
+              #{item}
             </a>
           ))
         }

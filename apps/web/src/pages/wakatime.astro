@@ -34,7 +34,7 @@ const stats = await Promise.all([fetchStats(), fetchStats("last_7_days")]).catch
     <PageHeader title="Wakatime" eyebrow="Coding activity">
       Coding activity and statistics.
     </PageHeader>
-    <section class="w-full mt-10 sm:mt-16">
+    <section class="w-full">
       {
         stats ? (
           <WakatimeStats client:only="svelte" allTime={stats[0]} weekly={stats[1]} />

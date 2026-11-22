@@ -3,7 +3,6 @@ import Footer from "@/components/Footer.astro";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
 import { PUBLIC_GOATCOUNTER_SRC } from "@/utils/env";
-import { Frame, FramePanel } from "@ikuyo/ui";
 // import "@fontsource/noto-naskh-arabic";
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
@@ -28,7 +27,7 @@ const {
   url,
   ogImage,
   ogImageAlt = `${title} — ekel.dev`,
-  className = "max-w-4xl!",
+  className = "",
   seoType = "website",
   publishedTime,
   tags = [],
@@ -220,30 +219,21 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
   >
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-lg focus:ring-2 focus:ring-ring focus:outline-none"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:rounded-md focus:shadow-panel"
       >Skip to content</a
     >
     <CodeBlockCopy client:only="svelte" />
     <Navbar currentPath={currentPath} client:load />
-    <div
-      class:list={[
-        "container mx-auto w-full! px-4 sm:px-6 md:px-8 pt-20 relative",
-        className,
-      ]}
-    >
+    <div class="flex min-h-dvh w-full flex-col">
       <main
         id="main-content"
         tabindex="-1"
-        class="flex min-h-dvh min-w-0 w-full relative items-start justify-center"
+        class:list={[
+          "relative mx-auto w-full min-w-0 max-w-3xl flex-1 px-4 pt-20 sm:px-6",
+          className,
+        ]}
       >
-        <Frame class="w-full" data-cy="page-frame">
-          <FramePanel
-            class="px-4 py-6 sm:px-6 sm:py-8"
-            data-cy="page-frame-panel"
-          >
-            <slot />
-          </FramePanel>
-        </Frame>
+        <slot />
       </main>
       <Footer />
     </div>
@@ -251,15 +241,3 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
   </body>
 </html>
 
-<style>
-  @media (width < 48rem) {
-    :global(#main-content [data-cy="page-frame"]),
-    :global(#main-content [data-cy="page-frame-panel"]) {
-      display: contents;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-    }
-  }
-</style>

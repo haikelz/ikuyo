@@ -1,9 +1,10 @@
 ---
+import NoteRow from "@/components/NoteRow.astro";
+import Panel from "@/components/Panel.astro";
 import WorkRow from "@/components/WorkRow.astro";
 import OpenToWorkBadge from "@/components/svelte/OpenToWorkBadge.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { format } from "date-fns";
 
 const [notesList, worksList, experienceList] = await Promise.all([
   getCollection("notes"),
@@ -43,34 +44,32 @@ const latestNotes = notesList
   seoType="profile"
 >
   <div class="relative mx-auto flex w-full flex-col items-start justify-start">
-    <section class="w-full mt-8 sm:mt-12">
+    <section class="w-full pt-4 sm:pt-8">
       <h1 data-cy="name" class="sr-only">Haikel Ilham Hakim</h1>
       <OpenToWorkBadge client:load />
-      <div class="mt-7 flex w-full max-w-full flex-col gap-6 sm:flex-row-reverse sm:items-start sm:gap-10">
+      <div class="mt-6 flex w-full max-w-full flex-col gap-6 sm:flex-row-reverse sm:items-start sm:gap-10">
         <img
           data-cy="profile-picture"
           src="https://avatars.githubusercontent.com/u/77146709?v=4&s=256"
           alt="Haikel Ilham Hakim"
           width="128"
           height="128"
-          class="size-24 shrink-0 rounded-xl border border-border object-cover sm:size-32"
+          class="size-24 shrink-0 rounded-lg border border-border object-cover sm:size-28"
         />
         <div class="min-w-0 flex-1">
-          <p
-            class="max-w-full text-lg text-justify text-muted-foreground leading-8 text-pretty"
-          >
-            I'm Haikel (<span lang="cn">海克尔</span>), a Product Engineer
+          <p class="m-0 max-w-full text-base leading-relaxed text-pretty text-muted-foreground">
+            I'm Haikel (<span lang="zh">海克尔</span>), a Product Engineer
             working across business software, delivery infrastructure, and
             content-driven products with Go and TypeScript. I'm currently going
             deeper into Go, DevOps, and finance.
           </p>
-          <div class="flex flex-wrap gap-x-6 gap-y-3 mt-7">
+          <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
             <a
               href="https://www.linkedin.com/in/haikel/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn (opens in new tab)"
-              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              class="font-medium text-foreground transition-colors hover:text-primary"
               >LinkedIn</a
             >
             <a
@@ -78,7 +77,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub (opens in new tab)"
-              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              class="font-medium text-foreground transition-colors hover:text-primary"
               >GitHub</a
             >
             <a
@@ -86,7 +85,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitLab (opens in new tab)"
-              class="text-foreground font-bold hover:text-muted-foreground transition-colors"
+              class="font-medium text-foreground transition-colors hover:text-primary"
               >GitLab</a
             >
           </div>
@@ -94,159 +93,66 @@ const latestNotes = notesList
       </div>
     </section>
 
-    <section data-cy="experience" class="w-full mt-16 sm:mt-24">
-      <div class="mb-8">
-        <p
-          class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
-        >
-          Selected career
-        </p>
-        <h2
-          class="mb-0 mt-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-        >
-          Experience
-        </h2>
-      </div>
-      <div data-slot="timeline" class="w-full">
+    <div class="mt-10 flex w-full flex-col gap-6 sm:mt-14">
+      <Panel title="Experience" count={experiences.length} testId="experience">
         {
           experiences.map((experience) => (
-            <article data-slot="timeline-item" class="relative pb-10 ps-6 sm:pb-12 sm:ps-8 group last:pb-0">
-              <span data-slot="timeline-indicator" aria-hidden="true" class="absolute start-0 top-2 z-10 size-2.5 rounded-full border border-primary bg-card" />
-              <span data-slot="timeline-separator" aria-hidden="true" class="absolute start-[4px] top-4 bottom-0 w-px bg-border group-last:hidden" />
-              <div>
-                <div class="flex w-full flex-col items-start justify-start gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-                  <div>
-                    <h3 class="mb-1 mt-0 text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                      {experience.data.hasDetail === false ? (
-                        experience.data.company
-                      ) : (
-                        <a
-                          data-cy="experience-link"
-                          href={`/experiences/${experience.id}/`}
-                          class="text-foreground no-underline! hover:text-muted-foreground transition-colors"
-                        >
-                          {experience.data.company}
-                        </a>
-                      )}
-                    </h3>
-                    <p class="mb-0 mt-0 text-base text-foreground">
-                      {experience.data.position}
-                    </p>
-                  </div>
-                  <span class="text-sm font-medium tabular-nums text-muted-foreground">
-                    {experience.data.startDate} &mdash;{" "}
-                    {experience.data.endDate}
-                  </span>
-                </div>
-                <ul
-                  role="list"
-                  class="mt-5 space-y-2 text-foreground list-none pl-0"
-                >
-                  {experience.data.highlights.map((highlight) => (
-                    <li data-cy="experience-highlight" class="relative pl-6">
-                      <span class="absolute left-0 top-4 h-px w-2 bg-muted-foreground/50" />
-                      <p class="my-0 text-sm leading-8 text-pretty text-justify">
-                        {highlight}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-                {experience.data.hasDetail === false ? null : (
-                  <a
-                    href={`/experiences/${experience.id}/`}
-                    class="mt-6 inline-flex min-h-8 items-center text-sm font-semibold text-foreground decoration-border transition-colors hover:text-muted-foreground"
-                  >
-                    Read Case Study <span aria-hidden="true">&nbsp;→</span>
-                  </a>
-                )}
+            <article class="border-t border-border px-4 py-4 first:border-t-0 sm:px-5">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+                <h3 class="m-0 text-sm font-semibold text-foreground">
+                  {experience.data.hasDetail === false ? (
+                    experience.data.company
+                  ) : (
+                    <a
+                      data-cy="experience-link"
+                      href={`/experiences/${experience.id}/`}
+                      class="text-foreground no-underline transition-colors hover:text-primary"
+                    >
+                      {experience.data.company}
+                    </a>
+                  )}
+                </h3>
+                <span class="shrink-0 text-xs tabular-nums text-muted-foreground">
+                  {experience.data.startDate} &ndash; {experience.data.endDate}
+                </span>
               </div>
+              <p class="m-0 text-muted-foreground">{experience.data.position}</p>
+              <ul role="list" class="mb-0 mt-3 flex list-none flex-col gap-1.5 pl-0">
+                {experience.data.highlights.map((highlight) => (
+                  <li data-cy="experience-highlight" class="relative max-w-[70ch] pl-4 leading-relaxed text-pretty">
+                    <span aria-hidden="true" class="absolute left-0 top-[0.7em] size-1 rounded-full bg-muted-foreground/60" />
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+              {experience.data.hasDetail === false ? null : (
+                <a
+                  href={`/experiences/${experience.id}/`}
+                  class="mt-3 inline-flex min-h-8 items-center text-sm font-medium text-primary no-underline hover:underline"
+                >
+                  Read case study <span aria-hidden="true">&nbsp;→</span>
+                </a>
+              )}
             </article>
           ))
         }
-      </div>
-    </section>
+      </Panel>
 
-    {
-      featuredProjectGroups.map((group) => (
-        <section data-cy={group.testId} class="mt-16 sm:mt-24 w-full">
-          <div class="mb-8 flex items-end justify-between gap-4">
-            <div>
-              <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                Selected projects
-              </p>
-              <h2 class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                {group.title}
-              </h2>
-            </div>
-            <a href="/works/" class="shrink-0 text-sm text-muted-foreground hover:text-foreground">
-              View all <span aria-hidden="true">→</span>
-            </a>
-          </div>
-          <div class="border-b border-border/70">
+      {
+        featuredProjectGroups.map((group) => (
+          <Panel title={group.title} href="/works/" testId={group.testId}>
             {group.projects.map((item) => (
               <WorkRow item={item} testId="featured-work" />
             ))}
-          </div>
-        </section>
-      ))
-    }
-    <section data-cy="featured-notes" class="mt-16 sm:mt-24 mb-0 w-full">
-      <div class="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <p
-            class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground"
-          >
-            Recent writing
-          </p>
-          <h2
-            class="mt-0 mb-0 text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
-          >
-            Latest Notes
-          </h2>
-        </div>
-        <a
-          href="/notes/"
-          class="shrink-0 text-sm text-muted-foreground hover:text-foreground"
-        >
-          View all <span aria-hidden="true">→</span>
-        </a>
-      </div>
-      <div class="border-b border-border/70">
-        {
-          latestNotes.map((item) => (
-            <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
-              <time
-                datetime={item.data.created_at.toISOString()}
-                class="font-mono text-xs tabular-nums text-muted-foreground"
-              >
-                {format(item.data.created_at, "yyyy.MM.dd")}
-              </time>
-              <div>
-                <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
-                  <a
-                    href={`/notes/${item.id}/`}
-                    class="no-underline! hover:text-muted-foreground transition-colors"
-                  >
-                    {item.data.title}
-                  </a>
-                </h3>
-                <p class="mb-0 mt-2 max-w-xl text-sm leading-8 text-muted-foreground text-pretty">
-                  {item.data.description}
-                </p>
-              </div>
-              <a
-                href={`/notes/${item.id}/`}
-                aria-label={`Read ${item.data.title}`}
-                class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
-              >
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-    <!-- Temporary: the banner replaces the GitHub calendar; it sits flush on the card's bottom edge. -->
+          </Panel>
+        ))
+      }
+
+      <Panel title="Latest Notes" href="/notes/" testId="featured-notes">
+        {latestNotes.map((item) => <NoteRow item={item} />)}
+      </Panel>
+    </div>
+    <!-- Temporary: the banner replaces the GitHub calendar; it rests on the footer's top divider. -->
     <img
       data-cy="home-banner"
       src="/images/banner.png"
@@ -255,7 +161,7 @@ const latestNotes = notesList
       height="195"
       loading="lazy"
       decoding="async"
-      class="mt-12 hidden md:block w-full max-w-xs self-end md:-mb-8"
+      class="mt-12 hidden w-full max-w-xs self-end md:-mb-16 md:block"
     />
   </div>
 </Layout>

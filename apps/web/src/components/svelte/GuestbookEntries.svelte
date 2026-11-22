@@ -76,28 +76,38 @@ onMount(() => {
       <AlertDescription>Be the first to leave a message.</AlertDescription>
     </Alert>
   {:else}
-    <div class="w-full border-b border-border/70">
+    <section
+      aria-labelledby="guestbook-feed-title"
+      class="w-full overflow-hidden rounded-lg border border-border bg-card shadow-panel"
+    >
+      <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
+        <h2 id="guestbook-feed-title" class="m-0 text-sm font-semibold text-foreground">Messages</h2>
+        <span class="rounded-full bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
+          {entries.length}
+        </span>
+      </div>
       {#each entries as item (item.id)}
         <article
           data-cy="guestbook-row"
-          class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+          class="flex gap-3 border-t border-border px-4 py-4 first-of-type:border-t-0 sm:px-5"
         >
-          <time
-            datetime={new Date(item.created_at).toISOString()}
-            class="font-mono text-xs tabular-nums text-muted-foreground"
+          <span
+            aria-hidden="true"
+            class="flex size-7 shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-muted-foreground"
           >
-            {format(item.created_at, "yyyy.MM.dd")}
-          </time>
-          <h3
-            class="m-0 text-lg font-semibold leading-7 tracking-tight text-foreground text-pretty"
-          >
-            {item.message}
-          </h3>
-          <p class="m-0 text-sm font-medium text-muted-foreground">
-            {item.username}
-          </p>
+            {item.username.trim().charAt(0).toUpperCase()}
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="mb-1 flex min-h-7 flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+              <span class="font-medium [overflow-wrap:anywhere]">@{item.username}</span>
+              <time datetime={new Date(item.created_at).toISOString()} class="shrink-0 text-xs text-muted-foreground">
+                {format(item.created_at, "d MMM yyyy")}
+              </time>
+            </div>
+            <p class="m-0 max-w-[70ch] whitespace-pre-wrap leading-relaxed [overflow-wrap:anywhere]">{item.message}</p>
+          </div>
         </article>
       {/each}
-    </div>
+    </section>
   {/if}
 {/if}

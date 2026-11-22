@@ -8,22 +8,15 @@ type Props = {
 const { title, eyebrow, className = "" } = Astro.props;
 ---
 
-<header class:list={["w-full mt-8", className]}>
-  <p
-    class="mb-3 mt-0 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-primary"
-  >
-    {eyebrow}
-  </p>
+<header class:list={["w-full pt-4 pb-6 sm:pt-8", className]}>
+  <p class="mb-3 mt-0 text-sm font-medium text-muted-foreground">{eyebrow}</p>
   <h1
     data-cy="heading"
-    class="mb-4 mt-0 text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-4xl md:text-5xl"
+    class="m-0 text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-[1.75rem]"
   >
     {title}
   </h1>
-  <div
-    data-cy="description"
-    class="max-w-3xl text-lg leading-8 text-muted-foreground"
-  >
+  <div data-cy="description" class="mt-2 max-w-[46ch] text-muted-foreground">
     <slot />
   </div>
 </header>

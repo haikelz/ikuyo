@@ -1,8 +1,9 @@
 ---
+import NoteRow from "@/components/NoteRow.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import Panel from "@/components/Panel.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { format } from "date-fns";
 
 const notes = await getCollection("notes");
 
@@ -51,45 +52,10 @@ const description =
       Notes tagged with {currentPath}.
     </PageHeader>
 
-    <section class="w-full mt-10 sm:mt-16">
-      <h2 class="sr-only">Notes tagged with {currentPath}</h2>
-      <div class="w-full border-b border-border/70">
-        {
-          taggedNotes.map((item) => (
-              <article class="grid gap-3 border-t border-border/70 py-6 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6">
-                <time
-                  datetime={item.data.created_at.toISOString()}
-                  class="font-mono text-xs tabular-nums text-muted-foreground"
-                >
-                  {format(item.data.created_at, "yyyy.MM.dd")}
-                </time>
-                <div>
-                  <h3 class="m-0 text-lg font-semibold tracking-tight text-foreground">
-                    <a
-                      href={`/notes/${item.id}/`}
-                      class="no-underline! transition-colors hover:text-muted-foreground"
-                    >
-                      {item.data.title}
-                    </a>
-                  </h3>
-                  <p class="mb-0 mt-2 max-w-xl text-sm leading-8 text-pretty text-muted-foreground">
-                    {item.data.description}
-                  </p>
-                  <p class="mb-0 mt-3 font-mono text-xs text-muted-foreground">
-                    {item.data.tags.join(" · ")}
-                  </p>
-                </div>
-                <a
-                  href={`/notes/${item.id}/`}
-                  aria-label={`Read ${item.data.title}`}
-                  class="hidden text-muted-foreground no-underline! transition-transform hover:translate-x-1 hover:text-foreground sm:block"
-                >
-                  <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            ))
-        }
-      </div>
+    <section class="w-full">
+      <Panel title={`Notes tagged with ${currentPath}`} count={taggedNotes.length}>
+        {taggedNotes.map((item) => <NoteRow item={item} />)}
+      </Panel>
     </section>
   </div>
 </Layout>

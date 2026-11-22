@@ -4,16 +4,19 @@ const collections = [
   { path: "/guestbook", row: '[data-cy="guestbook-row"]' },
 ];
 
-describe("Editorial collection lists", () => {
+describe("Collection panels", () => {
   for (const width of [375, 1280]) {
     for (const collection of collections) {
       it(`renders ${collection.path} as rows at ${width}px`, () => {
         cy.viewport(width, 900);
         cy.visit(collection.path);
+        // Rows sit in a guestbook panel and divide themselves with a top border.
+        cy.get(collection.row).should("have.length.greaterThan", 0).and("have.class", "border-t");
         cy.get(collection.row)
-          .should("have.length.greaterThan", 0)
-          .and("have.class", "grid")
-          .and("have.class", "border-t");
+          .first()
+          .closest("section")
+          .should("have.class", "rounded-lg")
+          .and("have.class", "shadow-panel");
         cy.document().then((document) => {
           expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
         });

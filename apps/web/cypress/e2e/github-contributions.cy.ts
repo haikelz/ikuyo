@@ -43,7 +43,7 @@ describe("Homepage GitHub contributions", () => {
         });
       cy.screenshot(`home-badge-${width}`, { capture: "viewport" });
       if (width < 768) {
-        // Below 768px there is no card frame, so the banner stays hidden.
+        // The banner is a desktop flourish; phones skip it.
         cy.get('[data-cy="home-banner"]').should("not.be.visible");
       } else {
         cy.get('[data-cy="home-banner"]')
@@ -52,15 +52,15 @@ describe("Homepage GitHub contributions", () => {
           .and(($banner) => {
             const banner = $banner[0] as HTMLImageElement;
             const rect = banner.getBoundingClientRect();
-            const panel = banner.closest('[data-cy="page-frame-panel"]')!.getBoundingClientRect();
-            const intro = Array.from(banner.ownerDocument.querySelectorAll("p")).find((p) =>
-              p.textContent?.includes("a Product Engineer"),
-            )!;
+            const footer = banner.ownerDocument.querySelector("footer")!.getBoundingClientRect();
+            const panel = banner.ownerDocument
+              .querySelector('[data-cy="experience"]')!
+              .getBoundingClientRect();
             expect(banner.naturalWidth).to.be.greaterThan(0);
             expect(rect.width).to.be.at.most(320);
-            // Right-aligned with the content and resting on the card's inner bottom edge.
-            expect(rect.right).to.be.closeTo(intro.getBoundingClientRect().right, 1);
-            expect(panel.bottom - 1 - rect.bottom).to.be.closeTo(0, 1);
+            // Right-aligned with the content column and resting on the footer's top divider.
+            expect(rect.right).to.be.closeTo(panel.right, 1);
+            expect(footer.top - rect.bottom).to.be.closeTo(0, 1);
           });
       }
       cy.document().then((document) => {

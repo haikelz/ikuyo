@@ -1,0 +1,46 @@
+---
+// Guestbook feed panel: a bordered surface with a heading row; rows divide themselves.
+type Props = {
+  title: string;
+  count?: number;
+  href?: string;
+  testId?: string;
+  class?: string;
+};
+
+const { title, count, href, testId, class: className } = Astro.props;
+---
+
+<section
+  data-cy={testId}
+  class:list={[
+    "w-full overflow-hidden rounded-lg border border-border bg-card shadow-panel",
+    className,
+  ]}
+>
+  <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
+    <h2 class="m-0 text-sm font-semibold text-foreground">{title}</h2>
+    <div class="flex items-center gap-3">
+      {
+        count !== undefined ? (
+          <span class="rounded-full bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
+            {count}
+          </span>
+        ) : null
+      }
+      {
+        href ? (
+          <a
+            href={href}
+            class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+          >
+            View all <span aria-hidden="true">→</span>
+          </a>
+        ) : null
+      }
+    </div>
+  </div>
+  <div>
+    <slot />
+  </div>
+</section>

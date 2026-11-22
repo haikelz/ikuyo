@@ -1,5 +1,6 @@
 ---
 import PageHeader from "@/components/PageHeader.astro";
+import Panel from "@/components/Panel.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -20,20 +21,18 @@ const currentRoles = (await getCollection("experiences"))
       Who I am, what I build, and where I work now.
     </PageHeader>
 
-    <section
-      class="mt-10 flex w-full flex-col gap-6 sm:mt-16 sm:flex-row-reverse sm:items-start sm:gap-10"
-    >
+    <section class="flex w-full flex-col gap-6 sm:flex-row-reverse sm:items-start sm:gap-10">
       <img
         data-cy="about-picture"
         src="https://avatars.githubusercontent.com/u/77146709?v=4&s=320"
         alt="Haikel Ilham Hakim"
         width="160"
         height="160"
-        class="size-28 shrink-0 rounded-xl border border-border object-cover sm:size-40"
+        class="size-24 shrink-0 rounded-lg border border-border object-cover sm:size-32"
       />
       <div
         data-cy="about-bio"
-        class="flex min-w-0 flex-1 flex-col gap-6 text-lg leading-8 text-muted-foreground text-pretty"
+        class="flex min-w-0 flex-1 flex-col gap-4 text-base leading-relaxed text-pretty text-muted-foreground"
       >
         <p class="my-0">
           I'm Haikel Ilham Hakim (<span lang="zh">海克尔</span>), a Product Engineer based in
@@ -49,47 +48,37 @@ const currentRoles = (await getCollection("experiences"))
         </p>
         <p class="my-0">
           Right now I'm going deeper into Go, DevOps, and finance, and I write down what I learn
-          in my <a href="/notes/" class="text-foreground hover:text-muted-foreground">notes</a>.
+          in my <a href="/notes/" class="font-medium text-foreground hover:text-primary">notes</a>.
         </p>
       </div>
     </section>
 
     {
       currentRoles.length > 0 ? (
-        <section data-cy="current-work" class="mt-16 w-full sm:mt-24">
-          <div class="mb-8">
-            <p class="mb-3 mt-0 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-              Now
-            </p>
-            <h2 class="mb-0 mt-0 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Currently working at
-            </h2>
-          </div>
-          <div class="border-b border-border/70">
-            {currentRoles.map((role) => (
-              <article class="flex flex-col items-start gap-2 border-t border-border/70 py-6 sm:flex-row sm:items-baseline sm:justify-between">
-                <div>
-                  <h3 class="mb-1 mt-0 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                    {role.data.hasDetail === false ? (
-                      role.data.company
-                    ) : (
-                      <a
-                        href={`/experiences/${role.id}/`}
-                        class="text-foreground no-underline! transition-colors hover:text-muted-foreground"
-                      >
-                        {role.data.company}
-                      </a>
-                    )}
-                  </h3>
-                  <p class="mb-0 mt-0 text-base text-foreground">{role.data.position}</p>
-                </div>
-                <span class="text-sm font-medium tabular-nums text-muted-foreground">
-                  Since {role.data.startDate}
-                </span>
-              </article>
-            ))}
-          </div>
-        </section>
+        <Panel title="Currently working at" testId="current-work" class="mt-10 sm:mt-14">
+          {currentRoles.map((role) => (
+            <article class="flex flex-col border-t border-border px-4 py-4 first:border-t-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3 sm:px-5">
+              <div>
+                <h3 class="m-0 text-sm font-semibold text-foreground">
+                  {role.data.hasDetail === false ? (
+                    role.data.company
+                  ) : (
+                    <a
+                      href={`/experiences/${role.id}/`}
+                      class="text-foreground no-underline transition-colors hover:text-primary"
+                    >
+                      {role.data.company}
+                    </a>
+                  )}
+                </h3>
+                <p class="m-0 text-muted-foreground">{role.data.position}</p>
+              </div>
+              <span class="shrink-0 text-xs tabular-nums text-muted-foreground">
+                Since {role.data.startDate}
+              </span>
+            </article>
+          ))}
+        </Panel>
       ) : null
     }
   </div>

@@ -1,32 +1,27 @@
-<footer
-  class="w-full flex flex-col md:flex-row py-6 mt-20 border-t border-border/70 justify-between items-center gap-6"
->
-  <div class="m-0! p-0!">
-    <p class="font-medium text-xs text-muted-foreground m-0! p-0!">
-      © {new Date().getFullYear()} Haikel
-    </p>
-  </div>
-  <nav
-    class="flex w-fit flex-wrap gap-3 sm:gap-6 justify-center items-center"
-    aria-label="Footer"
+<footer class="mt-16 w-full border-t border-border">
+  <div
+    class="mx-auto flex w-full max-w-3xl flex-col gap-1 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6"
   >
-    <a
-      href="https://uptime.ekel.dev"
-      target="_blank"
-      rel="noreferrer noopener"
-      aria-label="Uptime (opens in new tab)"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-      >Uptime</a
-    >
-    <a
-      href="/tools/"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-      >Tools</a
-    >
-    <a
-      href="/wakatime/"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-      >Wakatime</a
-    >
-  </nav>
+    <p class="m-0">© {new Date().getFullYear()} Haikel</p>
+    <nav class="flex flex-wrap items-center gap-x-4 gap-y-1" aria-label="Footer">
+      <a
+        href="https://uptime.ekel.dev"
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label="Uptime (opens in new tab)"
+        class="text-muted-foreground no-underline transition-colors hover:text-foreground"
+        >Uptime</a
+      >
+      <a
+        href="/tools/"
+        class="text-muted-foreground no-underline transition-colors hover:text-foreground"
+        >Tools</a
+      >
+      <a
+        href="/wakatime/"
+        class="text-muted-foreground no-underline transition-colors hover:text-foreground"
+        >Wakatime</a
+      >
+    </nav>
+  </div>
 </footer>

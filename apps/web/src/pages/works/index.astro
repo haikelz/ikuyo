@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import Panel from "@/components/Panel.astro";
 import WorkRow from "@/components/WorkRow.astro";
 import { getCollection } from "astro:content";
 
@@ -38,21 +39,13 @@ const projectGroups = [
     <PageHeader title="Works" eyebrow="Company and personal projects">
       Browse projects I've built with teams and on my own.
     </PageHeader>
-    <section
-      data-cy="works-list"
-      class="w-full mt-10 sm:mt-16"
-    >
+    <section data-cy="works-list" class="flex w-full flex-col gap-6">
       {projectGroups.map((group) => (
-        <section data-cy={group.testId} class="mb-14 w-full last:mb-0">
-          <h2 class="mb-4 text-xl font-semibold tracking-tight text-foreground">
-            {group.title}
-          </h2>
-          <div class="border-b border-border/70">
-            {group.projects.map((item) => (
-              <WorkRow item={item} testId="work-row" />
-            ))}
-          </div>
-        </section>
+        <Panel title={group.title} count={group.projects.length} testId={group.testId}>
+          {group.projects.map((item) => (
+            <WorkRow item={item} testId="work-row" />
+          ))}
+        </Panel>
       ))}
     </section>
   </div>
