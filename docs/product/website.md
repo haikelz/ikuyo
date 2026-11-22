@@ -50,6 +50,15 @@
 - The menu uses the shared `DropdownMenu`; its items render when it opens, so
   crawlers reach pages through the sitemap and in-page links.
 
+## About page
+
+- `/about/` shows the owner's GitHub profile picture, a short biography, and
+  the current role.
+- The current role lists every `experiences` record whose end date is
+  `Present`: company, position, and start date. The page never restates that
+  record in its source.
+- The biography states only facts found elsewhere in the site's content.
+
 ## Homepage activity contract
 
 - The intro shows the owner's GitHub profile picture above the description on

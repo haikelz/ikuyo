@@ -8,6 +8,7 @@ const uniqueTags = [...new Set(notes.flatMap((note) => note.data.tags))];
 
 const staticPages: Record<string, { title: string }> = {
   home: { title: "Home" },
+  about: { title: "About" },
   "eid-al-fitr": { title: "Eid Al-Fitr" },
   notes: { title: "Notes" },
   works: { title: "Works" },
