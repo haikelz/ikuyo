@@ -52,6 +52,14 @@
   link with the current page marked; Escape and the close button dismiss it
   and return focus to the button.
 
+## Page transitions
+
+- Moving between pages keeps the navigation bar in place while the old page
+  lifts away and the new one rises in; going back reverses the direction.
+- From 640px the current-page highlight slides from the old link to the new
+  one.
+- Reduced motion turns every transition off.
+
 ## Footer
 
 - The footer shows the copyright and links to Uptime, Tools, and Wakatime.

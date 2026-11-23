@@ -164,9 +164,20 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ## 6. Motion & Interaction
 
 - Color transitions run about 150ms; no `transition-all`.
-- Astro route changes use a brief opacity cross-fade; page content never
-  slides or staggers in.
-- `prefers-reduced-motion` removes transitions.
+- Route changes use Astro's `ClientRouter` and native view transitions,
+  styled in `src/styles/animations.css`:
+  - The page is the root snapshot (the viewport); `<body>` carries no
+    transition name, so a scrolled page never slides from its scroll offset.
+  - Forward: the old page fades out while lifting 8px (160ms, ease-in); the
+    new page rises 16px into place (360ms, `cubic-bezier(0.22, 1, 0.36, 1)`,
+    60ms delay). Back (`data-astro-transition="back"`) reverses both
+    directions.
+  - The nav bar is its own snapshot (`site-nav`) and swaps without fading.
+    The current-page fill is a separate `nav-pill` snapshot that slides to
+    the new link in 360ms; link labels (`nav-label` class) sit above it.
+  - Content inside the page never staggers in.
+- `prefers-reduced-motion` removes transitions and every view-transition
+  animation.
 
 ## 7. Depth & Surface
 
