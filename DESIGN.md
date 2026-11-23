@@ -5,10 +5,11 @@
 Ikuyo uses the guestbook design system from `guestbook.ekel.dev`: a quiet,
 app-like interface on cool slate neutrals with one indigo accent. Content sits
 in a single 48rem column; lists live in bordered panels with a heading row,
-a count pill, and divided rows. Text is small and even, hierarchy comes from
-weight and muted color rather than size, and surfaces stay flat apart from one
-soft panel shadow. The guestbook is built with HeroUI on React; Ikuyo ports its
-tokens and patterns to Astro, Svelte, and Tailwind CSS without either runtime.
+a count pill, and divided rows. Typography sets Lora serif
+titles over Inter body text, with hierarchy from the serif, weight, and muted
+color more than size. Surfaces stay flat apart from one soft panel shadow. The
+guestbook is built with HeroUI on React; Ikuyo ports its tokens and patterns to
+Astro, Svelte, and Tailwind CSS without either runtime.
 
 ## 2. Color
 
@@ -37,17 +38,28 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ## 3. Typography
 
-- Font: Plus Jakarta Sans. Geist Mono is for code only; Noto Naskh Arabic for
-  Arabic display text.
-- Scale: Tailwind's default type scale, unmodified, as on the guestbook.
-- Interface text: 14px (`text-sm`) with 1.5 line-height; this is the body size.
-- Page title: `text-2xl`, `sm:text-[1.75rem]`, semibold, `tracking-tight`,
-  `leading-tight`.
-- Panel and section titles: 14px semibold.
+- Fonts: Inter (variable, 100 to 900) for body and
+  interface text; Lora (variable, 400 to 700) for titles; Geist Mono for code
+  only; Noto Naskh Arabic for Arabic display text. Load real weights; never
+  rely on synthesized bold.
+- Scale: Tailwind's default type scale, unmodified.
+- Body: 16px (`text-base`) with 1.5 line-height.
+- Titles: `h1`, `h2`, and dialog titles (`role="heading"` at levels 1 and 2)
+  set in Lora at weight 500 with balanced wrapping and no negative tracking.
+  Row titles (`h3`) stay in Inter.
+- Page title: `text-2xl`, `md:text-3xl`, `leading-tight`.
+- Panel and section titles: Lora `text-lg`, `leading-snug`.
+- Row titles: Inter 16px medium.
 - Labels above a title: 14px medium muted text. Never uppercase, never mono.
-- Metadata, dates, counts: 12px (`text-xs`) muted with `tabular-nums`.
-- Reading text (bios, intros longer than a sentence, article prose): 16px with
-  1.625 to 1.75 line-height, left-aligned, never justified, at most 70ch.
+- Secondary text (row summaries, positions, highlights, dates): 14px
+  (`text-sm`); dates and counts use `tabular-nums`.
+- Tertiary text (tags, stacks, count pills): 12px (`text-xs`) muted.
+- Reading text (bios, intros, article prose): 16px with 1.625 to 1.75
+  line-height, left-aligned, never justified. Prose text stops at 65ch; code
+  blocks, images, and tables keep the column.
+- Article headings: Lora semibold on an em scale (h1 1.75em, h2 1.25em, h3
+  1.125em, h4 1em). Article links keep the text color with a 30% underline that
+  darkens on hover; quotes use a 2px divider rule without quote marks.
 
 ## 4. Spacing & Layout
 
@@ -70,7 +82,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   separate themselves with a top border that the first row drops.
 - **Rows:** `WorkRow`, `NoteRow`, experience and role rows, guestbook
   messages. A topline puts the title at the left and the date at the right;
-  it stacks on phones. Titles are 14px medium links that turn accent on hover.
+  it stacks on phones. Titles are 16px medium links that turn accent on hover.
 - **Use for:** every list of records. Free text and prose stay outside panels.
 
 ### Page header
@@ -93,18 +105,20 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ### Navigation bar
 
-- **Structure:** fixed at the top center above the safe area, as wide as its
-  content and never wider than the viewport less 2rem. Text links to Home,
-  About, Works, Notes, Tags, Photos, and Guestbook, a hairline divider, then
-  the theme toggle as a 32px ghost icon button.
+- **Structure:** fixed at the top center above the safe area. From `sm` it is
+  as wide as its content: text links to Home, About, Works, Notes, Tags,
+  Photos, and Guestbook, a hairline divider, then the theme toggle as a 32px
+  ghost icon button.
+- **Phones (below `sm`):** the bar spans the viewport less 2rem and holds the
+  owner's name in Lora linking home, the theme toggle, and a 32px "Open menu"
+  ghost button. The button opens a top sheet titled "Menu" that lists the same
+  links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, a divider border, `shadow-panel`, and a 10px radius. This is the only
   blurred surface.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
-- **Narrow screens:** the link strip scrolls sideways inside the bar with its
-  scrollbar hidden; the current page's link starts in view.
 - **Motion:** the bar hides on scroll down and returns on scroll up with a
   200ms transform; reduced motion removes it.
 

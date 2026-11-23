@@ -43,12 +43,14 @@
 
 ## Navigation
 
-- Navigation is a glass top bar, centered at the top of every viewport and as
-  wide as its content: text links to Home, About, Works, Notes, Tags, Photos,
-  and Guestbook, then the theme toggle.
-- The links render in static HTML. On screens too narrow for every label, the
-  links scroll sideways inside the bar, and the current page's link starts in
-  view.
+- Navigation is a glass top bar, centered at the top of every viewport. From
+  640px it is as wide as its content: text links to Home, About, Works, Notes,
+  Tags, Photos, and Guestbook, then the theme toggle. The links render in
+  static HTML.
+- Below 640px the bar shows the owner's name linking home, the theme toggle,
+  and a menu button. The button opens a sheet listing every link with the
+  current page marked; Escape and the close button dismiss it and return focus
+  to the button.
 
 ## About page
 
