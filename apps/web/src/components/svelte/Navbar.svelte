@@ -70,12 +70,20 @@ onMount(() => {
 <nav
   aria-label="Primary"
   class={cn(
-    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border border-border bg-background/85 py-1 pr-1 pl-3 shadow-panel backdrop-blur-[12px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:w-fit sm:justify-start sm:py-0 sm:pl-0",
+    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border border-border bg-background/85 py-1 pr-1 pl-1.5 shadow-panel backdrop-blur-[12px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:w-fit sm:justify-start sm:py-0 sm:pl-0",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >
-  <!-- Phones get the owner's name and a menu button; the link row takes over from sm. -->
-  <a href="/" class="font-heading text-base font-medium text-foreground no-underline sm:hidden">Haikel</a>
+  <!-- Phones get the owner's GitHub avatar and a menu button; the link row takes over from sm. -->
+  <a href="/" aria-label="Home" class="shrink-0 rounded-full no-underline sm:hidden">
+    <img
+      src="https://avatars.githubusercontent.com/u/77146709?v=4&s=64"
+      alt=""
+      width="28"
+      height="28"
+      class="size-7 rounded-full border border-border object-cover"
+    />
+  </a>
   <ul class="m-0 hidden list-none items-center gap-0.5 p-1 sm:flex">
     {#each navList as item}
       {@const active = isActive(item.path)}

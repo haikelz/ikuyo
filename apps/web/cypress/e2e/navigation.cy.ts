@@ -8,6 +8,7 @@ describe("Primary navigation", () => {
     cy.visit("/notes/");
     cy.get(hydrated).should("not.have.attr", "ssr");
     cy.get('[data-cy="notes-btn"]').should("not.be.visible");
+    cy.get('nav[aria-label="Primary"] a[aria-label="Home"] img').should("be.visible");
 
     cy.get('[data-cy="menu-btn"]').should("be.visible").click();
     cy.get('[role="dialog"]').within(() => {
