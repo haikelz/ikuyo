@@ -40,6 +40,8 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Noto Naskh Arabic",
       cssVariable: "--font-noto-naskh-arabic",
+      weights: ["400 700"],
+      styles: ["normal"],
     },
   ],
   markdown: {

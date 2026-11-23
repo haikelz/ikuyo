@@ -60,8 +60,7 @@ const c = $derived(content[lang]);
 
   <section class="mt-0 w-full border-b border-border py-8">
     <p
-      class="text-right text-3xl sm:text-4xl leading-loose tracking-wide font-medium text-foreground"
-      style="font-family: 'Noto Naskh Arabic', serif;"
+      class="arabic-font text-right text-3xl sm:text-4xl leading-loose font-medium text-foreground"
       dir="rtl"
       lang="ar"
     >

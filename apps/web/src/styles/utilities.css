@@ -1,5 +1,5 @@
 .arabic-font {
-  font-family: "Noto Naskh Arabic";
+  font-family: var(--font-noto-naskh-arabic), serif;
 }
 
 .modal-blur {
