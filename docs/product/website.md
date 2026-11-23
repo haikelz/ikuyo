@@ -47,10 +47,15 @@
   640px it is as wide as its content: text links to Home, About, Works, Notes,
   Tags, Photos, and Guestbook, then the theme toggle. The links render in
   static HTML.
-- Below 640px the bar shows the owner's name linking home, the theme toggle,
-  and a menu button. The button opens a sheet listing every link with the
-  current page marked; Escape and the close button dismiss it and return focus
-  to the button.
+- Below 640px the bar shows the owner's GitHub profile picture linking home,
+  the theme toggle, and a menu button. The button opens a sheet listing every
+  link with the current page marked; Escape and the close button dismiss it
+  and return focus to the button.
+
+## Footer
+
+- The footer shows the copyright and links to Uptime, Tools, and Wakatime.
+  Below 640px they stack and center; from 640px they split left and right.
 
 ## About page
 
@@ -65,7 +70,7 @@
 
 - The intro shows the owner's GitHub profile picture above the description on
   phones and to its right from `sm`, separated by a 24px or 40px gap; the
-  description is left-aligned on phones and justified from `sm`.
+  description is justified.
 
 - The homepage presents Haikel's public GitHub contribution calendar in place
   of the former hero statement.

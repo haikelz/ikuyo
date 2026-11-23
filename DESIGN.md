@@ -43,7 +43,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   only; Noto Naskh Arabic for Arabic display text. Load real weights; never
   rely on synthesized bold.
 - Scale: Tailwind's default type scale, unmodified.
-- Body: 16px (`text-base`) with 1.5 line-height.
+- Body: 16px (`text-base`) with 1.625 line-height (`leading-relaxed`).
 - Titles: `h1`, `h2`, and dialog titles (`role="heading"` at levels 1 and 2)
   set in Lora at weight 500 with balanced wrapping and no negative tracking.
   Row titles (`h3`) stay in Inter.
@@ -52,11 +52,28 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Row titles: Inter 16px medium.
 - Labels above a title: 14px medium muted text. Never uppercase, never mono.
 - Secondary text (row summaries, positions, highlights, dates): 14px
-  (`text-sm`); dates and counts use `tabular-nums`.
+  (`text-sm`) muted; only row titles take full-strength ink. Dates and counts
+  use `tabular-nums`.
 - Tertiary text (tags, stacks, count pills): 12px (`text-xs`) muted.
-- Reading text (bios, intros, article prose): 16px with 1.625 to 1.75
-  line-height, left-aligned, never justified. Prose text stops at 65ch; code
-  blocks, images, and tables keep the column.
+- 16px reading text (intros, bios, page descriptions, article prose):
+  `leading-reading` (1.8). 14px row text (summaries, highlights, tool
+  descriptions, guestbook messages): `leading-relaxed` (1.625); at 1.8 the
+  lines inside a list item sit almost as far apart as the items.
+- Descriptions justify at every width with `hyphens-auto`: page header
+  descriptions, the homepage intro, the About bio, row summaries, tool
+  descriptions, Experience highlights, and article paragraphs and list items.
+  Leave `text-pretty` off them; it shortens lines that justify then
+  stretches. Titles, headings, metadata, and code stay left-aligned.
+- Descriptions and article prose fill their row or column with no width cap;
+  a cap left a blank strip beside the justified edge.
+- Works rows on phones put the thumbnail beside the title only; the
+  description and stack run under both at full row width, so justified lines
+  keep their word gaps small.
+- Arabic text uses `.arabic-font`, the loaded Noto Naskh Arabic (400 to 700),
+  and never takes letter-spacing; tracking breaks the joins between letters.
+- Metadata separates items with a middle dot (·), date ranges use an en dash
+  (–), and dates read day, month, year: `d MMM yyyy` in lists and
+  `d MMMM yyyy` on detail pages.
 - Article headings: Lora semibold on an em scale (h1 1.75em, h2 1.25em, h3
   1.125em, h4 1em). Article links keep the text color with a 30% underline that
   darkens on hover; quotes use a 2px divider rule without quote marks.
@@ -70,7 +87,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Stack panels with a 24px gap. Panel rows pad 16px vertically and 16px or 20px
   horizontally.
 - The footer spans the full viewport with a top divider, 64px above it, and
-  its content aligns to the column.
+  its content aligns to the column. On phones the copyright and links stack
+  and center; from `sm` they split left and right.
 
 ## 5. Components
 
@@ -87,8 +105,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ### Page header
 
-- `PageHeader.astro`: muted label, page title, and a muted description capped
-  at 46ch.
+- `PageHeader.astro`: muted label, page title, and a muted, justified
+  description across the column.
 
 ### Buttons and links
 
@@ -110,7 +128,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   Photos, and Guestbook, a hairline divider, then the theme toggle as a 32px
   ghost icon button.
 - **Phones (below `sm`):** the bar spans the viewport less 2rem and holds the
-  owner's name in Lora linking home, the theme toggle, and a 32px "Open menu"
+  owner's 28px round GitHub avatar linking home, the theme toggle, and a 32px
+  "Open menu"
   ghost button. The button opens a top sheet titled "Menu" that lists the same
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
