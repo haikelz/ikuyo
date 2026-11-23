@@ -46,7 +46,7 @@ describe("Site typography", () => {
           expect(loaded("Inter")).to.eq(true);
           expect(getComputedStyle(document.querySelector("h1")!).fontFamily).to.contain("Lora");
           expect(getComputedStyle(document.body).fontSize).to.eq("16px");
-          expect(getComputedStyle(document.body).lineHeight).to.eq("24px");
+          expect(getComputedStyle(document.body).lineHeight).to.eq("26px");
           if (page.prose) {
             expect(getComputedStyle(document.querySelector("h1")!).fontSize).to.eq(
               viewport.headingSize,
@@ -59,7 +59,7 @@ describe("Site typography", () => {
 
             expect(prose).not.to.be.null;
             expect(getComputedStyle(prose!).fontSize).to.eq("16px");
-            expect(getComputedStyle(prose!).lineHeight).to.eq("28px");
+            expect(getComputedStyle(prose!).lineHeight).to.eq("28.8px");
           }
 
           if (page.name === "experience-detail") {

@@ -15,9 +15,9 @@
   --tw-prose-pre-bg: var(--muted);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
-  /* Long-form reading text: 16px, left-aligned, never justified. */
+  /* Long-form reading text: 16px with reading leading, full column width. */
   font-size: var(--text-base);
-  line-height: 1.75;
+  line-height: var(--leading-reading);
   @apply max-w-none;
 }
 
@@ -55,14 +55,14 @@
   margin-top: 1em;
 }
 
-/* Reading lines stop near 65 characters; code, images, and tables keep the column. */
-.prose :where(p, ul, ol, blockquote, h1, h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
-  max-width: 65ch;
-}
-
 .prose :where(p):not(:where(.not-prose, .not-prose *)) {
   margin-block: 1.25em;
-  text-wrap: pretty;
+}
+
+/* Paragraphs and list items justify; pretty wrapping would shorten lines that justify then stretches. */
+.prose :where(p, li):not(:where(.not-prose, .not-prose *)) {
+  text-align: justify;
+  hyphens: auto;
 }
 
 .prose code:not(:has(span)) {

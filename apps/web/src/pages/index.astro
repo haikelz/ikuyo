@@ -57,7 +57,7 @@ const latestNotes = notesList
           class="size-24 shrink-0 rounded-lg border border-border object-cover sm:size-28"
         />
         <div class="min-w-0 flex-1">
-          <p class="m-0 max-w-full text-base leading-relaxed text-pretty text-muted-foreground">
+          <p class="m-0 max-w-full text-base leading-reading text-justify hyphens-auto text-muted-foreground">
             I'm Haikel (<span lang="zh">海克尔</span>), a Product Engineer
             working across business software, delivery infrastructure, and
             content-driven products with Go and TypeScript. I'm currently going
@@ -117,10 +117,10 @@ const latestNotes = notesList
                 </span>
               </div>
               <p class="m-0 text-sm text-muted-foreground">{experience.data.position}</p>
-              <ul role="list" class="mb-0 mt-3 flex list-none flex-col gap-1.5 pl-0">
+              <ul role="list" class="mb-0 mt-3 flex list-none flex-col gap-2 pl-0">
                 {experience.data.highlights.map((highlight) => (
-                  <li data-cy="experience-highlight" class="relative max-w-[70ch] pl-4 text-sm leading-relaxed text-pretty">
-                    <span aria-hidden="true" class="absolute left-0 top-[0.7em] size-1 rounded-full bg-muted-foreground/60" />
+                  <li data-cy="experience-highlight" class="relative pl-4 text-sm leading-relaxed text-muted-foreground text-justify hyphens-auto">
+                    <span aria-hidden="true" class="absolute left-0 top-[0.75em] size-1 rounded-full bg-muted-foreground/60" />
                     {highlight}
                   </li>
                 ))}

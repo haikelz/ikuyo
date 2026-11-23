@@ -20,16 +20,16 @@ const { item, testId } = Astro.props;
         {item.data.title}
       </a>
     </h3>
-    <time datetime={item.data.created_at.toISOString()} class="shrink-0 text-sm text-muted-foreground">
+    <time datetime={item.data.created_at.toISOString()} class="shrink-0 text-sm tabular-nums text-muted-foreground">
       {format(item.data.created_at, "d MMM yyyy")}
     </time>
   </div>
-  <p class="m-0 max-w-[70ch] text-sm leading-relaxed text-pretty text-muted-foreground">
+  <p class="m-0 text-sm leading-relaxed text-justify hyphens-auto text-muted-foreground">
     {item.data.description}
   </p>
   {
     item.data.tags.length > 0 ? (
-      <p class="mb-0 mt-2 text-xs text-muted-foreground">
+      <p class="mb-0 mt-2 text-xs leading-relaxed text-muted-foreground">
         {item.data.tags.map((tag) => `#${tag}`).join(" ")}
       </p>
     ) : null

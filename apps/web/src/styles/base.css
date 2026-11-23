@@ -13,6 +13,11 @@
   --font-arabic: var(--font-noto-naskh-arabic);
 }
 
+/* Reading text: intros, bios, descriptions, row summaries, and prose. */
+@theme {
+  --leading-reading: 1.8;
+}
+
 @layer base {
   *,
   ::after,
@@ -29,11 +34,11 @@
     scrollbar-width: thin;
     scrollbar-color: var(--input) transparent;
   }
-  /* Body text is 16px Inter; metadata steps down to 14px and 12px. */
+  /* Body text is 16px Inter with relaxed leading; metadata steps down to 14px and 12px. */
   body {
     @apply antialiased bg-background text-foreground;
     font-size: var(--text-base);
-    line-height: 1.5;
+    line-height: var(--leading-relaxed);
     font-kerning: normal;
     font-optical-sizing: auto;
   }

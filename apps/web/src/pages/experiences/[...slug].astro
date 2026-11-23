@@ -70,7 +70,7 @@ const slug = sanitizeSlug(item.id);
                 <span class="self-start pt-1 text-xs tabular-nums text-muted-foreground">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p class="m-0 min-w-0 leading-relaxed text-foreground text-pretty">
+                <p class="m-0 min-w-0 leading-reading text-foreground text-justify hyphens-auto">
                   {highlight}
                 </p>
               </li>
@@ -79,7 +79,7 @@ const slug = sanitizeSlug(item.id);
         </ul>
       </section>
       <div
-        class="prose max-w-full w-full prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-headings:scroll-mt-24 prose-headings:text-balance prose-p:text-pretty"
+        class="prose max-w-full w-full prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-headings:scroll-mt-24 prose-headings:text-balance"
       >
         <Content />
       </div>

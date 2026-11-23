@@ -16,7 +16,7 @@ const { title, eyebrow, className = "" } = Astro.props;
   >
     {title}
   </h1>
-  <div data-cy="description" class="mt-2 max-w-[60ch] text-pretty text-muted-foreground">
+  <div data-cy="description" class="mt-2 leading-reading text-justify hyphens-auto text-muted-foreground">
     <slot />
   </div>
 </header>
