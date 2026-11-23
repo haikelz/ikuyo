@@ -28,7 +28,6 @@ const { Content, remarkPluginFrontmatter, headings } = await render(item);
 const slug = sanitizeSlug(item.id);
 ---
 
-<ReadingIndicator client:only="svelte" />
 <Layout
   title={item.data.title}
   description={item.data.description}
@@ -39,6 +38,7 @@ const slug = sanitizeSlug(item.id);
   publishedTime={item.data.created_at.toISOString()}
   tags={item.data.tags}
 >
+  <ReadingIndicator client:only="svelte" />
   <div class="mx-auto w-full min-w-0">
     <BackButton label="back to notes" client:only="svelte" />
     <article>

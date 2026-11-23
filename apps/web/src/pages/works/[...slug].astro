@@ -23,7 +23,6 @@ const slug = sanitizeSlug(item.id);
 const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.data.tags));
 ---
 
-<ReadingIndicator client:only="svelte" />
 <Layout
   title={item.data.title}
   description={item.data.description}
@@ -33,6 +32,7 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
   seoType="article"
   tags={item.data.stack}
 >
+  <ReadingIndicator client:only="svelte" />
   <div class="mx-auto w-full min-w-0">
     <BackButton label="back to works" client:only="svelte" />
     <article>

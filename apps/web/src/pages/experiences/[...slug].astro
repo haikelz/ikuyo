@@ -22,7 +22,6 @@ const { Content, headings } = await render(item);
 const slug = sanitizeSlug(item.id);
 ---
 
-<ReadingIndicator client:only="svelte" />
 <Layout
   title={item.data.company}
   description={item.data.description}
@@ -32,6 +31,7 @@ const slug = sanitizeSlug(item.id);
   seoType="article"
   tags={item.data.stack ?? [item.data.position, "Experience"]}
 >
+  <ReadingIndicator client:only="svelte" />
   <div class="mx-auto w-full">
     <BackButton label="back to experiences" client:only="svelte" />
     <article class="w-full max-w-full">
