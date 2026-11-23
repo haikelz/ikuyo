@@ -7,7 +7,8 @@
   color utility to any element that depends on these defaults.
 */
 @theme inline {
-  --font-sans: var(--font-plus-jakarta-sans);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-lora);
   --font-mono: var(--font-geist-mono);
   --font-arabic: var(--font-noto-naskh-arabic);
 }
@@ -28,13 +29,20 @@
     scrollbar-width: thin;
     scrollbar-color: var(--input) transparent;
   }
-  /* Interface text is 14px, as on the guestbook; reading text opts into 16px. */
+  /* Body text is 16px Inter; metadata steps down to 14px and 12px. */
   body {
     @apply antialiased bg-background text-foreground;
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
     line-height: 1.5;
     font-kerning: normal;
     font-optical-sizing: auto;
+  }
+  /* Page, section, and dialog titles set in Lora; row titles (h3) stay in Inter. */
+  h1,
+  h2,
+  [role="heading"]:is([aria-level="1"], [aria-level="2"]) {
+    font-family: var(--font-heading);
+    font-weight: 500;
   }
   h1,
   h2,

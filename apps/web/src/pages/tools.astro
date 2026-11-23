@@ -96,7 +96,7 @@ const tools = [
                 <IconTile aria-hidden="true" class="row-span-2">
                   <ToolIcon />
                 </IconTile>
-                <h2 class="m-0 text-lg w-full font-semibold tracking-tight text-foreground">
+                <h2 class="m-0 w-full text-lg leading-snug text-foreground">
                   <a
                     href={tool.url}
                     target={tool.url.startsWith("http") ? "_blank" : undefined}
@@ -111,7 +111,7 @@ const tools = [
                     {tool.name}
                   </a>
                 </h2>
-                <p class="m-0 leading-relaxed text-muted-foreground text-pretty">
+                <p class="m-0 text-sm leading-relaxed text-muted-foreground text-pretty">
                   {tool.description}
                 </p>
               </article>

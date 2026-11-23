@@ -208,7 +208,8 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
     <ClientRouter />
-    <Font cssVariable="--font-plus-jakarta-sans" preload />
+    <Font cssVariable="--font-inter" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-lora" preload />
     <Font cssVariable="--font-geist-mono" preload />
     <Font cssVariable="--font-noto-naskh-arabic" preload />
   </head>

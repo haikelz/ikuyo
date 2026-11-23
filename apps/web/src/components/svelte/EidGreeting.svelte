@@ -38,7 +38,7 @@ const c = $derived(content[lang]);
           {c.subtitle}
         </p>
         <h1
-          class="mb-0 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tighter text-foreground"
+          class="mb-0 mt-0 text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground"
         >
           {c.title}
         </h1>

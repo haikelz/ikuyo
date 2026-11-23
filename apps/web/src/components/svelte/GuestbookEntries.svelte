@@ -81,7 +81,7 @@ onMount(() => {
       class="w-full overflow-hidden rounded-lg border border-border bg-card shadow-panel"
     >
       <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
-        <h2 id="guestbook-feed-title" class="m-0 text-sm font-semibold text-foreground">Messages</h2>
+        <h2 id="guestbook-feed-title" class="m-0 text-lg leading-snug text-foreground">Messages</h2>
         <span class="rounded-full bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
           {entries.length}
         </span>
@@ -99,12 +99,12 @@ onMount(() => {
           </span>
           <div class="min-w-0 flex-1">
             <div class="mb-1 flex min-h-7 flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-              <span class="font-medium [overflow-wrap:anywhere]">@{item.username}</span>
+              <span class="text-sm font-medium [overflow-wrap:anywhere]">@{item.username}</span>
               <time datetime={new Date(item.created_at).toISOString()} class="shrink-0 text-xs text-muted-foreground">
                 {format(item.created_at, "d MMM yyyy")}
               </time>
             </div>
-            <p class="m-0 max-w-[70ch] whitespace-pre-wrap leading-relaxed [overflow-wrap:anywhere]">{item.message}</p>
+            <p class="m-0 max-w-[70ch] whitespace-pre-wrap text-sm leading-relaxed [overflow-wrap:anywhere]">{item.message}</p>
           </div>
         </article>
       {/each}

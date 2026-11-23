@@ -52,12 +52,12 @@ const techStack = [
   </DialogTrigger>
   <DialogContent data-cy="job-preferences-dialog" class="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] gap-6 rounded-lg border border-border bg-popover p-5 shadow-panel sm:max-w-lg sm:p-6">
     <DialogHeader class="pr-10">
-      <DialogTitle class="text-base font-semibold leading-tight tracking-tight">Open to work</DialogTitle>
+      <DialogTitle class="text-lg leading-tight">Open to work</DialogTitle>
       <DialogDescription>My preferred roles and the technologies I work with.</DialogDescription>
     </DialogHeader>
     <div data-cy="job-preferences-body" class="min-h-0 space-y-6 overflow-y-auto overscroll-contain">
       <section aria-labelledby="preferred-roles-title">
-        <h2 id="preferred-roles-title" class="mb-3 text-xs text-muted-foreground font-medium">Job preferences</h2>
+        <h2 id="preferred-roles-title" class="mb-3 font-sans text-xs text-muted-foreground font-medium">Job preferences</h2>
         <ul class="flex flex-wrap gap-2">
           {#each jobPreferences as role}
             <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{role}</li>
@@ -65,7 +65,7 @@ const techStack = [
         </ul>
       </section>
       <section aria-labelledby="tech-stack-title">
-        <h2 id="tech-stack-title" class="mb-3 text-xs text-muted-foreground font-medium">Tech stack</h2>
+        <h2 id="tech-stack-title" class="mb-3 font-sans text-xs text-muted-foreground font-medium">Tech stack</h2>
         <ul class="flex flex-wrap gap-2">
           {#each techStack as technology}
             <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{technology}</li>

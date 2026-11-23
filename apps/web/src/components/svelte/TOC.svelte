@@ -85,7 +85,7 @@ function toggleTOC() {
     >
       <div class="flex items-center justify-between space-x-4">
         <SheetTitle
-          class="text-sm font-semibold tracking-tight text-foreground"
+          class="text-base text-foreground"
         >
           On this page
         </SheetTitle>

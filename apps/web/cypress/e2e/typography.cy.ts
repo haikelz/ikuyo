@@ -21,8 +21,8 @@ const pages = [
 
 const viewports = [
   { name: "mobile", width: 375, height: 812, headingSize: "24px" },
-  { name: "tablet", width: 768, height: 1024, headingSize: "28px" },
-  { name: "desktop", width: 1280, height: 900, headingSize: "28px" },
+  { name: "tablet", width: 768, height: 1024, headingSize: "30px" },
+  { name: "desktop", width: 1280, height: 900, headingSize: "30px" },
 ];
 
 describe("Site typography", () => {
@@ -37,14 +37,16 @@ describe("Site typography", () => {
           await document.fonts.ready;
 
           const fontFamily = getComputedStyle(document.documentElement).fontFamily;
-          const plusJakartaFace = Array.from(document.fonts).find((font) =>
-            font.family.includes("Plus Jakarta Sans"),
-          );
+          const loaded = (family: string) =>
+            Array.from(document.fonts).some(
+              (font) => font.family.includes(family) && font.status === "loaded",
+            );
 
-          expect(fontFamily).to.contain("Plus Jakarta Sans");
-          expect(plusJakartaFace?.status).to.eq("loaded");
-          expect(getComputedStyle(document.body).fontSize).to.eq("14px");
-          expect(getComputedStyle(document.body).lineHeight).to.eq("21px");
+          expect(fontFamily).to.contain("Inter");
+          expect(loaded("Inter")).to.eq(true);
+          expect(getComputedStyle(document.querySelector("h1")!).fontFamily).to.contain("Lora");
+          expect(getComputedStyle(document.body).fontSize).to.eq("16px");
+          expect(getComputedStyle(document.body).lineHeight).to.eq("24px");
           if (page.prose) {
             expect(getComputedStyle(document.querySelector("h1")!).fontSize).to.eq(
               viewport.headingSize,

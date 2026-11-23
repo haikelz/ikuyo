@@ -27,7 +27,7 @@ const todayDisplay = $derived(
 <section class="border-y border-border">
   <header class="border-b border-border py-4">
     <p class="text-xs text-muted-foreground font-medium">Language usage</p>
-    <h2 class="mt-1 text-lg font-medium tracking-tight text-foreground">All-time activity</h2>
+    <h2 class="mt-1 text-lg text-foreground">All-time activity</h2>
   </header>
   <div>
     {#each allLanguages as lang}

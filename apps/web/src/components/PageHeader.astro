@@ -12,11 +12,11 @@ const { title, eyebrow, className = "" } = Astro.props;
   <p class="mb-3 mt-0 text-sm font-medium text-muted-foreground">{eyebrow}</p>
   <h1
     data-cy="heading"
-    class="m-0 text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-[1.75rem]"
+    class="m-0 text-2xl leading-tight text-foreground md:text-3xl"
   >
     {title}
   </h1>
-  <div data-cy="description" class="mt-2 max-w-[46ch] text-muted-foreground">
+  <div data-cy="description" class="mt-2 max-w-[60ch] text-pretty text-muted-foreground">
     <slot />
   </div>
 </header>

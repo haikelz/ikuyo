@@ -99,7 +99,7 @@ const latestNotes = notesList
           experiences.map((experience) => (
             <article class="border-t border-border px-4 py-4 first:border-t-0 sm:px-5">
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
-                <h3 class="m-0 text-sm font-semibold text-foreground">
+                <h3 class="m-0 text-base font-medium text-foreground">
                   {experience.data.hasDetail === false ? (
                     experience.data.company
                   ) : (
@@ -112,14 +112,14 @@ const latestNotes = notesList
                     </a>
                   )}
                 </h3>
-                <span class="shrink-0 text-xs tabular-nums text-muted-foreground">
+                <span class="shrink-0 text-sm tabular-nums text-muted-foreground">
                   {experience.data.startDate} &ndash; {experience.data.endDate}
                 </span>
               </div>
-              <p class="m-0 text-muted-foreground">{experience.data.position}</p>
+              <p class="m-0 text-sm text-muted-foreground">{experience.data.position}</p>
               <ul role="list" class="mb-0 mt-3 flex list-none flex-col gap-1.5 pl-0">
                 {experience.data.highlights.map((highlight) => (
-                  <li data-cy="experience-highlight" class="relative max-w-[70ch] pl-4 leading-relaxed text-pretty">
+                  <li data-cy="experience-highlight" class="relative max-w-[70ch] pl-4 text-sm leading-relaxed text-pretty">
                     <span aria-hidden="true" class="absolute left-0 top-[0.7em] size-1 rounded-full bg-muted-foreground/60" />
                     {highlight}
                   </li>

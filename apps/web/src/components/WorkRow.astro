@@ -24,7 +24,7 @@ const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
     class="aspect-video w-full rounded-md border border-border object-cover"
   />
   <div class="min-w-0">
-    <h3 class="m-0 text-sm font-medium text-foreground">
+    <h3 class="m-0 text-base font-medium text-foreground">
       <a
         href={`/works/${item.id}/`}
         class="text-foreground no-underline transition-colors hover:text-primary"
@@ -32,7 +32,7 @@ const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
         {item.data.title}
       </a>
     </h3>
-    <p class="mb-0 mt-1 max-w-[70ch] leading-relaxed text-pretty text-muted-foreground">
+    <p class="mb-0 mt-1 max-w-[70ch] text-sm leading-relaxed text-pretty text-muted-foreground">
       {item.data.description}
     </p>
     {

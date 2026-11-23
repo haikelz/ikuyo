@@ -20,8 +20,16 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: "Plus Jakarta Sans",
-      cssVariable: "--font-plus-jakarta-sans",
+      name: "Inter",
+      cssVariable: "--font-inter",
+      weights: ["100 900"],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Lora",
+      cssVariable: "--font-lora",
+      weights: ["400 700"],
+      styles: ["normal"],
     },
     {
       provider: fontProviders.fontsource(),

@@ -59,7 +59,7 @@ const currentRoles = (await getCollection("experiences"))
           {currentRoles.map((role) => (
             <article class="flex flex-col border-t border-border px-4 py-4 first:border-t-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3 sm:px-5">
               <div>
-                <h3 class="m-0 text-sm font-semibold text-foreground">
+                <h3 class="m-0 text-base font-medium text-foreground">
                   {role.data.hasDetail === false ? (
                     role.data.company
                   ) : (
@@ -71,9 +71,9 @@ const currentRoles = (await getCollection("experiences"))
                     </a>
                   )}
                 </h3>
-                <p class="m-0 text-muted-foreground">{role.data.position}</p>
+                <p class="m-0 text-sm text-muted-foreground">{role.data.position}</p>
               </div>
-              <span class="shrink-0 text-xs tabular-nums text-muted-foreground">
+              <span class="shrink-0 text-sm tabular-nums text-muted-foreground">
                 Since {role.data.startDate}
               </span>
             </article>
