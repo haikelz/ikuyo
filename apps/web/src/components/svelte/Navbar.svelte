@@ -67,8 +67,10 @@ onMount(() => {
 });
 </script>
 
+<!-- Route changes keep the bar as its own view-transition snapshot, so it never fades with the page. -->
 <nav
   aria-label="Primary"
+  style="view-transition-name: site-nav"
   class={cn(
     "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border border-border bg-background/85 py-1 pr-1 pl-1.5 shadow-panel backdrop-blur-[12px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:w-fit sm:justify-start sm:py-0 sm:pl-0",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
@@ -93,11 +95,20 @@ onMount(() => {
           href={item.path === "/" ? "/" : `${item.path}/`}
           aria-current={active ? "page" : undefined}
           class={cn(
-            "block rounded-md px-2.5 py-1.5 text-sm font-medium whitespace-nowrap no-underline transition-colors",
-            linkState(active),
+            "relative isolate block rounded-md px-2.5 py-1.5 text-sm font-medium whitespace-nowrap no-underline transition-colors",
+            active ? "text-foreground" : linkState(false),
           )}
         >
-          {item.label}
+          <!-- The current-page fill is its own snapshot; between routes it slides to the new link.
+               Labels keep their own snapshots and sit above it (see animations.css). -->
+          {#if active}
+            <span
+              aria-hidden="true"
+              class="absolute inset-0 -z-10 rounded-md bg-secondary"
+              style="view-transition-name: nav-pill"
+            ></span>
+          {/if}
+          <span style="view-transition-name: nav-{item.cy}; view-transition-class: nav-label">{item.label}</span>
         </a>
       </li>
     {/each}

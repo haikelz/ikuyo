@@ -1,35 +1,73 @@
-::view-transition-group(root) {
-  animation-duration: 220ms;
-  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes enter-fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
+/* Route changes: the old page lifts away and fades, then the new page rises in. Going back
+   (Astro sets data-astro-transition="back") reverses the direction. */
 ::view-transition-old(root) {
-  animation: fade-out 120ms ease-out both;
+  animation: page-out 160ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 ::view-transition-new(root) {
-  animation: enter-fade-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: page-in 360ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
 }
 
-@keyframes fade-out {
+html[data-astro-transition="back"]::view-transition-old(root) {
+  animation-name: page-out-back;
+}
+
+html[data-astro-transition="back"]::view-transition-new(root) {
+  animation-name: page-in-back;
+}
+
+@keyframes page-out {
   to {
     opacity: 0;
+    transform: translateY(-8px);
   }
 }
 
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes page-out-back {
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes page-in-back {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+/* The nav bar swaps without fading; only its position animates if scrolling had hidden it. */
+::view-transition-old(site-nav) {
+  display: none;
+}
+
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+/* The current-page pill slides from the old link to the new one, under the link labels. */
+::view-transition-group(nav-pill) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(.nav-label) {
+  z-index: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 

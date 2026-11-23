@@ -1,5 +1,5 @@
 describe("Astro view transitions", () => {
-  it("cross-fades route navigation without sliding and honors reduced motion", () => {
+  it("lifts the old page, raises the new one, slides the nav pill, and honors reduced motion", () => {
     cy.viewport(1280, 900);
     cy.visit("/");
 
@@ -16,10 +16,12 @@ describe("Astro view transitions", () => {
         const styles = String(body).replace(/\s/g, "");
 
         expect(styles).to.contain("::view-transition-new(root)");
-        expect(styles).to.contain("enter-fade-in");
+        expect(styles).to.contain("page-in");
+        expect(styles).to.contain("page-in-back");
+        expect(styles).to.contain("::view-transition-group(nav-pill)");
+        expect(styles).to.contain("::view-transition-old(site-nav)");
         expect(styles).to.contain("prefers-reduced-motion:reduce");
         expect(styles).to.contain("animation:none");
-        expect(styles).not.to.contain("slide-enter-content");
       });
     });
   });
