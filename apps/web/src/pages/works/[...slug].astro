@@ -49,12 +49,12 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
         </h1>
         <div class="border-y border-border py-4">
           <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author}, {remarkPluginFrontmatter.minutesRead}
+            {item.data.author} · {remarkPluginFrontmatter.minutesRead}
             {
               item.data.preview ? (
                 <span>
                   {" "}
-                  -{" "}
+                  ·{" "}
                   <a
                     href={item.data.preview}
                     target="_blank"
@@ -71,6 +71,7 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
               item.data.repo ? (
                 <span>
                   {" "}
+                  ·{" "}
                   <a
                     href={item.data.repo}
                     target="_blank"

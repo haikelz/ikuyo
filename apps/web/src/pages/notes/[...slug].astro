@@ -55,7 +55,7 @@ const slug = sanitizeSlug(item.id);
         </h1>
         <div class="border-y border-border py-4">
           <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author}, {format(item.data.created_at, "LLLL d yyyy")} - {
+            {item.data.author} · {format(item.data.created_at, "d MMMM yyyy")} · {
               remarkPluginFrontmatter.minutesRead
             }
           </p>
