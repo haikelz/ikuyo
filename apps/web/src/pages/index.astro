@@ -144,16 +144,5 @@ const latestNotes = notesList
         {latestNotes.map((item) => <NoteRow item={item} />)}
       </Panel>
     </div>
-    <!-- Temporary: the banner replaces the GitHub calendar; it rests on the footer's top divider. -->
-    <img
-      data-cy="home-banner"
-      src="/images/banner.png"
-      alt=""
-      width="650"
-      height="195"
-      loading="lazy"
-      decoding="async"
-      class="mt-12 hidden w-full max-w-xs self-end md:-mb-16 md:block"
-    />
   </div>
 </Layout>
