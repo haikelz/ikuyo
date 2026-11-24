@@ -110,7 +110,7 @@
 
 - Every homepage experience summary comes from the `experiences` collection.
 - Every record has a unique URL at `/experiences/<slug>`.
-- The homepage retains the company, role, date range, and highlights; the detail page renders the same facts plus editable MDX narrative.
+- The homepage shows only the company, role, and date range; highlights and the editable MDX narrative live on the detail page.
 - Undisclosed employers stay undisclosed in all public content.
 - Experience pages are content pages, not notes: they do not render a reaction control or make backend requests.
 
@@ -124,7 +124,8 @@
 ## Reading and portfolio patterns
 
 - ToC preserves its desktop rail and mobile sheet; the current heading is highlighted and marked with `aria-current="location"`. Scrolling does not rewrite the URL.
-- Homepage experiences render as rows in an Experience panel, preserving every authored highlight, date and case-study link.
+- Homepage experiences render as compact rows in an Experience panel: company, role, dates, and the case-study link when one exists.
+- Note and work rows show a one-line description of 90 characters or fewer.
 - Tools use static decorative outline Icon Tiles; titles and descriptions remain the accessible content.
 - Guestbook and market statuses use the shared semantic Alert variants. A refresh failure retains previously loaded messages.
 - MDX code retains build-time syntax highlighting with filename/language, Copy and Wrap controls. Snippets longer than 16 lines can expand/collapse; copying always includes full source. Without JavaScript, the full code remains readable.
