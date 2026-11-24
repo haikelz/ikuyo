@@ -61,20 +61,20 @@
 :root {
   color-scheme: light;
   overscroll-behavior: none;
-  /* Guestbook palette (guestbook.ekel.dev): cool slate neutrals and one indigo accent. */
-  --background: oklch(0.985 0.003 255);
+  /* Guestbook palette (guestbook.ekel.dev) on warm paper neutrals: no pure-white surface, less glare and blue light. Every text token keeps WCAG AA on every surface. */
+  --background: oklch(0.96 0.012 85);
   --foreground: oklch(0.21 0.02 260);
-  --card: oklch(1 0 0);
+  --card: oklch(0.975 0.008 85);
   --card-foreground: oklch(0.21 0.02 260);
-  --popover: oklch(1 0 0);
+  --popover: oklch(0.975 0.008 85);
   --popover-foreground: oklch(0.21 0.02 260);
   --primary: oklch(0.51 0.2 268);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.005 255);
+  --secondary: oklch(0.935 0.012 85);
   --secondary-foreground: oklch(0.21 0.02 260);
-  --muted: oklch(0.96 0.005 255);
+  --muted: oklch(0.935 0.012 85);
   --muted-foreground: oklch(0.5 0.02 258);
-  --accent: oklch(0.955 0.008 255);
+  --accent: oklch(0.93 0.014 85);
   --accent-foreground: oklch(0.21 0.02 260);
   --destructive: oklch(0.6 0.21 25);
   --destructive-foreground: oklch(0.99 0 0);
@@ -85,9 +85,9 @@
   --warning: oklch(0.95 0.06 83);
   --warning-foreground: oklch(0.42 0.1 70);
   --invert: oklch(0.21 0.02 260);
-  --invert-foreground: oklch(0.985 0.003 255);
-  --border: oklch(0.915 0.008 255);
-  --input: oklch(0.89 0.01 255);
+  --invert-foreground: oklch(0.96 0.012 85);
+  --border: oklch(0.89 0.014 85);
+  --input: oklch(0.865 0.016 85);
   --ring: oklch(0.51 0.2 268);
   --panel-shadow: 0 1px 2px oklch(0.2 0.02 260 / 0.04), 0 4px 12px -4px oklch(0.2 0.02 260 / 0.06);
   --chart-1: oklch(0.55 0.18 278);
