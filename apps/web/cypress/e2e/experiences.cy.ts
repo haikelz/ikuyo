@@ -16,13 +16,11 @@ describe("Experience pages", () => {
       });
   });
 
-  it("shows every authored highlight on the homepage", () => {
+  it("keeps homepage experience rows to company, role, and dates", () => {
     cy.visit("/");
 
-    cy.get('a[data-cy="experience-link"][href="/experiences/undisclosed-1/"]')
-      .closest("article")
-      .find('[data-cy="experience-highlight"]')
-      .should("have.length", 4);
+    cy.get('[data-cy="experience"] article').should("have.length.greaterThan", 0);
+    cy.get('[data-cy="experience"] li').should("not.exist");
   });
 
   it("serves every migrated experience route", () => {

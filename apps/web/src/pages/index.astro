@@ -117,14 +117,6 @@ const latestNotes = notesList
                 </span>
               </div>
               <p class="m-0 text-sm text-muted-foreground">{experience.data.position}</p>
-              <ul role="list" class="mb-0 mt-3 flex list-none flex-col gap-2 pl-0">
-                {experience.data.highlights.map((highlight) => (
-                  <li data-cy="experience-highlight" class="relative pl-4 text-sm leading-relaxed text-muted-foreground text-justify hyphens-auto">
-                    <span aria-hidden="true" class="absolute left-0 top-[0.75em] size-1 rounded-full bg-muted-foreground/60" />
-                    {highlight}
-                  </li>
-                ))}
-              </ul>
               {experience.data.hasDetail === false ? null : (
                 <a
                   href={`/experiences/${experience.id}/`}
