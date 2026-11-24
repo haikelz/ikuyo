@@ -13,7 +13,8 @@
 ## Design system
 
 - Public routes and shared Svelte/Astro components follow the guestbook design
-  system from `guestbook.ekel.dev`: its slate and indigo tokens, 14px
+  system from `guestbook.ekel.dev`: its indigo accent, slate dark mode, a
+  warm low-glare paper light mode, 14px
   interface text, 48rem column, and bordered list panels.
 - The design system keeps the existing Astro and Svelte runtime; the
   guestbook's React and HeroUI components are not installed.

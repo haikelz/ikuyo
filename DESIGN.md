@@ -3,7 +3,8 @@
 ## 1. Atmosphere & Identity
 
 Ikuyo uses the guestbook design system from `guestbook.ekel.dev`: a quiet,
-app-like interface on cool slate neutrals with one indigo accent. Content sits
+app-like interface with one indigo accent, on warm paper neutrals in light mode
+and cool slate in dark mode. Content sits
 in a single 48rem column; lists live in bordered panels with a heading row,
 a count pill, and divided rows. Typography sets Lora serif
 titles over Inter body text, with hierarchy from the serif, weight, and muted
@@ -18,18 +19,23 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 | Role        | Token                | Guestbook      | Light                    | Dark                     |
 | ----------- | -------------------- | -------------- | ------------------------ | ------------------------ |
-| Canvas      | `--background`       | `--gb-page`    | `oklch(0.985 0.003 255)` | `oklch(0.16 0.01 260)`   |
+| Canvas      | `--background`       | `--gb-page`    | `oklch(0.96 0.012 85)`   | `oklch(0.16 0.01 260)`   |
 | Content     | `--foreground`       | `--gb-ink`     | `oklch(0.21 0.02 260)`   | `oklch(0.95 0.005 255)`  |
-| Panel       | `--card`             | `--gb-surface` | `oklch(1 0 0)`           | `oklch(0.195 0.012 260)` |
-| Overlay     | `--popover`          | overlay        | `oklch(1 0 0)`           | `oklch(0.22 0.012 260)`  |
-| Raised      | `--secondary`        | `--gb-raised`  | `oklch(0.96 0.005 255)`  | `oklch(0.24 0.012 260)`  |
-| Hover       | `--accent`           | `--gb-hover`   | `oklch(0.955 0.008 255)` | `oklch(0.25 0.014 260)`  |
+| Panel       | `--card`             | `--gb-surface` | `oklch(0.975 0.008 85)`  | `oklch(0.195 0.012 260)` |
+| Overlay     | `--popover`          | overlay        | `oklch(0.975 0.008 85)`  | `oklch(0.22 0.012 260)`  |
+| Raised      | `--secondary`        | `--gb-raised`  | `oklch(0.935 0.012 85)`  | `oklch(0.24 0.012 260)`  |
+| Hover       | `--accent`           | `--gb-hover`   | `oklch(0.93 0.014 85)`   | `oklch(0.25 0.014 260)`  |
 | Muted text  | `--muted-foreground` | `--gb-muted`   | `oklch(0.5 0.02 258)`    | `oklch(0.7 0.015 258)`   |
-| Divider     | `--border`           | `--gb-divider` | `oklch(0.915 0.008 255)` | `oklch(0.28 0.014 260)`  |
-| Field edge  | `--input`            | `--gb-input`   | `oklch(0.89 0.01 255)`   | `oklch(0.32 0.014 260)`  |
+| Divider     | `--border`           | `--gb-divider` | `oklch(0.89 0.014 85)`   | `oklch(0.28 0.014 260)`  |
+| Field edge  | `--input`            | `--gb-input`   | `oklch(0.865 0.016 85)`  | `oklch(0.32 0.014 260)`  |
 | Accent      | `--primary`, `--ring`| `--gb-accent`  | `oklch(0.51 0.2 268)`    | `oklch(0.7 0.15 270)`    |
 | Danger      | `--destructive`      | `--gb-danger`  | `oklch(0.6 0.21 25)`     | `oklch(0.66 0.2 25)`     |
 
+- Light mode departs from the guestbook's near-white slate for eye comfort: a
+  warm paper canvas (`#f5f1e9`), no pure-white surface, and less blue light.
+  Ink, muted text, and the accent keep WCAG AA (4.5:1) on every light surface;
+  the lowest pair is muted text on `--accent` at 4.88:1. `theme-color` and the
+  web manifest use the canvas hex.
 - `--accent` is the hover fill, as in shadcn; the brand accent is `--primary`.
 - Info, success, and warning pairs stay for alerts and market data and sit on
   the same hue family; status never relies on color alone.
