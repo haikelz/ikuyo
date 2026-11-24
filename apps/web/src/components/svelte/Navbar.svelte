@@ -19,9 +19,6 @@ const navList = [
   { id: 1, path: "/about", label: "About", cy: "about-btn" },
   { id: 2, path: "/works", label: "Works", cy: "works-btn" },
   { id: 3, path: "/notes", label: "Notes", cy: "notes-btn" },
-  { id: 4, path: "/tags", label: "Tags", cy: "tags-btn" },
-  { id: 5, path: "/photos", label: "Photos", cy: "photos-btn" },
-  { id: 6, path: "/guestbook", label: "Guestbook", cy: "guestbook-btn" },
 ];
 
 const isActive = (path: string) =>
