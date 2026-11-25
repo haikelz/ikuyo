@@ -52,7 +52,10 @@ describe("Navigation surface", () => {
         nav().should("have.class", "shadow-panel").and("have.class", "border-border");
         // Phones and desktop both shrink from the full bar to a content-width pill.
         nav().should(($pill) => {
-          expect($pill[0].getBoundingClientRect().width).to.be.lessThan(topWidth * 0.6);
+          const rect = $pill[0].getBoundingClientRect();
+          expect(rect.width).to.be.lessThan(topWidth * 0.6);
+          // Phones keep the pill on the right gutter; from sm it stays centered.
+          if (width < 640) expect(rect.right).to.be.closeTo(width - 16, 1);
         });
       });
       cy.scrollTo(0, 0);
