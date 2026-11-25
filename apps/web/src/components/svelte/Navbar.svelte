@@ -31,6 +31,7 @@ const linkState = (active: boolean) =>
 
 let menuOpen = $state(false);
 let isVisible = $state(true);
+let atTop = $state(true);
 let lastScrollY = $state(0);
 let ticking = $state(false);
 
@@ -38,8 +39,9 @@ function handleScroll() {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const currentScrollY = window.scrollY;
+      atTop = currentScrollY < 10;
 
-      if (currentScrollY < 10) {
+      if (atTop) {
         isVisible = true;
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
         isVisible = false;
@@ -56,6 +58,7 @@ function handleScroll() {
 }
 
 onMount(() => {
+  atTop = window.scrollY < 10;
   window.addEventListener("scroll", handleScroll, { passive: true });
 
   return () => {
@@ -64,12 +67,19 @@ onMount(() => {
 });
 </script>
 
-<!-- Route changes keep the bar as its own view-transition snapshot, so it never fades with the page. -->
+<!-- Route changes keep the bar as its own view-transition snapshot, so it never fades with the page.
+     At the top of a page the bar spans the column with no border or shadow and blends into the canvas;
+     once the page scrolls it shrinks back to the bordered pill.
+     ponytail: width animates only where `interpolate-size` exists (Chromium); other browsers snap
+     between widths while the border and shadow still fade. -->
 <nav
   aria-label="Primary"
   style="view-transition-name: site-nav"
   class={cn(
-    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border border-border bg-background/85 py-1 pr-1 pl-1.5 shadow-panel backdrop-blur-[12px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:w-fit sm:justify-start sm:py-0 sm:pl-0",
+    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border bg-background/85 py-1 pr-1 pl-1.5 backdrop-blur-[12px] transition-[translate,width,border-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] [interpolate-size:allow-keywords] motion-reduce:transition-none sm:py-0 sm:pl-0",
+    atTop
+      ? "border-transparent shadow-none sm:w-[min(45rem,calc(100%-3rem))]"
+      : "border-border shadow-panel sm:w-fit sm:justify-start",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >
@@ -110,7 +120,7 @@ onMount(() => {
       </li>
     {/each}
   </ul>
-  <span class="hidden h-5 w-px shrink-0 bg-border sm:block" aria-hidden="true"></span>
+  <span class={cn("hidden h-5 w-px shrink-0 bg-border", !atTop && "sm:block")} aria-hidden="true"></span>
   <div class="flex items-center gap-0.5">
     <ToggleTheme />
     <Sheet bind:open={menuOpen}>

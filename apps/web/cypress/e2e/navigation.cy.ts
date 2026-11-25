@@ -36,3 +36,20 @@ describe("Primary navigation", () => {
     });
   });
 });
+
+describe("Navigation surface", () => {
+  for (const width of [375, 1280]) {
+    it(`blends into the page at the top and returns to the pill once scrolled at ${width}px`, () => {
+      cy.viewport(width, 800);
+      cy.visit("/notes/");
+      cy.get(hydrated).should("not.have.attr", "ssr");
+      const nav = () => cy.get('nav[aria-label="Primary"]');
+
+      nav().should("have.class", "border-transparent").and("not.have.class", "shadow-panel");
+      cy.scrollTo(0, 300);
+      nav().should("have.class", "shadow-panel").and("have.class", "border-border");
+      cy.scrollTo(0, 0);
+      nav().should("have.class", "border-transparent").and("not.have.class", "shadow-panel");
+    });
+  }
+});
