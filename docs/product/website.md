@@ -50,8 +50,9 @@
   render in static HTML.
 - At the top of a page the bar spans the content column with no border or
   shadow, so it reads as part of the page. Once the page scrolls, it shrinks
-  back to the bordered, shadowed pill (as wide as its content from 640px). The
-  same change happens on phones, where the width stays the viewport less 2rem.
+  to a bordered, shadowed pill as wide as its content. Phones do the same: the
+  bar spans the viewport less 2rem at the top and shrinks to a pill around the
+  avatar, theme toggle, and menu button.
 - Below 640px the bar shows the owner's GitHub profile picture linking home,
   the theme toggle, and a menu button. The button opens a sheet listing every
   link with the current page marked; Escape and the close button dismiss it

@@ -138,15 +138,16 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - **At the top of a page** (scroll under 10px): from `sm` the bar spans the
   content column (`min-width: min(39rem, 100% - 3rem)` on a fit-content bar)
   with links at the left and the toggle at the right, and on phones it spans
-  the viewport less 2rem. Its border is transparent and it has no shadow, so
-  it blends into the canvas.
-- **Scrolled:** it returns to the pill: as wide as its content from `sm` (the
-  min-width drops to 15rem, just under the ~19rem content), a hairline divider
-  that fades in before the toggle, the divider border, and `shadow-panel`.
-- **Phones (below `sm`):** the bar spans the viewport less 2rem and holds the
-  owner's 28px round GitHub avatar linking home, the theme toggle, and a 32px
-  "Open menu"
-  ghost button. The button opens a top sheet titled "Menu" that lists the same
+  the viewport less 2rem (`min-width: calc(100% - 2rem)`). Its border is
+  transparent and it has no shadow, so it blends into the canvas.
+- **Scrolled:** it returns to the pill, as wide as its content: from `sm` the
+  min-width drops to 15rem, just under the ~19rem link row, and a hairline
+  divider fades in before the toggle; on phones it drops to 6rem, just under
+  the ~7rem avatar and controls. Both gain the divider border and
+  `shadow-panel`.
+- **Phones (below `sm`):** the bar holds the owner's 28px round GitHub avatar
+  linking home at the left, and the theme toggle and a 32px "Open menu" ghost
+  button at the right. The button opens a top sheet titled "Menu" that lists the same
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. This is the only blurred surface.
