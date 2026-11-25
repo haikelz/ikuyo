@@ -52,7 +52,7 @@
   shadow, so it reads as part of the page. Once the page scrolls, it shrinks
   to a bordered, shadowed pill as wide as its content. Phones do the same: the
   bar spans the viewport less 2rem at the top and shrinks to a pill around the
-  avatar, theme toggle, and menu button.
+  avatar, theme toggle, and menu button, anchored to the top right.
 - Below 640px the bar shows the owner's GitHub profile picture linking home,
   the theme toggle, and a menu button. The button opens a sheet listing every
   link with the current page marked; Escape and the close button dismiss it

@@ -147,7 +147,9 @@ Use semantic tokens for every interface color. The guestbook's own palette
   `shadow-panel`.
 - **Phones (below `sm`):** the bar holds the owner's 28px round GitHub avatar
   linking home at the left, and the theme toggle and a 32px "Open menu" ghost
-  button at the right. The button opens a top sheet titled "Menu" that lists the same
+  button at the right. It is anchored to the right gutter (`margin-right: 1rem`),
+  so the scrolled pill sits at the top right and shrinks toward it; from `sm`
+  the bar is centered. The button opens a top sheet titled "Menu" that lists the same
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. This is the only blurred surface.
