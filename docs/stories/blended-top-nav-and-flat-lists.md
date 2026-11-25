@@ -19,7 +19,7 @@ At the top of a page the navigation bar blends into the canvas: it spans the con
 
 ## Acceptance Criteria
 
-- Below 10px of scroll, the bar has a transparent border and no shadow. From `sm` it spans `min(45rem, 100% - 3rem)`, with links at the left, the toggle at the right, and no divider.
+- Below 10px of scroll, the bar has a transparent border and no shadow. From `sm` it spans `min(39rem, 100% - 3rem)`, the 42rem column less its gutters, with links at the left, the toggle at the right, and no divider.
 - Past 10px, the bar shows `border-border` and `shadow-panel`, is as wide as its content from `sm`, and shows the divider before the toggle.
 - Phones get the same border and shadow change at the viewport-less-2rem width they already use.
 - Hide-on-scroll-down, show-on-scroll-up, the view-transition snapshots, and reduced-motion behavior stay as they were.
@@ -29,7 +29,8 @@ At the top of a page the navigation bar blends into the canvas: it spans the con
 ## Design Notes
 
 - UI surfaces: `Navbar.svelte`, `Panel.astro`, `NoteRow.astro`, `WorkRow.astro`, the experience rows in `pages/index.astro`, and the role rows in `pages/about.astro`.
-- Width transitions use `interpolate-size: allow-keywords` to animate between `fit-content` and the column width. Browsers without it snap the width while border and shadow still fade.
+- The bar is `fit-content` from `sm`; the top state holds it at the column width with `min-width`, and the scrolled state drops `min-width` to 15rem. Transitioning `min-width` (a plain length) animates the shrink in every browser. A first version animated `width` through `interpolate-size: allow-keywords`; it only animated in Chromium, so Firefox snapped.
+- Follow-up evidence: headless Brave at 1280px sampled the nav each frame on `/notes/`: 624 → 533 → 456 → 394 → 348 → 315 → 303px scrolling down, and 303 → 331 → … → 624px back up over about 300ms.
 
 ## Validation
 
