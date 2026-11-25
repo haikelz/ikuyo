@@ -69,19 +69,21 @@ onMount(() => {
 
 <!-- Route changes keep the bar as its own view-transition snapshot, so it never fades with the page.
      At the top of a page the bar spans the column with no border or shadow and blends into the canvas;
-     once the page scrolls it shrinks back to the bordered pill. From sm the bar is fit-content and a
-     min-width holds it at the column width; animating min-width (a plain length) shrinks it in every browser.
-     ponytail: the scrolled min-width (15rem) sits just under the pill's content width (~19rem) so the
-     shrink runs for most of the transition; if the links ever get narrower than 15rem, the pill keeps
-     that floor and the toggle sits at its right edge. -->
+     once the page scrolls it shrinks back to the bordered pill, on phones and from sm alike. The bar is
+     fit-content and a min-width holds it at the column width; animating min-width (a plain length)
+     shrinks it in every browser.
+     ponytail: each scrolled min-width sits just under its pill's content width (phones 6rem under ~7rem
+     for avatar, toggle, and menu; sm 15rem under ~19rem for the links) so the shrink runs for most of the
+     transition; if the content ever gets narrower than that floor, the pill keeps the floor and the
+     controls sit at its right edge. -->
 <nav
   aria-label="Primary"
   style="view-transition-name: site-nav"
   class={cn(
-    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-[calc(100%-2rem)] items-center justify-between gap-1 rounded-lg border bg-background/85 py-1 pr-1 pl-1.5 backdrop-blur-[12px] transition-[translate,min-width,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:w-fit sm:py-0 sm:pl-0",
+    "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mx-auto flex w-fit items-center justify-between gap-1 rounded-lg border bg-background/85 py-1 pr-1 pl-1.5 backdrop-blur-[12px] transition-[translate,min-width,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:py-0 sm:pl-0",
     atTop
-      ? "border-transparent shadow-none sm:min-w-[min(39rem,calc(100%-3rem))]"
-      : "border-border shadow-panel sm:min-w-60",
+      ? "min-w-[calc(100%-2rem)] border-transparent shadow-none sm:min-w-[min(39rem,calc(100%-3rem))]"
+      : "min-w-24 border-border shadow-panel sm:min-w-60",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >

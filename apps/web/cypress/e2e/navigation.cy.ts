@@ -46,8 +46,15 @@ describe("Navigation surface", () => {
       const nav = () => cy.get('nav[aria-label="Primary"]');
 
       nav().should("have.class", "border-transparent").and("not.have.class", "shadow-panel");
-      cy.scrollTo(0, 300);
-      nav().should("have.class", "shadow-panel").and("have.class", "border-border");
+      nav().then(($nav) => {
+        const topWidth = $nav[0].getBoundingClientRect().width;
+        cy.scrollTo(0, 300);
+        nav().should("have.class", "shadow-panel").and("have.class", "border-border");
+        // Phones and desktop both shrink from the full bar to a content-width pill.
+        nav().should(($pill) => {
+          expect($pill[0].getBoundingClientRect().width).to.be.lessThan(topWidth * 0.6);
+        });
+      });
       cy.scrollTo(0, 0);
       nav().should("have.class", "border-transparent").and("not.have.class", "shadow-panel");
     });
