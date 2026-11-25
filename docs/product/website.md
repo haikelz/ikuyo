@@ -15,7 +15,8 @@
 - Public routes and shared Svelte/Astro components follow the guestbook design
   system from `guestbook.ekel.dev`: its indigo accent, slate dark mode, a
   warm low-glare paper light mode, 14px
-  interface text, 48rem column, and bordered list panels.
+  interface text, 48rem column, and flat list panels
+  (the guestbook keeps its card).
 - The design system keeps the existing Astro and Svelte runtime; the
   guestbook's React and HeroUI components are not installed.
 - Pages render straight into the shared Layout's column with no page frame.
@@ -44,10 +45,13 @@
 
 ## Navigation
 
-- Navigation is a glass top bar, centered at the top of every viewport. From
-  640px it is as wide as its content: text links to Home, About, Works, Notes,
-  Tags, Photos, and Guestbook, then the theme toggle. The links render in
-  static HTML.
+- Navigation is a glass top bar, centered at the top of every viewport, with
+  text links to Home, About, Works, Notes, then the theme toggle. The links
+  render in static HTML.
+- At the top of a page the bar spans the content column with no border or
+  shadow, so it reads as part of the page. Once the page scrolls, it shrinks
+  back to the bordered, shadowed pill (as wide as its content from 640px). The
+  same change happens on phones, where the width stays the viewport less 2rem.
 - Below 640px the bar shows the owner's GitHub profile picture linking home,
   the theme toggle, and a menu button. The button opens a sheet listing every
   link with the current page marked; Escape and the close button dismiss it
@@ -127,6 +131,7 @@
 - ToC preserves its desktop rail and mobile sheet; the current heading is highlighted and marked with `aria-current="location"`. Scrolling does not rewrite the URL.
 - Homepage experiences render as compact rows in an Experience panel: company, role, dates, and the case-study link when one exists.
 - Note and work rows show a one-line description of 90 characters or fewer.
+- Every tag on a note row links to `/tags/<tag>/`, on the homepage, `/notes`, and tag pages alike.
 - Tools use static decorative outline Icon Tiles; titles and descriptions remain the accessible content.
 - Guestbook and market statuses use the shared semantic Alert variants. A refresh failure retains previously loaded messages.
 - MDX code retains build-time syntax highlighting with filename/language, Copy and Wrap controls. Snippets longer than 16 lines can expand/collapse; copying always includes full source. Without JavaScript, the full code remains readable.

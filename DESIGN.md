@@ -5,8 +5,8 @@
 Ikuyo uses the guestbook design system from `guestbook.ekel.dev`: a quiet,
 app-like interface with one indigo accent, on warm paper neutrals in light mode
 and cool slate in dark mode. Content sits
-in a single 48rem column; lists live in bordered panels with a heading row,
-a count pill, and divided rows. Typography sets Lora serif
+in a single 48rem column; lists sit flat on the canvas under a heading row with
+a count pill, divided by hairlines. Typography sets Lora serif
 titles over Inter body text, with hierarchy from the serif, weight, and muted
 color more than size. Surfaces stay flat apart from one soft panel shadow. The
 guestbook is built with HeroUI on React; Ikuyo ports its tokens and patterns to
@@ -90,8 +90,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   24px from `sm`. No page card or frame wraps the content.
 - Page header: 16px top padding on phones and 32px from `sm` below the
   navigation, 24px bottom padding; content follows directly.
-- Stack panels with a 24px gap. Panel rows pad 16px vertically and 16px or 20px
-  horizontally.
+- Stack panels with a 24px gap. Panel rows pad 16px vertically and align to the
+  column edges with no side padding.
 - The footer spans the full viewport with a top divider, 64px above it, and
   its content aligns to the column. On phones the copyright and links stack
   and center; from `sm` they split left and right.
@@ -100,13 +100,15 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ### Panel
 
-- **Structure:** `Panel.astro`: `rounded-lg` (10px) border, `bg-card`,
-  `shadow-panel`, clipped corners. A heading row (14px semibold `h2`, divider
-  below) carries an optional count pill and an optional "View all" link. Rows
-  separate themselves with a top border that the first row drops.
-- **Rows:** `WorkRow`, `NoteRow`, experience and role rows, guestbook
-  messages. A topline puts the title at the left and the date at the right;
-  it stacks on phones. Titles are 16px medium links that turn accent on hover.
+- **Structure:** `Panel.astro` draws no card: no border, fill, shadow, or
+  radius. A heading row (`h2`, 12px below it, divider under it) carries an
+  optional count pill and an optional "View all" link. Rows separate
+  themselves with a top border that the first row drops.
+- **Rows:** `WorkRow`, `NoteRow`, and experience and role rows. A topline puts
+  the title at the left and the date at the right; it stacks on phones. Titles
+  are 16px medium links that turn accent on hover.
+- **Guestbook:** `GuestbookEntries` keeps the original card (border, `bg-card`,
+  `shadow-panel`, 10px radius) around its messages.
 - **Use for:** every list of records. Free text and prose stay outside panels.
 
 ### Page header
@@ -125,27 +127,34 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ### Pills and badges
 
 - Count pills and badges are fully rounded: `bg-secondary`, 12px medium muted
-  text. Tag links on `/tags` are outlined pills on the panel surface.
+  text. Tag links on `/tags` are outlined pills on the panel surface. Tags on
+  note rows and detail pages are 12px muted underlined links, 12px apart.
 
 ### Navigation bar
 
-- **Structure:** fixed at the top center above the safe area. From `sm` it is
-  as wide as its content: text links to Home, About, Works, Notes, Tags,
-  Photos, and Guestbook, a hairline divider, then the theme toggle as a 32px
-  ghost icon button.
+- **Structure:** fixed at the top center above the safe area. From `sm` it
+  holds the text links (Home, About, Works, Notes) and the theme toggle as a
+  32px ghost icon button.
+- **At the top of a page** (scroll under 10px): from `sm` the bar spans the
+  content column (`min(45rem, 100% - 3rem)`) with links at the left and the
+  toggle at the right, and on phones it spans the viewport less 2rem. Its
+  border is transparent and it has no shadow, so it blends into the canvas.
+- **Scrolled:** it returns to the pill: as wide as its content from `sm`, a
+  hairline divider before the toggle, the divider border, and `shadow-panel`.
 - **Phones (below `sm`):** the bar spans the viewport less 2rem and holds the
   owner's 28px round GitHub avatar linking home, the theme toggle, and a 32px
   "Open menu"
   ghost button. The button opens a top sheet titled "Menu" that lists the same
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
-  blur, a divider border, `shadow-panel`, and a 10px radius. This is the only
-  blurred surface.
+  blur, and a 10px radius in both states. This is the only blurred surface.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
-- **Motion:** the bar hides on scroll down and returns on scroll up with a
-  200ms transform; reduced motion removes it.
+- **Motion:** the bar hides on scroll down and returns on scroll up. Its
+  position, width, border color, and shadow share one 200ms transition. Width
+  animates only where `interpolate-size` is supported (Chromium) and snaps
+  elsewhere. Reduced motion removes the transition.
 
 ### Alerts, fields, dialogs, and sheets
 
@@ -187,9 +196,10 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ## 7. Depth & Surface
 
-- Three levels: page canvas, panel (`--card` plus `shadow-panel`), overlay
-  (`--popover`).
-- Dividers, not nested cards, separate content inside a panel.
+- Three levels: page canvas, card (`--card` plus `shadow-panel`, now only the
+  guestbook and the scrolled navigation bar), overlay (`--popover`).
+- Lists of notes, works, and experiences sit on the canvas; dividers, not
+  cards, separate their rows.
 - Blur appears only on the navigation bar.
 
 ## 8. Accessibility Constraints & Accepted Debt
