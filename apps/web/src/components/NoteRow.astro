@@ -29,9 +29,17 @@ const { item, testId } = Astro.props;
   </p>
   {
     item.data.tags.length > 0 ? (
-      <p class="mb-0 mt-2 text-xs leading-relaxed text-muted-foreground">
-        {item.data.tags.map((tag) => `#${tag}`).join(" ")}
-      </p>
+      <div class="mt-2 flex flex-wrap items-center gap-3">
+        {item.data.tags.map((tag) => (
+          <a
+            data-cy="note-tag"
+            href={`/tags/${tag}/`}
+            class="text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
     ) : null
   }
 </article>

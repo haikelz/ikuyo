@@ -118,3 +118,18 @@ describe("Project classification", () => {
       .and(($image) => expect(($image[0] as HTMLImageElement).naturalWidth).to.be.greaterThan(0));
   });
 });
+
+describe("Note tags", () => {
+  for (const path of ["/", "/notes"]) {
+    it(`links every note tag on ${path} to its tag page`, () => {
+      cy.visit(path);
+      cy.get('[data-cy="note-tag"]')
+        .should("have.length.greaterThan", 0)
+        .each(($tag) => {
+          expect($tag.attr("href")).to.eq(`/tags/${$tag.text().trim().slice(1)}/`);
+        });
+      cy.get('[data-cy="note-tag"]').first().click();
+      cy.location("pathname").should("match", /^\/tags\/[^/]+\/?$/);
+    });
+  }
+});
