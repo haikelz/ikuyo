@@ -1,7 +1,7 @@
 const collections = [
-  { path: "/works", row: '[data-cy="work-row"]' },
-  { path: "/notes", row: '[data-cy="note-row"]' },
-  { path: "/guestbook", row: '[data-cy="guestbook-row"]' },
+  { path: "/works", row: '[data-cy="work-row"]', card: false },
+  { path: "/notes", row: '[data-cy="note-row"]', card: false },
+  { path: "/guestbook", row: '[data-cy="guestbook-row"]', card: true },
 ];
 
 describe("Collection panels", () => {
@@ -10,13 +10,12 @@ describe("Collection panels", () => {
       it(`renders ${collection.path} as rows at ${width}px`, () => {
         cy.viewport(width, 900);
         cy.visit(collection.path);
-        // Rows sit in a guestbook panel and divide themselves with a top border.
+        // Rows divide themselves with a top border; only the guestbook keeps a card around them.
         cy.get(collection.row).should("have.length.greaterThan", 0).and("have.class", "border-t");
         cy.get(collection.row)
           .first()
           .closest("section")
-          .should("have.class", "rounded-lg")
-          .and("have.class", "shadow-panel");
+          .should(collection.card ? "have.class" : "not.have.class", "shadow-panel");
         cy.document().then((document) => {
           expect(document.documentElement.scrollWidth).to.eq(document.documentElement.clientWidth);
         });

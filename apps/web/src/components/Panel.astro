@@ -1,5 +1,5 @@
 ---
-// Guestbook feed panel: a bordered surface with a heading row; rows divide themselves.
+// Record list: a heading row over rows that divide themselves, flat on the page canvas.
 type Props = {
   title: string;
   count?: number;
@@ -13,12 +13,9 @@ const { title, count, href, testId, class: className } = Astro.props;
 
 <section
   data-cy={testId}
-  class:list={[
-    "w-full overflow-hidden rounded-lg border border-border bg-card shadow-panel",
-    className,
-  ]}
+  class:list={["w-full", className]}
 >
-  <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
+  <div class="flex items-center justify-between gap-3 border-b border-border pb-3">
     <h2 class="m-0 text-lg leading-snug text-foreground">{title}</h2>
     <div class="flex items-center gap-3">
       {
