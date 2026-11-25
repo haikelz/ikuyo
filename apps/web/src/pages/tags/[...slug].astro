@@ -53,7 +53,7 @@ const description =
     </PageHeader>
 
     <section class="w-full">
-      <Panel title={`Notes tagged with ${currentPath}`} count={taggedNotes.length}>
+      <Panel title="Notes" count={taggedNotes.length}>
         {taggedNotes.map((item) => <NoteRow item={item} />)}
       </Panel>
     </section>
