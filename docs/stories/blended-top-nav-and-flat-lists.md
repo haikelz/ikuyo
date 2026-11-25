@@ -21,7 +21,7 @@ At the top of a page the navigation bar blends into the canvas: it spans the con
 
 - Below 10px of scroll, the bar has a transparent border and no shadow. From `sm` it spans `min(39rem, 100% - 3rem)`, the 42rem column less its gutters, with links at the left, the toggle at the right, and no divider.
 - Past 10px, the bar shows `border-border` and `shadow-panel`, is as wide as its content from `sm`, and shows the divider before the toggle.
-- Phones follow the same pattern: the viewport less 2rem at the top, then a pill around the avatar, toggle, and menu button (scrolled min-width 6rem under ~7rem of content).
+- Phones follow the same pattern: the viewport less 2rem at the top, then a pill around the avatar, toggle, and menu button (scrolled min-width 6rem under ~7rem of content), anchored to the right gutter so the pill sits at the top right; from `sm` the bar stays centered.
 - Hide-on-scroll-down, show-on-scroll-up, the view-transition snapshots, and reduced-motion behavior stay as they were.
 - `Panel` renders no border, fill, shadow, or radius. Note, work, experience, and role rows drop their side padding and align to the column.
 - The guestbook keeps its card.
@@ -32,6 +32,7 @@ At the top of a page the navigation bar blends into the canvas: it spans the con
 - The bar is `fit-content` at every width; the top state holds it at the column width (the viewport less 2rem on phones) with `min-width`, and the scrolled state drops `min-width` to 15rem (6rem on phones). Transitioning `min-width` (a plain length) animates the shrink in every browser. A first version animated `width` through `interpolate-size: allow-keywords`; it only animated in Chromium, so Firefox snapped.
 - Follow-up evidence: headless Brave at 1280px sampled the nav each frame on `/notes/`: 624 → 533 → 456 → 394 → 348 → 315 → 303px scrolling down, and 303 → 331 → … → 624px back up over about 300ms.
 - Phone follow-up: at 375px the same probe measured 343 → 285 → 235 → 195 → 166 → 144 → 129 → 118 → 110px scrolling down and 110 → … → 343px back up.
+- Right-anchor follow-up: at 375px the bar spans 16–359px at the top and 249–359px scrolled; at 1280px it stays centered on 640px (328–952px, then 488–792px).
 
 ## Validation
 
