@@ -1,0 +1,51 @@
+# Blended top navigation and flat lists
+
+## Status
+
+implemented
+
+## Lane
+
+normal
+
+## Product Contract
+
+At the top of a page the navigation bar blends into the canvas: it spans the content column with no border or shadow. Once the page scrolls, it returns to the existing bordered pill. Lists of notes, works, and experiences drop their card and sit flat on the canvas.
+
+## Relevant Product Docs
+
+- `DESIGN.md`
+- `docs/product/website.md`
+
+## Acceptance Criteria
+
+- Below 10px of scroll, the bar has a transparent border and no shadow. From `sm` it spans `min(45rem, 100% - 3rem)`, with links at the left, the toggle at the right, and no divider.
+- Past 10px, the bar shows `border-border` and `shadow-panel`, is as wide as its content from `sm`, and shows the divider before the toggle.
+- Phones get the same border and shadow change at the viewport-less-2rem width they already use.
+- Hide-on-scroll-down, show-on-scroll-up, the view-transition snapshots, and reduced-motion behavior stay as they were.
+- `Panel` renders no border, fill, shadow, or radius. Note, work, experience, and role rows drop their side padding and align to the column.
+- The guestbook keeps its card.
+
+## Design Notes
+
+- UI surfaces: `Navbar.svelte`, `Panel.astro`, `NoteRow.astro`, `WorkRow.astro`, the experience rows in `pages/index.astro`, and the role rows in `pages/about.astro`.
+- Width transitions use `interpolate-size: allow-keywords` to animate between `fit-content` and the column width. Browsers without it snap the width while border and shadow still fade.
+
+## Validation
+
+| Layer | Expected proof |
+| --- | --- |
+| Unit | Not applicable; markup and class state |
+| Integration | Astro check and production build |
+| E2E | `navigation.cy.ts` "Navigation surface" at 375px and 1280px; `collection-lists.cy.ts` asserts flat `/works` and `/notes` and a carded `/guestbook` |
+| Platform | Home, `/notes`, `/works`, and `/about` at 375px, 768px, and 1280px, at the top and scrolled, in light and dark |
+| Release | Focused Biome and `git diff --check` |
+
+## Harness Delta
+
+`scripts/bin/harness-cli` is still missing from this checkout, so intake, proof, and trace rows were not recorded.
+
+## Evidence
+
+- `git diff --check`: passed.
+- Not run: Biome, Astro check, build, Cypress, and the responsive browser check. Bun is not installed on the authoring machine.
