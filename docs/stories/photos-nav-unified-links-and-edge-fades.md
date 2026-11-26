@@ -33,9 +33,10 @@ tint the footer.
 - Count pills, badges, Open-to-work chips, `/tags` chips, and the reaction
   button use `rounded-md`. Avatars and status dots stay round. The reaction
   button uses `transition-colors`, not `transition-all`.
-- A fixed 6rem strip under the bar fades from the canvas to transparent, stays
-  out of pointer events, and swaps without fading on route changes. The footer
-  background fades from the canvas to `--secondary`.
+- Fixed strips fade from the canvas to transparent at both viewport edges
+  (6rem under the bar, 4rem at the bottom), stay out of pointer events, and
+  swap without fading on route changes. The footer stays on the canvas and
+  paints above the bottom fade.
 
 ## Design Notes
 
@@ -52,6 +53,12 @@ tint the footer.
 - The phone sheet spec expected 7 links while the nav listed 4; it now expects 5.
 - The owner chose the options marked recommended: one link rule, every pill
   shape, and the neutral edge fade over an accent glow or gradient hairlines.
+- Owner follow-up: the first footer version, an in-flow canvas-to-`--secondary`
+  background under a hard divider, read as a tinted box, not as the header's
+  fade. Nothing scrolls under an in-flow footer, so the follow-up mirrors the
+  header with a fixed bottom fade and puts the footer back on the canvas,
+  above that fade (`relative z-40`), so the footer text never fades. The ToC
+  button (`z-40`, later in the DOM) also paints above it.
 
 ## Validation
 
