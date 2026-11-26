@@ -2,10 +2,12 @@
 import { XIcon } from "lucide-svelte";
 import { onMount } from "svelte";
 
-let { images = [], masonry = false } = $props<{
+// Notes and works use the default 4:3 grayscale tiles; /photos switches between square and masonry.
+let { images = [], layout = "tiles" } = $props<{
   images: string[];
-  masonry?: boolean;
+  layout?: "tiles" | "square" | "masonry";
 }>();
+const square = $derived(layout === "square");
 
 let selectedImage = $state<string | null>(null);
 let loaded = $state<Record<number, boolean>>({});
@@ -50,7 +52,7 @@ onMount(() => {
 });
 </script>
 
-{#if masonry}
+{#if layout === "masonry"}
   <div class="masonry-grid my-8 w-full">
     {#each images as image, i}
       <button
@@ -84,11 +86,16 @@ onMount(() => {
     {/each}
   </div>
 {:else}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full">
+  <!-- Square tiles share the masonry column counts, so switching layouts keeps the columns. -->
+  <div
+    class="grid gap-4 my-8 w-full {square
+      ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+      : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}"
+  >
     {#each images as image, i}
       <button
         type="button"
-        class="photo-item group relative overflow-hidden cursor-zoom-in bg-muted aspect-4/3"
+        class="photo-item group relative overflow-hidden cursor-zoom-in bg-muted {square ? 'aspect-square' : 'aspect-4/3'}"
         onclick={(event) => openLightbox(image, event.currentTarget)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
@@ -101,7 +108,9 @@ onMount(() => {
         <img
           src={optimizeUrl(image, 800)}
           alt="Photo {i + 1} of {images.length}"
-          class="absolute inset-0 size-full object-cover border-none m-0! p-0! grayscale transition-[filter,opacity] duration-300 group-hover:grayscale-0 {loaded[i] ? 'opacity-100' : 'opacity-0'}"
+          class="absolute inset-0 size-full object-cover border-none m-0! p-0! transition-[filter,opacity] duration-300 {square
+            ? ''
+            : 'grayscale group-hover:grayscale-0'} {loaded[i] ? 'opacity-100' : 'opacity-0'}"
           loading="lazy"
           onload={() => (loaded = { ...loaded, [i]: true })}
         />
