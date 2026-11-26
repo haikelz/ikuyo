@@ -33,10 +33,10 @@ tint the footer.
 - Count pills, badges, Open-to-work chips, `/tags` chips, and the reaction
   button use `rounded-md`. Avatars and status dots stay round. The reaction
   button uses `transition-colors`, not `transition-all`.
-- Fixed 2rem strips at both viewport edges fill with the canvas and an 8px
-  backdrop blur that one gradient mask fades out toward the page, stay out of
-  pointer events, and swap without fading on route changes. The footer stays
-  on the canvas and paints above the bottom fade.
+- `EdgeFade` draws fixed 4rem strips at both viewport edges: a five-layer
+  progressive blur and an eased canvas tint, invisible at rest at the top and
+  end of a page and at full strength 120px from them. They stay out of pointer
+  events. The footer stays on the canvas and paints above the bottom fade.
 
 ## Design Notes
 
@@ -88,3 +88,9 @@ intake, proof, and trace rows were not recorded and the Bun checks did not run.
   both edges. Both strips are now 2rem with an 8px backdrop blur under a
   linear mask. During a route change the snapshots drop the blur and show only
   the gradient for about 360ms, the same limit the bar's blur has.
+- Fourth follow-up: the owner pointed to a reference for the edge fades. The
+  single blur and linear canvas gradient became `EdgeFade.astro`, with five
+  masked backdrop-blur layers (1 to 16px), a smoothstep canvas tint, and
+  scroll-driven opacity, so the fades vanish at the top and end of a page. The
+  fades now ride the page snapshot during route changes, which keeps their blur;
+  the `site-fade` snapshot rules are gone.
