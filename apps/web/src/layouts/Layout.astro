@@ -222,6 +222,12 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       >Skip to content</a
     >
     <CodeBlockCopy client:only="svelte" />
+    <!-- A fixed canvas-to-clear fade under the nav bar, so content fades as it scrolls beneath it. -->
+    <div
+      aria-hidden="true"
+      style="view-transition-name: site-fade"
+      class="pointer-events-none fixed inset-x-0 top-0 z-40 h-[calc(6rem+env(safe-area-inset-top))] bg-linear-to-b from-background to-transparent"
+    ></div>
     <Navbar currentPath={currentPath} client:load />
     <div class="flex min-h-dvh w-full flex-col">
       <main
