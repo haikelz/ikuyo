@@ -46,8 +46,9 @@
 ## Navigation
 
 - Navigation is a glass top bar, centered at the top of every viewport, with
-  text links to Home, About, Works, Notes, then the theme toggle. The links
+  text links to Home, About, Works, Notes, Photos, then the theme toggle. The links
   render in static HTML.
+- Page content fades out as it scrolls under the bar.
 - At the top of a page the bar spans the content column with no border or
   shadow, so it reads as part of the page. Once the page scrolls, it shrinks
   to a bordered, shadowed pill as wide as its content. Phones do the same: the
@@ -68,8 +69,14 @@
 
 ## Footer
 
-- The footer shows the copyright and links to Uptime, Tools, and Wakatime.
-  Below 640px they stack and center; from 640px they split left and right.
+- The footer credits Astro and Svelte and links to Uptime, Guestbook, and
+  Wakatime over a soft tint that fades in from the canvas. Below 640px they
+  stack and center; from 640px they split left and right.
+
+## Photos page
+
+- `/photos/` spans the full viewport width less the page gutters, unlike the
+  42rem column the other routes use.
 
 ## About page
 

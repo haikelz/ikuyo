@@ -5,10 +5,11 @@
 Ikuyo uses the guestbook design system from `guestbook.ekel.dev`: a quiet,
 app-like interface with one indigo accent, on warm paper neutrals in light mode
 and cool slate in dark mode. Content sits
-in a single 48rem column; lists sit flat on the canvas under a heading row with
+in a single 42rem column; lists sit flat on the canvas under a heading row with
 a count pill, divided by hairlines. Typography sets Lora serif
 titles over Inter body text, with hierarchy from the serif, weight, and muted
-color more than size. Surfaces stay flat apart from one soft panel shadow. The
+color more than size. Surfaces stay flat apart from one soft panel shadow and
+the neutral edge fades under the navigation bar and in the footer. The
 guestbook is built with HeroUI on React; Ikuyo ports its tokens and patterns to
 Astro, Svelte, and Tailwind CSS without either runtime.
 
@@ -81,19 +82,21 @@ Use semantic tokens for every interface color. The guestbook's own palette
   (–), and dates read day, month, year: `d MMM yyyy` in lists and
   `d MMMM yyyy` on detail pages.
 - Article headings: Lora semibold on an em scale (h1 1.75em, h2 1.25em, h3
-  1.125em, h4 1em). Article links keep the text color with a 30% underline that
-  darkens on hover; quotes use a 2px divider rule without quote marks.
+  1.125em, h4 1em). Article links follow the site link rule (see Buttons and
+  links) at medium weight; quotes use a 2px divider rule without quote marks.
 
 ## 4. Spacing & Layout
 
-- One centered column, `max-w-3xl` (48rem), with 16px gutters on phones and
-  24px from `sm`. No page card or frame wraps the content.
+- One centered column, `max-w-2xl` (42rem), with 16px gutters on phones and
+  24px from `sm`. No page card or frame wraps the content. `/photos` drops the
+  cap so the gallery fills the viewport less its gutters.
 - Page header: 16px top padding on phones and 32px from `sm` below the
   navigation, 24px bottom padding; content follows directly.
 - Stack panels with a 24px gap. Panel rows pad 16px vertically and align to the
   column edges with no side padding.
 - The footer spans the full viewport with a top divider, 64px above it, and
-  its content aligns to the column. On phones the copyright and links stack
+  its content aligns to the column. Its background fades from the canvas at
+  the divider to `--secondary` at the bottom edge. On phones the copyright and links stack
   and center; from `sm` they split left and right.
 
 ## 5. Components
@@ -121,19 +124,24 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Buttons: 8px radius (`rounded-md`), 14px medium, `transition-colors`. Outline
   buttons sit on the panel surface; ghost buttons are muted text with a hover
   fill.
-- Links: underlined with a 4px offset and a 35% current-color line. List
-  titles and nav links drop the underline.
+- Links: one rule in `base.css`. The text keeps its color, and a 35%
+  current-color underline with a 4px offset darkens to full strength on hover.
+  Inline links set no hover color of their own.
+- List titles drop the underline and turn accent on hover. Nav links (top bar,
+  sheet, footer, ToC, "View all") drop it and gain contrast on hover.
 
 ### Pills and badges
 
-- Count pills and badges are fully rounded: `bg-secondary`, 12px medium muted
-  text. Tag links on `/tags` are outlined pills on the panel surface. Tags on
+- Count pills, badges, and chips use the button radius, 8px (`rounded-md`),
+  not a full pill: `bg-secondary`, 12px medium muted text. Tag links on
+  `/tags` are outlined chips on the panel surface. Avatars and status dots stay
+  round. Tags on
   note rows and detail pages are 12px muted underlined links, 12px apart.
 
 ### Navigation bar
 
 - **Structure:** fixed at the top center above the safe area. From `sm` it
-  holds the text links (Home, About, Works, Notes) and the theme toggle as a
+  holds the text links (Home, About, Works, Notes, Photos) and the theme toggle as a
   32px ghost icon button.
 - **At the top of a page** (scroll under 10px): from `sm` the bar spans the
   content column (`min-width: min(39rem, 100% - 3rem)` on a fit-content bar)
@@ -141,7 +149,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   the viewport less 2rem (`min-width: calc(100% - 2rem)`). Its border is
   transparent and it has no shadow, so it blends into the canvas.
 - **Scrolled:** it returns to the pill, as wide as its content: from `sm` the
-  min-width drops to 15rem, just under the ~19rem link row, and a hairline
+  min-width drops to 19rem, just under the ~23rem link row, and a hairline
   divider fades in before the toggle; on phones it drops to 6rem, just under
   the ~7rem avatar and controls. Both gain the divider border and
   `shadow-panel`.
@@ -153,6 +161,9 @@ Use semantic tokens for every interface color. The guestbook's own palette
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. This is the only blurred surface.
+- **Edge fade:** a fixed, non-interactive strip under the bar (`z-40`, 6rem
+  plus the top safe area) fades from the canvas to transparent, so content
+  fades as it scrolls beneath the bar. It stays when the bar hides.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
@@ -192,7 +203,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
     new page rises 16px into place (360ms, `cubic-bezier(0.22, 1, 0.36, 1)`,
     60ms delay). Back (`data-astro-transition="back"`) reverses both
     directions.
-  - The nav bar is its own snapshot (`site-nav`) and swaps without fading.
+  - The nav bar (`site-nav`) and the edge fade under it (`site-fade`) are
+    their own snapshots and swap without fading.
     The current-page fill is a separate `nav-pill` snapshot that slides to
     the new link in 360ms; link labels (`nav-label` class) sit above it.
   - Content inside the page never staggers in.
@@ -205,7 +217,9 @@ Use semantic tokens for every interface color. The guestbook's own palette
   guestbook and the scrolled navigation bar), overlay (`--popover`).
 - Lists of notes, works, and experiences sit on the canvas; dividers, not
   cards, separate their rows.
-- Blur appears only on the navigation bar.
+- Blur appears only on the navigation bar. Gradients appear only as the
+  neutral edge fades: canvas to transparent under the bar, canvas to
+  `--secondary` in the footer.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
