@@ -56,7 +56,7 @@ onMount(fetchReactions);
     aria-label={reacted ? "Unlike" : "Like this post"}
   >
     <Heart
-      class="h-5 w-5 transition-all duration-200 {reacted ? 'text-primary fill-primary scale-110' : 'text-muted-foreground group-hover:text-primary'}"
+      class="h-5 w-5 transition-[color,fill,scale] {reacted ? 'text-primary fill-primary scale-110' : 'text-muted-foreground group-hover:text-primary'}"
       fill={reacted ? "currentColor" : "none"}
       strokeWidth={1.5}
     />
