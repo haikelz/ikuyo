@@ -19,6 +19,7 @@ const navList = [
   { id: 1, path: "/about", label: "About", cy: "about-btn" },
   { id: 2, path: "/works", label: "Works", cy: "works-btn" },
   { id: 3, path: "/notes", label: "Notes", cy: "notes-btn" },
+  { id: 4, path: "/photos", label: "Photos", cy: "photos-btn" },
 ];
 
 const isActive = (path: string) =>
@@ -74,7 +75,7 @@ onMount(() => {
      fit-content and a min-width holds it at the column width; animating min-width (a plain length)
      shrinks it in every browser.
      ponytail: each scrolled min-width sits just under its pill's content width (phones 6rem under ~7rem
-     for avatar, toggle, and menu; sm 15rem under ~19rem for the links) so the shrink runs for most of the
+     for avatar, toggle, and menu; sm 19rem under ~23rem for the links) so the shrink runs for most of the
      transition; if the content ever gets narrower than that floor, the pill keeps the floor and the
      controls sit at its right edge. -->
 <nav
@@ -84,7 +85,7 @@ onMount(() => {
     "fixed inset-x-0 top-[max(1rem,env(safe-area-inset-top))] z-50 mr-4 ml-auto flex w-fit items-center justify-between gap-1 rounded-lg border bg-background/85 py-1 pr-1 pl-1.5 backdrop-blur-[12px] transition-[translate,min-width,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:mx-auto sm:py-0 sm:pl-0",
     atTop
       ? "min-w-[calc(100%-2rem)] border-transparent shadow-none sm:min-w-[min(39rem,calc(100%-3rem))]"
-      : "min-w-24 border-border shadow-panel sm:min-w-60",
+      : "min-w-24 border-border shadow-panel sm:min-w-76",
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >

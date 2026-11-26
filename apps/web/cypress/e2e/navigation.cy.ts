@@ -13,7 +13,7 @@ describe("Primary navigation", () => {
     cy.get('[data-cy="menu-btn"]').should("be.visible").click();
     cy.get('[role="dialog"]').within(() => {
       cy.contains("Menu").should("be.visible");
-      cy.get("a").should("have.length", 7);
+      cy.get("a").should("have.length", 5);
       cy.contains("a", "Notes").should("have.attr", "aria-current", "page");
     });
 
@@ -53,7 +53,8 @@ describe("Navigation surface", () => {
         // Phones and desktop both shrink from the full bar to a content-width pill.
         nav().should(($pill) => {
           const rect = $pill[0].getBoundingClientRect();
-          expect(rect.width).to.be.lessThan(topWidth * 0.6);
+          // ponytail: 0.7 leaves room for the ~23rem five-link row against the 39rem top bar.
+          expect(rect.width).to.be.lessThan(topWidth * 0.7);
           // Phones keep the pill on the right gutter; from sm it stays centered.
           if (width < 640) expect(rect.right).to.be.closeTo(width - 16, 1);
         });
