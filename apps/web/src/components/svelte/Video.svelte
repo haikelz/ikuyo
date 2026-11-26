@@ -14,7 +14,7 @@ let trigger = $state<HTMLButtonElement | null>(null);
 <div class="video-container my-8 w-full group">
   <button
     type="button"
-    class="overflow-hidden bg-muted cursor-pointer relative block w-full p-0 border border-border hover:border-primary/40 transition-colors"
+    class="overflow-hidden bg-muted cursor-pointer relative block w-full p-0"
     bind:this={trigger}
     onclick={() => (selected = 0)}
     aria-label={`Play ${title ?? "video"} in a dialog`}

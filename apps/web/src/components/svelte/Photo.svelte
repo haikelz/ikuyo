@@ -22,7 +22,7 @@ let trigger = $state<HTMLButtonElement | null>(null);
     aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
     <div
-      class="photo-stack relative w-full overflow-hidden bg-muted transition-transform duration-500 group-hover:scale-[1.02] grid"
+      class="photo-stack relative grid w-full overflow-hidden bg-muted"
     >
       <img
         src={getPlaceholderUrl(src, 200)}
@@ -33,7 +33,7 @@ let trigger = $state<HTMLButtonElement | null>(null);
         src={optimizeUrl(src, 800)}
         alt={alt ?? ""}
         {title}
-        class="photo-stack-img rounded-none block w-full h-auto transition-opacity duration-300 m-0! p-0! border-0! grayscale group-hover:grayscale-0 group-hover:opacity-90 col-start-1 row-start-1 {imageLoaded
+        class="photo-stack-img rounded-none block w-full h-auto transition-opacity duration-300 m-0! p-0! border-0! col-start-1 row-start-1 {imageLoaded
           ? 'opacity-100'
           : 'opacity-0'}"
         loading="lazy"

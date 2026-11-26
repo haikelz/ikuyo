@@ -2,7 +2,7 @@
 import { getPlaceholderUrl, optimizeUrl } from "@/utils/image";
 import Lightbox from "./Lightbox.svelte";
 
-// Notes and works use the default 4:3 grayscale tiles; /photos switches between square and masonry.
+// Notes and works use the default 4:3 tiles; /photos switches between square and masonry.
 let { images = [], layout = "tiles" } = $props<{
   images: string[];
   layout?: "tiles" | "square" | "masonry";
@@ -73,9 +73,7 @@ const slides = $derived(images.map((src: string, i: number) => ({ src, alt: `Pho
         <img
           src={optimizeUrl(image, 800)}
           alt="Photo {i + 1} of {images.length}"
-          class="absolute inset-0 size-full object-cover border-none m-0! p-0! transition-[filter,opacity] duration-300 {square
-            ? ''
-            : 'grayscale group-hover:grayscale-0'} {loaded[i] ? 'opacity-100' : 'opacity-0'}"
+          class="absolute inset-0 size-full object-cover border-none m-0! p-0! transition-opacity duration-300 {loaded[i] ? 'opacity-100' : 'opacity-0'}"
           loading="lazy"
           onload={() => (loaded = { ...loaded, [i]: true })}
         />
