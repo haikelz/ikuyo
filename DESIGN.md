@@ -162,13 +162,21 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. Apart from the edge fades, this is
   the only blurred surface.
-- **Edge fades:** fixed, non-interactive strips (`z-40`), 2rem plus the safe
-  area at each edge, fill with the canvas and an 8px backdrop blur
-  (`backdrop-blur-sm`). One linear `mask-image` fades both from full strength
-  at the viewport edge to nothing toward the page, so content fades and blurs
-  as it scrolls under them. The top strip ends behind the ~3.5rem bar and
-  shows above it, beside the scrolled pill, and when the bar hides. The footer
-  and the ToC button paint above the bottom strip.
+- **Edge fades:** `EdgeFade.astro` draws a fixed, non-interactive strip
+  (`z-40`), 4rem plus the safe area, at the top and bottom of the viewport.
+  - A progressive blur: five backdrop-blur layers (1, 2, 4, 8, 16px), each
+    masked to a band 20% closer to the edge, so the blur grows toward the edge
+    without visible steps.
+  - A tint of `--background` that eases in on a smoothstep curve, from clear
+    on the page side to the full canvas at the edge.
+  - Scroll drives the opacity: each strip reaches full strength once 120px of
+    page lies past its edge (`--edge-fade-top`, `--edge-fade-bottom` on
+    `<html>`). At the top of a page the top strip is invisible, and at the end
+    the bottom strip is gone, so neither covers the first or last lines at
+    rest. Without JavaScript neither shows.
+  - Opacity sits on each layer, never the wrapper, since an ancestor with
+    opacity would cut off the backdrop the blurs read.
+  - The footer and the ToC button paint above the bottom strip.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
@@ -223,8 +231,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
     new page rises 16px into place (360ms, `cubic-bezier(0.22, 1, 0.36, 1)`,
     60ms delay). Back (`data-astro-transition="back"`) reverses both
     directions.
-  - The nav bar (`site-nav`) and the edge fades (`site-fade`,
-    `site-fade-bottom`) are their own snapshots and swap without fading.
+  - The nav bar is its own snapshot (`site-nav`) and swaps without fading.
+    The edge fades belong to the page snapshot, which keeps their blur.
     The current-page fill is a separate `nav-pill` snapshot that slides to
     the new link in 360ms; link labels (`nav-label` class) sit above it.
   - Content inside the page never staggers in.
@@ -238,7 +246,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Lists of notes, works, and experiences sit on the canvas; dividers, not
   cards, separate their rows.
 - Blur appears only on the navigation bar and the edge fades. Gradients appear
-  only as the masks on those fades.
+  only in the edge fades' masks and tint.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
