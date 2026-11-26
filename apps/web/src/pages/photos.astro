@@ -1,6 +1,5 @@
 ---
 import PhotosPage from "@/components/svelte/PhotosPage.svelte";
-import PageHeader from "@/components/PageHeader.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getAllPhotos } from "@/utils/imagekit";
 
@@ -16,15 +15,10 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   ogImage="photos.png"
   className="max-w-none!"
 >
-  <div
-    class="flex w-full flex-col items-start justify-start mx-auto md:text-start"
-  >
-    <PageHeader title="Photos" eyebrow="Photography" className="mb-10 sm:mb-16">
-      A selection of photographs from my camera roll.
-    </PageHeader>
-    <section class="w-full border-t border-border pt-4">
-      <h2 class="sr-only">Photo gallery</h2>
-      <PhotosPage client:only="svelte" photos={photos} />
-    </section>
-  </div>
+  <!-- The page shows only photos; the title stays for screen readers, and the top padding matches
+       the page header's so the layout switch clears the nav bar's edge fade. -->
+  <h1 class="sr-only">Photos</h1>
+  <section class="w-full pt-4 sm:pt-8" aria-label="Photo gallery">
+    <PhotosPage client:only="svelte" photos={photos} />
+  </section>
 </Layout>
