@@ -34,7 +34,7 @@ tint the footer.
   button use `rounded-md`. Avatars and status dots stay round. The reaction
   button uses `transition-colors`, not `transition-all`.
 - Fixed strips fade from the canvas to transparent at both viewport edges
-  (4rem under the bar, 2rem at the bottom), stay out of pointer events, and
+  (2.5rem at the top, 1rem at the bottom), stay out of pointer events, and
   swap without fading on route changes. The footer stays on the canvas and
   paints above the bottom fade.
 
@@ -82,3 +82,5 @@ intake, proof, and trace rows were not recorded and the Bun checks did not run.
   check. Bun, Moon, `node_modules`, and the Harness CLI are absent.
 - Owner follow-up: the fades read as too large, so the top fade shrank from
   6rem to 4rem and the bottom fade from 4rem to 2rem.
+- Second follow-up: still too large, so the top fade shrank to 2.5rem, ending
+  behind the bar, and the bottom fade to 1rem.
