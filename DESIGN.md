@@ -162,10 +162,10 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. This is the only blurred surface.
 - **Edge fades:** fixed, non-interactive strips (`z-40`) fade from the canvas
-  to transparent, so content fades as it scrolls under them: 4rem plus the top
-  safe area under the bar (it ends just below the ~3.5rem bar and stays when
-  the bar hides), and 2rem plus the bottom safe area at the bottom edge. The
-  footer and the ToC button paint above the bottom fade.
+  to transparent, so content fades as it scrolls under them: 2.5rem plus the
+  top safe area, ending behind the ~3.5rem bar, so it shows beside the
+  scrolled pill and when the bar hides; and 1rem plus the bottom safe area at
+  the bottom edge. The footer and the ToC button paint above the bottom fade.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
