@@ -1,4 +1,5 @@
 ---
+import EdgeFade from "@/components/EdgeFade.astro";
 import Footer from "@/components/Footer.astro";
 import CodeBlockCopy from "@/components/svelte/CodeBlockCopy.svelte";
 import Navbar from "@/components/svelte/Navbar.svelte";
@@ -222,19 +223,9 @@ const removedFilenameGoatcounterSrc = PUBLIC_GOATCOUNTER_SRC.split(".").slice(0,
       >Skip to content</a
     >
     <CodeBlockCopy client:only="svelte" />
-    <!-- Fixed fades at both viewport edges, so content fades and blurs as it scrolls under them: one
-         gradient mask fades the canvas and the backdrop blur out together toward the page.
-         The footer paints above the bottom fade, so its text stays sharp at the end of the page. -->
-    <div
-      aria-hidden="true"
-      style="view-transition-name: site-fade"
-      class="pointer-events-none fixed inset-x-0 top-0 z-40 h-[calc(2rem+env(safe-area-inset-top))] bg-background backdrop-blur-sm [mask-image:linear-gradient(to_bottom,black,transparent)]"
-    ></div>
-    <div
-      aria-hidden="true"
-      style="view-transition-name: site-fade-bottom"
-      class="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-[calc(2rem+env(safe-area-inset-bottom))] bg-background backdrop-blur-sm [mask-image:linear-gradient(to_top,black,transparent)]"
-    ></div>
+    <!-- The footer paints above the bottom fade, so its text stays sharp at the end of the page. -->
+    <EdgeFade edge="top" />
+    <EdgeFade edge="bottom" />
     <Navbar currentPath={currentPath} client:load />
     <div class="flex min-h-dvh w-full flex-col">
       <main

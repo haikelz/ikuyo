@@ -1,0 +1,103 @@
+---
+type Props = {
+  edge: "top" | "bottom";
+};
+
+const { edge } = Astro.props;
+// Each layer doubles the blur over a band 20% closer to the edge, so the blur ramps up
+// instead of stepping; the strongest layer runs to the edge.
+const blurs = [1, 2, 4, 8, 16];
+---
+
+<div class="edge-fade" data-edge={edge} aria-hidden="true">
+  {blurs.map((blur, i) => <div class="edge-fade-blur" style={`--blur: ${blur}px; --band-start: ${i * 20}%`} />)}
+  <div class="edge-fade-tint"></div>
+</div>
+
+<style>
+  .edge-fade {
+    position: fixed;
+    inset-inline: 0;
+    z-index: 40;
+    pointer-events: none;
+  }
+
+  .edge-fade[data-edge="top"] {
+    --direction: to top;
+    --fade: var(--edge-fade-top, 0);
+    top: 0;
+    height: calc(4rem + env(safe-area-inset-top));
+  }
+
+  .edge-fade[data-edge="bottom"] {
+    --direction: to bottom;
+    --fade: var(--edge-fade-bottom, 0);
+    bottom: 0;
+    height: calc(4rem + env(safe-area-inset-bottom));
+  }
+
+  /* Opacity sits on each layer, not the wrapper: an ancestor with opacity would cut off the
+     backdrop the blurs read. */
+  .edge-fade > * {
+    position: absolute;
+    inset: 0;
+    opacity: var(--fade);
+  }
+
+  .edge-fade-blur {
+    -webkit-backdrop-filter: blur(var(--blur));
+    backdrop-filter: blur(var(--blur));
+    mask-image: linear-gradient(
+      var(--direction),
+      transparent var(--band-start),
+      black calc(var(--band-start) + 20%),
+      black calc(var(--band-start) + 40%),
+      transparent calc(var(--band-start) + 60%)
+    );
+  }
+
+  .edge-fade-blur:nth-last-child(2) {
+    mask-image: linear-gradient(var(--direction), transparent var(--band-start), black calc(var(--band-start) + 20%));
+  }
+
+  /* The canvas eases in on a smoothstep curve, so the tint has no visible start line. */
+  .edge-fade-tint {
+    background-image: linear-gradient(
+      var(--direction),
+      transparent,
+      color-mix(in oklch, var(--background) 4.3%, transparent) 12.5%,
+      color-mix(in oklch, var(--background) 15.6%, transparent) 25%,
+      color-mix(in oklch, var(--background) 31.6%, transparent) 37.5%,
+      color-mix(in oklch, var(--background) 50%, transparent) 50%,
+      color-mix(in oklch, var(--background) 68.4%, transparent) 62.5%,
+      color-mix(in oklch, var(--background) 84.4%, transparent) 75%,
+      color-mix(in oklch, var(--background) 95.7%, transparent) 87.5%,
+      var(--background)
+    );
+  }
+</style>
+
+<script>
+  // Each fade shows once 120px of page lies past its edge, so neither covers the first or last
+  // lines at rest. The values live on <html>; the router replaces its attributes on every
+  // navigation, so each page load recomputes them.
+  const root = document.documentElement;
+  let frame = 0;
+
+  function update() {
+    frame = 0;
+    const below = root.scrollHeight - window.innerHeight - window.scrollY;
+    root.style.setProperty("--edge-fade-top", String(Math.min(Math.max(window.scrollY / 120, 0), 1)));
+    root.style.setProperty("--edge-fade-bottom", String(Math.min(Math.max(below / 120, 0), 1)));
+  }
+
+  function schedule() {
+    if (frame === 0) frame = requestAnimationFrame(update);
+  }
+
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule, { passive: true });
+  new ResizeObserver(schedule).observe(root);
+  document.addEventListener("astro:page-load", update);
+  update();
+</script>
