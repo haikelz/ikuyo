@@ -63,6 +63,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   (`text-sm`) muted; only row titles take full-strength ink. Dates and counts
   use `tabular-nums`.
 - Tertiary text (tags, stacks, count pills): 12px (`text-xs`) muted.
+- Nothing renders below 12px: chart axes, contribution labels, legends, and
+  tooltips use `text-xs` too.
 - 16px reading text (intros, bios, page descriptions, article prose):
   `leading-reading` (1.8). 14px row text (summaries, highlights, tool
   descriptions, guestbook messages): `leading-relaxed` (1.625); at 1.8 the
@@ -83,8 +85,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   (–), and dates read day, month, year: `d MMM yyyy` in lists and
   `d MMMM yyyy` on detail pages.
 - Article headings: Lora semibold on an em scale (h1 1.75em, h2 1.25em, h3
-  1.125em, h4 1em). Article links follow the site link rule (see Buttons and
-  links) at medium weight; quotes use a 2px divider rule without quote marks.
+  1.125em, h4 1em). Article links are inline links (see Buttons and links);
+  quotes use a 2px divider rule without quote marks.
 
 ## 4. Spacing & Layout
 
@@ -126,10 +128,15 @@ Use semantic tokens for every interface color. The guestbook's own palette
   buttons sit on the panel surface; ghost buttons are muted text with a hover
   fill.
 - Three link roles, no others:
-  - **Inline links** sit inside a sentence, prose, or a metadata line. One
-    rule in `base.css`: the text keeps its color, and a 35% current-color
-    underline with a 4px offset darkens to full strength on hover. They set no
-    hover color of their own.
+  - **Inline links** sit inside a sentence, prose, or a metadata line: the
+    guestbook intro, the footer credits, work Preview and Source, article
+    links, and tags. One rule in `base.css` (restated for `.prose`): the link
+    keeps its sentence's color and weight, and a 35% current-color underline
+    with a 4px offset darkens to full strength on hover. Inline links set no
+    color, weight, or hover color of their own.
+  - **Tags** are inline links in muted text, written `#tag`: 12px and 12px
+    apart on note rows and detail pages; 14px on `/tags`, 16px apart, with a
+    24px tap height (`inline-flex min-h-6`).
   - **Standalone links** stand on their own: the homepage social links,
     "View all", and "Read case study" use `text-sm font-medium
     text-muted-foreground no-underline transition-colors
@@ -143,10 +150,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ### Pills and badges
 
 - Count pills, badges, and chips use the button radius, 8px (`rounded-md`),
-  not a full pill: `bg-secondary`, 12px medium muted text. Tag links on
-  `/tags` are outlined chips on the panel surface. Avatars and status dots stay
-  round. Tags on
-  note rows and detail pages are 12px muted underlined links, 12px apart.
+  not a full pill: `bg-secondary`, 12px medium muted text. Avatars and status
+  dots stay round. Tags are links, not chips (see Buttons and links).
 
 ### Navigation bar
 
@@ -200,8 +205,23 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Alerts: info for loading or unavailable data, warning for stale or partial
   data, destructive for failed requests.
 - Fields use `--input` edges and the accent caret and focus.
-- Dialogs and sheets use the overlay surface, a divider border, and
-  `shadow-panel`, with focus management from the Svelte primitives.
+- Dialogs, sheets, select menus, and chart tooltips use the overlay surface:
+  `--popover`, a divider border, and `shadow-panel`. The `@ikuyo/ui`
+  `DialogContent` (10px radius), `SheetContent`, and `SelectContent` carry it,
+  so call sites set layout only, never the surface. Every dialog and sheet
+  shares the primitives' overlay: black at 80% with a light blur.
+
+### Charts
+
+- The contribution graph and the market index chart frame their plots,
+  skeletons, and empty states with a divider border and the 8px control
+  radius (`rounded-md`). Data marks (contribution cells, legend swatches,
+  crosshair markers) stay square.
+
+### Error pages
+
+- 404 and 500 list recovery links as rows: a 14px medium muted label over a
+  16px medium title that turns accent on hover, like every other title link.
 
 ### Table of contents
 
@@ -222,8 +242,9 @@ Use semantic tokens for every interface color. The guestbook's own palette
   switching never changes the column count.
 - The choice persists in `localStorage` (`photos-layout`) as a per-browser
   convenience.
-- Photo grids inside notes and works keep their 4:3 tiles that stay grayscale
-  until hover.
+- Photo grids inside notes and works keep their 4:3 tiles. Every photo and
+  video poster shows in color, unframed, with the same 10% black scrim on
+  hover and no zoom.
 - Every grid opens the Lightbox as a slideshow of its own photos.
 
 ### Lightbox
@@ -251,7 +272,11 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ## 6. Motion & Interaction
 
-- Color transitions run about 150ms; no `transition-all`.
+- Two durations. Color runs 150ms, Tailwind's default, so color transitions
+  set no duration class. Opacity, layout, and transform run 300ms. Dialog and
+  sheet enter and exit animations keep the primitives' timing.
+- Transitions name their properties; no `transition-all`. Nothing zooms on
+  hover.
 - Route changes use Astro's `ClientRouter` and native view transitions,
   styled in `src/styles/animations.css`:
   - The page is the root snapshot (the viewport); `<body>` carries no
@@ -271,11 +296,14 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ## 7. Depth & Surface
 
 - Three levels: page canvas, card (`--card` plus `shadow-panel`, now only the
-  guestbook and the scrolled navigation bar), overlay (`--popover`).
+  guestbook and the scrolled navigation bar), overlay (`--popover` plus
+  `shadow-panel`). `shadow-panel` is the only elevation shadow; outline
+  controls keep the hairline `shadow-xs`.
 - Lists of notes, works, and experiences sit on the canvas; dividers, not
   cards, separate their rows.
-- Blur appears only on the navigation bar and the edge fades. Gradients appear
-  only in the edge fades' masks and tint.
+- Blur appears only on the navigation bar, the edge fades, and the
+  dialog and sheet overlay. Gradients appear only in the edge fades' masks and
+  tint.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
