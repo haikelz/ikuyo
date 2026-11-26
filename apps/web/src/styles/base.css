@@ -85,11 +85,6 @@ body {
   overflow-x: hidden;
 }
 
-body:has(.lightbox-active) {
-  overflow: hidden !important;
-  padding-right: var(--scrollbar-width, 0px);
-}
-
 a[target="_blank"]::after {
   content: " ↗";
   font-size: 0.75em;

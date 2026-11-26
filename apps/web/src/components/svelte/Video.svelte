@@ -1,41 +1,22 @@
 <script lang="ts">
-import { PlayIcon, XIcon } from "lucide-svelte";
+import { PlayIcon } from "lucide-svelte";
+import Lightbox from "./Lightbox.svelte";
 
 let { src, title } = $props<{
   src: string;
   title?: string;
 }>();
 
-let selectedVideo = $state<string | null>(null);
-let triggerElement: HTMLButtonElement | null = null;
-let dialogElement = $state<HTMLDialogElement | null>(null);
-
-function openLightbox(event: MouseEvent & { currentTarget: HTMLButtonElement }) {
-  triggerElement = event.currentTarget;
-  selectedVideo = src;
-}
-
-function closeLightbox() {
-  if (dialogElement?.open) dialogElement.close();
-  selectedVideo = null;
-  requestAnimationFrame(() => triggerElement?.focus());
-}
-
-function showModal(node: HTMLDialogElement) {
-  node.showModal();
-  return {
-    destroy() {
-      if (node.open) node.close();
-    },
-  };
-}
+let selected = $state<number | null>(null);
+let trigger = $state<HTMLButtonElement | null>(null);
 </script>
 
 <div class="video-container my-8 w-full group">
   <button
     type="button"
     class="overflow-hidden bg-muted cursor-pointer relative block w-full p-0 border border-border hover:border-primary/40 transition-colors"
-    onclick={openLightbox}
+    bind:this={trigger}
+    onclick={() => (selected = 0)}
     aria-label={`Play ${title ?? "video"} in a dialog`}
   >
     <div class="relative w-full overflow-hidden">
@@ -67,43 +48,4 @@ function showModal(node: HTMLDialogElement) {
   {/if}
 </div>
 
-{#if selectedVideo}
-  <dialog
-    bind:this={dialogElement}
-    use:showModal
-    class="fixed inset-0 z-[9999] m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-black/70 p-4 open:flex sm:p-8 backdrop:bg-black/70 lightbox-active cursor-zoom-out"
-    aria-label="Video player"
-    onclose={closeLightbox}
-    oncancel={closeLightbox}
-    onkeydown={(event) => event.key === "Escape" && closeLightbox()}
-    onclick={(event) => event.target === event.currentTarget && closeLightbox()}
-  >
-    <button
-      type="button"
-      class="fixed top-6 right-6 z-[10000] p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
-      onclick={(e) => {
-        e.stopPropagation();
-        closeLightbox();
-      }}
-      aria-label="Close lightbox"
-      autofocus
-    >
-      <XIcon size={24} />
-    </button>
-
-    <div
-      class="relative w-full h-full max-w-7xl flex items-center justify-center p-0"
-      role="document"
-    >
-      <video
-        src={selectedVideo}
-        class="max-w-full max-h-full object-contain border-none! block m-0 p-0"
-        controls
-        autoplay
-        aria-label={title ?? "Video"}
-      >
-        <track kind="captions" />
-      </video>
-    </div>
-  </dialog>
-{/if}
+<Lightbox items={[{ src, alt: title ?? "Video", video: true }]} bind:index={selected} onclose={() => trigger?.focus()} />

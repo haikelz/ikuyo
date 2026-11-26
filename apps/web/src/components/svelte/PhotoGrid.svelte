@@ -1,6 +1,6 @@
 <script lang="ts">
-import { XIcon } from "lucide-svelte";
-import { onMount } from "svelte";
+import { getPlaceholderUrl, optimizeUrl } from "@/utils/image";
+import Lightbox from "./Lightbox.svelte";
 
 // Notes and works use the default 4:3 grayscale tiles; /photos switches between square and masonry.
 let { images = [], layout = "tiles" } = $props<{
@@ -9,47 +9,10 @@ let { images = [], layout = "tiles" } = $props<{
 }>();
 const square = $derived(layout === "square");
 
-let selectedImage = $state<string | null>(null);
 let loaded = $state<Record<number, boolean>>({});
-let triggerElement: HTMLButtonElement | null = null;
-let dialogElement = $state<HTMLDialogElement | null>(null);
-
-function optimizeUrl(url: string, width: number, quality = 85) {
-  if (url.includes("imagekit.io")) {
-    const baseUrl = url.split("?")[0];
-    return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
-  }
-  return url;
-}
-
-function getPlaceholderUrl(url: string, size = 40) {
-  return optimizeUrl(url, size, 20);
-}
-
-function openLightbox(photo: string, trigger: HTMLButtonElement) {
-  triggerElement = trigger;
-  selectedImage = photo;
-}
-
-function closeLightbox() {
-  if (dialogElement?.open) dialogElement.close();
-  selectedImage = null;
-  requestAnimationFrame(() => triggerElement?.focus());
-}
-
-function showModal(node: HTMLDialogElement) {
-  node.showModal();
-  return {
-    destroy() {
-      if (node.open) node.close();
-    },
-  };
-}
-
-onMount(() => {
-  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-  document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
-});
+let selected = $state<number | null>(null);
+let tiles = $state<HTMLButtonElement[]>([]);
+const slides = $derived(images.map((src: string, i: number) => ({ src, alt: `Photo ${i + 1} of ${images.length}` })));
 </script>
 
 {#if layout === "masonry"}
@@ -58,7 +21,8 @@ onMount(() => {
       <button
         type="button"
         class="masonry-item"
-        onclick={(event) => openLightbox(image, event.currentTarget)}
+        bind:this={tiles[i]}
+        onclick={() => (selected = i)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
         <div class="photo-stack group relative cursor-zoom-in overflow-hidden">
@@ -96,7 +60,8 @@ onMount(() => {
       <button
         type="button"
         class="photo-item group relative overflow-hidden cursor-zoom-in bg-muted {square ? 'aspect-square' : 'aspect-4/3'}"
-        onclick={(event) => openLightbox(image, event.currentTarget)}
+        bind:this={tiles[i]}
+        onclick={() => (selected = i)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
         <!-- Both images fill and crop to the tile, so the box keeps its ratio whatever the photo's shape. -->
@@ -122,43 +87,8 @@ onMount(() => {
   </div>
 {/if}
 
-{#if selectedImage}
-  <dialog
-    bind:this={dialogElement}
-    use:showModal
-    class="fixed inset-0 z-9999 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-black/70 p-4 open:flex sm:p-8 backdrop:bg-black/70 lightbox-active"
-    aria-label="Photo viewer"
-    onclose={closeLightbox}
-    oncancel={closeLightbox}
-    onkeydown={(event) => event.key === "Escape" && closeLightbox()}
-    onclick={(event) => event.target === event.currentTarget && closeLightbox()}
-  >
-    <button
-      type="button"
-      class="fixed top-6 right-6 z-10000 cursor-pointer bg-background p-3 rounded-md text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
-      onclick={(e) => {
-        e.stopPropagation();
-        closeLightbox();
-      }}
-      aria-label="Close lightbox"
-      autofocus
-    >
-      <XIcon size={24} />
-    </button>
-
-    <div
-      class="relative w-full h-full max-w-7xl flex items-center justify-center p-0"
-      role="document"
-    >
-      <img
-        src={optimizeUrl(selectedImage, 1600)}
-        alt="Enlarged gallery item"
-        class="block max-h-full max-w-full object-contain m-0 p-0"
-        style="user-select: none;"
-      />
-    </div>
-  </dialog>
-{/if}
+<!-- Closing returns focus to the tile of the last photo shown, which the slideshow may have moved. -->
+<Lightbox items={slides} bind:index={selected} onclose={(i) => tiles[i]?.focus()} />
 
 <style>
   .masonry-grid {
@@ -200,9 +130,5 @@ onMount(() => {
 
   .photo-stack-img {
     grid-area: 1 / 1;
-  }
-
-  :global(.lightbox-active) {
-    cursor: zoom-out;
   }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { XIcon } from "lucide-svelte";
-import { onMount } from "svelte";
+import { getPlaceholderUrl, optimizeUrl } from "@/utils/image";
+import Lightbox from "./Lightbox.svelte";
 
 let { src, alt, title } = $props<{
   src: string;
@@ -8,56 +8,17 @@ let { src, alt, title } = $props<{
   title?: string;
 }>();
 
-let selectedImage = $state<string | null>(null);
 let imageLoaded = $state(false);
-let triggerElement: HTMLButtonElement | null = null;
-let dialogElement = $state<HTMLDialogElement | null>(null);
-
-function optimizeUrl(url: string, width: number, quality = 85) {
-  if (url.includes("imagekit.io")) {
-    const baseUrl = url.split("?")[0];
-    return `${baseUrl}?tr=f-auto,q-${quality},w-${width}`;
-  }
-  return url;
-}
-
-function getPlaceholderUrl(url: string, size = 40) {
-  return optimizeUrl(url, size, 20);
-}
-
-function openLightbox(event: MouseEvent & { currentTarget: HTMLButtonElement }) {
-  triggerElement = event.currentTarget;
-  selectedImage = src;
-}
-
-function closeLightbox() {
-  if (dialogElement?.open) dialogElement.close();
-  selectedImage = null;
-  requestAnimationFrame(() => triggerElement?.focus());
-}
-
-function showModal(node: HTMLDialogElement) {
-  node.showModal();
-  return {
-    destroy() {
-      if (node.open) node.close();
-    },
-  };
-}
-
-onMount(() => {
-  if (!document.documentElement.style.getPropertyValue("--scrollbar-width")) {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
-  }
-});
+let selected = $state<number | null>(null);
+let trigger = $state<HTMLButtonElement | null>(null);
 </script>
 
 <div class="photo-container my-8 w-full group">
   <button
     type="button"
     class="overflow-hidden cursor-zoom-in relative block w-full p-0 bg-muted"
-    onclick={openLightbox}
+    bind:this={trigger}
+    onclick={() => (selected = 0)}
     aria-label={`View ${alt ?? title ?? "image"} in a dialog`}
   >
     <div
@@ -92,42 +53,4 @@ onMount(() => {
   {/if}
 </div>
 
-{#if selectedImage}
-  <dialog
-    bind:this={dialogElement}
-    use:showModal
-    class="fixed inset-0 z-9999 m-0 h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-black/70 p-4 open:flex sm:p-8 backdrop:bg-black/70 lightbox-active cursor-zoom-out"
-    aria-label="Image viewer"
-    onclose={closeLightbox}
-    oncancel={closeLightbox}
-    onkeydown={(event) => event.key === "Escape" && closeLightbox()}
-    onclick={(event) => event.target === event.currentTarget && closeLightbox()}
-  >
-    <button
-      type="button"
-      class="fixed top-6 right-6 z-10000 p-3 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
-      onclick={(e) => {
-        e.stopPropagation();
-        closeLightbox();
-      }}
-      aria-label="Close lightbox"
-      autofocus
-    >
-      <XIcon size={24} />
-    </button>
-
-    <div
-      class="relative w-full h-full max-w-7xl flex items-center justify-center p-0"
-      role="document"
-    >
-      <div class="max-w-full max-h-full flex items-center justify-center">
-        <img
-          src={optimizeUrl(selectedImage, 1600)}
-          alt={alt ?? title ?? "Enlarged view"}
-          class="max-w-full max-h-full object-contain rounded-none block border-0 m-0 p-0"
-          style="user-select: none;"
-        />
-      </div>
-    </div>
-  </dialog>
-{/if}
+<Lightbox items={[{ src, alt: alt ?? title ?? "Image" }]} bind:index={selected} onclose={() => trigger?.focus()} />

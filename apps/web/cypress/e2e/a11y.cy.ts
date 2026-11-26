@@ -66,14 +66,22 @@ describe("Page template semantics", () => {
 });
 
 describe("Keyboard interactions", () => {
-  it("opens and closes the photo dialog while restoring focus", () => {
+  it("steps through the photo slideshow and returns focus to the last photo's tile", () => {
     cy.visit("/photos");
-    cy.get('button[aria-label^="View photo"]').first().as("photoTrigger").focus().click();
-    cy.get('dialog[open][aria-label="Photo viewer"]').should("be.visible");
-    cy.focused().should("have.attr", "aria-label", "Close lightbox");
+    const tiles = () => cy.get('button[aria-label^="View photo"]');
+    tiles().eq(1).focus().click();
+    cy.get('[role="dialog"]').should("be.visible").and("contain.text", "2 / ");
+    cy.focused().closest('[role="dialog"]').should("exist");
+
+    cy.focused().type("{rightarrow}");
+    cy.get('[role="dialog"]').should("contain.text", "3 / ");
+    cy.get('[role="dialog"] button[aria-label="Previous photo"]').click();
+    cy.get('[role="dialog"]').should("contain.text", "2 / ");
+    cy.get('[role="dialog"] button[aria-label="Next photo"]').click();
+
     cy.focused().type("{esc}");
-    cy.get('dialog[open][aria-label="Photo viewer"]').should("not.exist");
-    cy.get("@photoTrigger").should("be.focused");
+    cy.get('[role="dialog"]').should("not.exist");
+    tiles().eq(2).should("be.focused");
   });
 
   it("announces current navigation and theme state", () => {
