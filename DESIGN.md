@@ -48,7 +48,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Fonts: Inter (variable, 100 to 900) for body and
   interface text; Lora (variable, 400 to 700) for titles; Geist Mono for code
   only; Noto Naskh Arabic for Arabic display text. Load real weights; never
-  rely on synthesized bold.
+  rely on synthesized bold. Inter also loads `latin-ext` for the owner's name
+  pronunciation, /ˈhīkəl/, in the home and About intros.
 - Scale: Tailwind's default type scale, unmodified.
 - Body: 16px (`text-base`) with 1.625 line-height (`leading-relaxed`).
 - Titles: `h1`, `h2`, and dialog titles (`role="heading"` at levels 1 and 2)
