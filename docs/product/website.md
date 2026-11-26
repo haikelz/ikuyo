@@ -85,6 +85,15 @@
   each photo's shape. The browser remembers the choice; when storage is
   unavailable the gallery opens in square tiles.
 
+## Photo and video viewer
+
+- Every photo, photo grid, and video opens in one full-screen viewer on a dark
+  overlay. Escape, the close button, or a click beside the media closes it,
+  and focus returns to what opened it.
+- Photo grids, on `/photos/` and inside notes and works, open as a slideshow:
+  previous and next buttons, the arrow keys, a position counter, and an
+  opt-in play button that advances every 4 seconds. Both ends wrap.
+
 ## About page
 
 - `/about/` shows the owner's GitHub profile picture, a short biography, and

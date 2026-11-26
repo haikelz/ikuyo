@@ -124,11 +124,20 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Buttons: 8px radius (`rounded-md`), 14px medium, `transition-colors`. Outline
   buttons sit on the panel surface; ghost buttons are muted text with a hover
   fill.
-- Links: one rule in `base.css`. The text keeps its color, and a 35%
-  current-color underline with a 4px offset darkens to full strength on hover.
-  Inline links set no hover color of their own.
-- List titles drop the underline and turn accent on hover. Nav links (top bar,
-  sheet, footer, ToC, "View all") drop it and gain contrast on hover.
+- Three link roles, no others:
+  - **Inline links** sit inside a sentence, prose, or a metadata line. One
+    rule in `base.css`: the text keeps its color, and a 35% current-color
+    underline with a 4px offset darkens to full strength on hover. They set no
+    hover color of their own.
+  - **Standalone links** stand on their own: the homepage social links,
+    "View all", and "Read case study" use `text-sm font-medium
+    text-muted-foreground no-underline transition-colors
+    hover:text-foreground`. Footer links use the same muted, underline-free
+    look at the footer's 12px regular text. Nav links in the top bar, sheet,
+    and ToC share it plus their fills.
+  - **Title links** name a row (notes, works, experiences, tools): no
+    underline, accent on hover.
+- Links that open a new tab add a small muted ↗ after the label.
 
 ### Pills and badges
 
@@ -201,10 +210,11 @@ Use semantic tokens for every interface color. The guestbook's own palette
 
 ### Photo gallery
 
-- `/photos` shows the gallery alone, with a visually hidden `h1`. A right-aligned
-  group of two 32px ghost icon buttons (Square grid, Bento grid) sits above it;
-  the pressed one takes the raised fill and full-strength text, like the
-  current nav link, and carries `aria-pressed`.
+- `/photos` shows the gallery alone, with a visually hidden `h1`. A
+  right-aligned `ToggleGroup` (`type="single"`, 32px items, Square grid and
+  Bento grid) sits above it. The active item (`data-state="on"`) takes the
+  raised fill and full-strength text, like the current nav link; pressing it
+  again keeps it chosen.
 - Square tiles (default) crop each photo to `aspect-square` with
   `object-cover`. Bento is the masonry layout that keeps each photo's shape.
   Both use 2 columns on phones, 3 from `md`, 4 from `lg`, and a 16px gap, so
@@ -213,6 +223,24 @@ Use semantic tokens for every interface color. The guestbook's own palette
   convenience.
 - Photo grids inside notes and works keep their 4:3 tiles that stay grayscale
   until hover.
+- Every grid opens the Lightbox as a slideshow of its own photos.
+
+### Lightbox
+
+- `Lightbox.svelte` is the one viewer for photos and videos: `Photo`,
+  `PhotoGrid` (notes, works, and `/photos`), and `Video` all open it. It sits
+  on the `@ikuyo/ui` Dialog, so the shared overlay (black at 80% with a light
+  blur), focus trap, scroll lock, Escape, and close button come from the
+  primitive.
+- The media centers on the overlay at its own ratio (`object-contain`), up to
+  the viewport less 16px (32px from `sm`). Clicking beside it closes the
+  viewer.
+- With more than one item it is a slideshow: below the media sit 32px outline
+  icon buttons for previous, play or pause, and next, around a `n / total`
+  counter on the canvas. The arrow keys step, and both ends wrap. Play
+  advances every 4 seconds and stops when the viewer closes; it is off by
+  default.
+- Closing returns focus to the tile of the last item shown.
 
 ### Code block
 
