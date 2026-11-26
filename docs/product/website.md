@@ -43,6 +43,15 @@
   safe zone.
 - The site registers no service worker; pages always load from the network.
 
+## Page titles
+
+- The titles of the About, Works, Notes, Tags, Guestbook, Tools, Wakatime,
+  and Market Index pages show how the title is pronounced, as a dictionary
+  would print it (About: /əˈbout/), instead of the word. Screen readers and
+  search still get the word, and hovering the pronunciation shows it.
+- The homepage, section titles, error pages, tag archives, and note, work,
+  and experience titles keep their words.
+
 ## Navigation
 
 - Navigation is a glass top bar, centered at the top of every viewport, with

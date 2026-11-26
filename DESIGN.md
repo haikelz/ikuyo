@@ -55,6 +55,15 @@ Use semantic tokens for every interface color. The guestbook's own palette
   set in Lora at weight 500 with balanced wrapping and no negative tracking.
   Row titles (`h3`) stay in Inter.
 - Page title: `text-2xl`, `md:text-3xl`, `leading-tight`.
+- Page titles in `PageHeader` display as dictionary pronunciations in the
+  Oxford and Google American respelling, slashes included: About reads
+  `/əˈbout/`. `Pronounced.svelte` keeps the word as visually hidden text for
+  screen readers, search, and in-page find, and as a hover tooltip on the
+  respelling. `utils/pronunciation.ts` holds every respelling; a title without
+  an entry (error pages, tag archives) keeps its word. Lora loads `latin-ext`
+  for the marks; the tie marks in o͝o and o͞o fall back to the system serif.
+  The homepage, section titles, row titles, and detail-page titles keep
+  their words.
 - Panel and section titles: Lora `text-lg`, `leading-snug`.
 - Row titles: Inter 16px medium.
 - Labels above a title: 14px medium muted text. Never uppercase, never mono.
