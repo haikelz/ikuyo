@@ -50,7 +50,7 @@ const techStack = [
     <span class="size-1.5 rounded-full bg-success-foreground" aria-hidden="true"></span>
     #opentowork
   </DialogTrigger>
-  <DialogContent data-cy="job-preferences-dialog" class="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] gap-6 rounded-lg border border-border bg-popover p-5 shadow-panel sm:max-w-lg sm:p-6">
+  <DialogContent data-cy="job-preferences-dialog" class="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] p-5 sm:max-w-lg sm:p-6">
     <DialogHeader class="pr-10">
       <DialogTitle class="text-lg leading-tight">Open to work</DialogTitle>
       <DialogDescription>My preferred roles and the technologies I work with.</DialogDescription>

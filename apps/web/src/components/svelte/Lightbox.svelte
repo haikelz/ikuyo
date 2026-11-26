@@ -49,7 +49,7 @@ $effect(() => {
   <!-- The content spans the viewport but lets clicks through to the overlay, so clicking beside
        the media closes the viewer; the media and controls take clicks back. -->
   <DialogContent
-    class="pointer-events-none top-0 left-0 grid h-full w-full max-w-none translate-x-0 translate-y-0 grid-rows-[minmax(0,1fr)_auto] place-items-center gap-4 rounded-none bg-transparent p-4 ring-0 *:pointer-events-auto sm:max-w-none sm:p-8"
+    class="pointer-events-none top-0 left-0 grid h-full w-full max-w-none translate-x-0 translate-y-0 grid-rows-[minmax(0,1fr)_auto] place-items-center gap-4 rounded-none border-0 bg-transparent p-4 shadow-none *:pointer-events-auto sm:max-w-none sm:p-8"
     onkeydown={handleKeydown}
     onCloseAutoFocus={(event) => {
       event.preventDefault();

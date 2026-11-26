@@ -237,7 +237,7 @@ onMount(() => {
         >
           {selectedYear}
         </SelectTrigger>
-        <SelectContent class="rounded-md border-border bg-popover text-popover-foreground shadow-lg">
+        <SelectContent>
           {#each availableYears as year}
             <SelectItem
               value={year}

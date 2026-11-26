@@ -76,8 +76,7 @@ function toggleTOC() {
   </Button>
   <SheetContent
     side="right"
-    overlayClass="bg-background/40 backdrop-blur-sm"
-    class="w-full overflow-x-hidden border-l border-border bg-card p-0 shadow-lg"
+    class="w-full overflow-x-hidden p-0"
     showCloseButton={false}
   >
     <SheetHeader

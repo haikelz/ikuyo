@@ -146,7 +146,7 @@ onMount(() => {
       </SheetTrigger>
       <SheetContent
         side="top"
-        class="rounded-b-lg border-border bg-popover pt-[env(safe-area-inset-top)] shadow-panel"
+        class="rounded-b-lg pt-[env(safe-area-inset-top)]"
       >
         <SheetHeader class="px-5 pt-5 pb-2">
           <SheetTitle class="text-lg leading-8">Menu</SheetTitle>
