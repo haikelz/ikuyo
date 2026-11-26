@@ -30,6 +30,8 @@ export default defineConfig({
       cssVariable: "--font-lora",
       weights: ["400 700"],
       styles: ["normal"],
+      // latin-ext carries the respelling marks in page titles (ə, ˈ, ˌ, ɡ, ō, ī).
+      subsets: ["latin", "latin-ext"],
     },
     {
       provider: fontProviders.fontsource(),

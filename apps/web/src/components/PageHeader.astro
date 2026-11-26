@@ -1,4 +1,7 @@
 ---
+import Pronounced from "@/components/svelte/Pronounced.svelte";
+import { hasPronunciation } from "@/utils/pronunciation";
+
 type Props = {
   title: string;
   eyebrow: string;
@@ -14,7 +17,7 @@ const { title, eyebrow, className = "" } = Astro.props;
     data-cy="heading"
     class="m-0 text-2xl leading-tight text-foreground md:text-3xl"
   >
-    {title}
+    {hasPronunciation(title) ? <Pronounced title={title} /> : title}
   </h1>
   <div data-cy="description" class="mt-2 leading-reading text-justify hyphens-auto text-muted-foreground">
     <slot />
