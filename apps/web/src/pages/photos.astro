@@ -6,6 +6,7 @@ import { getAllPhotos } from "@/utils/imagekit";
 
 const images = await getAllPhotos();
 const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
+// Layout joins classes without merging, so the important modifier beats its max-w-2xl column cap.
 ---
 
 <Layout
@@ -13,6 +14,7 @@ const photos = images.map(({ url, thumbnail }) => ({ url, thumbnail }));
   description="A selection of photographs from my camera roll, shown in a gallery where each photo opens in a larger view. Haikel Ilham Hakim's photography on ekel.dev."
   url="https://ekel.dev/photos"
   ogImage="photos.png"
+  className="max-w-none!"
 >
   <div
     class="flex w-full flex-col items-start justify-start mx-auto md:text-start"
