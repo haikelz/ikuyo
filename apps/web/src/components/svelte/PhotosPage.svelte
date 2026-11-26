@@ -1,5 +1,5 @@
 <script lang="ts">
-import { buttonVariants } from "@ikuyo/ui";
+import { ToggleGroup, ToggleGroupItem } from "@ikuyo/ui";
 import { LayoutDashboard, LayoutGrid } from "lucide-svelte";
 import { fade } from "svelte/transition";
 import PhotoGrid from "./PhotoGrid.svelte";
@@ -38,24 +38,27 @@ function choose(value: GalleryLayout) {
 </script>
 
 <div transition:fade={{ duration: 300 }}>
-  <div role="group" aria-label="Photo layout" class="flex justify-end gap-0.5">
+  <!-- A single-choice group lets the active item be pressed again to clear it; the setter ignores
+       the empty value so one layout stays chosen. -->
+  <ToggleGroup
+    type="single"
+    size="sm"
+    spacing={1}
+    aria-label="Photo layout"
+    class="ml-auto"
+    bind:value={() => layout, (value: string) => value && choose(value as GalleryLayout)}
+  >
     {#each layouts as option}
-      <button
-        type="button"
+      <ToggleGroupItem
+        value={option.value}
         data-cy="photos-layout-{option.value}"
         aria-label={option.label}
         title={option.label}
-        aria-pressed={layout === option.value}
-        onclick={() => choose(option.value)}
-        class={buttonVariants({
-          variant: "ghost",
-          size: "icon-sm",
-          class: "aria-pressed:bg-secondary aria-pressed:text-foreground",
-        })}
+        class="px-0 text-muted-foreground data-[state=on]:bg-secondary data-[state=on]:text-foreground"
       >
         <option.icon class="size-4" aria-hidden="true" />
-      </button>
+      </ToggleGroupItem>
     {/each}
-  </div>
+  </ToggleGroup>
   <PhotoGrid images={photos.map((photo: Photo) => photo.url)} {layout} />
 </div>

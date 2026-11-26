@@ -99,14 +99,16 @@ describe("Photo gallery layout", () => {
   it("defaults to square tiles, switches to the bento grid, and remembers the choice", () => {
     cy.visit("/photos");
     const tile = () => cy.get('button[aria-label^="View photo"]').first();
-    cy.get('[data-cy="photos-layout-square"]').should("have.attr", "aria-pressed", "true");
+    cy.get('[data-cy="photos-layout-square"]').should("have.attr", "data-state", "on");
     tile().should("have.class", "aspect-square");
 
-    cy.get('[data-cy="photos-layout-masonry"]').click().should("have.attr", "aria-pressed", "true");
-    cy.get('[data-cy="photos-layout-square"]').should("have.attr", "aria-pressed", "false");
+    cy.get('[data-cy="photos-layout-masonry"]').click().should("have.attr", "data-state", "on");
+    cy.get('[data-cy="photos-layout-square"]').should("have.attr", "data-state", "off");
     tile().should("have.class", "masonry-item");
 
     cy.reload();
-    cy.get('[data-cy="photos-layout-masonry"]').should("have.attr", "aria-pressed", "true");
+    cy.get('[data-cy="photos-layout-masonry"]').should("have.attr", "data-state", "on");
+    // Pressing the active layout again keeps it chosen.
+    cy.get('[data-cy="photos-layout-masonry"]').click().should("have.attr", "data-state", "on");
   });
 });
