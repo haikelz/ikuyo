@@ -63,13 +63,13 @@ const latestNotes = notesList
             content-driven products with Go and TypeScript. I'm currently going
             deeper into Go, DevOps, and finance.
           </p>
-          <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+          <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2">
             <a
               href="https://www.linkedin.com/in/haikel/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn (opens in new tab)"
-              class="font-medium text-foreground"
+              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
               >LinkedIn</a
             >
             <a
@@ -77,7 +77,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub (opens in new tab)"
-              class="font-medium text-foreground"
+              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
               >GitHub</a
             >
             <a
@@ -85,7 +85,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitLab (opens in new tab)"
-              class="font-medium text-foreground"
+              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
               >GitLab</a
             >
           </div>
@@ -120,7 +120,7 @@ const latestNotes = notesList
               {experience.data.hasDetail === false ? null : (
                 <a
                   href={`/experiences/${experience.id}/`}
-                  class="mt-3 inline-flex min-h-8 items-center text-sm font-medium text-primary"
+                  class="mt-3 inline-flex min-h-8 items-center text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
                 >
                   Read case study <span aria-hidden="true">&nbsp;→</span>
                 </a>
