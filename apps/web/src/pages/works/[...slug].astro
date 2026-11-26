@@ -60,7 +60,7 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Preview (opens in new tab)"
-                    class="text-foreground hover:text-muted-foreground"
+                    class="text-foreground"
                   >
                     Preview
                   </a>
@@ -77,7 +77,7 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Source (opens in new tab)"
-                    class="text-foreground hover:text-muted-foreground"
+                    class="text-foreground"
                   >
                     Source
                   </a>
@@ -91,7 +91,7 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
                 noteTags.has(tag) ? (
                   <a
                     href={`/tags/${tag}/`}
-                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    class="text-xs text-muted-foreground"
                   >
                     #{tag}
                   </a>

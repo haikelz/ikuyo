@@ -54,8 +54,9 @@
   h3 {
     text-wrap: balance;
   }
+  /* One link rule: the text keeps its color and the 35% underline darkens on hover. */
   a {
-    @apply underline decoration-current/35 underline-offset-4;
+    @apply underline decoration-current/35 underline-offset-4 transition-colors hover:decoration-current;
   }
   :focus-visible {
     outline: 2px solid var(--ring);

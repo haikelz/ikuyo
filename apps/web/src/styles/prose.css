@@ -142,9 +142,9 @@ html[data-code-toolbar-ready] .prose .code-block-content[data-collapsed="true"] 
   @apply w-full;
 }
 
-/* Links keep the text color; the underline darkens on hover. */
+/* Typography's `text-decoration: underline` resets the base link color, so restate the base rule. */
 .prose a {
-  @apply font-medium decoration-current/30 transition-colors hover:decoration-current;
+  @apply font-medium decoration-current/35 transition-colors hover:decoration-current;
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
