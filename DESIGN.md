@@ -188,6 +188,21 @@ Use semantic tokens for every interface color. The guestbook's own palette
   sits outside it; below `2xl` a labelled button opens the sheet. Section
   links stay quiet and gain contrast on hover and focus.
 
+### Photo gallery
+
+- `/photos` shows the gallery alone, with a visually hidden `h1`. A right-aligned
+  group of two 32px ghost icon buttons (Square grid, Bento grid) sits above it;
+  the pressed one takes the raised fill and full-strength text, like the
+  current nav link, and carries `aria-pressed`.
+- Square tiles (default) crop each photo to `aspect-square` with
+  `object-cover`. Bento is the masonry layout that keeps each photo's shape.
+  Both use 2 columns on phones, 3 from `md`, 4 from `lg`, and a 16px gap, so
+  switching never changes the column count.
+- The choice persists in `localStorage` (`photos-layout`) as a per-browser
+  convenience.
+- Photo grids inside notes and works keep their 4:3 tiles that stay grayscale
+  until hover.
+
 ### Code block
 
 - Static syntax highlighting, 14px mono, a compact filename and language

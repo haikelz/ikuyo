@@ -78,6 +78,12 @@
 
 - `/photos/` spans the full viewport width less the page gutters, unlike the
   42rem column the other routes use.
+- The page shows only the gallery: no visible label, title, or description. A
+  visually hidden `h1` names the page.
+- Photos default to a grid of square, cropped tiles. A two-button switch above
+  the gallery, at the right, changes to the bento (masonry) grid, which keeps
+  each photo's shape. The browser remembers the choice; when storage is
+  unavailable the gallery opens in square tiles.
 
 ## About page
 
