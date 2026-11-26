@@ -81,3 +81,8 @@ trace rows were recorded.
 
 - `git diff --check`: passed.
 - Not run: Biome, Astro check, build, Cypress, and the browser check.
+- Owner follow-up: the footer's Astro and Svelte credits kept the inline
+  underline beside the underline-free footer links, which read as the old
+  style. All five footer links now share the standalone look: medium muted
+  text, no underline, full strength on hover. The medium weight keeps the
+  credits distinguishable inside their sentence.
