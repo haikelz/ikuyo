@@ -2,7 +2,7 @@
 
 ## Status
 
-implemented, unvalidated
+reverted: once built, the owner found pronunciations in page titles odd
 
 ## Lane
 
@@ -65,3 +65,7 @@ trace rows were recorded.
 
 - `git diff --check`: passed.
 - Not run: Biome, Astro check, build, Cypress, and the browser check.
+- Reverted: the owner judged dictionary pronunciations in page titles odd once
+  implemented. The code and its DESIGN.md and product-contract entries were
+  reverted, including Lora's `latin-ext` subset; this packet stays as the
+  record.
