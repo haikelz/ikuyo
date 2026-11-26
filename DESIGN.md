@@ -9,7 +9,7 @@ in a single 42rem column; lists sit flat on the canvas under a heading row with
 a count pill, divided by hairlines. Typography sets Lora serif
 titles over Inter body text, with hierarchy from the serif, weight, and muted
 color more than size. Surfaces stay flat apart from one soft panel shadow and
-the neutral fades at the top and bottom edges of the viewport. The
+the neutral, blurred fades at the top and bottom edges of the viewport. The
 guestbook is built with HeroUI on React; Ikuyo ports its tokens and patterns to
 Astro, Svelte, and Tailwind CSS without either runtime.
 
@@ -160,12 +160,15 @@ Use semantic tokens for every interface color. The guestbook's own palette
   the bar is centered. The button opens a top sheet titled "Menu" that lists the same
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
-  blur, and a 10px radius in both states. This is the only blurred surface.
-- **Edge fades:** fixed, non-interactive strips (`z-40`) fade from the canvas
-  to transparent, so content fades as it scrolls under them: 2.5rem plus the
-  top safe area, ending behind the ~3.5rem bar, so it shows beside the
-  scrolled pill and when the bar hides; and 1rem plus the bottom safe area at
-  the bottom edge. The footer and the ToC button paint above the bottom fade.
+  blur, and a 10px radius in both states. Apart from the edge fades, this is
+  the only blurred surface.
+- **Edge fades:** fixed, non-interactive strips (`z-40`), 2rem plus the safe
+  area at each edge, fill with the canvas and an 8px backdrop blur
+  (`backdrop-blur-sm`). One linear `mask-image` fades both from full strength
+  at the viewport edge to nothing toward the page, so content fades and blurs
+  as it scrolls under them. The top strip ends behind the ~3.5rem bar and
+  shows above it, beside the scrolled pill, and when the bar hides. The footer
+  and the ToC button paint above the bottom strip.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
@@ -234,8 +237,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   guestbook and the scrolled navigation bar), overlay (`--popover`).
 - Lists of notes, works, and experiences sit on the canvas; dividers, not
   cards, separate their rows.
-- Blur appears only on the navigation bar. Gradients appear only as the
-  neutral canvas-to-transparent fades at the top and bottom viewport edges.
+- Blur appears only on the navigation bar and the edge fades. Gradients appear
+  only as the masks on those fades.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
