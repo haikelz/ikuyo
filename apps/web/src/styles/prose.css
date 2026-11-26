@@ -142,9 +142,11 @@ html[data-code-toolbar-ready] .prose .code-block-content[data-collapsed="true"] 
   @apply w-full;
 }
 
-/* Typography's `text-decoration: underline` resets the base link color, so restate the base rule. */
+/* Typography's link styles override the base rule (underline color, weight), so restate it:
+   links keep the sentence's color and weight. */
 .prose a {
-  @apply font-medium decoration-current/35 transition-colors hover:decoration-current;
+  font-weight: inherit;
+  @apply decoration-current/35 transition-colors hover:decoration-current;
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
