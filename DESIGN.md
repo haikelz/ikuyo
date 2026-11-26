@@ -129,8 +129,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   fill.
 - Three link roles, no others:
   - **Inline links** sit inside a sentence, prose, or a metadata line: the
-    guestbook intro, the footer credits, work Preview and Source, article
-    links, and tags. One rule in `base.css` (restated for `.prose`): the link
+    guestbook intro, work Preview and Source, article links, and tags. One rule in `base.css` (restated for `.prose`): the link
     keeps its sentence's color and weight, and a 35% current-color underline
     with a 4px offset darkens to full strength on hover. Inline links set no
     color, weight, or hover color of their own.
@@ -140,8 +139,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
   - **Standalone links** stand on their own: the homepage social links,
     "View all", and "Read case study" use `text-sm font-medium
     text-muted-foreground no-underline transition-colors
-    hover:text-foreground`. Footer links use the same muted, underline-free
-    look at the footer's 12px regular text. Nav links in the top bar, sheet,
+    hover:text-foreground`. Every footer link, the Astro and Svelte credits
+    included, uses the same look at the footer's 12px. Nav links in the top bar, sheet,
     and ToC share it plus their fills.
   - **Title links** name a row (notes, works, experiences, tools): no
     underline, accent on hover.
