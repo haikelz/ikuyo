@@ -498,7 +498,7 @@ const volumePlot = $derived.by(() => {
 });
 
 const axisClasses = {
-  tickLabel: "fill-muted-foreground stroke-transparent tabular-nums text-[10px]",
+  tickLabel: "fill-muted-foreground stroke-transparent tabular-nums text-xs",
   tick: "stroke-foreground/8",
   rule: "stroke-foreground/12",
 };
@@ -766,7 +766,7 @@ const gridColor03 = "var(--border)";
         <Separator />
 
         <div
-          class="relative h-80 w-full border border-border p-2"
+          class="relative h-80 w-full rounded-md border border-border p-2"
           style={`background: ${palette.panel};`}
         >
           {#if mode === "area"}
@@ -906,7 +906,7 @@ const gridColor03 = "var(--border)";
               ></div>
 
               <div
-                class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 tabular-nums text-[11px] text-foreground"
+                class="pointer-events-none absolute min-w-44 rounded-md border border-border bg-popover px-2.5 py-2 tabular-nums text-xs text-popover-foreground shadow-panel"
                 style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
               >
                 <p class="mb-1 text-muted-foreground">
@@ -944,7 +944,7 @@ const gridColor03 = "var(--border)";
 
         {#if showVolume}
           <div
-            class="border border-border p-2"
+            class="rounded-md border border-border p-2"
             style={`background: ${palette.panel};`}
           >
             {#if hasVolumeData}
@@ -1110,7 +1110,7 @@ const gridColor03 = "var(--border)";
             </div>
 
             <div
-              class="relative h-[72vh] w-full border border-border p-2"
+              class="relative h-[72vh] w-full rounded-md border border-border p-2"
               style={`background: ${palette.panel};`}
             >
               {#if mode === "area"}
@@ -1251,7 +1251,7 @@ const gridColor03 = "var(--border)";
                   ></div>
 
                   <div
-                    class="pointer-events-none absolute min-w-44 border border-border bg-background px-2.5 py-2 tabular-nums text-[11px] text-foreground"
+                    class="pointer-events-none absolute min-w-44 rounded-md border border-border bg-popover px-2.5 py-2 tabular-nums text-xs text-popover-foreground shadow-panel"
                     style={`left: ${tooltipX}px; top: ${tooltipY}px;`}
                   >
                     <p class="mb-1 text-muted-foreground">
@@ -1289,7 +1289,7 @@ const gridColor03 = "var(--border)";
 
             {#if showVolume}
               <div
-                class="mt-3 border border-border p-2"
+                class="mt-3 rounded-md border border-border p-2"
                 style={`background: ${palette.panel};`}
               >
                 {#if hasVolumeData}
