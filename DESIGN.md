@@ -9,7 +9,7 @@ in a single 42rem column; lists sit flat on the canvas under a heading row with
 a count pill, divided by hairlines. Typography sets Lora serif
 titles over Inter body text, with hierarchy from the serif, weight, and muted
 color more than size. Surfaces stay flat apart from one soft panel shadow and
-the neutral edge fades under the navigation bar and in the footer. The
+the neutral fades at the top and bottom edges of the viewport. The
 guestbook is built with HeroUI on React; Ikuyo ports its tokens and patterns to
 Astro, Svelte, and Tailwind CSS without either runtime.
 
@@ -95,8 +95,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Stack panels with a 24px gap. Panel rows pad 16px vertically and align to the
   column edges with no side padding.
 - The footer spans the full viewport with a top divider, 64px above it, and
-  its content aligns to the column. Its background fades from the canvas at
-  the divider to `--secondary` at the bottom edge. On phones the copyright and links stack
+  its content aligns to the column. It sits on the canvas above the bottom
+  edge fade (`relative z-40`), so its text stays sharp at the end of the page. On phones the copyright and links stack
   and center; from `sm` they split left and right.
 
 ## 5. Components
@@ -161,9 +161,11 @@ Use semantic tokens for every interface color. The guestbook's own palette
   links as 44px rows with the current page marked; choosing a link closes it.
 - **Surface:** the guestbook topbar recipe: page color at 85%, a 12px backdrop
   blur, and a 10px radius in both states. This is the only blurred surface.
-- **Edge fade:** a fixed, non-interactive strip under the bar (`z-40`, 6rem
-  plus the top safe area) fades from the canvas to transparent, so content
-  fades as it scrolls beneath the bar. It stays when the bar hides.
+- **Edge fades:** fixed, non-interactive strips (`z-40`) fade from the canvas
+  to transparent, so content fades as it scrolls under them: 6rem plus the top
+  safe area under the bar, which stays when the bar hides, and 4rem plus the
+  bottom safe area at the bottom edge. The footer and the ToC button paint
+  above the bottom fade.
 - **States:** links are 14px medium muted text with a 6px radius, a hover
   fill, and a raised fill plus full-strength text and `aria-current="page"`
   for the current page.
@@ -203,8 +205,8 @@ Use semantic tokens for every interface color. The guestbook's own palette
     new page rises 16px into place (360ms, `cubic-bezier(0.22, 1, 0.36, 1)`,
     60ms delay). Back (`data-astro-transition="back"`) reverses both
     directions.
-  - The nav bar (`site-nav`) and the edge fade under it (`site-fade`) are
-    their own snapshots and swap without fading.
+  - The nav bar (`site-nav`) and the edge fades (`site-fade`,
+    `site-fade-bottom`) are their own snapshots and swap without fading.
     The current-page fill is a separate `nav-pill` snapshot that slides to
     the new link in 360ms; link labels (`nav-label` class) sit above it.
   - Content inside the page never staggers in.
@@ -218,8 +220,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Lists of notes, works, and experiences sit on the canvas; dividers, not
   cards, separate their rows.
 - Blur appears only on the navigation bar. Gradients appear only as the
-  neutral edge fades: canvas to transparent under the bar, canvas to
-  `--secondary` in the footer.
+  neutral canvas-to-transparent fades at the top and bottom viewport edges.
 
 ## 8. Accessibility Constraints & Accepted Debt
 

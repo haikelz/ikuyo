@@ -48,7 +48,8 @@
 - Navigation is a glass top bar, centered at the top of every viewport, with
   text links to Home, About, Works, Notes, Photos, then the theme toggle. The links
   render in static HTML.
-- Page content fades out as it scrolls under the bar.
+- Page content fades out as it scrolls under the bar and toward the bottom
+  edge of the viewport.
 - At the top of a page the bar spans the content column with no border or
   shadow, so it reads as part of the page. Once the page scrolls, it shrinks
   to a bordered, shadowed pill as wide as its content. Phones do the same: the
@@ -70,7 +71,7 @@
 ## Footer
 
 - The footer credits Astro and Svelte and links to Uptime, Guestbook, and
-  Wakatime over a soft tint that fades in from the canvas. Below 640px they
+  Wakatime on the page canvas, above the bottom edge fade. Below 640px they
   stack and center; from 640px they split left and right.
 
 ## Photos page
