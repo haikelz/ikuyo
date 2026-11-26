@@ -23,6 +23,8 @@ export default defineConfig({
       name: "Inter",
       cssVariable: "--font-inter",
       weights: ["100 900"],
+      // latin-ext carries the marks in the name's pronunciation (ˈ, ī, ə) on the home and about intros.
+      subsets: ["latin", "latin-ext"],
     },
     {
       provider: fontProviders.fontsource(),
