@@ -88,28 +88,23 @@ onMount(() => {
     {#each images as image, i}
       <button
         type="button"
-        class="photo-item group relative aspect-4/3 cursor-zoom-in bg-muted"
+        class="photo-item group relative overflow-hidden cursor-zoom-in bg-muted aspect-4/3"
         onclick={(event) => openLightbox(image, event.currentTarget)}
         aria-label="View photo {i + 1} of {images.length} in a dialog"
       >
-        <div class="photo-stack">
-          <img
-            src={getPlaceholderUrl(image)}
-            alt=""
-            class="photo-stack-img w-full h-full m-0! p-0! border-none"
-          />
-          <img
-            src={optimizeUrl(image, 800)}
-            alt="Photo {i + 1} of {images.length}"
-            class="photo-stack-img h-full w-full border-none m-0! p-0! object-cover grayscale transition-[filter,opacity] duration-300 group-hover:grayscale-0 {loaded[
-              i
-            ]
-              ? 'opacity-100'
-              : 'opacity-0'}"
-            loading="lazy"
-            onload={() => (loaded = { ...loaded, [i]: true })}
-          />
-        </div>
+        <!-- Both images fill and crop to the tile, so the box keeps its ratio whatever the photo's shape. -->
+        <img
+          src={getPlaceholderUrl(image)}
+          alt=""
+          class="absolute inset-0 size-full object-cover m-0! p-0! border-none"
+        />
+        <img
+          src={optimizeUrl(image, 800)}
+          alt="Photo {i + 1} of {images.length}"
+          class="absolute inset-0 size-full object-cover border-none m-0! p-0! grayscale transition-[filter,opacity] duration-300 group-hover:grayscale-0 {loaded[i] ? 'opacity-100' : 'opacity-0'}"
+          loading="lazy"
+          onload={() => (loaded = { ...loaded, [i]: true })}
+        />
         <div
           class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         ></div>
