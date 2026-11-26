@@ -20,7 +20,7 @@ const { title, count, href, testId, class: className } = Astro.props;
     <div class="flex items-center gap-3">
       {
         count !== undefined ? (
-          <span class="rounded-full bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
+          <span class="rounded-md bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
             {count}
           </span>
         ) : null

@@ -52,7 +52,7 @@ onMount(fetchReactions);
   <button
     on:click={toggleReaction}
     disabled={loading}
-    class="group flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/40 hover:bg-accent transition-all disabled:opacity-50"
+    class="group flex items-center gap-2 px-4 py-2 rounded-md border border-border hover:border-primary/40 hover:bg-accent transition-colors disabled:opacity-50"
     aria-label={reacted ? "Unlike" : "Like this post"}
   >
     <Heart

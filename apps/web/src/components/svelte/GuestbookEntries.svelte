@@ -82,7 +82,7 @@ onMount(() => {
     >
       <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
         <h2 id="guestbook-feed-title" class="m-0 text-lg leading-snug text-foreground">Messages</h2>
-        <span class="rounded-full bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
+        <span class="rounded-md bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
           {entries.length}
         </span>
       </div>

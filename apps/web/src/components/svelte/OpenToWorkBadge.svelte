@@ -60,7 +60,7 @@ const techStack = [
         <h2 id="preferred-roles-title" class="mb-3 font-sans text-xs text-muted-foreground font-medium">Job preferences</h2>
         <ul class="flex flex-wrap gap-2">
           {#each jobPreferences as role}
-            <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{role}</li>
+            <li class="rounded-md bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{role}</li>
           {/each}
         </ul>
       </section>
@@ -68,7 +68,7 @@ const techStack = [
         <h2 id="tech-stack-title" class="mb-3 font-sans text-xs text-muted-foreground font-medium">Tech stack</h2>
         <ul class="flex flex-wrap gap-2">
           {#each techStack as technology}
-            <li class="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{technology}</li>
+            <li class="rounded-md bg-secondary px-2.5 py-0.5 text-xs font-medium leading-5 text-foreground">{technology}</li>
           {/each}
         </ul>
       </section>
