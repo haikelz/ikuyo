@@ -33,10 +33,10 @@ tint the footer.
 - Count pills, badges, Open-to-work chips, `/tags` chips, and the reaction
   button use `rounded-md`. Avatars and status dots stay round. The reaction
   button uses `transition-colors`, not `transition-all`.
-- Fixed strips fade from the canvas to transparent at both viewport edges
-  (2.5rem at the top, 1rem at the bottom), stay out of pointer events, and
-  swap without fading on route changes. The footer stays on the canvas and
-  paints above the bottom fade.
+- Fixed 2rem strips at both viewport edges fill with the canvas and an 8px
+  backdrop blur that one gradient mask fades out toward the page, stay out of
+  pointer events, and swap without fading on route changes. The footer stays
+  on the canvas and paints above the bottom fade.
 
 ## Design Notes
 
@@ -84,3 +84,7 @@ intake, proof, and trace rows were not recorded and the Bun checks did not run.
   6rem to 4rem and the bottom fade from 4rem to 2rem.
 - Second follow-up: still too large, so the top fade shrank to 2.5rem, ending
   behind the bar, and the bottom fade to 1rem.
+- Third follow-up: the owner asked for a stronger fade with blur, the same at
+  both edges. Both strips are now 2rem with an 8px backdrop blur under a
+  linear mask. During a route change the snapshots drop the blur and show only
+  the gradient for about 360ms, the same limit the bar's blur has.
