@@ -14,7 +14,6 @@ function dismiss() {
   variant="outline"
   size="icon-sm"
   aria-label={label}
-  class="rounded-md"
   onclick={dismiss}
 >
   <ArrowLeftIcon class="text-center" />
