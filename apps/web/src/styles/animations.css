@@ -44,15 +44,17 @@ html[data-astro-transition="back"]::view-transition-new(root) {
   }
 }
 
-/* The nav bar and the fade under it swap without fading; only the bar's position animates if
+/* The nav bar and the edge fades swap without fading; only the bar's position animates if
    scrolling had hidden it. */
 ::view-transition-old(site-nav),
-::view-transition-old(site-fade) {
+::view-transition-old(site-fade),
+::view-transition-old(site-fade-bottom) {
   display: none;
 }
 
 ::view-transition-new(site-nav),
-::view-transition-new(site-fade) {
+::view-transition-new(site-fade),
+::view-transition-new(site-fade-bottom) {
   animation: none;
 }
 
