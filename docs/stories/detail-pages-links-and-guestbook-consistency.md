@@ -35,7 +35,11 @@ and the guestbook list sits flat on the canvas like the Notes and Works lists.
 - Experience detail pages still use their own header markup; moving them to
   `PageHeader` and `ArticleMeta` is a follow-up.
 - The owner first asked for an underline on every link (commit `dc51631`),
-  then asked to revert it; the three link roles stand as before.
+  asked to revert it, then settled on a split by destination: external
+  links take the homepage social-link look (medium, muted, no underline,
+  full strength on hover) through one `a[href^="http"]` rule in `base.css`
+  and `prose.css` that excludes `https://ekel.dev`; internal links take the
+  underline. Navigation controls keep their fills and no underline.
 
 ## Validation
 
@@ -81,3 +85,9 @@ no intake, proof, or trace rows were recorded. Test tooling friction found:
   eslint directives Biome ignores). Kept comments that explain a constraint,
   the shadcn-svelte `---break---` CSS markers, and the toggle-group cast note.
   `packages/ui` Biome check passes; `astro build` passes.
+- Link split: a temporary Cypress spec read computed styles on `/`,
+  `/guestbook`, `/notes`, and `/notes/dari-zsh-ke-fish`: homepage social
+  links (14px), footer Astro credit, guestbook intro link, and article
+  links to other sites have no underline and weight 500; note row titles,
+  the footer Guestbook link, and detail page tags are underlined. 3 passing;
+  spec removed after the run.

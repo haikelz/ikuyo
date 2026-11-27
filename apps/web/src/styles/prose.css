@@ -146,6 +146,10 @@ html[data-code-toolbar-ready] .prose .code-block-content[data-collapsed="true"] 
   @apply decoration-current/35 transition-colors hover:decoration-current;
 }
 
+.prose a[href^="http"]:not([href^="https://ekel.dev"]) {
+  @apply font-medium text-muted-foreground no-underline hover:text-foreground;
+}
+
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
   border-inline-start-width: 2px;
   font-style: normal;
