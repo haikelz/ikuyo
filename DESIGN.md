@@ -85,7 +85,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   (–), and dates read day, month, year: `d MMM yyyy` in lists and
   `d MMMM yyyy` on detail pages.
 - Article headings: Lora semibold on an em scale (h1 1.75em, h2 1.25em, h3
-  1.125em, h4 1em). Article links are inline links (see Buttons and links);
+  1.125em, h4 1em). Article links are muted links (see Buttons and links);
   quotes use a 2px divider rule without quote marks.
 
 ## 4. Spacing & Layout
@@ -112,7 +112,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   themselves with a top border that the first row drops.
 - **Rows:** `WorkRow`, `NoteRow`, and experience and role rows. A topline puts
   the title at the left and the date at the right; it stacks on phones. Titles
-  are 16px medium list links that turn accent on hover (see Buttons and links).
+  are 16px medium title links that turn accent on hover.
 - **Guestbook:** `GuestbookEntries` uses the same flat list: a "Messages"
   heading row with a count pill, then rows divided by hairlines, with no card.
 - **Use for:** every list of records. Free text and prose stay outside panels.
@@ -131,30 +131,24 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Buttons: 8px radius (`rounded-md`), 14px medium, `transition-colors`. Outline
   buttons sit on the panel surface; ghost buttons are muted text with a hover
   fill.
-- Links split by destination, with one rule each in `base.css` (restated
-  for `.prose`):
-  - **Internal links** (the footer's Guestbook and Wakatime, error page
-    recovery links, tool titles, article links between pages) keep their
-    text's color and weight, with a 35% current-color underline at a 4px
-    offset that darkens to full strength on hover.
-  - **List links** are internal links inside record lists, with no
-    underline: row titles (notes, works, experiences, including `/tags/*`
-    and the homepage and About lists) are full-strength ink that turns accent
-    on hover; "View all" and "Read case study" are `text-sm font-medium
-    text-muted-foreground` and turn full strength on hover.
-  - **External links** (`http` URLs off `ekel.dev`: the homepage LinkedIn,
-    GitHub, and GitLab links, the guestbook intro link, work Preview and
-    Source, the footer's Astro, Svelte, and Uptime, tool links, and every
-    article link to another site) are medium muted text with no underline
-    that turns full strength on hover, at their context's size: 14px on the
-    homepage, 12px in the footer, the sentence's size elsewhere.
-  - **Tags** are muted `#tag` links with no underline that turn full
-    strength on hover: 12px and 12px apart on note rows and detail pages;
-    14px on `/tags`, 16px apart, with a 24px tap height (`inline-flex
-    min-h-6`).
-- Navigation controls are not text links: the top bar, sheet, avatar, and
-  ToC links drop the underline and show state with their hover and current
-  fills.
+- No link is underlined; `base.css` sets `no-underline` on every `a`, and
+  each role shows hover with color instead:
+  - **Title links** name a row or a destination in full-strength ink and
+    turn accent on hover: note, work, experience, and tool titles (on their
+    pages, `/tags/*`, the homepage, and About) and the 404 and 500 recovery
+    links.
+  - **Muted links** are medium muted text that turns full strength on hover,
+    at their context's size: 14px for the homepage LinkedIn, GitHub, and
+    GitLab links, "View all", and "Read case study"; 12px for every footer
+    link; the sentence's size for the guestbook intro link, work Preview and
+    Source, and every article link. One rule in `base.css` gives external
+    links (`http` URLs off `ekel.dev`) this look, and `.prose a` gives it to
+    every article link.
+  - **Tags** are muted `#tag` links that turn full strength on hover: 12px
+    and 12px apart on note rows and detail pages; 14px on `/tags`, 16px
+    apart, with a 24px tap height (`inline-flex min-h-6`).
+- Navigation controls (top bar, sheet, avatar, ToC) show state with their
+  hover and current fills.
 - Links that open a new tab add a small muted ↗ after the label.
 
 ### Pills and badges
@@ -231,7 +225,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ### Error pages
 
 - 404 and 500 list recovery links as rows: a 14px medium muted label over a
-  16px medium title, underlined like every internal link.
+  16px medium title that turns accent on hover, like every other title link.
 
 ### Table of contents
 

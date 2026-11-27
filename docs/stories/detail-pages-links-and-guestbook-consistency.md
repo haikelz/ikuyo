@@ -98,3 +98,7 @@ no intake, proof, or trace rows were recorded. Test tooling friction found:
   confirmed no underline on `/notes`, `/works`, `/tags`, `/tags/linux`, the
   homepage experience link, and detail page tags, and the underline on the
   footer Guestbook link. 2 passing; spec removed. `astro build` passed.
+- No underlines: the owner then dropped link underlines everywhere. The base
+  `a` rule sets `no-underline`; `.prose a` uses the muted link look for every
+  article link; footer internal links turn full strength on hover; 404, 500,
+  and tool titles turn accent on hover again.

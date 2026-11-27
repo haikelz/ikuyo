@@ -52,9 +52,9 @@
     text-wrap: balance;
   }
   a {
-    @apply underline decoration-current/35 underline-offset-4 transition-colors hover:decoration-current;
+    @apply no-underline transition-colors;
   }
-  /* External links take the homepage social-link look at their context's size; internal links keep the underline. */
+  /* External links take the homepage social-link look at their context's size. */
   a[href^="http"]:not([href^="https://ekel.dev"]) {
     @apply font-medium text-muted-foreground no-underline hover:text-foreground;
   }

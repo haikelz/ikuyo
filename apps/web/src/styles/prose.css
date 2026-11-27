@@ -139,15 +139,10 @@ html[data-code-toolbar-ready] .prose .code-block-content[data-collapsed="true"] 
   @apply w-full;
 }
 
-/* Typography's link styles override the base rule (underline color, weight), so restate it:
-   links keep the sentence's color and weight. */
+/* Typography underlines links and sets their color, so restate the site's link look:
+   without an underline, article links stand apart as medium muted text. */
 .prose a {
-  font-weight: inherit;
-  @apply decoration-current/35 transition-colors hover:decoration-current;
-}
-
-.prose a[href^="http"]:not([href^="https://ekel.dev"]) {
-  @apply font-medium text-muted-foreground no-underline hover:text-foreground;
+  @apply font-medium text-muted-foreground no-underline transition-colors hover:text-foreground;
 }
 
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
