@@ -18,7 +18,6 @@ export {
   Overlay,
   Portal,
   Root,
-  //
   Root as Sheet,
   Close as SheetClose,
   Content as SheetContent,

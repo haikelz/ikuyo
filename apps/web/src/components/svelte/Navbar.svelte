@@ -89,7 +89,6 @@ onMount(() => {
     isVisible ? "translate-y-0" : "-translate-y-[calc(100%+2rem)]",
   )}
 >
-  <!-- Phones get the owner's GitHub avatar and a menu button; the link row takes over from sm. -->
   <a href="/" aria-label="Home" class="shrink-0 rounded-full no-underline sm:hidden">
     <img
       src="https://avatars.githubusercontent.com/u/77146709?v=4&s=64"

@@ -50,10 +50,9 @@ describe("Navigation surface", () => {
         const topWidth = $nav[0].getBoundingClientRect().width;
         cy.scrollTo(0, 300);
         nav().should("have.class", "shadow-panel").and("have.class", "border-border");
-        // Phones and desktop both shrink from the full bar to a content-width pill.
         nav().should(($pill) => {
           const rect = $pill[0].getBoundingClientRect();
-          // ponytail: 0.7 leaves room for the ~23rem five-link row against the 39rem top bar.
+          // 0.7 leaves room for the ~23rem five-link row against the 39rem top bar.
           expect(rect.width).to.be.lessThan(topWidth * 0.7);
           // Phones keep the pill on the right gutter; from sm it stays centered.
           if (width < 640) expect(rect.right).to.be.closeTo(width - 16, 1);

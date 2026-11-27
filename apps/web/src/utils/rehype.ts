@@ -6,22 +6,12 @@ const codeBlockCopyClass = [
   "code-block-copy",
 ].join(" ");
 
-/**
- * Parse meta string to extract filename from title="..." or title=...
- * @param {string} meta - The meta string from code block (e.g. 'title="next.config.js"')
- * @returns {string|null} - The filename or null
- */
 function parseFilenameFromMeta(meta: string | null): string | null {
   if (!meta || typeof meta !== "string") return null;
   const titleMatch = meta.match(/title\s*=\s*["']?([^"'\s]+)["']?/);
   return titleMatch ? titleMatch[1] : null;
 }
 
-/**
- * Extract language from className (e.g. "language-js" -> "js")
- * @param {string[]|string} classNames - Array of class names or space-separated string
- * @returns {string|null} - The language or null
- */
 function getLanguageFromClass(classNames: string[] | string): string | null {
   const classes = Array.isArray(classNames)
     ? classNames
@@ -38,9 +28,6 @@ function getLanguageFromClass(classNames: string[] | string): string | null {
   return null;
 }
 
-/**
- * Recursively find language-* class in a hast node
- */
 function findLanguageInNode(node: any): string | null {
   if (!node) return null;
   if (node.type === "element" && node.properties) {
@@ -56,9 +43,6 @@ function findLanguageInNode(node: any): string | null {
   return null;
 }
 
-/**
- * Rehype plugin to wrap code blocks with filename header and copy button
- */
 export function rehypeCodeBlockWrapper() {
   return (tree: any) => {
     visit(tree, "element", (node, index, parent) => {

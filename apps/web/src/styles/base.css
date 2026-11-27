@@ -13,7 +13,6 @@
   --font-arabic: var(--font-noto-naskh-arabic);
 }
 
-/* Reading text: intros, bios, descriptions, row summaries, and prose. */
 @theme {
   --leading-reading: 1.8;
 }
@@ -34,7 +33,6 @@
     scrollbar-width: thin;
     scrollbar-color: var(--input) transparent;
   }
-  /* Body text is 16px Inter with relaxed leading; metadata steps down to 14px and 12px. */
   body {
     @apply antialiased bg-background text-foreground;
     font-size: var(--text-base);
@@ -42,7 +40,6 @@
     font-kerning: normal;
     font-optical-sizing: auto;
   }
-  /* Page, section, and dialog titles set in Lora; row titles (h3) stay in Inter. */
   h1,
   h2,
   [role="heading"]:is([aria-level="1"], [aria-level="2"]) {
@@ -54,7 +51,6 @@
   h3 {
     text-wrap: balance;
   }
-  /* One link rule: the text keeps its color and the 35% underline darkens on hover. */
   a {
     @apply underline decoration-current/35 underline-offset-4 transition-colors hover:decoration-current;
   }

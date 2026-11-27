@@ -15,13 +15,11 @@
   --tw-prose-pre-bg: var(--muted);
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
-  /* Long-form reading text: 16px with reading leading, full column width. */
   font-size: var(--text-base);
   line-height: var(--leading-reading);
   @apply max-w-none;
 }
 
-/* Article headings: Lora semibold on an em scale. */
 .prose :where(h1, h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -83,7 +81,6 @@
   @apply text-sm font-mono;
 }
 
-/* Code block wrapper with filename and copy button */
 .prose .code-block-wrapper {
   @apply my-6 rounded-md! border border-border overflow-hidden bg-card;
 }

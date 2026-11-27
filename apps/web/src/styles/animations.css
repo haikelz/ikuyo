@@ -53,7 +53,6 @@ html[data-astro-transition="back"]::view-transition-new(root) {
   animation: none;
 }
 
-/* The current-page pill slides from the old link to the new one, under the link labels. */
 ::view-transition-group(nav-pill) {
   animation-duration: 360ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -71,7 +70,6 @@ html[data-astro-transition="back"]::view-transition-new(root) {
   }
 }
 
-/* Shimmer effect for loading */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -81,7 +79,6 @@ html[data-astro-transition="back"]::view-transition-new(root) {
   }
 }
 
-/* Subtle pulse animation */
 @keyframes subtle-pulse {
   0%,
   100% {

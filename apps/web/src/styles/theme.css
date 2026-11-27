@@ -61,7 +61,6 @@
 :root {
   color-scheme: light;
   overscroll-behavior: none;
-  /* Guestbook palette (guestbook.ekel.dev) on warm paper neutrals: no pure-white surface, less glare and blue light. Every text token keeps WCAG AA on every surface. */
   --background: oklch(0.96 0.012 85);
   --foreground: oklch(0.21 0.02 260);
   --card: oklch(0.975 0.008 85);

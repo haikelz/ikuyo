@@ -3,8 +3,6 @@ import { Button, Dialog, DialogContent, DialogTitle } from "@ikuyo/ui";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-svelte";
 import { optimizeUrl } from "@/utils/image";
 
-// One viewer for every photo and video. With more than one item it becomes a slideshow:
-// previous and next buttons, the arrow keys, and an opt-in auto-advance.
 let {
   items,
   index = $bindable(null),

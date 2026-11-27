@@ -2,7 +2,6 @@
 import { getPlaceholderUrl, optimizeUrl } from "@/utils/image";
 import Lightbox from "./Lightbox.svelte";
 
-// Notes and works use the default 4:3 tiles; /photos switches between square and masonry.
 let { images = [], layout = "tiles" } = $props<{
   images: string[];
   layout?: "tiles" | "square" | "masonry";

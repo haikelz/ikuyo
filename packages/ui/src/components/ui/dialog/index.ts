@@ -13,7 +13,6 @@ export {
   Close,
   Content,
   Description,
-  //
   Root as Dialog,
   Close as DialogClose,
   Content as DialogContent,

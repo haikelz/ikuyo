@@ -108,7 +108,6 @@ describe("Photo gallery layout", () => {
 
     cy.reload();
     cy.get('[data-cy="photos-layout-masonry"]').should("have.attr", "data-state", "on");
-    // Pressing the active layout again keeps it chosen.
     cy.get('[data-cy="photos-layout-masonry"]').click().should("have.attr", "data-state", "on");
   });
 });

@@ -1,11 +1,5 @@
 import type { HeadingNodeTocProps, HeadingTocProps } from "@/types";
 
-/**
- * Builds a hierarchical structure from a flat array of headings
- * @param headings - Array of heading objects containing depth, text, and id
- * @param rootDepth - The depth level that should be considered as root (default: 2)
- * @returns Array of heading nodes with their nested subheadings
- */
 export function buildHierarchy(
   headings: HeadingTocProps[],
   rootDepth: number = 2,

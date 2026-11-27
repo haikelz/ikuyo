@@ -8,9 +8,7 @@ function parseFilenameFromMeta(meta: string | null) {
   return titleMatch ? titleMatch[1] : null;
 }
 
-/**
- * Remark plugin to add data-filename and data-language to code blocks so they survive rehype/Shiki conversion
- */
+// Copies the filename and language onto the code node so they survive the Shiki conversion.
 export function remarkCodeFilename() {
   return (tree: any) => {
     visit(tree, "code", (node) => {
