@@ -78,18 +78,19 @@ onMount(() => {
   {:else}
     <section
       aria-labelledby="guestbook-feed-title"
-      class="w-full overflow-hidden rounded-lg border border-border bg-card shadow-panel"
+      class="w-full"
     >
-      <div class="flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
+      <div class="flex items-center justify-between gap-3 border-b border-border pb-3">
         <h2 id="guestbook-feed-title" class="m-0 text-lg leading-snug text-foreground">Messages</h2>
         <span class="rounded-md bg-secondary px-2 py-px text-xs font-medium tabular-nums text-muted-foreground">
           {entries.length}
         </span>
       </div>
+      <div>
       {#each entries as item (item.id)}
         <article
           data-cy="guestbook-row"
-          class="flex gap-3 border-t border-border px-4 py-4 first-of-type:border-t-0 sm:px-5"
+          class="flex gap-3 border-t border-border py-4 first:border-t-0"
         >
           <span
             aria-hidden="true"
@@ -100,7 +101,7 @@ onMount(() => {
           <div class="min-w-0 flex-1">
             <div class="mb-1 flex min-h-7 flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-3">
               <span class="text-sm font-medium [overflow-wrap:anywhere]">@{item.username}</span>
-              <time datetime={new Date(item.created_at).toISOString()} class="shrink-0 text-xs text-muted-foreground">
+              <time datetime={new Date(item.created_at).toISOString()} class="shrink-0 text-sm text-muted-foreground">
                 {format(item.created_at, "d MMM yyyy")}
               </time>
             </div>
@@ -108,6 +109,7 @@ onMount(() => {
           </div>
         </article>
       {/each}
+      </div>
     </section>
   {/if}
 {/if}
