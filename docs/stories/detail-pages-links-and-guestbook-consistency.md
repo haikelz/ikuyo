@@ -1,4 +1,4 @@
-# Detail pages, links, and guestbook consistency
+# Detail pages and guestbook consistency
 
 ## Status
 
@@ -10,9 +10,8 @@ normal
 
 ## Product Contract
 
-Notes and Works detail pages share the page header every other route uses.
-Every text link carries the same underline, and the guestbook list sits flat
-on the canvas like the Notes and Works lists.
+Notes and Works detail pages share the page header every other route uses,
+and the guestbook list sits flat on the canvas like the Notes and Works lists.
 
 ## Relevant Product Docs
 
@@ -27,10 +26,6 @@ on the canvas like the Notes and Works lists.
   border are gone.
 - `ReactionButton` uses the `@ikuyo/ui` outline `Button` with Svelte 5 runes,
   `aria-pressed`, no scale on the heart, and guarded `localStorage`.
-- No content link sets `no-underline` or its own hover color: row titles,
-  "View all", homepage social links, "Read case study", footer links, tools,
-  and the 404 and 500 recovery links all use the base link rule. Navigation
-  controls (top bar, sheet, avatar, ToC) keep no underline.
 - `GuestbookEntries` drops the card (border, `bg-card`, `shadow-panel`,
   radius, side padding) for the Panel layout; its dates are 14px like other
   row dates.
@@ -39,8 +34,8 @@ on the canvas like the Notes and Works lists.
 
 - Experience detail pages still use their own header markup; moving them to
   `PageHeader` and `ArticleMeta` is a follow-up.
-- Title links no longer turn accent on hover; the underline darkening is the
-  one hover signal for every text link, as the owner asked for one link style.
+- The owner first asked for an underline on every link (commit `dc51631`),
+  then asked to revert it; the three link roles stand as before.
 
 ## Validation
 

@@ -112,7 +112,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   themselves with a top border that the first row drops.
 - **Rows:** `WorkRow`, `NoteRow`, and experience and role rows. A topline puts
   the title at the left and the date at the right; it stacks on phones. Titles
-  are 16px medium links with the shared underline (see Buttons and links).
+  are 16px medium links that turn accent on hover.
 - **Guestbook:** `GuestbookEntries` uses the same flat list: a "Messages"
   heading row with a count pill, then rows divided by hairlines, with no card.
 - **Use for:** every list of records. Free text and prose stay outside panels.
@@ -131,24 +131,23 @@ Use semantic tokens for every interface color. The guestbook's own palette
 - Buttons: 8px radius (`rounded-md`), 14px medium, `transition-colors`. Outline
   buttons sit on the panel surface; ghost buttons are muted text with a hover
   fill.
-- Every text link uses one rule in `base.css` (restated for `.prose`): the
-  link keeps its text's color and weight, and a 35% current-color underline
-  with a 4px offset darkens to full strength on hover. Links set no
-  `no-underline` and no hover color of their own. Roles differ only in the
-  text style they sit in:
+- Three link roles, no others:
   - **Inline links** sit inside a sentence, prose, or a metadata line: the
-    guestbook intro, work Preview and Source, and article links.
-  - **Tags** are muted links written `#tag`: 12px and 12px apart on note rows
-    and detail pages; 14px on `/tags`, 16px apart, with a 24px tap height
-    (`inline-flex min-h-6`).
-  - **Standalone links** (homepage social links, "View all", "Read case
-    study", every footer link) are `text-sm font-medium
-    text-muted-foreground`, 12px in the footer.
-  - **Title links** name a row (notes, works, experiences, tools) in
-    full-strength ink; the 404 and 500 recovery links are title links too.
-- Navigation controls are not text links: the top bar, sheet, avatar, and
-  ToC links drop the underline and show state with their hover and current
-  fills.
+    guestbook intro, work Preview and Source, article links, and tags. One rule in `base.css` (restated for `.prose`): the link
+    keeps its sentence's color and weight, and a 35% current-color underline
+    with a 4px offset darkens to full strength on hover. Inline links set no
+    color, weight, or hover color of their own.
+  - **Tags** are inline links in muted text, written `#tag`: 12px and 12px
+    apart on note rows and detail pages; 14px on `/tags`, 16px apart, with a
+    24px tap height (`inline-flex min-h-6`).
+  - **Standalone links** stand on their own: the homepage social links,
+    "View all", and "Read case study" use `text-sm font-medium
+    text-muted-foreground no-underline transition-colors
+    hover:text-foreground`. Every footer link, the Astro and Svelte credits
+    included, uses the same look at the footer's 12px. Nav links in the top bar, sheet,
+    and ToC share it plus their fills.
+  - **Title links** name a row (notes, works, experiences, tools): no
+    underline, accent on hover.
 - Links that open a new tab add a small muted ↗ after the label.
 
 ### Pills and badges
@@ -225,7 +224,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
 ### Error pages
 
 - 404 and 500 list recovery links as rows: a 14px medium muted label over a
-  16px medium title, underlined like every other link.
+  16px medium title that turns accent on hover, like every other title link.
 
 ### Table of contents
 

@@ -27,7 +27,7 @@ const thumbnail = item.data.thumbnail ?? `/og/works/${item.id}.png`;
   <h3 class="m-0 min-w-0 text-base font-medium text-foreground">
     <a
       href={`/works/${item.id}/`}
-      class="text-foreground"
+      class="text-foreground no-underline transition-colors hover:text-primary"
     >
       {item.data.title}
     </a>
