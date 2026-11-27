@@ -21,4 +21,4 @@ most pages pre-rendered at build time.
 
 ## License
 
-MIT
+[MIT](LICENSE)
