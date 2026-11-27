@@ -1,14 +1,31 @@
 <script lang="ts">
+import { Button } from "@ikuyo/ui";
 import { Heart } from "lucide-svelte";
-import { api } from "@/configs/ky";
 import { onMount } from "svelte";
+import { api } from "@/configs/ky";
 
-export let slug: string;
-export let apiUrl: string;
+let { slug, apiUrl } = $props<{ slug: string; apiUrl: string }>();
 
-let love = 0;
-let loading = false;
-let reacted = localStorage.getItem(`reaction:${slug}`) === "1";
+const storageKey = `reaction:${slug}`;
+
+let love = $state(0);
+let loading = $state(false);
+let reacted = $state(readReacted());
+
+function readReacted() {
+  try {
+    return localStorage.getItem(storageKey) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeReacted(value: boolean) {
+  try {
+    if (value) localStorage.setItem(storageKey, "1");
+    else localStorage.removeItem(storageKey);
+  } catch {}
+}
 
 async function fetchReactions() {
   try {
@@ -24,21 +41,13 @@ async function toggleReaction() {
   if (loading) return;
   loading = true;
   try {
-    if (reacted) {
-      const { data } = await api
-        .post(`${apiUrl}/api/v1/reactions/${slug}/remove`)
-        .json<{ data: { slug: string; love: number } }>();
-      love = data.love;
-      reacted = false;
-      localStorage.removeItem(`reaction:${slug}`);
-    } else {
-      const { data } = await api
-        .post(`${apiUrl}/api/v1/reactions/${slug}/add`)
-        .json<{ data: { slug: string; love: number } }>();
-      love = data.love;
-      reacted = true;
-      localStorage.setItem(`reaction:${slug}`, "1");
-    }
+    const action = reacted ? "remove" : "add";
+    const { data } = await api
+      .post(`${apiUrl}/api/v1/reactions/${slug}/${action}`)
+      .json<{ data: { slug: string; love: number } }>();
+    love = data.love;
+    reacted = !reacted;
+    writeReacted(reacted);
   } catch {
   } finally {
     loading = false;
@@ -48,22 +57,18 @@ async function toggleReaction() {
 onMount(fetchReactions);
 </script>
 
-<div class="flex flex-col items-center gap-2 py-4">
-  <button
-    on:click={toggleReaction}
+<div class="flex flex-col items-center gap-2">
+  <Button
+    variant="outline"
     disabled={loading}
-    class="group flex items-center gap-2 px-4 py-2 rounded-md border border-border hover:border-primary/40 hover:bg-accent transition-colors disabled:opacity-50"
+    aria-pressed={reacted}
     aria-label={reacted ? "Unlike" : "Like this post"}
+    onclick={toggleReaction}
+    class={reacted ? "text-primary hover:text-primary" : "text-muted-foreground"}
   >
-    <Heart
-      class="h-5 w-5 transition-[color,fill,scale] {reacted ? 'text-primary fill-primary scale-110' : 'text-muted-foreground group-hover:text-primary'}"
-      fill={reacted ? "currentColor" : "none"}
-      strokeWidth={1.5}
-    />
-    <span class="text-sm font-medium tabular-nums {reacted ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}">
-      {love || 0}
-    </span>
-  </button>
+    <Heart fill={reacted ? "currentColor" : "none"} strokeWidth={1.5} />
+    <span class="tabular-nums">{love}</span>
+  </Button>
   <span class="text-xs text-muted-foreground">
     {reacted ? "You loved this" : "Loved this post?"}
   </span>

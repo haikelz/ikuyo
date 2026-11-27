@@ -1,4 +1,6 @@
 ---
+import ArticleMeta from "@/components/ArticleMeta.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import BackButton from "@/components/svelte/BackButton.svelte";
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
 import TOC from "@/components/svelte/TOC.svelte";
@@ -36,79 +38,41 @@ const noteTags = new Set((await getCollection("notes")).flatMap((note) => note.d
   <div class="mx-auto w-full min-w-0">
     <BackButton label="back to works" client:only="svelte" />
     <article>
-      <header class="mb-12">
-        <p
-          class="mb-3 mt-8 text-sm font-medium text-muted-foreground"
-        >
-          Project archive
-        </p>
-        <h1
-          class="mt-0 mb-6 text-2xl leading-tight text-foreground md:text-3xl"
-        >
-          {item.data.title}
-        </h1>
-        <div class="border-y border-border py-4">
-          <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author} · {remarkPluginFrontmatter.minutesRead}
-            {
-              item.data.preview ? (
-                <span>
-                  {" "}
-                  ·{" "}
-                  <a
-                    href={item.data.preview}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Preview (opens in new tab)"
-                  >
-                    Preview
-                  </a>
-                </span>
-              ) : null
-            }
-            {
-              item.data.repo ? (
-                <span>
-                  {" "}
-                  ·{" "}
-                  <a
-                    href={item.data.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Source (opens in new tab)"
-                  >
-                    Source
-                  </a>
-                </span>
-              ) : null
-            }
-          </p>
-          <div class="flex items-center gap-3 mt-3 flex-wrap tabular-nums">
-            {
-              item.data.stack.map((tag) =>
-                noteTags.has(tag) ? (
-                  <a
-                    href={`/tags/${tag}/`}
-                    class="text-xs text-muted-foreground"
-                  >
-                    #{tag}
-                  </a>
-                ) : (
-                  <span class="text-xs text-muted-foreground">#{tag}</span>
-                ),
-              )
-            }
-          </div>
-        </div>
-        <p
-          class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground"
-        >
-          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </p>
-      </header>
-      <div
-        class="prose max-w-none prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border"
+      <PageHeader title={item.data.title} eyebrow="Project archive">
+        {item.data.description}
+      </PageHeader>
+      <ArticleMeta
+        tags={item.data.stack.map((tag) => ({
+          label: tag,
+          href: noteTags.has(tag) ? `/tags/${tag}/` : undefined,
+        }))}
       >
+        {item.data.author} · {remarkPluginFrontmatter.minutesRead}
+        {
+          item.data.preview ? (
+            <>
+              {" · "}
+              <a href={item.data.preview} target="_blank" rel="noopener noreferrer" aria-label="Preview (opens in new tab)">
+                Preview
+              </a>
+            </>
+          ) : null
+        }
+        {
+          item.data.repo ? (
+            <>
+              {" · "}
+              <a href={item.data.repo} target="_blank" rel="noopener noreferrer" aria-label="Source (opens in new tab)">
+                Source
+              </a>
+            </>
+          ) : null
+        }
+      </ArticleMeta>
+      <p class="arabic-font my-12 text-right text-2xl font-bold text-muted-foreground">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+      </p>
+      <div class="prose max-w-none">
         <Content />
       </div>
     </article>

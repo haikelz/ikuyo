@@ -1,4 +1,6 @@
 ---
+import ArticleMeta from "@/components/ArticleMeta.astro";
+import PageHeader from "@/components/PageHeader.astro";
 import BackButton from "@/components/svelte/BackButton.svelte";
 import ReactionButton from "@/components/svelte/ReactionButton.svelte";
 import ReadingIndicator from "@/components/svelte/ReadingIndicator.svelte";
@@ -42,49 +44,20 @@ const slug = sanitizeSlug(item.id);
   <div class="mx-auto w-full min-w-0">
     <BackButton label="back to notes" client:only="svelte" />
     <article>
-      <header class="mb-12">
-        <p
-          class="mb-3 mt-8 text-sm font-medium text-muted-foreground"
-        >
-          Technical note
-        </p>
-        <h1
-          class="mt-0 mb-6 text-2xl leading-tight text-foreground md:text-3xl"
-        >
-          {item.data.title}
-        </h1>
-        <div class="border-y border-border py-4">
-          <p class="text-sm text-muted-foreground mb-0 space-x">
-            {item.data.author} · {format(item.data.created_at, "d MMMM yyyy")} · {
-              remarkPluginFrontmatter.minutesRead
-            }
-          </p>
-          <div class="flex items-center gap-3 mt-3 flex-wrap tabular-nums">
-            {
-              item.data.tags.map((tag) => (
-                <a
-                  href={`/tags/${tag}/`}
-                  class="text-xs text-muted-foreground"
-                >
-                  #{tag}
-                </a>
-              ))
-            }
-          </div>
-        </div>
-        <p
-          class="arabic-font text-right text-2xl font-bold mt-12 text-muted-foreground"
-        >
-          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </p>
-      </header>
-      <div
-        class="prose max-w-none prose-code:text-sm prose-pre:bg-muted prose-pre:border prose-pre:border-border"
-      >
+      <PageHeader title={item.data.title} eyebrow="Technical note">
+        {item.data.description}
+      </PageHeader>
+      <ArticleMeta tags={item.data.tags.map((tag) => ({ label: tag, href: `/tags/${tag}/` }))}>
+        {item.data.author} · <time datetime={item.data.created_at.toISOString()}>{format(item.data.created_at, "d MMMM yyyy")}</time> · {remarkPluginFrontmatter.minutesRead}
+      </ArticleMeta>
+      <p class="arabic-font my-12 text-right text-2xl font-bold text-muted-foreground">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+      </p>
+      <div class="prose max-w-none">
         <Content />
       </div>
     </article>
-    <div class="mt-12 pt-6 border-t border-border">
+    <div class="mt-12 border-t border-border pt-6">
       <ReactionButton
         slug={slug}
         apiUrl={BACKEND_API_URL}

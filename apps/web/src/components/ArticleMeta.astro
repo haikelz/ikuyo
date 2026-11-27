@@ -1,0 +1,32 @@
+---
+// Metadata band under a detail page header: a muted line, then #tag links between hairlines.
+type Tag = {
+  label: string;
+  href?: string;
+};
+
+type Props = {
+  tags?: Tag[];
+};
+
+const { tags = [] } = Astro.props;
+---
+
+<div data-cy="article-meta" class="border-y border-border py-4">
+  <p class="m-0 text-sm text-muted-foreground">
+    <slot />
+  </p>
+  {
+    tags.length > 0 ? (
+      <div class="mt-2 flex flex-wrap items-center gap-3">
+        {tags.map((tag) =>
+          tag.href ? (
+            <a href={tag.href} class="text-xs text-muted-foreground">{`#${tag.label}`}</a>
+          ) : (
+            <span class="text-xs text-muted-foreground">{`#${tag.label}`}</span>
+          ),
+        )}
+      </div>
+    ) : null
+  }
+</div>
