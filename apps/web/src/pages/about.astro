@@ -60,7 +60,7 @@ const currentRoles = (await getCollection("experiences"))
                   ) : (
                     <a
                       href={`/experiences/${role.id}/`}
-                      class="text-foreground no-underline transition-colors hover:text-primary"
+                      class="text-foreground"
                     >
                       {role.data.company}
                     </a>

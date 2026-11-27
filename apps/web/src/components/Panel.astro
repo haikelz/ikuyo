@@ -1,5 +1,4 @@
 ---
-// Record list: a heading row over rows that divide themselves, flat on the page canvas.
 type Props = {
   title: string;
   count?: number;
@@ -29,7 +28,7 @@ const { title, count, href, testId, class: className } = Astro.props;
         href ? (
           <a
             href={href}
-            class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+            class="text-sm font-medium text-muted-foreground"
           >
             View all <span aria-hidden="true">→</span>
           </a>

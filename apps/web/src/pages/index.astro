@@ -69,7 +69,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn (opens in new tab)"
-              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+              class="text-sm font-medium text-muted-foreground"
               >LinkedIn</a
             >
             <a
@@ -77,7 +77,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub (opens in new tab)"
-              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+              class="text-sm font-medium text-muted-foreground"
               >GitHub</a
             >
             <a
@@ -85,7 +85,7 @@ const latestNotes = notesList
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitLab (opens in new tab)"
-              class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+              class="text-sm font-medium text-muted-foreground"
               >GitLab</a
             >
           </div>
@@ -106,7 +106,7 @@ const latestNotes = notesList
                     <a
                       data-cy="experience-link"
                       href={`/experiences/${experience.id}/`}
-                      class="text-foreground no-underline transition-colors hover:text-primary"
+                      class="text-foreground"
                     >
                       {experience.data.company}
                     </a>
@@ -120,7 +120,7 @@ const latestNotes = notesList
               {experience.data.hasDetail === false ? null : (
                 <a
                   href={`/experiences/${experience.id}/`}
-                  class="mt-3 inline-flex min-h-8 items-center text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
+                  class="mt-3 inline-flex min-h-8 items-center text-sm font-medium text-muted-foreground"
                 >
                   Read case study <span aria-hidden="true">&nbsp;→</span>
                 </a>
