@@ -15,7 +15,7 @@ const { item, testId } = Astro.props;
     <h3 class="m-0 text-base font-medium text-foreground">
       <a
         href={`/notes/${item.id}/`}
-        class="text-foreground"
+        class="text-foreground no-underline transition-colors hover:text-primary"
       >
         {item.data.title}
       </a>
@@ -34,7 +34,7 @@ const { item, testId } = Astro.props;
           <a
             data-cy="note-tag"
             href={`/tags/${tag}/`}
-            class="text-xs text-muted-foreground"
+            class="text-xs text-muted-foreground no-underline transition-colors hover:text-foreground"
           >
             #{tag}
           </a>

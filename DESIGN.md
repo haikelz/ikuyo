@@ -112,7 +112,7 @@ Use semantic tokens for every interface color. The guestbook's own palette
   themselves with a top border that the first row drops.
 - **Rows:** `WorkRow`, `NoteRow`, and experience and role rows. A topline puts
   the title at the left and the date at the right; it stacks on phones. Titles
-  are 16px medium internal links with the underline (see Buttons and links).
+  are 16px medium list links that turn accent on hover (see Buttons and links).
 - **Guestbook:** `GuestbookEntries` uses the same flat list: a "Messages"
   heading row with a count pill, then rows divided by hairlines, with no card.
 - **Use for:** every list of records. Free text and prose stay outside panels.
@@ -133,20 +133,25 @@ Use semantic tokens for every interface color. The guestbook's own palette
   fill.
 - Links split by destination, with one rule each in `base.css` (restated
   for `.prose`):
-  - **Internal links** (any `ekel.dev` route: row titles, tags, "View all",
-    "Read case study", the footer's Guestbook and Wakatime, error page
-    recovery links, article links between pages) keep their text's color and
-    weight, with a 35% current-color underline at a 4px offset that darkens
-    to full strength on hover. They set no `no-underline` or hover color.
+  - **Internal links** (the footer's Guestbook and Wakatime, error page
+    recovery links, tool titles, article links between pages) keep their
+    text's color and weight, with a 35% current-color underline at a 4px
+    offset that darkens to full strength on hover.
+  - **List links** are internal links inside record lists, with no
+    underline: row titles (notes, works, experiences, including `/tags/*`
+    and the homepage and About lists) are full-strength ink that turns accent
+    on hover; "View all" and "Read case study" are `text-sm font-medium
+    text-muted-foreground` and turn full strength on hover.
   - **External links** (`http` URLs off `ekel.dev`: the homepage LinkedIn,
     GitHub, and GitLab links, the guestbook intro link, work Preview and
     Source, the footer's Astro, Svelte, and Uptime, tool links, and every
     article link to another site) are medium muted text with no underline
     that turns full strength on hover, at their context's size: 14px on the
     homepage, 12px in the footer, the sentence's size elsewhere.
-  - **Tags** are internal links in muted text, written `#tag`: 12px and 12px
-    apart on note rows and detail pages; 14px on `/tags`, 16px apart, with a
-    24px tap height (`inline-flex min-h-6`).
+  - **Tags** are muted `#tag` links with no underline that turn full
+    strength on hover: 12px and 12px apart on note rows and detail pages;
+    14px on `/tags`, 16px apart, with a 24px tap height (`inline-flex
+    min-h-6`).
 - Navigation controls are not text links: the top bar, sheet, avatar, and
   ToC links drop the underline and show state with their hover and current
   fills.

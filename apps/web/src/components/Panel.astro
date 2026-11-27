@@ -28,7 +28,7 @@ const { title, count, href, testId, class: className } = Astro.props;
         href ? (
           <a
             href={href}
-            class="text-sm font-medium text-muted-foreground"
+            class="text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
           >
             View all <span aria-hidden="true">→</span>
           </a>

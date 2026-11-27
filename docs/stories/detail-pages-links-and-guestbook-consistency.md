@@ -91,3 +91,10 @@ no intake, proof, or trace rows were recorded. Test tooling friction found:
   links to other sites have no underline and weight 500; note row titles,
   the footer Guestbook link, and detail page tags are underlined. 3 passing;
   spec removed after the run.
+- List links: the owner found the underline odd inside record lists, so row
+  titles (notes, works, experiences, `/tags/*`, homepage, About), "View all",
+  "Read case study", and every `#tag` link drop it again; titles turn accent
+  on hover, muted links turn full strength. A temporary computed-style spec
+  confirmed no underline on `/notes`, `/works`, `/tags`, `/tags/linux`, the
+  homepage experience link, and detail page tags, and the underline on the
+  footer Guestbook link. 2 passing; spec removed. `astro build` passed.
